@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 744.09448819 1052.3622047" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="a">
+   <stop stop-color="#f00" offset="0"/>
+   <stop stop-color="#b10000" offset="1"/>
+  </linearGradient>
+  <linearGradient id="k" x1="371.65" x2="381.72" y1="545.58" y2="514.35" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+  <linearGradient id="j" x1="371.65" x2="361.61" y1="545.58" y2="576.75" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+  <linearGradient id="i" x1="388.03" x2="361.6" y1="595.93" y2="576.74" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+  <linearGradient id="h" x1="388.03" x2="414.41" y1="595.93" y2="615.09" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+  <linearGradient id="g" x1="440.98" x2="414.41" y1="595.74" y2="615.09" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+  <linearGradient id="f" x1="440.98" x2="467.57" y1="595.74" y2="576.41" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+  <linearGradient id="e" x1="457.39" x2="467.61" y1="545.47" y2="576.53" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+  <linearGradient id="d" x1="457.39" x2="447.39" y1="545.47" y2="514.04" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+  <linearGradient id="c" x1="414.41" x2="447.06" y1="514.19" y2="514.04" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+  <linearGradient id="b" x1="414.41" x2="381.62" y1="514.19" y2="514.68" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+ </defs>
+ <path d="m498.69 674.7-84.295-59.618-83.476 59.917 30.694-98.251-82.822-61.216 102.83-0.84976 32.723-98.006 32.995 98.208 102.91 0.16249-82.679 61.368z" fill="#f00"/>
+ <path d="m414.32 559.35-32.709-44.666 32.501-100.82z" fill="url(#b)"/>
+ <path d="m447.16 514.36-32.749 45.109-0.29578-145.61z" fill="url(#c)"/>
+ <path d="m553.05 514.25-105.89 0.10868-32.552 45.08z" fill="url(#d)"/>
+ <path d="m467.57 576.41-52.955-16.975 138.44-45.189z" fill="url(#e)"/>
+ <path d="m414.41 559.37 53.192 17.159 33.16 100.85z" fill="url(#f)"/>
+ <path d="m414.41 615.06-0.0884-55.718 86.441 118.04z" fill="url(#g)"/>
+ <path d="m414.61 559.44-85.304 117.51 85.085-61.871z" fill="url(#h)"/>
+ <path d="m361.61 576.74 52.802-17.2-85.107 117.41z" fill="url(#i)"/>
+ <path d="m414.41 559.54-138.04-44.691 85.234 61.891z" fill="url(#j)"/>
+ <path d="m381.38 514.35 33.072 45.141-138.07-44.645z" fill="url(#k)"/>
+</svg>

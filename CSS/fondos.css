@@ -1,0 +1,29 @@
+.radial-gradientLogin-bg {
+    background: radial-gradient(circle, #8A2BE2, #00FFFF, #FF00FF);
+    background-size: 150% 150%;
+    animation: pulseGradient 4s ease-in-out infinite;
+}
+
+.radial-gradientRegistro-bg {
+    background: radial-gradient(circle, white, rgb(189, 122, 233), rgb(243, 131, 131));
+    background-size: 150% 150%;
+    animation: pulseGradient 4s ease-in-out infinite;
+}
+
+.radial-gradientRecuperar-bg {
+    background: radial-gradient(circle, #FF5733, #FFC300, #DAF7A6);
+    background-size: 150% 150%;
+    animation: pulseGradient 4s ease-in-out infinite;
+}
+
+@keyframes pulseGradient {
+
+    0%,
+    100% {
+        background-size: 150% 150%;
+    }
+
+    50% {
+        background-size: 200% 200%;
+    }
+}
