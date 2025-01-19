@@ -17,7 +17,7 @@ import imgCarpinteria from '../assets/Carpinteria.png'
 import imgLimpieza from '../assets/Limpieza.png'
 import imgPintor from '../assets/Pintor.png'
 import imgAlbanil from '../assets/Albañil.png'
-import imgLaptop from '../assets/laptop.png';
+import imgLaptop from '../assets/LaptopArco.png';
 import { useState } from "react";
 
 //text-slate-400 - texto para cards
@@ -29,10 +29,18 @@ const LandingPage = () => {
             <div className={darkMode ? "dark" : ""}>
                 <main className="bg-white dark:bg-gray-900">
                     <nav className="px-10 py-7 mb-12 flex justify-between dark:bg-gray-900">
-                        <select className="w-1/3 mr-1 md:mr-0  border border-purple-600 rounded-xl py-2 md:w-40 text-center text-white  bg-purple-600 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 dark:shadow-md dark:shadow-gray-400 hover:bg-purple-800 duration-300">
-                            <option value="Menu" className="text-base text-sm">Menu</option>
+                        <select className="w-1/3 mr-1 md:mr-0  border border-purple-600 rounded-xl py-2 md:w-40 text-center text-white  bg-purple-600 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 dark:shadow-md dark:shadow-gray-400 hover:bg-purple-800 duration-300"
+                            onChange={(e)=>{
+                                const targetId = e.target.value
+                                const targetElement = document.getElementById(targetId)
+                                if (targetElement) {
+                                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                                  }
+                            }}
+                        >
+                            <option value="" className="text-base text-sm" disabled selected>Menu</option>
                             <option value="QuienesSomos" className="text-base text-sm">Quienes Somos</option>
-                            <option value="Especialidades" className="text-base text-sm">Especialidades</option>
+                            <option value="Servicios" className="text-base text-sm">Servicios</option>
                             <option value="Contacto" className="text-base text-sm">Contacto</option>
                         </select>
                         <img src={logoDarkMode} alt="CambioTema" onClick={() => setDarkMode(!darkMode)} width={40} height={40} className="cursor-pointer" />
@@ -215,7 +223,7 @@ const LandingPage = () => {
                         </div><br /><br /><br />
                     </section>
                 </main>
-                <footer className="bg-black">
+                <footer className="bg-black" id="Contacto">
                     <div className="flex flex-col md:flex-row items-center justify-center">
                         <div className="w-full flex-col md:flex-row md:w-4/5 flex justify-center">
                             <div className="w-full md:w-2/5 flex justify-center pt-8">
