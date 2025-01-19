@@ -41,18 +41,18 @@ const LandingPage = () => {
                         </ul>
                     </nav>
                     <section className="flex justify-center" id="Inicio">
-                        <div className="grid grid-cols-1 md:grid-cols-2 w-4/5 rounded-lg rounded-xl shadow-custom-shadow dark:shadow-purple-700 duration-300">
+                        <div className="grid grid-cols-1 md:grid-cols-2 w-4/5 rounded-lg rounded-xl shadow-2xl  dark:shadow-purple-700 duration-300">
                             <div className="flex justify-center items-center">
                                 <img src={logoAltaKassaNegro} alt="LogoAltakassaNegro" className="dark:hidden" />
                                 <img src={logoAltaKassaBlanco} alt="LogoAltakassaBlanco" className="hidden dark:block" />
                             </div>
                             <div className="">
                                 <h1 className="block font-bold text-4xl text-center md:pt-20 dark:text-purple-800 duration-300">Conoce a AltaKassa</h1>
-                                <p className="block text-center px-8 pt-5 pb-10 text-xl text-slate-600 dark:text-slate-400 duration-300">Empresa de multiservicios como plomería, albañilería, carpintería, mantenimiento y demás.
+                                <p className="block text-center px-8 pt-5 pb-0 text-xl text-slate-600 dark:text-slate-400 duration-300">Empresa de multiservicios como plomería, albañilería, carpintería, mantenimiento y demás.
                                     Brinda facilidad, garantía y comodidad para adquirir un servicio doméstico o
                                     empresarial, <b>cuando quiera y donde quiera.</b></p>
                                 <div className="flex justify-center">
-                                    <img src={imgLaptop} alt="Laptop" width={220} height={220} />
+                                    <img src={imgLaptop} alt="Laptop" width={275} height={275} />
                                 </div>
                             </div>
                         </div>
