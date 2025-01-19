@@ -1,4 +1,5 @@
 import React from "react";
+import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logoDarkMode from '../assets/moon.png';
 import logoAltaKassaNegro from '../assets/AK NEGRA.png';
@@ -38,7 +39,7 @@ const LandingPage = () => {
                             <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-purple-600 text-white rounded-xl hover:bg-purple-800 duration-300 text-center dark:shadow-md dark:shadow-gray-400">Login</Link></li>
                         </ul>
                     </nav>
-                    <section className="flex justify-center">
+                    <section className="flex justify-center" id="Inicio">
                         <div className="grid grid-cols-1 md:grid-cols-2 w-4/5 rounded-lg rounded-xl shadow-custom-shadow dark:shadow-purple-700 duration-300">
                             <div className="flex justify-center items-center">
                                 <img src={logoAltaKassaNegro} alt="LogoAltakassaNegro" className="dark:hidden" />
@@ -112,7 +113,7 @@ const LandingPage = () => {
                             </div>
                         </div><br /><br /><br /><br />
                     </section>
-                    <section className="flex flex-col items-center justify-center">
+                    <section className="flex flex-col items-center justify-center" id="Servicios">
                         <div className="w-4/5">
                             <h1 className="text-left text-4xl pl-5 font-semibold text-sky-600">Servicios</h1>
                         </div>
@@ -207,9 +208,49 @@ const LandingPage = () => {
                                     <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-sky-400 text-sky-400 font-semibold hover:bg-sky-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
                                 </div>
                             </div>
-                        </div><br /><br />
+                        </div><br /><br /><br />
                     </section>
                 </main>
+                <footer className="bg-black">
+                    <div className="flex flex-col md:flex-row items-center justify-center">
+                        <div className="w-full flex-col md:flex-row md:w-4/5 flex justify-center">
+                            <div className="w-full md:w-2/5 flex justify-center pt-8">
+                                <img src={logoAltaKassaBlanco} alt="LogoEnFooter" width={325} height={325} />
+                            </div>
+                            <div className="w-full md:w-3/5 flex flex-wrap justify-center md:pt-10 gap-8">
+                                <div className="w-48 p-2">
+                                    <h1 className="text-sky-600 text-xl font-semibold md:pb-6">Contacto directo</h1>
+                                    <p className="text-slate-400 text-sm font-semibold py-2">dennisdiaz407@gmail.com</p>
+                                    <p className="text-slate-400 text-sm font-semibold py-2">martin.ayala@epn.edu.ec</p>
+                                    <p className="text-slate-400 text-sm font-semibold py-2">Cel1: 0979438388</p>
+                                    <p className="text-slate-400 text-sm font-semibold py-2">Cel2: 0983781929</p>
+                                </div>
+                                <div className="w-48 p-2">
+                                    <h1 className="text-sky-600 text-xl font-semibold md:pb-6">Indice</h1>
+                                    <ul className="text-slate-400 font-semibold text-sm">
+                                        <li className="py-2">Foros</li>
+                                        <li className="py-2"><a href="#Inicio" className="hover:text-white hover:underline duration-300">Inicio</a></li>
+                                        <li className="py-2">Quienes Somos</li>
+                                        <li className="py-2"><a href="#Servicios" className="hover:text-white hover:underline duration-300">Servicios</a></li>
+                                    </ul>
+                                </div>
+                                <div className="w-48 p-2">
+                                    <h1 className="text-sky-600 text-xl font-semibold pb-6">Redes</h1>
+                                    <div className="flex gap-3">
+                                        <a href="https://www.facebook.com/leomessi/about" target="_blank" rel="noopener noreferrer"><FaFacebook style={{ color: "white", width: 30, height: 30 }} /></a>
+                                        <a href="https://www.instagram.com/leomessi/" target="_blank" rel="noopener noreferrer"><FaInstagram style={{ color: "white", width: 30, height: 30 }} /></a>
+                                        <a href="https://x.com/Messismo10" target="_blank" rel="noopener noreferrer"><FaTwitter style={{ color: "white", width: 30, height: 30 }}/></a>
+                                    </div><br />
+                                </div>
+                            </div><hr />
+                        </div>
+                    </div>
+                    <div className="flex justify-center pb-5 pt-3">
+                        <div className="w-4/5">
+                            <p className="footer-copy text-white">Copyright &copy; 2024 Alta-Kassa</p>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </>
 
