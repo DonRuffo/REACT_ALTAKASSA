@@ -17,6 +17,7 @@ import imgCarpinteria from '../assets/Carpinteria.png'
 import imgLimpieza from '../assets/Limpieza.png'
 import imgPintor from '../assets/Pintor.png'
 import imgAlbanil from '../assets/Albañil.png'
+import imgLaptop from '../assets/laptop.png';
 import { useState } from "react";
 
 //text-slate-400 - texto para cards
@@ -50,6 +51,9 @@ const LandingPage = () => {
                                 <p className="block text-center px-8 pt-5 pb-10 text-xl text-slate-600 dark:text-slate-400 duration-300">Empresa de multiservicios como plomería, albañilería, carpintería, mantenimiento y demás.
                                     Brinda facilidad, garantía y comodidad para adquirir un servicio doméstico o
                                     empresarial, <b>cuando quiera y donde quiera.</b></p>
+                                <div className="flex justify-center">
+                                    <img src={imgLaptop} alt="Laptop" width={220} height={220} />
+                                </div>
                             </div>
                         </div>
                     </section><br /><br /><br /><br /><br />
@@ -129,7 +133,7 @@ const LandingPage = () => {
                                 <img src={imgTuerca} alt="Tuerca" width={250} height={250} />
                             </div>
                         </div>
-                    </section>
+                    </section><br /><br />
                     <section>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
                             <div className="w-4/5 md:w-1/3 h-[550px] md:h-[500px] rounded-xl border border-gray-200 dark:border-none shadow-xl shadow-sky-300 dark:shadow-purple-800">
@@ -239,7 +243,7 @@ const LandingPage = () => {
                                     <div className="flex gap-3">
                                         <a href="https://www.facebook.com/leomessi/about" target="_blank" rel="noopener noreferrer"><FaFacebook style={{ color: "white", width: 30, height: 30 }} /></a>
                                         <a href="https://www.instagram.com/leomessi/" target="_blank" rel="noopener noreferrer"><FaInstagram style={{ color: "white", width: 30, height: 30 }} /></a>
-                                        <a href="https://x.com/Messismo10" target="_blank" rel="noopener noreferrer"><FaTwitter style={{ color: "white", width: 30, height: 30 }}/></a>
+                                        <a href="https://x.com/Messismo10" target="_blank" rel="noopener noreferrer"><FaTwitter style={{ color: "white", width: 30, height: 30 }} /></a>
                                     </div><br />
                                 </div>
                             </div><hr />
