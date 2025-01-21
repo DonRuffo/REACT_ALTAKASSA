@@ -6,6 +6,7 @@ import Recuperar from './paginas/RecuperarContra'
 import LandingPage from './paginas/LandinPage'
 import Dashboard from './paginas/Dashboard'
 import Inicio from './paginas/Inicio'
+import Confirmar from './paginas/Confirmar'
 function App() {
 
   return (
@@ -16,12 +17,10 @@ function App() {
           <Route path='login' element={<Login />} />
           <Route path='registro' element={<Registro />}  />
           <Route path='recuperar' element={<Recuperar />}/>
+          <Route path='confirmar/:token' element={<Confirmar />}/>
         </Route>
 
 
-
-
-        
         <Route path='dashboard/*' element={
           <Routes>
             <Route element={<Dashboard />}>

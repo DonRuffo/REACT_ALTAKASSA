@@ -1,17 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import '../../CSS/fondos.css'
 import logoNegroAK from '../assets/AK NEGRA.png';
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const Registro = () => {
+    const [form, setForm] = useState({
+        nombre: "",
+        apellido: "",
+        direccion: "",
+        email: "",
+        telefono: "",
+        contrasenia: ""
+    })
+
+
+    const HandleChange = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const HandleSubmit = async (e) => {
+        e.preventDefault()
+        const Perfil = document.getElementById('perfil').value
+        let url
+        try {
+            if (Perfil == 'Proveedor') {
+                url = "http://localhost:5000/api/registroProveedor"
+            } else if (Perfil == 'Cliente') {
+                url = "http://localhost:5000/api/registroCliente"
+            }
+            const respuesta = await axios.post(url, form)
+            toast.success(respuesta.data.msg)
+            console.log(respuesta)
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.msg)
+        }
+    }
     return (
         <>
+            <ToastContainer />
             <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="bg-white flex items-center justify-center h-screen">
                     <div className="w-4/5 md:4/6">
                         <h1 className="mb-3 font-bold text-purple-700 text-center">REGISTRO</h1>
                         <hr />
-                        <form>
+                        <form onSubmit={HandleSubmit}>
                             <div className="my-3 mx-1">
                                 <label className='mb-2 block text-sm font-semibold text-purple-600'>Perfil</label>
                                 <select name="perfil" id="perfil" className='block py-1 px-1 w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 text-gray-500'>
@@ -22,30 +60,30 @@ const Registro = () => {
                             <div className="my-3 grid grid-cols-2">
                                 <div className="mx-1">
                                     <label className="mb-2 block text-sm font-semibold text-purple-600">Nombre</label>
-                                    <input type="text" name='nombre' placeholder="Ingresa tu nombre" className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                    <input type="text" name='nombre' placeholder="Ingresa tu nombre" onChange={HandleChange} value={form.nombre || ""} className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                                 </div>
                                 <div className="mx-1">
                                     <label className="mb-2 block text-sm font-semibold text-purple-600">Apellido</label>
-                                    <input type="text" name='apellido' placeholder="Ingresa tu apellido" className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                    <input type="text" name='apellido' placeholder="Ingresa tu apellido" onChange={HandleChange} value={form.apellido || ""} className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                                 </div>
                             </div>
                             <div className="mb-3 mx-1">
                                 <label className="mb-2 block text-sm font-semibold text-purple-600">Direccion</label>
-                                <input type="text" name='direccion' placeholder="Ingresa tu direccion" className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                <input type="text" name='direccion' placeholder="Ingresa tu direccion" onChange={HandleChange} value={form.direccion || ""} className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                             </div>
                             <div className="mb-3 grid grid-cols-2">
                                 <div className="mx-1">
                                     <label className="mb-2 block text-sm font-semibold text-purple-600">Teléfono</label>
-                                    <input type="text" name='telefono' placeholder="Ingresa tu nombre" className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                    <input type="text" name='telefono' placeholder="Ingresa tu nombre" onChange={HandleChange} value={form.telefono || ""} className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                                 </div>
                                 <div className="mx-1">
                                     <label className="mb-2 block text-sm font-semibold text-purple-600">Correo electrónico</label>
-                                    <input type="email" name='email' placeholder="Ingresa tu apellido" className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                    <input type="email" name='email' placeholder="Ingresa tu apellido" onChange={HandleChange} value={form.email || ""} className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                                 </div>
                             </div>
                             <div className="mb-3 mx-1">
                                 <label className="mb-2 block text-sm font-semibold text-purple-600">Contraseña</label>
-                                <input type="password" name='password' placeholder="*****" className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                <input type="password" name='contrasenia' placeholder="*****" onChange={HandleChange} value={form.contrasenia|| ""} className=" block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                             </div>
                             <div className="my-7">
 
