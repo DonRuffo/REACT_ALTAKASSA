@@ -26,10 +26,13 @@ const Login = () => {
         try {
             if (Perfil == 'Proveedor') {
                 url = "http://localhost:5000/api/loginProveedor"
+                urlLogin = "Proveedor"
             } else if (Perfil == 'Cliente') {
                 url = "http://localhost:5000/api/loginCliente"
+                urlLogin = "Cliente"
             } else if (Perfil == 'Administrador') {
                 url = "http://localhost:5000/api/loginAdministrador"
+                urlLogin = "Administrador"
             }
             const respuesta = await axios.post(url, form)
             localStorage.setItem('token', respuesta.data.token)
@@ -91,4 +94,5 @@ const Login = () => {
     )
 }
 
+export let urlLogin
 export default Login

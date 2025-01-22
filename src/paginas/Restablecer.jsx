@@ -34,9 +34,9 @@ const Restablecer = () => {
     }
     return (
         <>
-            <div className="flex flex-col items-center pt-20 bg-gray-100">
+            <div className="flex flex-col items-center pt-10 md:pt-20 bg-gray-100">
                 <ToastContainer />
-                <div className="w-1/3 flex flex-col items-center justify-center bg-white rounded-xl shadow-xl">
+                <div className="w-4/5 md:w-1/3 flex flex-col items-center justify-center bg-white rounded-xl shadow-xl">
                     <h1 className="text-3xl font-semibold text-slate-600 text-center py-5">Restablecer contraseña</h1>
                     <div className="w-5/6">
                         <form onSubmit={HandleSubmit}>
@@ -49,7 +49,7 @@ const Restablecer = () => {
                                 <input type="password" placeholder="*******" name="contrasenia" onChange={HandleChange} value={form.contrasenia || ""} className="p-1 w-full text-slate-800 rounded-md border border-slate-400 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700" />
                             </div>
                             <div className="my-3 flex justify-center">
-                                <button className="px-3 py-2 rounded-lg bg-blue-700 text-white hover:bg-blue-900 duration-300">Enviar</button>
+                                <button className="px-3 py-2 rounded-lg bg-orange-700 text-white hover:bg-orange-900 duration-300">Enviar</button>
                             </div>
                         </form>
                     </div>
