@@ -10,6 +10,7 @@ import Confirmar from './paginas/Confirmar'
 import Restablecer from './paginas/Restablecer'
 import PrivateRoutes from './routes/PrivateRoutes'
 import { AuthProvider } from './context/AuthProvider'
+import Configuracion from './paginas/Configuracion'
 function App() {
 
   return (
@@ -25,13 +26,14 @@ function App() {
             <Route path='restablecer/' element={<Restablecer />} />
           </Route>
           <Route path='dashboard/*' element={
-            <PrivateRoutes>
+            //<PrivateRoutes>
               <Routes>
                 <Route element={<Dashboard />}>
                   <Route index element={<Inicio />} />
+                  <Route path='configuracion' element={<Configuracion />} />
                 </Route>
               </Routes>
-            </PrivateRoutes>
+            //</PrivateRoutes>
           }>
           </Route>
         </Routes>

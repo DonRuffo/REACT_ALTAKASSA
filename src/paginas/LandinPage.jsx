@@ -18,7 +18,10 @@ import imgLimpieza from '../assets/Limpieza.png'
 import imgPintor from '../assets/Pintor.png'
 import imgAlbanil from '../assets/Albañil.png'
 import imgLaptop from '../assets/LaptopArco.png';
+import CardBeneficio from "../componentes/cardsBeneficios";
+import CardBeneficioProv from "../componentes/cardsBeneficiosProv";
 import { useState } from "react";
+import CardServicios from "../componentes/cardsServicios";
 
 //text-slate-400 - texto para cards
 const LandingPage = () => {
@@ -49,7 +52,7 @@ const LandingPage = () => {
                         </ul>
                     </nav>
                     <section className="flex justify-center" id="Inicio">
-                        <div className="grid grid-cols-1 md:grid-cols-2 w-4/5 rounded-lg rounded-xl shadow-2xl  dark:shadow-purple-700 duration-300">
+                        <div className="grid grid-cols-1 md:grid-cols-2 w-4/5 rounded-lg rounded-xl shadow-2xl  outline outline-black/5 dark:shadow-purple-700 duration-300">
                             <div className="flex justify-center items-center">
                                 <img src={logoAltaKassaNegro} alt="LogoAltakassaNegro" className="dark:hidden" />
                                 <img src={logoAltaKassaBlanco} alt="LogoAltakassaBlanco" className="hidden dark:block" />
@@ -68,61 +71,16 @@ const LandingPage = () => {
                     <section>
                         <h1 className="text-4xl md:text-5xl font-semibold text-center text-sky-600 duration-300 pb-10">Beneficios para ti</h1>
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como cliente</h2>
-                        <div className="flex flex-col items-center mx-0 md:flex-row justify-center gap-10 md:gap-5">
-                            <div className="w-4/5 md:w-1/4 h-[500px] rounded-2xl shadow-2xl  dark:shadow-lg dark:shadow-sky-600">
-                                <h1 className="text-center text-3xl font-semibold text-slate-600 py-10 dark:text-white">Transparencia</h1>
-                                <div className="flex justify-center">
-                                    <img src={logoTransparencia} alt="Usabilidad" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 text-center pt-3 px-4">Comunicación abierta
-                                    y
-                                    rendición de cuentas en tiempo real entre el cliente y proveedor</p>
-                            </div>
-                            <div className="w-4/5 md:w-1/4 h-[500px] rounded-2xl shadow-2xl  dark:shadow-lg dark:shadow-sky-600">
-                                <h1 className="text-center text-3xl font-semibold text-slate-600 py-10 dark:text-white">Garantía</h1>
-                                <div className="flex justify-center">
-                                    <img src={logoGarantia} alt="Usabilidad" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 text-center pt-3 px-4">Calidad de la mano de obra <b>¡¡100% garantizado!!.</b> Los proveedores son
-                                    continuamente supervisados para brindar un servicio de calidad.</p>
-                            </div>
-                            <div className="w-4/5 md:w-1/4 h-[500px] rounded-2xl shadow-2xl  dark:shadow-lg dark:shadow-sky-600">
-                                <h1 className="text-center text-3xl font-semibold text-slate-600 py-10 dark:text-white">Seguridad</h1>
-                                <div className="flex justify-center">
-                                    <img src={logoSeguridad} alt="Usabilidad" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 text-center pt-3 px-4"><b>¡¡Alta protección de información!!</b>,
-                                    desde el registro de datos personales hasta la solicitud y cumplimiento de
-                                    un servicio por parte de los/las proveedores.</p>
-                            </div>
+                        <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-5">
+                            <CardBeneficio Beneficio={"Transparencia"} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
+                            <CardBeneficio Beneficio={"Garantía"} logo={logoGarantia} texto={"Calidad de la mano de obra ¡¡100% garantizado!!. Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
+                            <CardBeneficio Beneficio={"Seguridad"} logo={logoSeguridad} texto={"¡¡Alta protección de información!!, desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
                         </div><br /><br /><br />
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como proveedor</h2>
-                        <div className="flex flex-col items-center mx-0 md:flex-row justify-center gap-10 md:gap-5">
-                            <div className="w-4/5 md:w-1/4 h-[500px] rounded-2xl shadow-2xl  dark:shadow-lg dark:shadow-yellow-600">
-                                <h1 className="text-center text-3xl font-semibold text-slate-600 py-10 dark:text-white">Comodidad</h1>
-                                <div className="flex justify-center">
-                                    <img src={logoComodidad} alt="Usabilidad" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 text-center pt-3 px-4">Ofrece fácilmente uno o más servicios en la plataforma y consigue <b>¡¡nuevos clientes mucho
-                                    más rápido que nunca!!</b> desde la comodidad de tu hogar.</p>
-                            </div>
-                            <div className="w-4/5 md:w-1/4 h-[500px] rounded-2xl shadow-2xl  dark:shadow-lg dark:shadow-yellow-600">
-                                <h1 className="text-center text-3xl font-semibold text-slate-600 py-10 dark:text-white">Usabilidad</h1>
-                                <div className="flex justify-center">
-                                    <img src={logoUsabilidad} alt="Usabilidad" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 text-center pt-3 px-4"><b>Sistema óptimo y sencillo de manejar</b>, con un entorno amigable y una clara interfaz
-                                    para navegar correctamente y realizar acciones específicas.</p>
-                            </div>
-                            <div className="w-4/5 md:w-1/4 h-[500px] rounded-2xl shadow-2xl  dark:shadow-lg dark:shadow-yellow-600">
-                                <h1 className="text-center text-3xl font-semibold text-slate-600 py-10 dark:text-white">Fiabilidad</h1>
-                                <div className="flex justify-center">
-                                    <img src={logoFiabilidad} alt="Usabilidad" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 text-center pt-3 px-4">El sistema mantiene <b>credibilidad en sus funciones</b> y prioriza un ambiente de trabajo armónico
-                                    entre proveedor y cliente, tanto en la plataforma como al prestar el servicio.
-                                    un servicio por parte de los/las proveedores.</p>
-                            </div>
+                        <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-5">
+                            <CardBeneficioProv Beneficio={"Comodidad"} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡¡nuevos clientes mucho más rápido que nunca!! desde la comodidad de tu hogar."} />
+                            <CardBeneficioProv Beneficio={"Usabilidad"} logo={logoUsabilidad} texto={"Sistema óptimo y sencillo de manejar, con un entorno amigable y una clara interfaz para navegar correctamente y realizar acciones específicas."} />
+                            <CardBeneficioProv Beneficio={"Fiabilidad"} logo={logoFiabilidad} texto={"El sistema mantiene credibilidad en sus funciones y prioriza un ambiente de trabajo armónico entre proveedor y cliente, tanto en la plataforma como al prestar el servicio."} />
                         </div><br /><br /><br /><br />
                     </section>
                     <section className="flex flex-col items-center justify-center" id="Servicios">
@@ -144,72 +102,17 @@ const LandingPage = () => {
                     </section><br /><br />
                     <section>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                            <div className="w-4/5 md:w-1/3 h-[550px] md:h-[500px] rounded-xl border border-gray-200 dark:border-none shadow-xl shadow-sky-300 dark:shadow-purple-800">
-                                <h1 className="pt-8 text-3xl text-slate-600 text-center font-semibold dark:text-white">Plomería</h1>
-                                <div className="flex justify-center py-4">
-                                    <img src={imgPlomeria} alt="Plomeria" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 px-5 md:px-10 text-center">Un buen sistema de plomería asegura
-                                    un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas
-                                    como fugas, obstrucciones y contaminación del agua.</p><br />
-                                <div className="flex justify-center">
-                                    <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-sky-400 text-sky-400 font-semibold hover:bg-sky-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
-                                </div>
-                            </div>
-                            <div className="w-4/5 md:w-1/3 h-[525px] md:h-[500px] rounded-xl border border-gray-200 dark:border-none shadow-xl shadow-sky-300 dark:shadow-purple-800">
-                                <h1 className="pt-8 text-3xl text-slate-600 text-center font-semibold dark:text-white">Carpintería</h1>
-                                <div className="flex justify-center py-4">
-                                    <img src={imgCarpinteria} alt="Carpinteria" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 px-5 md:px-10 text-center">La carpintería combina habilidades
-                                    técnicas y creativas, y es fundamental tanto en la construcción como en el
-                                    diseño de interiores, aportando funcionalidad y estética a los espacios.</p><br />
-                                <div className="flex justify-center">
-                                    <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-sky-400 text-sky-400 font-semibold hover:bg-sky-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
-                                </div>
-                            </div>
+                            <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas como fugas, obstrucciones y contaminación del agua."}/>
+                            <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas y creativas, y es fundamental tanto en la construcción como en el diseño de interiores, aportando funcionalidad y estética a los espacios."}/>
                         </div><br /><br />
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-10">
-                            <div className="w-4/5 md:w-1/3 h-[525px] md:h-[500px] rounded-xl border border-gray-200 dark:border-none shadow-xl shadow-sky-300 dark:shadow-purple-800">
-                                <h1 className="pt-8 text-3xl text-slate-600 text-center font-semibold dark:text-white">Pintor</h1>
-                                <div className="flex justify-center py-4">
-                                    <img src={imgPintor} alt="Pintor" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 px-5 md:px-10 text-center">Aplicación de pinturas, tintes y
-                                    revestimientos en interiores y exteriores de edificios residenciales.
-                                    Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas.</p><br />
-                                <div className="flex justify-center">
-                                    <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-sky-400 text-sky-400 font-semibold hover:bg-sky-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
-                                </div>
-                            </div>
-                            <div className="w-4/5 md:w-1/3 h-[525px] md:h-[500px] rounded-xl border border-gray-200 dark:border-none shadow-xl shadow-sky-300 dark:shadow-purple-800">
-                                <h1 className="pt-8 text-3xl text-slate-600 text-center font-semibold dark:text-white">Albañilería</h1>
-                                <div className="flex justify-center py-4">
-                                    <img src={imgAlbanil} alt="Albañileria" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 px-5 md:px-10 text-center">Fundamental en la construcción de
-                                    edificaciones e infraestructuras, combinando habilidades manuales con conocimiento en
-                                    materiales, técnicas constructivas y normas de seguridad.</p><br />
-                                <div className="flex justify-center">
-                                    <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-sky-400 text-sky-400 font-semibold hover:bg-sky-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
-                                </div>
-                            </div>
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-14">
+                            <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas, tintes y revestimientos en interiores y exteriores de edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."}/>
+                            <CardServicios Servicio1={"Albañilería"} logo1={imgAlbanil} texto1={"Fundamental en la construcción de edificaciones e infraestructuras, combinando habilidades manuales con conocimiento en materiales, técnicas constructivas y normas de seguridad."}/>
                         </div><br /><br />
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-10">
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-14">
+                        <CardServicios Servicio1={"Limpieza"} logo1={imgLimpieza} texto1={"Profesional especializado en la limpieza general del hogar. Mantener la casa libre de polvo e impurezas, tanto en losas y paredes como en muebles e inmuebles, es importante para la salud."}/>
                             <div className="w-4/5 md:w-1/3 h-[550px] md:h-[500px] rounded-xl border border-gray-200 dark:border-none shadow-xl shadow-sky-300 dark:shadow-purple-800">
-                                <h1 className="pt-8 text-3xl text-slate-600 text-center font-semibold dark:text-white">Limpieza</h1>
-                                <div className="flex justify-center py-4">
-                                    <img src={imgLimpieza} alt="Limpieza" width={200} height={200} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 px-5 md:px-10 text-center">Profesional especializado en la limpieza
-                                    general del hogar. Mantener la casa libre de polvo e impurezas, tanto en losas y paredes
-                                    como en muebles e inmuebles, es importante para la salud e imagen.</p><br />
-                                <div className="flex justify-center">
-                                    <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-sky-400 text-sky-400 font-semibold hover:bg-sky-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
-                                </div>
-                            </div>
-                            <div className="w-4/5 md:w-1/3 h-[560px] md:h-[500px] rounded-xl border border-gray-200 dark:border-none shadow-xl shadow-sky-300 dark:shadow-purple-800">
-                                <h1 className="pt-8 text-3xl text-slate-600 text-center font-semibold dark:text-white">Técnico-Electrodomésticos</h1>
+                                <h1 className="pt-8 text-2xl md:text-3xl text-slate-600 text-center font-semibold dark:text-white">Técnico-Electrodomésticos</h1>
                                 <div className="flex justify-center py-4">
                                     <img src={imgElectro} alt="Tecnico" width={275} height={275} />
                                 </div>
@@ -265,9 +168,6 @@ const LandingPage = () => {
                 </footer>
             </div>
         </>
-
     )
 }
-
-
 export default LandingPage

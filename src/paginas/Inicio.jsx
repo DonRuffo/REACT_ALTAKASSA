@@ -12,8 +12,7 @@ const Inicio = () => {
 
             </div>
             <section className="flex justify-center">
-                
-                <div className="rounded-md shadow-lg w-4/5">
+                <div className="rounded-md shadow-lg w-4/5 bg-white border border-gray-100">
                     <h1 className="text-3xl text-center text-purple-800 font-semibold pt-8 px-3 md:px-0">¡Bienvenido de nuevo, agenda tu cita!</h1>
                     <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0">¡Contamos con más de 100 profesionales a tu servicio!</h2>
                     <div className="flex justify-center pb-5">
