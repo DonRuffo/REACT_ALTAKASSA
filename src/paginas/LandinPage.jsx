@@ -18,12 +18,23 @@ import imgLimpieza from '../assets/Limpieza.png'
 import imgPintor from '../assets/Pintor.png'
 import imgAlbanil from '../assets/Albañil.png'
 import imgLaptop from '../assets/LaptopArco.png';
+import imgAstronauta from '../assets/astronauta.png'
+import logoAgendar from '../assets/Agendar-lista.png'
+import logoElegir from '../assets/Elegir-lista.png'
+import logoCancelar from '../assets/Cancelar-lista.png'
+import logoLlamadas from '../assets/Llamadas-lista.png'
+import logoCalificar from '../assets/Calificar-lista.png'
+import logoComunicar from '../assets/Comunicarse-lista.png'
+import logoPago from '../assets/Pago-lista.png'
+import logoCartera from '../assets/Cartera-lista.png'
 import CardBeneficio from "../componentes/cardsBeneficios";
 import CardBeneficioProv from "../componentes/cardsBeneficiosProv";
+import CardDinamica from "../componentes/cardsDinamica";
 import { useState } from "react";
 import CardServicios from "../componentes/cardsServicios";
 
 //text-slate-400 - texto para cards
+//#60E8FE color para iconos
 const LandingPage = () => {
 
     const [darkMode, setDarkMode] = useState(false)
@@ -33,12 +44,12 @@ const LandingPage = () => {
                 <main className="bg-white dark:bg-gray-900">
                     <nav className="px-10 py-7 mb-12 flex justify-between dark:bg-gray-900">
                         <select className="w-1/3 mr-1 md:mr-0  border border-purple-600 rounded-xl py-2 md:w-40 text-center text-white  bg-purple-600 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 dark:shadow-md dark:shadow-gray-400 hover:bg-purple-800 duration-300"
-                            onChange={(e)=>{
+                            onChange={(e) => {
                                 const targetId = e.target.value
                                 const targetElement = document.getElementById(targetId)
                                 if (targetElement) {
                                     targetElement.scrollIntoView({ behavior: 'smooth' });
-                                  }
+                                }
                             }}
                         >
                             <option value="" className="text-base text-sm" disabled selected>Menu</option>
@@ -102,15 +113,15 @@ const LandingPage = () => {
                     </section><br /><br />
                     <section>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                            <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas como fugas, obstrucciones y contaminación del agua."}/>
-                            <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas y creativas, y es fundamental tanto en la construcción como en el diseño de interiores, aportando funcionalidad y estética a los espacios."}/>
+                            <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas como fugas, obstrucciones y contaminación del agua."} />
+                            <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas y creativas, y es fundamental tanto en la construcción como en el diseño de interiores, aportando funcionalidad y estética a los espacios."} />
                         </div><br /><br />
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                            <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas, tintes y revestimientos en interiores y exteriores de edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."}/>
-                            <CardServicios Servicio1={"Albañilería"} logo1={imgAlbanil} texto1={"Fundamental en la construcción de edificaciones e infraestructuras, combinando habilidades manuales con conocimiento en materiales, técnicas constructivas y normas de seguridad."}/>
+                            <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas, tintes y revestimientos en interiores y exteriores de edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."} />
+                            <CardServicios Servicio1={"Albañilería"} logo1={imgAlbanil} texto1={"Fundamental en la construcción de edificaciones e infraestructuras, combinando habilidades manuales con conocimiento en materiales, técnicas constructivas y normas de seguridad."} />
                         </div><br /><br />
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                        <CardServicios Servicio1={"Limpieza"} logo1={imgLimpieza} texto1={"Profesional especializado en la limpieza general del hogar. Mantener la casa libre de polvo e impurezas, tanto en losas y paredes como en muebles e inmuebles, es importante para la salud."}/>
+                            <CardServicios Servicio1={"Limpieza"} logo1={imgLimpieza} texto1={"Profesional especializado en la limpieza general del hogar. Mantener la casa libre de polvo e impurezas, tanto en losas y paredes como en muebles e inmuebles, es importante para la salud."} />
                             <div className="w-4/5 md:w-1/3 h-[550px] md:h-[500px] rounded-xl border border-gray-200 dark:border-none shadow-xl shadow-sky-300 dark:shadow-purple-800">
                                 <h1 className="pt-8 text-2xl md:text-3xl text-slate-600 text-center font-semibold dark:text-white">Técnico-Electrodomésticos</h1>
                                 <div className="flex justify-center py-4">
@@ -125,6 +136,56 @@ const LandingPage = () => {
                             </div>
                         </div><br /><br /><br />
                     </section>
+                    <section className="flex flex-col items-center justify-center">
+                        <div className="w-4/5 border-b border-gray-200 rounded-md shadow-lg dark:shadow-purple-700 dark:border-none">
+                            <h1 className="text-3xl px-8 py-6 font-semibold text-sky-600 text-left dark:text-purple-700">¿Quienes somos?</h1><br />
+                            <div className="flex flex-col items-center md:flex-row">
+                                <div className="w-3/5 md:w-2/5 flex justify-center max-h-[250px] pb-5 md:p-0">
+                                    <img src={imgAstronauta} alt="Astronauta" width={250} height={250} />
+                                </div>
+                                <div className="w-4/5 md:w-3/5 md:pr-5">
+                                    <p className="text-justify mb-3 dark:text-white"><b>Alta-Kassa Multiservicios</b>, una empresa fundada el 29 de junio del 2024 por los cofundadores
+                                        Dennis Díaz y Martín Ayala,
+                                        quienes vieron la necesidad de implementar un sistema en dónde la gente pueda encontrar una
+                                        solución a ciertos
+                                        problemas de su hogar.
+                                    </p>
+                                    <p className="text-justify mb-3 dark:text-white"><b className="text-orange-600 font-semibold dark:text-yellow-600">Visión: </b>Alta-Kassa llegó para innovar el sistema de servicios a domicilio, con el
+                                        propósito de llegar a todos
+                                        los lugares del país para brindar una asistencia y mano de obra de calidad, con una
+                                        accesibilidad sencilla para que todo
+                                        público goze de las funciones.
+                                    </p>
+                                    <p className="text-justify mb-1 dark:text-white"><b className="text-blue-600 font-semibold dark:text-purple-600">Misión: </b>Otorgar servicios profesionales a residencias y empresas a comodidad y preferencia
+                                        de nuestros clientes
+                                        en relación a: tiempo, calidad de mano de obra, seguridad y garantía en la labor de nuestros
+                                        profesionales, atención y
+                                        asistencia virtual/presencial y flexibilidad en métodos de pago. </p><br /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </section><br /><br /><br /><br /><br /><br />
+                    <section className="flex justify-center">
+                        <div className="w-4/5">
+                            <h1 className="text-4xl text-center font-semibold text-sky-600 pb-4 dark:text-purple-700">Dinámica del sistema</h1>
+                            <p className="text-center dark:text-white"><b>Importante: </b>Un cliente o proveedor deberá iniciar sesión o registrarse como primer requisito para ingresar
+                                al sistema de la empresa</p><br /><br />
+                            <h1 className="text-3xl dark:text-white"><b>Cliente</b></h1><br />
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                <CardDinamica logo={logoAgendar} texto={"Agendar citas indicando la fecha y hora que más le conviene."} />
+                                <CardDinamica logo={logoElegir} texto={"Elegir el trabajador de su preferencia o en base a su calificación."} />
+                                <CardDinamica logo={logoCancelar} texto={"Cancelar una cita o postergarla."} />
+                                <CardDinamica logo={logoLlamadas} texto={"Llamadas emergentes fuera de los horarios de atención."} />
+                            </div><br />
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                <CardDinamica logo={logoCalificar} texto={"Calificar al trabajador considerando actitudes, conductas y valores."} />
+                                <CardDinamica logo={logoComunicar} texto={"Comunicarse con el trabajador por mensajería o llamada telefónica."} />
+                                <CardDinamica logo={logoPago} texto={"Agregar un método de pago digital."} />
+                                <CardDinamica logo={logoCartera} texto={"Elegir su método de pago preferido, ya sea digital, con tarjeta o en efectivo."} />
+
+                            </div>
+                        </div>
+                    </section><br />
                 </main>
                 <footer className="bg-black" id="Contacto">
                     <div className="flex flex-col md:flex-row items-center justify-center">
@@ -166,7 +227,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </footer>
-            </div>
+            </div >
         </>
     )
 }
