@@ -11,6 +11,7 @@ import Restablecer from './paginas/Restablecer'
 import PrivateRoutes from './routes/PrivateRoutes'
 import { AuthProvider } from './context/AuthProvider'
 import Configuracion from './paginas/Configuracion'
+import { ConfigAuth } from './context/ConfigProvider'
 function App() {
 
   return (
@@ -27,12 +28,14 @@ function App() {
           </Route>
           <Route path='dashboard/*' element={
             //<PrivateRoutes>
+            <ConfigAuth>
               <Routes>
                 <Route element={<Dashboard />}>
                   <Route index element={<Inicio />} />
                   <Route path='configuracion' element={<Configuracion />} />
                 </Route>
               </Routes>
+            </ConfigAuth>
             //</PrivateRoutes>
           }>
           </Route>
