@@ -27,11 +27,18 @@ import logoCalificar from '../assets/Calificar-lista.png'
 import logoComunicar from '../assets/Comunicarse-lista.png'
 import logoPago from '../assets/Pago-lista.png'
 import logoCartera from '../assets/Cartera-lista.png'
+import logoRevisar from '../assets/Revisar-lista.png'
+import logoStars from '../assets/Stars-lista.png'
+import logoPrecio from '../assets/Price-lista.png'
+import logoPostergar from '../assets/Postergar-lista.png'
+import logoActualizar from '../assets/Actualizar-lista.png'
+import logoComunicarse from '../assets/Comunicarse2-lista.png'
 import CardBeneficio from "../componentes/cardsBeneficios";
-import CardBeneficioProv from "../componentes/cardsBeneficiosProv";
 import CardDinamica from "../componentes/cardsDinamica";
 import { useState } from "react";
 import CardServicios from "../componentes/cardsServicios";
+import ListasAnimadas from "../componentes/Listas";
+import ListasAnimadasProv from "../componentes/ListasProv";
 
 //text-slate-400 - texto para cards
 //#60E8FE color para iconos
@@ -83,15 +90,15 @@ const LandingPage = () => {
                         <h1 className="text-4xl md:text-5xl font-semibold text-center text-sky-600 duration-300 pb-10">Beneficios para ti</h1>
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como cliente</h2>
                         <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-5">
-                            <CardBeneficio Beneficio={"Transparencia"} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
-                            <CardBeneficio Beneficio={"Garantía"} logo={logoGarantia} texto={"Calidad de la mano de obra ¡¡100% garantizado!!. Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
-                            <CardBeneficio Beneficio={"Seguridad"} logo={logoSeguridad} texto={"¡¡Alta protección de información!!, desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
+                            <CardBeneficio Beneficio={"Transparencia"} colorDark={'sky'} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
+                            <CardBeneficio Beneficio={"Garantía"} colorDark={'sky'} logo={logoGarantia} texto={"Calidad de la mano de obra ¡¡100% garantizado!!. Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
+                            <CardBeneficio Beneficio={"Seguridad"} colorDark={'sky'} logo={logoSeguridad} texto={"¡¡Alta protección de información!!, desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
                         </div><br /><br /><br />
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como proveedor</h2>
                         <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-5">
-                            <CardBeneficioProv Beneficio={"Comodidad"} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡¡nuevos clientes mucho más rápido que nunca!! desde la comodidad de tu hogar."} />
-                            <CardBeneficioProv Beneficio={"Usabilidad"} logo={logoUsabilidad} texto={"Sistema óptimo y sencillo de manejar, con un entorno amigable y una clara interfaz para navegar correctamente y realizar acciones específicas."} />
-                            <CardBeneficioProv Beneficio={"Fiabilidad"} logo={logoFiabilidad} texto={"El sistema mantiene credibilidad en sus funciones y prioriza un ambiente de trabajo armónico entre proveedor y cliente, tanto en la plataforma como al prestar el servicio."} />
+                            <CardBeneficio Beneficio={"Comodidad"} colorDark={'yellow'} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡¡nuevos clientes mucho más rápido que nunca!! desde la comodidad de tu hogar."} />
+                            <CardBeneficio Beneficio={"Usabilidad"} colorDark={'yellow'} logo={logoUsabilidad} texto={"Sistema óptimo y sencillo de manejar, con un entorno amigable y una clara interfaz para navegar correctamente y realizar acciones específicas."} />
+                            <CardBeneficio Beneficio={"Fiabilidad"} colorDark={'yellow'} logo={logoFiabilidad} texto={"El sistema mantiene credibilidad en sus funciones y prioriza un ambiente de trabajo armónico entre proveedor y cliente, tanto en la plataforma como al prestar el servicio."} />
                         </div><br /><br /><br /><br />
                     </section>
                     <section className="flex flex-col items-center justify-center" id="Servicios">
@@ -172,18 +179,40 @@ const LandingPage = () => {
                                 al sistema de la empresa</p><br /><br />
                             <h1 className="text-3xl dark:text-white"><b>Cliente</b></h1><br />
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                <CardDinamica logo={logoAgendar} texto={"Agendar citas indicando la fecha y hora que más le conviene."} />
-                                <CardDinamica logo={logoElegir} texto={"Elegir el trabajador de su preferencia o en base a su calificación."} />
-                                <CardDinamica logo={logoCancelar} texto={"Cancelar una cita o postergarla."} />
-                                <CardDinamica logo={logoLlamadas} texto={"Llamadas emergentes fuera de los horarios de atención."} />
+                                <CardDinamica logo={logoAgendar} texto={"Agendar citas indicando la fecha y hora que más le conviene."} color={'sky'} colorDark={'purple'} />
+                                <CardDinamica logo={logoElegir} texto={"Elegir el proveedor de su preferencia o en base a su calificación."} color={'sky'} colorDark={'purple'} />
+                                <CardDinamica logo={logoCancelar} texto={"Cancelar una cita o postergarla."} color={'sky'} colorDark={'purple'} />
+                                <CardDinamica logo={logoLlamadas} texto={"Llamadas emergentes fuera de los horarios de atención."} color={'sky'} colorDark={'purple'} />
                             </div><br />
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                <CardDinamica logo={logoCalificar} texto={"Calificar al trabajador considerando actitudes, conductas y valores."} />
-                                <CardDinamica logo={logoComunicar} texto={"Comunicarse con el trabajador por mensajería o llamada telefónica."} />
-                                <CardDinamica logo={logoPago} texto={"Agregar un método de pago digital."} />
-                                <CardDinamica logo={logoCartera} texto={"Elegir su método de pago preferido, ya sea digital, con tarjeta o en efectivo."} />
-
-                            </div>
+                                <CardDinamica logo={logoCalificar} texto={"Calificar al proveedor considerando actitudes, conductas y valores."} color={'sky'} colorDark={'purple'} />
+                                <CardDinamica logo={logoComunicar} texto={"Comunicarse con el proveedor por mensajería o llamada telefónica."} color={'sky'} colorDark={'purple'} />
+                                <CardDinamica logo={logoPago} texto={"Agregar un método de pago digital."} color={'sky'} colorDark={'purple'} />
+                                <CardDinamica logo={logoCartera} texto={"Elegir su método de pago preferido, ya sea digital, con tarjeta o en efectivo."} color={'sky'} colorDark={'purple'} />
+                            </div><br /><br /><br />
+                            <h1 className="text-center text-3xl font-semibold mb-5 text-purple-600 dark:text-sky-600">Tener en cuenta (Cliente)</h1>
+                            <div className="flex justify-center">
+                                <div className="w-5/6 md:w-1/2">
+                                    <ListasAnimadas />
+                                </div>
+                            </div><br /><br /><br />
+                            <h1 className="text-3xl dark:text-white"><b>Proveedor</b></h1><br />
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <CardDinamica logo={logoRevisar} texto={"Revisar el perfil de su cliente y la ubicación para dar el servicio."} color={'green'} colorDark={'yellow'} />
+                                <CardDinamica logo={logoStars} texto={"Calificar al cliente considerando valores como: trato, comportamiento y solvencia."} color={'green'} colorDark={'yellow'} />
+                                <CardDinamica logo={logoPrecio} texto={"Ofrecer el precio por consulta o mano de obra a los clientes (considerando el estándar de mínimo y máximo)."} color={'green'} colorDark={'yellow'} />
+                            </div><br />
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <CardDinamica logo={logoPostergar} texto={"Cancelar o postergar una cita."} color={'green'} colorDark={'yellow'} />
+                                <CardDinamica logo={logoActualizar} texto={"Actualizar su estado de disponibilidad."} color={'green'} colorDark={'yellow'} />
+                                <CardDinamica logo={logoComunicarse} texto={"Comunicarse directamente con el cliente mediante el sistema de mensajería o llamada telefónica."} color={'green'} colorDark={'yellow'} />
+                            </div><br /><br /><br />
+                            <h1 className="text-center text-3xl font-semibold mb-5 text-purple-600 dark:text-sky-600">Tener en cuenta (Proveedor)</h1>
+                            <div className="flex justify-center">
+                                <div className="w-5/6 md:w-1/2">
+                                    <ListasAnimadasProv />
+                                </div>
+                            </div><br /><br /><br />
                         </div>
                     </section><br />
                 </main>
