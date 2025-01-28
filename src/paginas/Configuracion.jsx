@@ -1,49 +1,84 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import OpcionConfig from "../componentes/opcionesConfiguracion";
 import logoContrasenia from '../assets/CandadoPassword.png'
 import logoPerfil from '../assets/Perfil_negro.png'
 import ConfigContext from "../context/ConfigProvider";
+import logoMenu from '../assets/category.png'
+import logoMenuAbierto from '../assets/hamburger.png'
+
+
 
 const Configuracion = () => {
+    const [menu, setMenu] = useState(false)
+    const nom = "Dennis"
     const { modalContra, setModalContra, modalPerfil, setModalPerfil } = useContext(ConfigContext)
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
     return (
         <>
+            <div className="lg:hidden pb-2">
+                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
+                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
+            </div>
             <h1 className="text-3xl font-semibold text-sky-600 pb-5">Configuración</h1>
-            <section className="flex justify-between">
-                <div className="w-2/5 flex bg-white rounded-xl shadow-xl max-h-[115px] border border-gray-100">
+
+            <section className="flex flex-col md:flex-row justify-between">
+                <div className="w-full md:w-2/5 flex bg-white rounded-xl shadow-lg md:max-h-[115px] border border-gray-100 mb-8 md:mb-0">
                     <ul className="w-full p-2">
                         <OpcionConfig titulo={"Cambiar contraseña"} logo={logoContrasenia} clic={accesoContra} />
                         <OpcionConfig titulo={"Actualizar perfil"} logo={logoPerfil} clic={accesoPerfil} />
-                        
                     </ul>
                 </div>
-                <div className={`${modalContra === true ? setModalPerfil(!modalContra) : ''} ${modalContra === true ? 'block' : 'hidden'} w-1/2 bg-white rounded-xl shadow-xl h-auto border border-gray-100 p-5`}>
-                    <h1 className="text-xl text-center text-purple-800 font-semibold pb-5">Cambio de contraseña</h1>
+                <div className={`${modalContra === true ? setModalPerfil(!modalContra) : ''} ${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-gray-100 p-5`}>
+                    <h1 className="text-2xl text-center text-purple-800 font-semibold pb-5">Cambio de contraseña</h1>
                     <div className="w-full">
                         <form>
                             <div className="mb-3">
                                 <label className="text-black font-semibold block mb-2">Contraseña actual:</label>
-                                <input type="password" name="contrasenia" className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1" placeholder="******" />
+                                <input type="password" name="contrasenia" className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
                             </div>
                             <div className="mb-3">
                                 <label className="text-black font-semibold block mb-2">Nueva contraseña:</label>
-                                <input type="password" name="NuevaContrasenia" className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1" placeholder="******" />
+                                <input type="password" name="NuevaContrasenia" className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button className="px-4 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300">Cambiar</button>
-                                <button className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300" onClick={()=>setModalContra(!modalContra)}>Cerrar</button>
+                                <button className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300">Cambiar</button>
+                                <button className="px-6 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div className={`${modalPerfil === true ? setModalContra(!modalPerfil) : ''} ${modalPerfil === true ? 'block' : 'hidden'} w-1/2 flex bg-white rounded-xl shadow-xl h-auto border border-gray-100`}>
-                    <ul className="w-full p-2">
-                        <OpcionConfig titulo={"Ya"} logo={logoContrasenia} />
-                        <OpcionConfig titulo={"Valio"} logo={logoPerfil} />
-                    </ul>
+                <div className={`${modalPerfil === true ? setModalContra(!modalPerfil) : ''} ${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-white rounded-xl shadow-xl h-auto border border-gray-100`}>
+                    <div className="w-full p-2 flex flex-col items-center">
+                        <h1 className="font-semibold text-green-700 text-2xl pt-3">Actualizar perfil</h1>
+                        <span className="font-semibold text-sm text-slate-500 text-center">Cambia los campos que requieras y presiona actualiza</span>
+                    </div>
+                    <div className="w-full p-6 flex flex-col">
+                        <form>
+                            <div className="mb-4">
+                                <label htmlFor="nombre" className="font-semibold ">Nombre:</label>
+                                <input type="text" name="nombre" value={nom} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="apellido" className="font-semibold ">Apellido:</label>
+                                <input type="text" name="apellido" className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="direccion" className="font-semibold ">Dirección:</label>
+                                <input type="text" name="direccion" className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="telefono" className="font-semibold ">Teléfono:</label>
+                                <input type="text" name="telefono" className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                            </div><br />
+                            <div className="mb-3 flex justify-around">
+                                <button className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 ">Actualizar</button>
+                                <button className="px-6 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
             </section>
         </>
