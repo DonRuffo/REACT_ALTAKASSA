@@ -39,17 +39,23 @@ import { useState } from "react";
 import CardServicios from "../componentes/cardsServicios";
 import ListasAnimadas from "../componentes/Listas";
 import ListasAnimadasProv from "../componentes/ListasProv";
-
+import imPerfilDinamica from '../assets/PERFIL_dinamica.jpg'
 //text-slate-400 - texto para cards
 //#60E8FE color para iconos
 const LandingPage = () => {
 
     const [darkMode, setDarkMode] = useState(false)
+    const [selectedOption, setSelectedOption] = useState('');
+
+
+    const handleRadioChange = (event) => {
+        setSelectedOption(event.target.value);
+    };
     return (
         <>
             <div className={darkMode ? "dark" : ""}>
-                <main className="bg-white dark:bg-gray-900">
-                    <nav className="px-10 py-7 mb-12 flex justify-between dark:bg-gray-900">
+                <main className="bg-white dark:bg-gray-950">
+                    <nav className="px-10 py-7 mb-12 flex justify-between dark:bg-gray-950">
                         <select className="w-1/3 mr-1 md:mr-0  border border-purple-600 rounded-xl py-2 md:w-40 text-center text-white  bg-purple-600 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 dark:shadow-md dark:shadow-gray-400 hover:bg-purple-800 duration-300"
                             onChange={(e) => {
                                 const targetId = e.target.value
@@ -70,7 +76,7 @@ const LandingPage = () => {
                         </ul>
                     </nav>
                     <section className="flex justify-center" id="Inicio">
-                        <div className="grid grid-cols-1 md:grid-cols-2 w-4/5 rounded-lg rounded-xl shadow-2xl  outline outline-black/5 dark:shadow-purple-700 duration-300">
+                        <div className="border-2 border-dashed border-sky-400 grid grid-cols-1 md:grid-cols-2 w-4/5 rounded-lg  shadow-lg dark:shadow-purple-700 dark:border-purple-700 duration-300">
                             <div className="flex justify-center items-center">
                                 <img src={logoAltaKassaNegro} alt="LogoAltakassaNegro" className="dark:hidden" />
                                 <img src={logoAltaKassaBlanco} alt="LogoAltakassaBlanco" className="hidden dark:block" />
@@ -89,21 +95,21 @@ const LandingPage = () => {
                     <section>
                         <h1 className="text-4xl md:text-5xl font-semibold text-center text-sky-600 duration-300 pb-10">Beneficios para ti</h1>
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como cliente</h2>
-                        <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-5">
-                            <CardBeneficio Beneficio={"Transparencia"} colorDark={'sky'} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
-                            <CardBeneficio Beneficio={"Garantía"} colorDark={'sky'} logo={logoGarantia} texto={"Calidad de la mano de obra ¡¡100% garantizado!!. Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
-                            <CardBeneficio Beneficio={"Seguridad"} colorDark={'sky'} logo={logoSeguridad} texto={"¡¡Alta protección de información!!, desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
-                        </div><br /><br /><br />
+                        <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-8">
+                            <CardBeneficio Beneficio={"Transparencia"} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
+                            <CardBeneficio Beneficio={"Garantía"} logo={logoGarantia} texto={"Calidad de la mano de obra ¡¡100% garantizado!!. Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
+                            <CardBeneficio Beneficio={"Seguridad"} logo={logoSeguridad} texto={"¡¡Alta protección de información!!, desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
+                        </div><br /><br /><br /><br />
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como proveedor</h2>
-                        <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-5">
-                            <CardBeneficio Beneficio={"Comodidad"} colorDark={'yellow'} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡¡nuevos clientes mucho más rápido que nunca!! desde la comodidad de tu hogar."} />
-                            <CardBeneficio Beneficio={"Usabilidad"} colorDark={'yellow'} logo={logoUsabilidad} texto={"Sistema óptimo y sencillo de manejar, con un entorno amigable y una clara interfaz para navegar correctamente y realizar acciones específicas."} />
-                            <CardBeneficio Beneficio={"Fiabilidad"} colorDark={'yellow'} logo={logoFiabilidad} texto={"El sistema mantiene credibilidad en sus funciones y prioriza un ambiente de trabajo armónico entre proveedor y cliente, tanto en la plataforma como al prestar el servicio."} />
+                        <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-8">
+                            <CardBeneficio Beneficio={"Comodidad"} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡¡nuevos clientes mucho más rápido que nunca!! desde la comodidad de tu hogar."} />
+                            <CardBeneficio Beneficio={"Usabilidad"} logo={logoUsabilidad} texto={"Sistema óptimo y sencillo de manejar, con un entorno amigable y una clara interfaz para navegar correctamente y realizar acciones específicas."} />
+                            <CardBeneficio Beneficio={"Fiabilidad"} logo={logoFiabilidad} texto={"El sistema mantiene credibilidad en sus funciones y prioriza un ambiente de trabajo armónico entre proveedor y cliente, tanto en la plataforma como al prestar el servicio."} />
                         </div><br /><br /><br /><br />
                     </section>
                     <section className="flex flex-col items-center justify-center" id="Servicios">
                         <div className="w-4/5">
-                            <h1 className="text-left text-4xl pl-5 font-semibold text-sky-600">Servicios</h1>
+                            <h1 className="text-left text-5xl pl-5 font-semibold text-sky-600">Servicios</h1>
                         </div>
                         <div className="w-4/5">
                             <div className="flex flex-col md:flex-row items-center md:gap-10">
@@ -141,11 +147,11 @@ const LandingPage = () => {
                                     <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-sky-400 text-sky-400 font-semibold hover:bg-sky-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
                                 </div>
                             </div>
-                        </div><br /><br /><br />
+                        </div><br /><br /><br /><br /><br />
                     </section>
-                    <section className="flex flex-col items-center justify-center">
-                        <div className="w-4/5 border-b border-gray-200 rounded-md shadow-lg dark:shadow-purple-700 dark:border-none">
-                            <h1 className="text-3xl px-8 py-6 font-semibold text-sky-600 text-left dark:text-purple-700">¿Quienes somos?</h1><br />
+                    <section className="flex flex-col items-center justify-center md:mb-20">
+                        <div className="w-4/5 border-4 border-dotted border-sky-400 rounded-md shadow-lg dark:shadow-purple-700 dark:border-purple-600">
+                            <h1 className="text-4xl px-8 py-6 font-semibold text-sky-600 text-center dark:text-purple-700">¿Quienes somos?</h1><br />
                             <div className="flex flex-col items-center md:flex-row">
                                 <div className="w-3/5 md:w-2/5 flex justify-center max-h-[250px] pb-5 md:p-0">
                                     <img src={imgAstronauta} alt="Astronauta" width={250} height={250} />
@@ -171,48 +177,73 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
-                    </section><br /><br /><br /><br /><br /><br />
+                    </section><br /><br /><br /><br /><br />
                     <section className="flex justify-center">
                         <div className="w-4/5">
-                            <h1 className="text-4xl text-center font-semibold text-sky-600 pb-4 dark:text-purple-700">Dinámica del sistema</h1>
+                            <h1 className="text-5xl text-center font-semibold text-sky-600 pb-4 dark:text-purple-700">Dinámica del sistema</h1>
                             <p className="text-center dark:text-white"><b>Importante: </b>Un cliente o proveedor deberá iniciar sesión o registrarse como primer requisito para ingresar
-                                al sistema de la empresa</p><br /><br />
-                            <h1 className="text-3xl dark:text-white"><b>Cliente</b></h1><br />
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                <CardDinamica logo={logoAgendar} texto={"Agendar citas indicando la fecha y hora que más le conviene."} color={'sky'} colorDark={'purple'} />
-                                <CardDinamica logo={logoElegir} texto={"Elegir el proveedor de su preferencia o en base a su calificación."} color={'sky'} colorDark={'purple'} />
-                                <CardDinamica logo={logoCancelar} texto={"Cancelar una cita o postergarla."} color={'sky'} colorDark={'purple'} />
-                                <CardDinamica logo={logoLlamadas} texto={"Llamadas emergentes fuera de los horarios de atención."} color={'sky'} colorDark={'purple'} />
-                            </div><br />
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                <CardDinamica logo={logoCalificar} texto={"Calificar al proveedor considerando actitudes, conductas y valores."} color={'sky'} colorDark={'purple'} />
-                                <CardDinamica logo={logoComunicar} texto={"Comunicarse con el proveedor por mensajería o llamada telefónica."} color={'sky'} colorDark={'purple'} />
-                                <CardDinamica logo={logoPago} texto={"Agregar un método de pago digital."} color={'sky'} colorDark={'purple'} />
-                                <CardDinamica logo={logoCartera} texto={"Elegir su método de pago preferido, ya sea digital, con tarjeta o en efectivo."} color={'sky'} colorDark={'purple'} />
-                            </div><br /><br /><br />
-                            <h1 className="text-center text-3xl font-semibold mb-5 text-purple-600 dark:text-sky-600">Tener en cuenta (Cliente)</h1>
+                                al sistema de la empresa</p><br />
                             <div className="flex justify-center">
-                                <div className="w-5/6 md:w-1/2">
-                                    <ListasAnimadas />
-                                </div>
-                            </div><br /><br /><br />
-                            <h1 className="text-3xl dark:text-white"><b>Proveedor</b></h1><br />
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <CardDinamica logo={logoRevisar} texto={"Revisar el perfil de su cliente y la ubicación para dar el servicio."} color={'green'} colorDark={'yellow'} />
-                                <CardDinamica logo={logoStars} texto={"Calificar al cliente considerando valores como: trato, comportamiento y solvencia."} color={'green'} colorDark={'yellow'} />
-                                <CardDinamica logo={logoPrecio} texto={"Ofrecer el precio por consulta o mano de obra a los clientes (considerando el estándar de mínimo y máximo)."} color={'green'} colorDark={'yellow'} />
-                            </div><br />
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <CardDinamica logo={logoPostergar} texto={"Cancelar o postergar una cita."} color={'green'} colorDark={'yellow'} />
-                                <CardDinamica logo={logoActualizar} texto={"Actualizar su estado de disponibilidad."} color={'green'} colorDark={'yellow'} />
-                                <CardDinamica logo={logoComunicarse} texto={"Comunicarse directamente con el cliente mediante el sistema de mensajería o llamada telefónica."} color={'green'} colorDark={'yellow'} />
-                            </div><br /><br /><br />
-                            <h1 className="text-center text-3xl font-semibold mb-5 text-purple-600 dark:text-sky-600">Tener en cuenta (Proveedor)</h1>
+                                <img src={imPerfilDinamica} alt="Perfil Dinamica" width={300} height={300} className="rounded-full shadow-md border-4 border-sky-700 dark:border-purple-700" />
+                            </div><br /><br />
+                            <h1 className="text-4xl text-sky-600 font-semibold dark:text-purple-700 text-center">Navega por el perfil</h1><br />
+
                             <div className="flex justify-center">
-                                <div className="w-5/6 md:w-1/2">
-                                    <ListasAnimadasProv />
+                                <div className="w-1/2 border p-3 rounded-lg">
+                                    <label className="dark:has-[input:checked]:bg-transparent has-[input:checked]:bg-purple-100 has-[input:checked]:text-purple-800 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800 flex justify-between items-center p-5 rounded-lg mb-1 hover:bg-gray-100 font-semibold text-lg text-slate-600 dark:text-white  dark:hover:bg-transparent transition-all duration-200">
+                                        Cliente
+                                        <input type="radio" name="opcion" onChange={handleRadioChange} value='cliente' checked={selectedOption === 'cliente'} className="peer appearance-none w-4 h-4 rounded-full border checked:border-purple-800 checked:border-4" />
+                                    </label>
+                                    <label className="dark:has-[input:checked]:bg-transparent has-[input:checked]:bg-purple-100 has-[input:checked]:text-purple-800 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800 flex justify-between items-center p-5 rounded-lg mb-1 hover:bg-gray-100 font-semibold text-lg text-slate-600 dark:text-white  dark:hover:bg-transparent transition-all duration-200">
+                                        Proveedor
+                                        <input type="radio" name="opcion" onChange={handleRadioChange} value='proveedor' checked={selectedOption === 'proveedor'} className="peer appearance-none w-4 h-4 rounded-full border checked:border-purple-800 checked:border-4" />
+                                    </label>
                                 </div>
-                            </div><br /><br /><br />
+                            </div><br /><br />
+                            {selectedOption === 'cliente' && (
+                                <div className={`animate-fade-in`}>
+                                    <h1 className="text-3xl dark:text-white"><b>Cliente</b></h1><br />
+                                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                        <CardDinamica logo={logoAgendar} texto={"Agendar citas indicando la fecha y hora que más le conviene."} color={'sky'} colorDark={'purple'} />
+                                        <CardDinamica logo={logoElegir} texto={"Elegir el proveedor de su preferencia o en base a su calificación."} color={'sky'} colorDark={'purple'} />
+                                        <CardDinamica logo={logoCancelar} texto={"Cancelar una cita o postergarla."} color={'sky'} colorDark={'purple'} />
+                                        <CardDinamica logo={logoLlamadas} texto={"Llamadas emergentes fuera de los horarios de atención."} color={'sky'} colorDark={'purple'} />
+                                    </div><br />
+                                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                        <CardDinamica logo={logoCalificar} texto={"Calificar al proveedor considerando actitudes, conductas y valores."} color={'sky'} colorDark={'purple'} />
+                                        <CardDinamica logo={logoComunicar} texto={"Comunicarse con el proveedor por mensajería o llamada telefónica."} color={'sky'} colorDark={'purple'} />
+                                        <CardDinamica logo={logoPago} texto={"Agregar un método de pago digital."} color={'sky'} colorDark={'purple'} />
+                                        <CardDinamica logo={logoCartera} texto={"Elegir su método de pago preferido, ya sea digital, con tarjeta o en efectivo."} color={'sky'} colorDark={'purple'} />
+                                    </div><br /><br /><br />
+                                    <h1 className="text-center text-3xl font-semibold mb-5 text-purple-600 dark:text-sky-600">Tener en cuenta</h1>
+                                    <div className="flex justify-center md:mb-10">
+                                        <div className="w-5/6 md:w-1/2">
+                                            <ListasAnimadas />
+                                        </div>
+                                    </div><br /><br /><br />
+                                </div>
+                            )}
+                            {selectedOption === 'proveedor' && (
+                                <div className={`animate-fade-in`}>
+                                    <h1 className="text-3xl dark:text-white"><b>Proveedor</b></h1><br />
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <CardDinamica logo={logoRevisar} texto={"Revisar el perfil de su cliente y la ubicación para dar el servicio."} color={'green'} colorDark={'yellow'} />
+                                        <CardDinamica logo={logoStars} texto={"Calificar al cliente considerando valores como: trato, comportamiento y solvencia."} color={'green'} colorDark={'yellow'} />
+                                        <CardDinamica logo={logoPrecio} texto={"Ofrecer el precio por consulta o mano de obra a los clientes (considerando el estándar de mínimo y máximo)."} color={'green'} colorDark={'yellow'} />
+                                    </div><br />
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <CardDinamica logo={logoPostergar} texto={"Cancelar o postergar una cita."} color={'green'} colorDark={'yellow'} />
+                                        <CardDinamica logo={logoActualizar} texto={"Actualizar su estado de disponibilidad."} color={'green'} colorDark={'yellow'} />
+                                        <CardDinamica logo={logoComunicarse} texto={"Comunicarse directamente con el cliente mediante el sistema de mensajería o llamada telefónica."} color={'green'} colorDark={'yellow'} />
+                                    </div><br /><br /><br />
+                                    <h1 className="text-center text-3xl font-semibold mb-5 text-purple-600 dark:text-sky-600">Tener en cuenta</h1>
+                                    <div className="flex justify-center">
+                                        <div className="w-5/6 md:w-1/2">
+                                            <ListasAnimadasProv />
+                                        </div>
+                                    </div><br /><br /><br />
+                                </div>
+                            )}
                         </div>
                     </section><br />
                 </main>

@@ -16,6 +16,8 @@
     animation: pulseGradient 4s ease-in-out infinite;
 }
 
+
+
 @keyframes pulseGradient {
 
     0%,
@@ -27,3 +29,5 @@
         background-size: 200% 200%;
     }
 }
+
+  

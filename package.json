@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.0.1",
+    "@tailwindcss/postcss7-compat": "^2.2.17",
     "app-altakassa": "file:",
     "axios": "^1.7.9",
     "framer-motion": "^12.0.6",
@@ -25,7 +27,7 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react-swc": "^3.5.0",
-    "autoprefixer": "^10.4.13",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
