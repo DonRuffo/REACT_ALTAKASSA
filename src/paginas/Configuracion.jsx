@@ -1,22 +1,74 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import OpcionConfig from "../componentes/opcionesConfiguracion";
 import logoContrasenia from '../assets/CandadoPassword.png'
 import logoPerfil from '../assets/Perfil_negro.png'
 import ConfigContext from "../context/ConfigProvider";
 import logoMenu from '../assets/category.png'
 import logoMenuAbierto from '../assets/hamburger.png'
-
+import AuthContext from "../context/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
 
 
 const Configuracion = () => {
     const [menu, setMenu] = useState(false)
+    const {auth} = useContext(AuthContext)
     const nom = "Dennis"
     const { modalContra, setModalContra, modalPerfil, setModalPerfil } = useContext(ConfigContext)
-    const accesoContra = () => { setModalContra(!modalContra) }
-    const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
+    const {ActualizarPerfil, ActualizarContrasenia} = useContext(AuthContext)
+    const accesoContra = () => { setModalContra(!modalContra)}
+    const accesoPerfil = () => { setModalPerfil(!modalPerfil)}
+    const [formPerfil, setFormPerfil] = useState({
+        nombre: auth.nombre || "",
+        apellido: auth.apellido || "",
+        direccion: auth.direccion || "",
+        telefono: auth.telefono || ""
+    })
+
+    const [formContra, setFormContra] =useState({
+        email: auth.email,
+        contrasenia: "",
+        nuevaContrasenia:""
+    })
+
+    const handleChangePerfil = async (e) => {
+        setFormPerfil({
+            ...formPerfil,
+            [e.target.name]:e.target.value
+        })
+    }
+
+    const handleChangeContrasenia = async (e) => {
+        setFormContra({
+            ...formContra,
+            [e.target.name]:e.target.value
+        })
+    }
+
+    const handleSubmitPerfil = async (e) =>{
+        e.preventDefault()
+        try{
+            const respuesta = await ActualizarPerfil(formPerfil)
+            toast.success(respuesta.data.msg)
+        }catch(error){
+            console.log(error)
+            toast.error(error.response.data.msg)
+        }
+    }
+
+    const handleSubmitContrasenia = async (e) =>{
+        e.preventDefault()
+        try{
+            const respuesta = await ActualizarContrasenia(form)
+            toast.success(respuesta.data.msg)
+        }catch(error){
+            console.log(error)
+            toast.error(error.response.data.msg)
+        }
+    }
+    
     return (
         <>
+            <ToastContainer />
             <div className="lg:hidden pb-2">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
@@ -33,14 +85,14 @@ const Configuracion = () => {
                 <div className={`${modalContra === true ? setModalPerfil(!modalContra) : ''} ${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-gray-100 p-5`}>
                     <h1 className="text-2xl text-center text-purple-800 font-semibold pb-5">Cambio de contraseña</h1>
                     <div className="w-full">
-                        <form>
+                        <form onSubmit={handleSubmitContrasenia}>
                             <div className="mb-3">
                                 <label className="text-black font-semibold block mb-2">Contraseña actual:</label>
-                                <input type="password" name="contrasenia" className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
+                                <input type="password" name="contrasenia" onChange={handleChangeContrasenia} value={formContra.contrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
                             </div>
                             <div className="mb-3">
                                 <label className="text-black font-semibold block mb-2">Nueva contraseña:</label>
-                                <input type="password" name="NuevaContrasenia" className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
+                                <input type="password" name="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""}  className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300">Cambiar</button>
@@ -55,22 +107,22 @@ const Configuracion = () => {
                         <span className="font-semibold text-sm text-slate-500 text-center">Cambia los campos que requieras y presiona actualiza</span>
                     </div>
                     <div className="w-full p-6 flex flex-col">
-                        <form>
+                        <form onSubmit={handleSubmitPerfil}>
                             <div className="mb-4">
                                 <label htmlFor="nombre" className="font-semibold ">Nombre:</label>
-                                <input type="text" name="nombre" value={nom} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="nombre" value={auth.nombre} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="apellido" className="font-semibold ">Apellido:</label>
-                                <input type="text" name="apellido" className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="apellido" value={auth.apellido} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="direccion" className="font-semibold ">Dirección:</label>
-                                <input type="text" name="direccion" className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="direccion" value={auth.direccion} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="telefono" className="font-semibold ">Teléfono:</label>
-                                <input type="text" name="telefono" className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="telefono" value={auth.telefono} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 ">Actualizar</button>

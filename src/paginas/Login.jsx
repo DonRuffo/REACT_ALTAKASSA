@@ -24,18 +24,19 @@ const Login = () => {
         const Perfil = document.getElementById('perfil').value
         let url
         try {
-            if (Perfil == 'Proveedor') {
+            if (Perfil === 'Proveedor') {
                 url = "http://localhost:5000/api/loginProveedor"
-                urlLogin = "Proveedor"
-            } else if (Perfil == 'Cliente') {
+                
+            } else if (Perfil === 'Cliente') {
                 url = "http://localhost:5000/api/loginCliente"
-                urlLogin = "Cliente"
-            } else if (Perfil == 'Administrador') {
-                url = "http://localhost:5000/api/loginAdministrador"
-                urlLogin = "Administrador"
+                
+            } else if (Perfil === 'Administrador') {
+                url = "http://localhost:5000/api/login"
+                
             }
             const respuesta = await axios.post(url, form)
             localStorage.setItem('token', respuesta.data.token)
+            localStorage.setItem('rol', respuesta.data.rol)
             console.log(respuesta.data.token)
             navigate('/dashboard')
             console.log(respuesta)
@@ -94,5 +95,5 @@ const Login = () => {
     )
 }
 
-export let urlLogin
+
 export default Login
