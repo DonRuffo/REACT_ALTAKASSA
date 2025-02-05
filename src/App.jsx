@@ -23,20 +23,20 @@ function App() {
             <Route path='login' element={<Login />} />
             <Route path='registro' element={<Registro />} />
             <Route path='recuperar' element={<Recuperar />} />
-            <Route path='confirmar/' element={<Confirmar />} />
-            <Route path='restablecer/' element={<Restablecer />} />
+            <Route path='confirmar/:token' element={<Confirmar />} />
+            <Route path='restablecer/:token' element={<Restablecer />} />
           </Route>
           <Route path='dashboard/*' element={
-            //<PrivateRoutes>
-            <ConfigAuth>
-              <Routes>
-                <Route element={<Dashboard />}>
-                  <Route index element={<Inicio />} />
-                  <Route path='configuracion' element={<Configuracion />} />
-                </Route>
-              </Routes>
-            </ConfigAuth>
-            //</PrivateRoutes>
+            <PrivateRoutes>
+              <ConfigAuth>
+                <Routes>
+                  <Route element={<Dashboard />}>
+                    <Route index element={<Inicio />} />
+                    <Route path='configuracion' element={<Configuracion />} />
+                  </Route>
+                </Routes>
+              </ConfigAuth>
+            </PrivateRoutes>
           }>
           </Route>
         </Routes>

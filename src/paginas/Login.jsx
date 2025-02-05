@@ -37,9 +37,8 @@ const Login = () => {
             const respuesta = await axios.post(url, form)
             localStorage.setItem('token', respuesta.data.token)
             localStorage.setItem('rol', respuesta.data.rol)
-            console.log(respuesta.data.token)
+            
             navigate('/dashboard')
-            console.log(respuesta)
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)

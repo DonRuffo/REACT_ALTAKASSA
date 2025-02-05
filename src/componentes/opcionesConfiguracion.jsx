@@ -11,11 +11,11 @@ const OpcionConfig = ({titulo, logo, clic}) => {
                     <img src={logo} alt={titulo} width={25} height={20}/>
                     {titulo}
                 </div> 
-                <Link onClick={clic}  className="flex group/opt invisible group-hover/list:visible group-hover/list:text-slate-500">
-                    <span className="px-4 font-semibold  group-hover/opt:bg-gray-300 flex rounded-xl group-hover/opt:text-gray-700">Ir <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="group-hover/opt:text-gray-900 w-6 h-6 group-hover/opt:translate-x-0.5 transition-transform duration-300 ease-in-out">
+                <div onClick={clic}  className="cursor-pointer flex group/opt invisible group-hover/list:visible group-hover/list:text-slate-500">
+                    <span className="px-4 font-semibold  group-hover/opt:bg-gray-300 flex rounded-xl group-hover/opt:text-gray-700">Ir <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover/opt:text-gray-900 w-6 h-6 group-hover/opt:translate-x-0.5 transition-transform duration-300 ease-in-out">
                         <path d="M9 18l6-6-6-6" />
                     </svg></span>
-                </Link>
+                </div>
             </Link>
         </li>
     )

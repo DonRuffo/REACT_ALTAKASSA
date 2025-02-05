@@ -1,29 +1,38 @@
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 const AuthContext = createContext()
+const useAuth = () => {
+    const context = useContext(AuthContext)
+    if(!context) {
+        throw new Error('useAuth debe estar dentro del proveedor AuthProvider')
+    }
+    return context
+}
 
 const AuthProvider = ({children}) => {
 
     const [auth, setAuth] = useState({})
-
     const Perfil = async (token, rol)=>{
         let url
-        if(rol === "proveedor"){
-            url = "http://localhost:5000/api/perfil-proveedor"
-        }else if(rol === "cliente"){
-            url = "http://localhost:5000/api/perfilCliente"
-        }else if(rol === "administrador"){
-            url = "http://localhost:5000/api/perfil-admin"
-        }
         try{
+            if(rol === "proveedor"){
+                url = "http://localhost:5000/api/perfil-proveedor"    
+            }else if(rol === "cliente"){
+                url = "http://localhost:5000/api/perfilCliente"
+            }else if(rol === "administrador"){
+                url = "http://localhost:5000/api/perfil-admin"
+            }
             const options={
                 headers:{
                     'Content-Type':'application/json',
                     Authorization:`Bearer ${token}`
                 }
             }
+            console.log(token)
+            console.log(rol)
             const respuesta = await axios.get(url, options)
             setAuth(respuesta.data)
+            console.log(respuesta)
         }catch(error){
             console.log(error);
         }
@@ -35,7 +44,9 @@ const AuthProvider = ({children}) => {
         if(token && rol){
             Perfil(token, rol)
         }
-    },[])
+    }, [])
+
+    
 
     const ActualizarPerfil = async (datos) =>{
         let url
@@ -71,11 +82,11 @@ const AuthProvider = ({children}) => {
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
         if(rol === "proveedor"){
-            url = "http://localhost:5000/api/actualizar-perfilProveedor"
+            url = "http://localhost:5000/api/actualizar-contraseniaProveedor"
         }else if(rol === "cliente"){
-            url = "http://localhost:5000/api/actualizarPerfilCliente"
+            url = "http://localhost:5000/api/actualizarPasswordCliente'"
         }else if(rol === "administrador"){
-            url = "http://localhost:5000/api/actualizar-perfil"
+            url = "http://localhost:5000/api/actualizar-contrasenia"
         }
         try{
             const options ={
@@ -111,5 +122,5 @@ const AuthProvider = ({children}) => {
     )
 }
 
-export {AuthProvider}
+export {AuthProvider, useAuth}
 export default AuthContext

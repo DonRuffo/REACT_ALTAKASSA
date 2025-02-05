@@ -1,18 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import OpcionConfig from "../componentes/opcionesConfiguracion";
 import logoContrasenia from '../assets/CandadoPassword.png'
 import logoPerfil from '../assets/Perfil_negro.png'
 import ConfigContext from "../context/ConfigProvider";
 import logoMenu from '../assets/category.png'
 import logoMenuAbierto from '../assets/hamburger.png'
-import AuthContext from "../context/AuthProvider";
+import AuthContext, { useAuth } from "../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 
 
 const Configuracion = () => {
     const [menu, setMenu] = useState(false)
     const {auth} = useContext(AuthContext)
-    const nom = "Dennis"
     const { modalContra, setModalContra, modalPerfil, setModalPerfil } = useContext(ConfigContext)
     const {ActualizarPerfil, ActualizarContrasenia} = useContext(AuthContext)
     const accesoContra = () => { setModalContra(!modalContra)}
@@ -30,14 +29,14 @@ const Configuracion = () => {
         nuevaContrasenia:""
     })
 
-    const handleChangePerfil = async (e) => {
+    const handleChangePerfil = (e) => {
         setFormPerfil({
             ...formPerfil,
             [e.target.name]:e.target.value
         })
     }
 
-    const handleChangeContrasenia = async (e) => {
+    const handleChangeContrasenia = (e) => {
         setFormContra({
             ...formContra,
             [e.target.name]:e.target.value
@@ -48,27 +47,39 @@ const Configuracion = () => {
         e.preventDefault()
         try{
             const respuesta = await ActualizarPerfil(formPerfil)
-            toast.success(respuesta.data.msg)
+            console.log(respuesta)
         }catch(error){
             console.log(error)
-            toast.error(error.response.data.msg)
         }
     }
 
     const handleSubmitContrasenia = async (e) =>{
         e.preventDefault()
         try{
-            const respuesta = await ActualizarContrasenia(form)
-            toast.success(respuesta.data.msg)
+            const respuesta = await ActualizarContrasenia(formContra)
+            console.log(respuesta)
         }catch(error){
             console.log(error)
-            toast.error(error.response.data.msg)
         }
     }
+    useEffect(() => {
+        if (modalContra) {
+            setModalPerfil(false);
+        }
+    }, [modalContra]);
+    
+    useEffect(() => {
+        if (modalPerfil) {
+            setModalContra(false);
+        }
+    }, [modalPerfil]);
     
     return (
         <>
-            <ToastContainer />
+        {useEffect(()=>{
+            console.log(formPerfil.nombre)
+        }, [])}
+        
             <div className="lg:hidden pb-2">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
@@ -82,7 +93,7 @@ const Configuracion = () => {
                         <OpcionConfig titulo={"Actualizar perfil"} logo={logoPerfil} clic={accesoPerfil} />
                     </ul>
                 </div>
-                <div className={`${modalContra === true ? setModalPerfil(!modalContra) : ''} ${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-gray-100 p-5`}>
+                <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-gray-100 p-5`}>
                     <h1 className="text-2xl text-center text-purple-800 font-semibold pb-5">Cambio de contraseña</h1>
                     <div className="w-full">
                         <form onSubmit={handleSubmitContrasenia}>
@@ -101,7 +112,7 @@ const Configuracion = () => {
                         </form>
                     </div>
                 </div>
-                <div className={`${modalPerfil === true ? setModalContra(!modalPerfil) : ''} ${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-white rounded-xl shadow-xl h-auto border border-gray-100`}>
+                <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-white rounded-xl shadow-xl h-auto border border-gray-100`}>
                     <div className="w-full p-2 flex flex-col items-center">
                         <h1 className="font-semibold text-green-700 text-2xl pt-3">Actualizar perfil</h1>
                         <span className="font-semibold text-sm text-slate-500 text-center">Cambia los campos que requieras y presiona actualiza</span>
