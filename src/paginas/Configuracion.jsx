@@ -121,19 +121,19 @@ const Configuracion = () => {
                         <form onSubmit={handleSubmitPerfil}>
                             <div className="mb-4">
                                 <label htmlFor="nombre" className="font-semibold ">Nombre:</label>
-                                <input type="text" name="nombre" value={auth.nombre} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="nombre" value={auth.nombre || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="apellido" className="font-semibold ">Apellido:</label>
-                                <input type="text" name="apellido" value={auth.apellido} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="apellido" value={auth.apellido || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="direccion" className="font-semibold ">Dirección:</label>
-                                <input type="text" name="direccion" value={auth.direccion} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="direccion" value={auth.direccion || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="telefono" className="font-semibold ">Teléfono:</label>
-                                <input type="text" name="telefono" value={auth.telefono} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="telefono" value={auth.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 ">Actualizar</button>

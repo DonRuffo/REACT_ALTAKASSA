@@ -114,7 +114,8 @@ const AuthProvider = ({children}) => {
             auth,
             setAuth,
             ActualizarPerfil,
-            ActualizarContrasenia
+            ActualizarContrasenia,
+            Perfil
            }
         }>
             {children}

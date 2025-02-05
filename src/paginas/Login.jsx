@@ -1,10 +1,13 @@
-import React, { useState, } from 'react'
+import React, { useContext, useState, } from 'react'
 import logoNegroAK from '../assets/AK NEGRA.png'
 import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import AuthContext from '../context/AuthProvider';
+
 const Login = () => {
+    const {Perfil} = useContext(AuthContext)
 
     const navigate = useNavigate()
     const [form, setForm] = useState({
@@ -21,16 +24,16 @@ const Login = () => {
 
     const HandleSubmit = async (e) => {
         e.preventDefault()
-        const Perfil = document.getElementById('perfil').value
+        const perfil = document.getElementById('perfil').value
         let url
         try {
-            if (Perfil === 'Proveedor') {
+            if (perfil === 'Proveedor') {
                 url = "http://localhost:5000/api/loginProveedor"
                 
-            } else if (Perfil === 'Cliente') {
+            } else if (perfil === 'Cliente') {
                 url = "http://localhost:5000/api/loginCliente"
                 
-            } else if (Perfil === 'Administrador') {
+            } else if (perfil === 'Administrador') {
                 url = "http://localhost:5000/api/login"
                 
             }
@@ -38,6 +41,7 @@ const Login = () => {
             localStorage.setItem('token', respuesta.data.token)
             localStorage.setItem('rol', respuesta.data.rol)
             
+            await Perfil(respuesta.data.token, respuesta.data.rol)
             navigate('/dashboard')
         } catch (error) {
             console.log(error)

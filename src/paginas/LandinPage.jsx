@@ -65,7 +65,7 @@ const LandingPage = () => {
                                 }
                             }}
                         >
-                            <option value="" className="text-base text-sm" disabled selected>Menu</option>
+                            <option value="Menu" className="text-base text-sm">Menu</option>
                             <option value="QuienesSomos" className="text-base text-sm">Quienes Somos</option>
                             <option value="Servicios" className="text-base text-sm">Servicios</option>
                             <option value="Contacto" className="text-base text-sm">Contacto</option>
