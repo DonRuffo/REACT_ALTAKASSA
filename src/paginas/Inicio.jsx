@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logoInicio from '../assets/SVG_Construccion.svg'
 import logoMenu from '../assets/category.png'
 import logoMenuAbierto from '../assets/hamburger.png'
+import AuthContext from "../context/AuthProvider";
 const Inicio = () => {
     const [menu, setMenu] = useState(false)
+    const {auth} = useContext(AuthContext)
     const navigate = useNavigate()
     return (//#BA05FF COLOR DEL SISTEMA
         <>
@@ -22,7 +24,7 @@ const Inicio = () => {
             </div><br />
             <section className="flex justify-center">
                 <div className="rounded-md shadow-lg w-4/5 bg-white border border-gray-100">
-                    <h1 className="text-3xl text-center text-purple-800 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo, agenda tu cita!</h1>
+                    <h1 className="text-3xl text-center text-purple-800 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}, agenda tu cita!</h1>
                     <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0">¡Contamos con más de 100 profesionales a tu servicio!</h2>
                     <div className="flex justify-center pb-5">
                         <img src={logoInicio} alt="Constructor" width={150} height={150} className='rounded-full border-2 border-black-600' />

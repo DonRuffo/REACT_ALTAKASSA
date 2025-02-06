@@ -88,7 +88,7 @@ const AuthProvider = ({children}) => {
             url = "http://localhost:5000/api/actualizarPasswordCliente'"
         }else if(rol === "administrador"){
             url = "http://localhost:5000/api/actualizar-contrasenia"
-        }
+        }   
         try{
             const options ={
                 headers: {
