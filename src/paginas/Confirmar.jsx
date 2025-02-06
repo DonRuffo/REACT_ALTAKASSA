@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import logoConfirm from '../assets/ROCKET.png'
 import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -7,10 +7,20 @@ import axios from "axios";
 const Confirmar = () => {
 
     const { token } = useParams()
+    
 
     const verifyToken = async () => {
+        let url
+        const usuario = localStorage.getItem('usuario')
         try {
-            const url = `http://localhost:5000/api/confirmarProveedor/${token}`
+            if(usuario === 'proveedor'){
+                url = `http://localhost:5000/api/confirmarProveedor/${token}`
+            }else if(usuario === 'cliente'){
+                url = `http://localhost:5000/api/confirmarCliente/${token}`
+            }else if(usuario === 'administrador'){
+                url = `http://localhost:5000/api/confirmar/${token}`
+            }
+            console.log(url)
             const respuesta = await axios.get(url)
             toast.success(respuesta.data.msg)
         } catch (error) {

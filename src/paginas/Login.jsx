@@ -75,7 +75,7 @@ const Login = () => {
                                 <label className='mb-2 block text-sm font-semibold text-blue-600'>Perfil</label>
                                 <select name="perfil" id="perfil" className='block py-1 px-1 w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 text-gray-500'>
                                     <option className='hover:bg-blue-700' value="Proveedor">Proveedor</option>
-                                    <option value="CLiente" className='hover:bg-blue-700'>Cliente</option>
+                                    <option value="Cliente" className='hover:bg-blue-700'>Cliente</option>
                                     <option value="Administrador" className='hover:bg-blue-700'>Administrador</option>
                                 </select>
                             </div>

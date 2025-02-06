@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 const AuthContext = createContext()
 const useAuth = () => {
     const context = useContext(AuthContext)
@@ -28,11 +29,9 @@ const AuthProvider = ({children}) => {
                     Authorization:`Bearer ${token}`
                 }
             }
-            console.log(token)
-            console.log(rol)
+            
             const respuesta = await axios.get(url, options)
             setAuth(respuesta.data)
-            console.log(respuesta)
         }catch(error){
             console.log(error);
         }
@@ -45,6 +44,7 @@ const AuthProvider = ({children}) => {
             Perfil(token, rol)
         }
     }, [])
+
 
     
 
@@ -72,6 +72,7 @@ const AuthProvider = ({children}) => {
                 ...auth,
                 ...datos
             })
+            console.log(respuesta.data.msg)
         }catch(error){
             console.log(error)
         }
@@ -101,8 +102,10 @@ const AuthProvider = ({children}) => {
                 ...auth,
                 ...datos
             })
+            toast.success(respuesta.data.msg)   
         }catch(error){
             console.log(error)
+            toast.error(error.response.data.msg)
         }
     }
     

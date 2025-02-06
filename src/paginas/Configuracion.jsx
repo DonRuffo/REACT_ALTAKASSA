@@ -11,54 +11,61 @@ import { ToastContainer, toast } from "react-toastify";
 
 const Configuracion = () => {
     const [menu, setMenu] = useState(false)
-    const {auth} = useContext(AuthContext)
+    const { auth } = useContext(AuthContext)
     const { modalContra, setModalContra, modalPerfil, setModalPerfil } = useContext(ConfigContext)
-    const {ActualizarPerfil, ActualizarContrasenia} = useContext(AuthContext)
-    const accesoContra = () => { setModalContra(!modalContra)}
-    const accesoPerfil = () => { setModalPerfil(!modalPerfil)}
+    const { ActualizarPerfil, ActualizarContrasenia } = useContext(AuthContext)
+    const accesoContra = () => { setModalContra(!modalContra) }
+    const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
     const [formPerfil, setFormPerfil] = useState({
         nombre: auth.nombre || "",
         apellido: auth.apellido || "",
         direccion: auth.direccion || "",
         telefono: auth.telefono || ""
     })
+    useEffect(() => {
+        setFormPerfil({
+            nombre: auth.nombre || "",
+            apellido: auth.apellido || "",
+            direccion: auth.direccion || "",
+            telefono: auth.telefono || ""
+        })
+    }, [auth])
 
-    const [formContra, setFormContra] =useState({
+    const [formContra, setFormContra] = useState({
         email: auth.email,
         contrasenia: "",
-        nuevaContrasenia:""
+        nuevaContrasenia: ""
     })
 
     const handleChangePerfil = (e) => {
         setFormPerfil({
             ...formPerfil,
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
     const handleChangeContrasenia = (e) => {
         setFormContra({
             ...formContra,
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
-    const handleSubmitPerfil = async (e) =>{
+    const handleSubmitPerfil = async (e) => {
         e.preventDefault()
-        try{
+        try {
             const respuesta = await ActualizarPerfil(formPerfil)
-            console.log(respuesta)
-        }catch(error){
+        } catch (error) {
             console.log(error)
         }
     }
 
-    const handleSubmitContrasenia = async (e) =>{
+    const handleSubmitContrasenia = async (e) => {
         e.preventDefault()
-        try{
+        try {
             const respuesta = await ActualizarContrasenia(formContra)
-            console.log(respuesta)
-        }catch(error){
+
+        } catch (error) {
             console.log(error)
         }
     }
@@ -67,19 +74,15 @@ const Configuracion = () => {
             setModalPerfil(false);
         }
     }, [modalContra]);
-    
+
     useEffect(() => {
         if (modalPerfil) {
             setModalContra(false);
         }
     }, [modalPerfil]);
-    
+
     return (
         <>
-        {useEffect(()=>{
-            console.log(formPerfil.nombre)
-        }, [])}
-        
             <div className="lg:hidden pb-2">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
@@ -103,7 +106,7 @@ const Configuracion = () => {
                             </div>
                             <div className="mb-3">
                                 <label className="text-black font-semibold block mb-2">Nueva contraseña:</label>
-                                <input type="password" name="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""}  className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
+                                <input type="password" name="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300">Cambiar</button>
@@ -121,19 +124,19 @@ const Configuracion = () => {
                         <form onSubmit={handleSubmitPerfil}>
                             <div className="mb-4">
                                 <label htmlFor="nombre" className="font-semibold ">Nombre:</label>
-                                <input type="text" name="nombre" value={auth.nombre || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="nombre" value={formPerfil.nombre || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="apellido" className="font-semibold ">Apellido:</label>
-                                <input type="text" name="apellido" value={auth.apellido || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="apellido" value={formPerfil.apellido || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="direccion" className="font-semibold ">Dirección:</label>
-                                <input type="text" name="direccion" value={auth.direccion || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="direccion" value={formPerfil.direccion || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="telefono" className="font-semibold ">Teléfono:</label>
-                                <input type="text" name="telefono" value={auth.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700" />
+                                <input type="text" name="telefono" value={formPerfil.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 ">Actualizar</button>

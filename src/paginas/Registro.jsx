@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
+
 const Registro = () => {
     const [form, setForm] = useState({
         nombre: "",
@@ -35,7 +36,7 @@ const Registro = () => {
             }
             const respuesta = await axios.post(url, form)
             toast.success(respuesta.data.msg)
-            console.log(respuesta)
+            localStorage.setItem('usuario', respuesta.data.rol)            
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
@@ -54,7 +55,7 @@ const Registro = () => {
                                 <label className='mb-2 block text-sm font-semibold text-purple-600'>Perfil</label>
                                 <select name="perfil" id="perfil" className='block py-1 px-1 w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 text-gray-500'>
                                     <option className='hover:bg-green-700' value="Proveedor">Proveedor</option>
-                                    <option value="CLiente" className='hover:bg-green-700'>Cliente</option>
+                                    <option value="Cliente" className='hover:bg-green-700'>Cliente</option>
                                 </select>
                             </div>
                             <div className="my-3 grid grid-cols-2">

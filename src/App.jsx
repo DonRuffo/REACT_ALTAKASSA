@@ -9,11 +9,13 @@ import Inicio from './paginas/Inicio'
 import Confirmar from './paginas/Confirmar'
 import Restablecer from './paginas/Restablecer'
 import PrivateRoutes from './routes/PrivateRoutes'
-import { AuthProvider } from './context/AuthProvider'
+import { AuthProvider} from './context/AuthProvider'
 import Configuracion from './paginas/Configuracion'
 import { ConfigAuth } from './context/ConfigProvider'
+import InicioProve from './paginas/InicioProv'
+import PrivateProveedor from './routes/PrivateProveedor'
 function App() {
-
+  
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -31,7 +33,11 @@ function App() {
               <ConfigAuth>
                 <Routes>
                   <Route element={<Dashboard />}>
-                    <Route index element={<Inicio />} />
+                    <Route index element={
+                        <PrivateProveedor>
+                          <InicioProve/>
+                        </PrivateProveedor>
+                  } />
                     <Route path='configuracion' element={<Configuracion />} />
                   </Route>
                 </Routes>
