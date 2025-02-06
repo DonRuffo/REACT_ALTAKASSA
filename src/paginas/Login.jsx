@@ -40,6 +40,7 @@ const Login = () => {
             const respuesta = await axios.post(url, form)
             localStorage.setItem('token', respuesta.data.token)
             localStorage.setItem('rol', respuesta.data.rol)
+            localStorage.removeItem('usuario')
             
             await Perfil(respuesta.data.token, respuesta.data.rol)
             navigate('/dashboard')
