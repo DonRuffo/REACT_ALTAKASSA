@@ -15,6 +15,7 @@ import { ConfigAuth } from './context/ConfigProvider'
 import InicioProve from './paginas/InicioProv'
 import PrivateProveedor from './routes/PrivateProveedor'
 import { OfertaProvider } from './context/OfertasProvider'
+import ListadoOfertas from './paginas/MisOfertas'
 function App() {
 
   return (
@@ -41,6 +42,7 @@ function App() {
                         </PrivateProveedor>
                       } />
                       <Route path='configuracion' element={<Configuracion />} />
+                      <Route path='ofertas' element={<ListadoOfertas />}/>
                     </Route>
                   </Routes>
                 </ConfigAuth>

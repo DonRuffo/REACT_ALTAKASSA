@@ -23,7 +23,7 @@ const Dashboard = () => {
                             <Link to='/dashboard' className="block py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1">
                                 <img src={logoInicio} alt="Inicio" width={26} height={26} /><p className=" px-2">Inicio</p>
                             </Link>
-                            <Link to='/dashboard/acerca' className="block py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1">
+                            <Link to='/dashboard/ofertas' className="block py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1">
                                 <img src={logoHistorial} alt="Historial" width={26} height={26} /><p className=" px-2">Historial</p>
                             </Link>
 
