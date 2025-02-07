@@ -8,7 +8,6 @@ const ModalOferta = () => {
     const { auth } = useContext(AuthContext)
     const { modalOf, setModalOf } = useContext(OfertaContext)
     const [formOf, setFormOf] = useState({
-        proveedor: auth._id,
         precioPorDia: "",
         precioPorHora: "",
         servicio: "",
@@ -19,6 +18,7 @@ const ModalOferta = () => {
         e.preventDefault()
         try {
             const url = 'http://localhost:5000/api/crearOferta'
+            const token = localStorage.getItem('token')
             const options = {
                 headers: {
                     method: 'POST',
@@ -61,12 +61,12 @@ const ModalOferta = () => {
                         <div className="mb-3">
                             <div className="flex justify-center gap-2 px-6">
                                 <label htmlFor="servicio" className="text-md font-semibold">Servicio:</label>
-                                <input type="text" id="servicio" name="servicio" className="w-full py-1 px-2 rounded-md border border-gray-600 bg-gray-300 focus:ring-1 focus:ring-blue-700 focus:outline-none focus:border-blue-700" />
+                                <input type="text" id="servicio" name="servicio" onChange={handleChange} value={formOf.servicio || ""} className="w-full py-1 px-2 rounded-md border border-gray-600 bg-gray-300 focus:ring-1 focus:ring-blue-700 focus:outline-none focus:border-blue-700" />
                             </div>
                         </div>
                         <div className="mb-3 px-6">
                             <label htmlFor="descripcion" className="text-md font-semibold block">Descripción: </label>
-                            <textarea name="descripcion" id="descripcion" className="p-2 w-full rounded-md bg-gray-300 border border-gray-600 focus:ring-1 focus:ring-blue-700 focus:outline-none focus:border-blue-700"></textarea>
+                            <textarea name="descripcion" id="descripcion" onChange={handleChange} value={formOf.descripcion || ""} className="p-2 w-full rounded-md bg-gray-300 border border-gray-600 focus:ring-1 focus:ring-blue-700 focus:outline-none focus:border-blue-700"></textarea>
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">

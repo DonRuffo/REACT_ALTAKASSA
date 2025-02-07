@@ -32,6 +32,7 @@ const AuthProvider = ({children}) => {
             
             const respuesta = await axios.get(url, options)
             setAuth(respuesta.data)
+            console.log(auth._id)
         }catch(error){
             console.log(error);
         }
