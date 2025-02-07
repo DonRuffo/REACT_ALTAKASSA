@@ -9,10 +9,21 @@ const Recuperar = () => {
 
     const HandleSubmit = async (e) =>{
         e.preventDefault()
+        const perfil = document.getElementById('perfil').value
+        console.log(perfil)
+        let url
         try {
-            const url = `http://localhost:5000/api/recuperar-contrasenia-prov`
+            if(perfil==='proveedor'){
+                url = `http://localhost:5000/api/recuperar-contrasenia-prov`
+            }else if(perfil === 'cliente'){
+                url = `http://localhost:5000/api/recuperarPasswordCliente`
+            }else if(perfil === ' administrador'){
+                url = `http://localhost:5000/api/recuperar-contrasenia`
+            }
+            console.log(url)
             const respuesta = await axios.post(url, mail)
             toast.success(respuesta.data.msg)
+            localStorage.setItem('userR', perfil)
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
@@ -28,6 +39,14 @@ const Recuperar = () => {
                         <h1 className="mb-3 font-bold text-orange-600 text-center">RECUPERAR CONTRASEÑA</h1>
                         <hr />
                         <form onSubmit={HandleSubmit}>
+                            <div className="my-3">
+                            <label className="block mb-2 text-sm text-orange-500 font-semibold">Perfil</label>
+                                <select id="perfil" className="w-full border border-gray-300 py-1 px-2 rounded-md focus:outline-none focus:ring-1 focus:ring-orange-700 focus:border-orange-700 ">
+                                    <option value="proveedor">Proveedor</option>
+                                    <option value="cliente">Cliente</option>
+                                    <option value="administrador">Administrador</option>
+                                </select>
+                            </div>
                             <div className="my-3">
                                 <label className="block mb-2 text-sm text-orange-500 font-semibold">Correo electrónico</label>
                                 <input type="email" name="email" onChange={(e)=>{setMail({email:e.target.value})}} className="block w-full rounded-md border border-gray-300 focus:border-orange-700 focus:outline-none focus:ring-1 focus:ring-orange-700 py-1 px-2 text-gray-500" placeholder="Ingresa tu correo" />

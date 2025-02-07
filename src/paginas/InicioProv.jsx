@@ -4,10 +4,13 @@ import AuthContext from "../context/AuthProvider";
 import logoInicioProv from '../assets/Motivacion.svg';
 import logoMenu from '../assets/category.png'
 import logoMenuAbierto from '../assets/hamburger.png'
+import OfertaContext from "../context/OfertasProvider";
+import ModalOferta from "../componentes/modals/ModalOferta";
 
 const InicioProve = () => {
     const [menu, setMenu] = useState(false)
     const {auth} = useContext(AuthContext)
+    const {modalOf, handleModalOf} = useContext(OfertaContext)
     const navigate = useNavigate()
     return (
         <>
@@ -28,10 +31,18 @@ const InicioProve = () => {
                     <h1 className="text-3xl text-center text-purple-800 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}!</h1>
                     <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0">Listo para un nuevo trabajo, el sistema te espera</h2>
                     <div className="flex justify-center pb-5">
-                        <img src={logoInicioProv} alt="Proveedor" width={150} height={150} className='rounded-full border-2 border-black-600' />
+                        <img src={logoInicioProv} alt="Proveedor" width={110} height={110} className='rounded-full border-2 border-black-600' />
                     </div>
                 </div>
             </section><br />
+            <section className="flex justify-center">
+                    <div className="w-4/5 flex justify-center">
+                        <div className="border-4 border-gray-600 border-dashed bg-gray-300 h-[250px] w-[200px] rounded-lg cursor-pointer flex items-center justify-center shadow-lg" onClick={handleModalOf}>
+                            <h1 className="font-semibold text-lg text-center text-slate-500">Ingresa una nueva oferta</h1>
+                        </div>
+                    </div>
+            </section>
+            {modalOf && (<ModalOferta />)}
         </>
     )
 }

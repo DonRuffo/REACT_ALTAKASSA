@@ -1,0 +1,85 @@
+import React, { useContext, useState } from "react";
+import AuthContext from "../../context/AuthProvider";
+import axios from "axios";
+import OfertaContext from "../../context/OfertasProvider";
+
+const ModalOferta = () => {
+
+    const { auth } = useContext(AuthContext)
+    const { modalOf, setModalOf } = useContext(OfertaContext)
+    const [formOf, setFormOf] = useState({
+        proveedor: auth._id,
+        precioPorDia: "",
+        precioPorHora: "",
+        servicio: "",
+        descripcion: ""
+    })
+
+    const handleCreateOferta = async (e) => {
+        e.preventDefault()
+        try {
+            const url = 'http://localhost:5000/api/crearOferta'
+            const options = {
+                headers: {
+                    method: 'POST',
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.post(url, formOf, options)
+            console.log(respuesta.data.msg)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const handleChange = (e) => {
+        setFormOf({
+            ...formOf,
+            [e.target.name]: e.target.value
+        })
+    }
+    return (
+        <>
+            <div className="fixed bg-black bg-opacity-50 inset-0 transition-all duration-300">
+                <div className="fixed top-1/4 left-[580px] lg:w-1/3 lg:h-3/5 rounded-lg shadow-2xl bg-white border border-2 border-green-800">
+                    <h1 className="border-b-2 border-green-800 bg-gray-300 rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-800">Nueva oferta</h1>
+                    <form onSubmit={handleCreateOferta}>
+                        <div className="my-3">
+                            <div className="flex justify-around">
+                                <div className="flex gap-2">
+                                    <label htmlFor="precioPorDia" className="text-md font-semibold">Precio/Dia:</label>
+                                    <input type="text" id="precioPorDia" name="precioPorDia" onChange={handleChange} value={formOf.precioPorDia || ""} className="w-20 py-1 px-2 rounded-md border border-gray-600 bg-gray-300 focus:ring-1 focus:ring-blue-700 focus:outline-none focus:border-blue-700" />
+                                </div>
+                                <div className="flex gap-2">
+                                    <label htmlFor="precioPorHora" className="text-md font-semibold ">Precio/Hora:</label>
+                                    <input type="text" id="precioPorHora" name="precioPorHora" onChange={handleChange} value={formOf.precioPorHora || ""} className="w-20 py-1 px-2 rounded-md border border-gray-600 bg-gray-300 focus:ring-1 focus:ring-blue-700 focus:outline-none focus:border-blue-700" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mb-3">
+                            <div className="flex justify-center gap-2 px-6">
+                                <label htmlFor="servicio" className="text-md font-semibold">Servicio:</label>
+                                <input type="text" id="servicio" name="servicio" className="w-full py-1 px-2 rounded-md border border-gray-600 bg-gray-300 focus:ring-1 focus:ring-blue-700 focus:outline-none focus:border-blue-700" />
+                            </div>
+                        </div>
+                        <div className="mb-3 px-6">
+                            <label htmlFor="descripcion" className="text-md font-semibold block">Descripción: </label>
+                            <textarea name="descripcion" id="descripcion" className="p-2 w-full rounded-md bg-gray-300 border border-gray-600 focus:ring-1 focus:ring-blue-700 focus:outline-none focus:border-blue-700"></textarea>
+                        </div><br />
+                        <div className="mb-3">
+                            <div className="flex justify-around">
+                                <button className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300">Crear</button>
+                                <button className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalOf(!modalOf) }}>Cerrar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+export default ModalOferta

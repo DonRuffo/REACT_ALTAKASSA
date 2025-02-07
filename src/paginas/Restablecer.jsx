@@ -22,10 +22,18 @@ const Restablecer = () => {
 
     const HandleSubmit = async (e) => {
         e.preventDefault()
+        let url
         try {
-            const url = `http://localhost:5000/api/restablecer-contrasenia-prov/${token}`
+            const usuario = localStorage.getItem('userR')
+            if(usuario === 'proveedor'){
+                url = `http://localhost:5000/api/restablecer-contrasenia-prov/${token}`
+            }else if(usuario === 'cliente'){
+                url = `http://localhost:5000/api/restablecerPasswordCliente/${token}`
+            }else if(usuario === 'administrador'){
+                url = `http://localhost:5000/api/restablecer-contrasenia/${token}`
+            }
+            
             const respuesta = await axios.post(url, form)
-            console.log(respuesta.data.token)
             toast.success(respuesta.data.msg)
         } catch (error) {
             console.log(error)
