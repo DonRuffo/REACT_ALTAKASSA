@@ -3,7 +3,7 @@ import OfertaContext from "../../context/OfertasProvider";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
-const ModalEditarOferta = ({idOferta}) => {
+const ModalEditarOferta = ({idOferta, listarOfertas}) => {
 
     const [form, setForm] = useState({
         precioPorDia:"",
@@ -42,8 +42,8 @@ const ModalEditarOferta = ({idOferta}) => {
                 }
             }
             const respuesta = await axios.put(url,form,options)
-            console.log(respuesta.data.msg)
             toast.success(respuesta.data.msg)
+            listarOfertas()
         }catch(error){ 
             console.log(error);
             toast.error(error.response.data.msg)
@@ -90,7 +90,7 @@ const ModalEditarOferta = ({idOferta}) => {
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
-                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300">Actualizar</button>
+                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={()=>{setTimeout(()=>{setModalEditOf(false)}, 3000)}}>Actualizar</button>
                                 <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalEditOf(!modalEditOf) }}>Cerrar</button>
                             </div>
                         </div>

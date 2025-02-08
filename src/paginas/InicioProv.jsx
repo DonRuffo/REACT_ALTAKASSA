@@ -19,12 +19,6 @@ const InicioProve = () => {
                     <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                     <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
                 </div>
-                <button className="px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 duration-300"
-                    onClick={() => {
-                        localStorage.removeItem('token')
-                        localStorage.removeItem('rol')
-                        navigate('/login')
-                    }}>Salir</button>
             </div><br />
             <section className="flex justify-center">
                 <div className="rounded-md shadow-lg w-4/5 bg-white border border-gray-100">

@@ -96,7 +96,7 @@ const Configuracion = () => {
                         <OpcionConfig titulo={"Actualizar perfil"} logo={logoPerfil} clic={accesoPerfil} />
                     </ul>
                 </div>
-                <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-gray-100 p-5`}>
+                <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-purple-400 p-5`}>
                     <h1 className="text-2xl text-center text-purple-800 font-semibold pb-5">Cambio de contraseña</h1>
                     <div className="w-full">
                         <form onSubmit={handleSubmitContrasenia}>
@@ -109,13 +109,13 @@ const Configuracion = () => {
                                 <input type="password" name="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300">Cambiar</button>
-                                <button className="px-6 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
+                                <button className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300 font-semibold">Cambiar</button>
+                                <button className="px-6 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300 font-semibold" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-white rounded-xl shadow-xl h-auto border border-gray-100`}>
+                <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-white rounded-xl shadow-xl h-auto border border-green-400`}>
                     <div className="w-full p-2 flex flex-col items-center">
                         <h1 className="font-semibold text-green-700 text-2xl pt-3">Actualizar perfil</h1>
                         <span className="font-semibold text-sm text-slate-500 text-center">Cambia los campos que requieras y presiona actualiza</span>
@@ -139,8 +139,8 @@ const Configuracion = () => {
                                 <input type="text" name="telefono" value={formPerfil.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 ">Actualizar</button>
-                                <button className="px-6 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
+                                <button className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 font-semibold">Actualizar</button>
+                                <button className="px-6 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 font-semibold" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
                             </div>
                         </form>
 
