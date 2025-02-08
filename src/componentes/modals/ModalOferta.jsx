@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../../context/AuthProvider";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 import OfertaContext from "../../context/OfertasProvider";
 
 const ModalOferta = () => {
@@ -27,9 +28,10 @@ const ModalOferta = () => {
                 }
             }
             const respuesta = await axios.post(url, formOf, options)
-            console.log(respuesta.data.msg)
+            toast.success(respuesta.data.msg)
         } catch (error) {
             console.log(error)
+            toast.error(error.response.data.msg)
         }
 
     }
@@ -43,6 +45,7 @@ const ModalOferta = () => {
     return (
         <>
             <div className="fixed bg-black bg-opacity-50 inset-0 transition-all duration-300">
+                <ToastContainer />
                 <div className="fixed top-1/4 left-[580px] lg:w-1/3 lg:h-3/5 rounded-lg shadow-2xl bg-white border border-2 border-green-800">
                     <h1 className="border-b-2 border-green-800 bg-gray-300 rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-800">Nueva oferta</h1>
                     <form onSubmit={handleCreateOferta}>
@@ -70,8 +73,8 @@ const ModalOferta = () => {
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
-                                <button className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300">Crear</button>
-                                <button className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalOf(!modalOf) }}>Cerrar</button>
+                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300">Crear</button>
+                                <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalOf(!modalOf) }}>Cerrar</button>
                             </div>
                         </div>
                     </form>
