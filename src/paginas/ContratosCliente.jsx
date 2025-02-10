@@ -7,7 +7,7 @@ const ContratosCliente = () => {
     const [trabajos, setTrabajos] = useState([])
     const [selectedOption, setSelectedOption] = useState('')
 
-    const handleRadioChange = (e) =>{
+    const handleRadioChange = (e) => {
         const tipo = e.target.value
         setSelectedOption(tipo)
     }
@@ -23,8 +23,30 @@ const ContratosCliente = () => {
             }
             const respuesta = await axios.get(url, options)
             setTrabajos(respuesta.data)
+
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    const EliminarTrabajo = async (id, indx) => {
+        const confirmar = confirm(`¿Estás seguro del eliminar el trabajo de ${indx}?`)
+        if (confirmar) {
+            try {
+                const token = localStorage.getItem('token')
+                const url = `http://localhost:5000/api/eliminarTrabajo/${id}`
+                const options = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                const respuesta = await axios.delete(url, options)
+                ObtenerTrabajos()
+            } catch (error) {
+                console.log(error);
+
+            }
         }
     }
 
@@ -53,45 +75,52 @@ const ContratosCliente = () => {
                 <div className="flex justify-center flex-wrap gap-3">
                     {trabajos.length !== 0 ? (
                         trabajos.some(tra => tra.status !== "En espera") ? (
-                            trabajos.map((tra, index) =>
-                                tra.status === "Agendado" && selectedOption==="Aceptadas" && (
-                                    <div key={index} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
-                                        <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold">{tra.servicio}</h1>
-                                        <p className="text-center text-xl mt-1">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
+                            trabajos.map((tra, index) => (
+                                (tra.status === "Rechazado" && (selectedOption === "Rechazadas" || selectedOption === "Todas") && (
+                                    <div key={index} className="w-[330px] h-[285px] radial-gradientRechazados-bg rounded-lg shadow-lg shadow-purple-400">
+                                        <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
+                                        <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                         <div className="flex justify-around mt-2">
-                                            <p className="font-semibold">Tipo: <span className="text-purple-700">{tra.tipo === 'precioPorDia' ? 'Por Día' : 'Por Horas'}</span></p>
-                                            <p className="font-semibold">Fecha: <span className="text-purple-700">{tra.fecha.split('T')[0]}</span></p>
+                                            <p className="font-semibold">Tipo: <span className="text-white">{tra.tipo === 'precioPorDia' ? 'Por Día' : 'Por Horas'}</span></p>
+                                            <p className="font-semibold">Fecha: <span className="text-red-700">{tra.fecha.split('T')[0]}</span></p>
                                         </div>
-                                        <p className="text-center font-semibold">Horario: <span className="text-white">{tra.desde} - {tra.hasta}</span></p>
-                                        <div className="flex justify-center mt-3">
+                                        <p className="text-center font-semibold">Horario: <span className="text-red-700">{tra.desde} - {tra.hasta}</span></p>
+                                        <div className="flex justify-around items-center mt-3">
                                             <h1 className="text-5xl font-semibold">${tra.precioTotal}</h1>
+                                            <h1 className="text-2xl font-semibold">{tra.status}</h1>
                                         </div>
-                                        <p className="text-center">Precio Total</p>
+                                        <div className="flex">
+                                            <p className="pl-9 pr-20 text-center">Precio Total</p>
+                                            <p className="pl-5 text-center" >Estado</p>
+                                        </div>
                                         <div className="flex justify-around mt-3">
-                                            <button className="px-3 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300">Actualizar</button>
                                             <button type="button" className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300" onClick={() => { EliminarTrabajo(tra._id, tra.servicio) }}>Eliminar</button>
                                         </div>
                                     </div>
-                                ),
-                                tra.status === "Rechazado" && selectedOption === "Rechazadas" && (
-                                    <div key={index} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
-                                        <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold">{tra.servicio}</h1>
-                                        <p className="text-center text-xl mt-1">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
+                                ))
+                                || (tra.status === "Agendado" && (selectedOption === "Aceptadas" || selectedOption === "Todas") && (
+                                    <div key={index} className="w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-green-400">
+                                        <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
+                                        <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                         <div className="flex justify-around mt-2">
-                                            <p className="font-semibold">Tipo: <span className="text-purple-700">{tra.tipo === 'precioPorDia' ? 'Por Día' : 'Por Horas'}</span></p>
-                                            <p className="font-semibold">Fecha: <span className="text-purple-700">{tra.fecha.split('T')[0]}</span></p>
+                                            <p className="font-semibold">Tipo: <span className="text-white">{tra.tipo === 'precioPorDia' ? 'Por Día' : 'Por Horas'}</span></p>
+                                            <p className="font-semibold">Fecha: <span className="text-red-700">{tra.fecha.split('T')[0]}</span></p>
                                         </div>
-                                        <p className="text-center font-semibold">Horario: <span className="text-white">{tra.desde} - {tra.hasta}</span></p>
-                                        <div className="flex justify-center mt-3">
+                                        <p className="text-center font-semibold">Horario: <span className="text-red-700">{tra.desde} - {tra.hasta}</span></p>
+                                        <div className="flex justify-around items-center mt-3">
                                             <h1 className="text-5xl font-semibold">${tra.precioTotal}</h1>
+                                            <h1 className="text-2xl font-semibold">{tra.status}</h1>
                                         </div>
-                                        <p className="text-center">Precio Total</p>
+                                        <div className="flex">
+                                            <p className="pl-9 pr-20 text-center">Precio Total</p>
+                                            <p className="pl-5 text-center" >Estado</p>
+                                        </div>
                                         <div className="flex justify-around mt-3">
-                                            <button className="px-3 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300">Actualizar</button>
-                                            <button type="button" className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300" onClick={() => { EliminarTrabajo(tra._id, tra.servicio) }}>Eliminar</button>
+                                            <button type="button" className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300">Cancelar</button>
                                         </div>
                                     </div>
-                                )
+                                ))
+                            )
                             )
                         ) : (
                             <div className="w-[330px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">

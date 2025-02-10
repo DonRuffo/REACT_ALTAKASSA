@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
 
 const SolicitudProv = () => {
     const [trabajos, setTrabajos] = useState([])
 
-    const ObtenerTrabajos = async() =>{
-        try{
+    const ObtenerTrabajos = async () => {
+        try {
             const token = localStorage.getItem('token')
             const url = "http://localhost:5000/api/trabajos-proveedor"
             const options = {
@@ -17,46 +18,103 @@ const SolicitudProv = () => {
             }
             const respuesta = await axios.get(url, options)
             setTrabajos(respuesta.data)
-        }catch(error){
+        } catch (error) {
             console.log(error)
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         ObtenerTrabajos()
     }, [])
 
+    const AceptarSolicitud = async (id, indx) => {
+        const confirmar = confirm(`¿Estás seguro de aceptar el trabajo para ${indx}?`)
+        if (confirmar) {
+            try {
+                const token = localStorage.getItem('token')
+                const url = `http://localhost:5000/api/agendarTrabajo/${id}`
+                const options = {
+                    headers: {
+                        method: 'PUT',
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                const respuesta = await axios.put(url, {}, options)
+                toast.success(respuesta.data.msg)
+                ObtenerTrabajos()
+            } catch (error) {
+                console.log(error)
+                toast.error(error.response.data.msg)
+            }
+        }
+    }
+
+    const RechazarSolicitud = async (id, indx) => {
+        const confirmar = confirm(`¿Estás seguro de rechazar el trabajo para ${indx}?`)
+        if (confirmar) {
+            try {
+                const token = localStorage.getItem('token')
+                const url = `http://localhost:5000/api/rechazarTrabajo/${id}`
+                const options = {
+                    headers: {
+                        method: 'PUT',
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                const respuesta = await axios.put(url, {}, options)
+                toast.success(respuesta.data.msg)                
+                ObtenerTrabajos()
+            } catch (error) {
+                console.log(error)
+                toast.error(error.response.data.msg)
+            }
+        }
+    }
+
     return (
         <>
+            <ToastContainer />
             <h1 className="text-center font-semibold text-3xl text-purple-800 mb-5">Solicitudes</h1>
             <h2 className="text-xl mb-5 text-center">Aquí puedes ver tus solicitudes de trabajo</h2>
             <section>
                 <div className="flex justify-center gap-3 flex-wrap">
-                    {trabajos.length!=0 ? trabajos.map((tra, index)=>(
-                        <div key={index} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
-                            <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold">{tra.servicio}</h1>
-                            <p className="text-center text-xl mt-1">Cliente: <span className="text-white">{tra.cliente.nombre} {tra.cliente.apellido}</span></p>
-                            <div className="flex justify-around mt-2">
-                                <p className="font-semibold">Tipo: <span className="text-purple-700">{tra.tipo === 'precioPorDia' ? 'Por Día' : 'Por Horas'}</span></p>
-                                <p className="font-semibold">Fecha: <span className="text-purple-700">{tra.fecha.split('T')[0]}</span></p>
+                    {trabajos.length !== 0 ?
+                        trabajos.some(tra => tra.status === "En espera") ? (
+                            trabajos.map((tra, index) => (
+                                tra.status === "En espera" && (
+                                    <div key={index} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
+                                    <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold">{tra.servicio}</h1>
+                                    <p className="text-center text-xl mt-1">Cliente: <span className="text-white">{tra.cliente.nombre} {tra.cliente.apellido}</span></p>
+                                    <div className="flex justify-around mt-2">
+                                        <p className="font-semibold">Tipo: <span className="text-purple-700">{tra.tipo === 'precioPorDia' ? 'Por Día' : 'Por Horas'}</span></p>
+                                        <p className="font-semibold">Fecha: <span className="text-purple-700">{tra.fecha.split('T')[0]}</span></p>
+                                    </div>
+                                    <p className="text-center font-semibold">Horario: <span className="text-white">{tra.desde} - {tra.hasta}</span></p>
+                                    <div className="flex justify-center mt-3">
+                                        <h1 className="text-5xl font-semibold">
+                                            ${tra.precioTotal}
+                                        </h1>
+                                    </div>
+                                    <p className="text-center">Precio Total</p>
+                                    <div className="flex justify-around mt-3">
+                                        <button className="px-4 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300" onClick={() => { AceptarSolicitud(tra._id, tra.servicio) }}>Aceptar</button>
+                                        <button className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300" onClick={() => { RechazarSolicitud(tra._id, tra.servicio) }} >Rechazar</button>
+                                    </div>
+                                </div>
+                                )
+                            )
+                            )) : (
+                            <div className="w-[330px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
+                                <p className="text-lg text-gray-700 font-semibold">No hay solicitudes recientes</p>
                             </div>
-                            <p className="text-center font-semibold">Horario: <span className="text-white">{tra.desde} - {tra.hasta}</span></p>
-                            <div className="flex justify-center mt-3">
-                                <h1 className="text-5xl font-semibold">
-                                    ${tra.precioTotal}
-                                </h1>
+                        )
+                        : (
+                            <div className="w-[330px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
+                                <p className="text-lg text-gray-700 font-semibold">Todos los trabajos están en espera</p>
                             </div>
-                            <p className="text-center">Precio Total</p>
-                            <div className="flex justify-around mt-3">
-                                <button className="px-4 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300">Aceptar</button>
-                                <button className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300">Rechazar</button>
-                            </div>
-                        </div>
-                    )) : (
-                        <div className="w-[325px] h-[235px] border-2 border-dashed  bg-gray-400 border-gray-600 rounded-lg shadow-lg flex justify-center items-center">
-                            <p className="font-semibold text-xl text-slate-800 text-center">No existen solicitudes por el momento</p>
-                        </div>
-                    )}
+                        )}
                 </div>
             </section>
         </>

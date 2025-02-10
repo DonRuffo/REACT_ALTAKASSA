@@ -28,6 +28,19 @@
     animation: pulseGradient 4s ease-in-out infinite;
 }
 
+.radial-gradientAceptados-bg {
+    background: radial-gradient(circle, #eefbe6, #4caf50, #20572b);
+    background-size: 150% 150%;
+    animation: pulseGradient 4s ease-in-out infinite;
+}
+
+.radial-gradientRechazados-bg {
+    background: radial-gradient(circle, #f6eefb, #b86cc2, #5b2c80);
+    background-size: 150% 150%;
+    animation: pulseGradient 4s ease-in-out infinite;
+}
+
+
 @keyframes pulseGradient {
 
     0%,
