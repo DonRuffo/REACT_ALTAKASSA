@@ -18,6 +18,9 @@ import { OfertaProvider } from './context/OfertasProvider'
 import ListadoOfertas from './paginas/MisOfertas'
 import HistorialTrabajoCli from './paginas/HistorialTrabajosCli'
 import SolicitudProv from './paginas/SolicitudesProv'
+import PaginaInexistente from './paginas/NotFound'
+import RutasProveedor from './routes/RutasProveedor'
+import RutasCliente from './routes/RutasClientes'
 function App() {
 
   return (
@@ -43,10 +46,26 @@ function App() {
                           <InicioProve />
                         </PrivateProveedor>
                       } />
+                      <Route path='ofertas' element={
+                        <RutasProveedor>
+                          <ListadoOfertas />
+                        </RutasProveedor>
+                      } />
+                      
+                      <Route path='solicitudes/proveedor' element={
+                        <RutasProveedor>
+                          <SolicitudProv />
+                        </RutasProveedor>
+                      } />
+
+                      <Route path='historial' element={
+                        <RutasCliente>
+                          <HistorialTrabajoCli />
+                        </RutasCliente>
+                      } />
+
                       <Route path='configuracion' element={<Configuracion />} />
-                      <Route path='ofertas' element={<ListadoOfertas />}/>
-                      <Route path='historial'  element={<HistorialTrabajoCli />}/>
-                      <Route path='solicitudes/proveedor' element={<SolicitudProv />} />
+                      <Route path='no-encontrado' element={<PaginaInexistente />} />
                     </Route>
                   </Routes>
                 </ConfigAuth>

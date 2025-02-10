@@ -34,8 +34,9 @@ const SolicitudProv = () => {
             <section>
                 <div className="flex justify-center gap-3 flex-wrap">
                     {trabajos.length!=0 ? trabajos.map((tra, index)=>(
-                        <div key={index} className="w-[325px] h-[255px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
+                        <div key={index} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
                             <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold">{tra.servicio}</h1>
+                            <p className="text-center text-xl mt-1">Cliente: <span className="text-white">{tra.cliente.nombre} {tra.cliente.apellido}</span></p>
                             <div className="flex justify-around mt-2">
                                 <p className="font-semibold">Tipo: <span className="text-purple-700">{tra.tipo === 'precioPorDia' ? 'Por Día' : 'Por Horas'}</span></p>
                                 <p className="font-semibold">Fecha: <span className="text-purple-700">{tra.fecha.split('T')[0]}</span></p>
