@@ -92,7 +92,7 @@ const Inicio = () => {
                                 <b className="text-xl ml-5 text-yellow-500">${of.precioPorHora}</b>
                             </p>
                             <div className="flex justify-center mt-5">
-                                <button className="px-2 py-1 rounded-md bg-blue-700 text-white font-semibold hover:bg-blue-800 hover:scale-105 duration-300" onClick={()=>{handleModalTra(of._id);setModalTra(!modalTra)}}>Contratar</button>
+                                <button className="px-2 py-1 rounded-md bg-blue-700 text-white font-semibold hover:bg-blue-800 hover:scale-105 duration-300" onClick={()=>{handleModalTra(of._id);setModalTra(!modalTra)}}>Solicitar</button>
                             </div>
                             {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id}/>)}
                         </div>

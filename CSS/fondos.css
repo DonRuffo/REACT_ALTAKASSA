@@ -22,6 +22,12 @@
     animation: pulseGradient 4s ease-in-out infinite;
 }
 
+.radial-gradientTrabajos-bg {
+    background: radial-gradient(circle, #065F46, #10B981, #6EE7B7);
+    background-size: 150% 150%;
+    animation: pulseGradient 4s ease-in-out infinite;
+}
+
 @keyframes pulseGradient {
 
     0%,

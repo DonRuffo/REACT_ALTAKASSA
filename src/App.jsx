@@ -17,6 +17,7 @@ import PrivateProveedor from './routes/PrivateProveedor'
 import { OfertaProvider } from './context/OfertasProvider'
 import ListadoOfertas from './paginas/MisOfertas'
 import HistorialTrabajoCli from './paginas/HistorialTrabajosCli'
+import SolicitudProv from './paginas/SolicitudesProv'
 function App() {
 
   return (
@@ -45,6 +46,7 @@ function App() {
                       <Route path='configuracion' element={<Configuracion />} />
                       <Route path='ofertas' element={<ListadoOfertas />}/>
                       <Route path='historial'  element={<HistorialTrabajoCli />}/>
+                      <Route path='solicitudes/proveedor' element={<SolicitudProv />} />
                     </Route>
                   </Routes>
                 </ConfigAuth>
