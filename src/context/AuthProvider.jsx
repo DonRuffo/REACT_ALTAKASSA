@@ -32,7 +32,6 @@ const AuthProvider = ({children}) => {
             
             const respuesta = await axios.get(url, options)
             setAuth(respuesta.data)
-            console.log(auth._id)
         }catch(error){
             console.log(error);
         }
@@ -73,9 +72,10 @@ const AuthProvider = ({children}) => {
                 ...auth,
                 ...datos
             })
-            console.log(respuesta.data.msg)
+            toast.success(respuesta.data.msg)
         }catch(error){
             console.log(error)
+            toast.error(error.response.data.msg)
         }
     }
 
@@ -103,10 +103,13 @@ const AuthProvider = ({children}) => {
                 ...auth,
                 ...datos
             })
-            toast.success(respuesta.data.msg)   
+            toast.success(respuesta.data.msg)
         }catch(error){
             console.log(error)
-            toast.error(error.response.data.msg)
+
+            error.response.data.msg.forEach((mensaje)=>{
+                toast.error(mensaje)
+            })
         }
     }
     

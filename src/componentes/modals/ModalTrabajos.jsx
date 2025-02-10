@@ -13,13 +13,17 @@ const ModalTrabajos = ({ idOferta }) => {
         const tipoSeleccionado = event.target.value;
         setSelectedOption(tipoSeleccionado);
     
-        const nuevoPrecio = tipoSeleccionado === "precioPorDia" ? form.precioPorDia : form.precioPorHora;
+        setFormTrabajo(prev => {
+            const nuevoPrecio = tipoSeleccionado === "precioPorDia" 
+                ? form.precioPorDia 
+                : calcularPrecioPorHoras(prev);
     
-        setFormTrabajo((prev) => ({
-            ...prev,
-            tipo: tipoSeleccionado,
-            precioTotal: nuevoPrecio
-        }));
+            return {
+                ...prev,
+                tipo: tipoSeleccionado,
+                precioTotal: nuevoPrecio
+            };
+        });
     };
     
 
@@ -64,13 +68,33 @@ const ModalTrabajos = ({ idOferta }) => {
             console.log(error)
         }
     }
-
+    const calcularPrecioPorHoras = (trabajo) => {
+        const formato = "2024-01-01"; 
+        const desdeTime = new Date(`${formato}T${trabajo.desde}:00`);
+        const hastaTime = new Date(`${formato}T${trabajo.hasta}:00`);
+    
+        const diferenciaMs = hastaTime - desdeTime;
+        const diferenciaHoras = diferenciaMs / (1000 * 60 * 60);
+    
+        const tarifaPorHora = form.precioPorHora || 0;
+        
+        return diferenciaHoras * tarifaPorHora;
+    };
+    
     const handleChange = (e) => {
-        setFormTrabajo({
-            ...formTrabajo,
-            [e.target.name]: e.target.value
+        setFormTrabajo(prev => {
+            const nuevoEstado = {
+                ...prev,
+                [e.target.name]: e.target.value 
+             }
+            
+            if (e.target.name === "desde" || e.target.name === "hasta") {
+                nuevoEstado.precioTotal = calcularPrecioPorHoras(nuevoEstado)
+            }
+            return nuevoEstado
         })
-    }
+    };
+    
     const handleSubmitTrabajo = async (e) => {
         e.preventDefault()
         try {

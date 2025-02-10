@@ -55,6 +55,7 @@ const Configuracion = () => {
         e.preventDefault()
         try {
             const respuesta = await ActualizarPerfil(formPerfil)
+            console.log(respuesta)
         } catch (error) {
             console.log(error)
         }
@@ -64,9 +65,9 @@ const Configuracion = () => {
         e.preventDefault()
         try {
             const respuesta = await ActualizarContrasenia(formContra)
-
         } catch (error) {
             console.log(error)
+            
         }
     }
     useEffect(() => {
@@ -82,13 +83,13 @@ const Configuracion = () => {
     }, [modalPerfil]);
 
     return (
-        <>
+        <>  
             <div className="lg:hidden pb-2">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <h1 className="text-3xl font-semibold text-sky-600 pb-5">Configuración</h1>
-
+            <ToastContainer />
             <section className="flex flex-col md:flex-row justify-between">
                 <div className="w-full md:w-2/5 flex bg-white rounded-xl shadow-lg md:max-h-[115px] border border-gray-100 mb-8 md:mb-0">
                     <ul className="w-full p-2">
@@ -98,6 +99,15 @@ const Configuracion = () => {
                 </div>
                 <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-purple-400 p-5`}>
                     <h1 className="text-2xl text-center text-purple-800 font-semibold pb-5">Cambio de contraseña</h1>
+                    <div className="border px-3 py-2 mb-3 bg-slate-200 rounded-lg">
+                        <h1 className="font-bold">Tener en cuenta:</h1>
+                        <ul>
+                            <li>La contraseña debe tener al menos 10 caracteres.</li>
+                            <li>La contraseña debe contener al menos una letra mayúscula.</li>
+                            <li>La contraseña debe contener al menos una letra minúscula.</li>
+                            <li>La contraseña debe contener al menos un número.</li>
+                        </ul>
+                    </div>
                     <div className="w-full">
                         <form onSubmit={handleSubmitContrasenia}>
                             <div className="mb-3">
@@ -109,8 +119,8 @@ const Configuracion = () => {
                                 <input type="password" name="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none p-1" placeholder="******" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300 font-semibold">Cambiar</button>
-                                <button className="px-6 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300 font-semibold" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
+                                <button type="submit" className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300 font-semibold">Cambiar</button>
+                                <button type="button" className="px-6 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300 font-semibold" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
                             </div>
                         </form>
                     </div>
@@ -139,8 +149,8 @@ const Configuracion = () => {
                                 <input type="text" name="telefono" value={formPerfil.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 font-semibold">Actualizar</button>
-                                <button className="px-6 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 font-semibold" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
+                                <button type="submit" className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 font-semibold">Actualizar</button>
+                                <button type="button" className="px-6 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 font-semibold" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
                             </div>
                         </form>
 
