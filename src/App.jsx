@@ -21,6 +21,9 @@ import SolicitudProv from './paginas/SolicitudesProv'
 import PaginaInexistente from './paginas/NotFound'
 import RutasProveedor from './routes/RutasProveedor'
 import RutasCliente from './routes/RutasClientes'
+import Auth from './routes/Auth'
+import SolicitudesCli from './paginas/SolicitudesCliente'
+import ContratosCliente from './paginas/ContratosCliente'
 function App() {
 
   return (
@@ -29,7 +32,7 @@ function App() {
         <OfertaProvider>
           <Routes>
             <Route index element={<LandingPage />} />
-            <Route path='/'>
+            <Route path='/' element={<Auth />}>
               <Route path='login' element={<Login />} />
               <Route path='registro' element={<Registro />} />
               <Route path='recuperar' element={<Recuperar />} />
@@ -63,7 +66,16 @@ function App() {
                           <HistorialTrabajoCli />
                         </RutasCliente>
                       } />
-
+                      <Route path='solicitudes/cliente' element={
+                        <RutasCliente>
+                          <SolicitudesCli />
+                        </RutasCliente>
+                      } />
+                      <Route path='contratos/cliente' element={
+                        <RutasCliente>
+                          <ContratosCliente />
+                        </RutasCliente>
+                      } />
                       <Route path='configuracion' element={<Configuracion />} />
                       <Route path='no-encontrado' element={<PaginaInexistente />} />
                     </Route>

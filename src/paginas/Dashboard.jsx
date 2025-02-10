@@ -30,6 +30,12 @@ const Dashboard = () => {
                             <Link to='/dashboard/solicitudes/proveedor' className={`${auth.rol === 'proveedor' ? 'block' : 'hidden'} py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1`}>
                                 <img src={logoHistorial} alt="Historial" width={26} height={26} /><p className=" px-2">Solicitudes</p>
                             </Link>
+                            <Link to='/dashboard/solicitudes/cliente' className={`${auth.rol === 'cliente' ? 'block' : 'hidden'} py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1`}>
+                                <img src={logoHistorial} alt="Historial" width={26} height={26} /><p className=" px-2">Solicitudes</p>
+                            </Link>
+                            <Link to='/dashboard/contratos/cliente' className={`${auth.rol === 'cliente' ? 'block' : 'hidden'} py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1`}>
+                                <img src={logoHistorial} alt="Historial" width={26} height={26} /><p className=" px-2">Contratos</p>
+                            </Link>
                             <Link to='/dashboard/historial' className={`${auth.rol === 'cliente' ? 'block' : 'hidden'} py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1`}>
                                 <img src={logoHistorial} alt="Historial" width={26} height={26} /><p className=" px-2">Historial</p>
                             </Link>
