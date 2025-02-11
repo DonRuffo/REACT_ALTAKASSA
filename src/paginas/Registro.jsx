@@ -29,12 +29,10 @@ const Registro = () => {
         const Perfil = document.getElementById('perfil').value
         let url
         try {
-            if (Perfil == 'Proveedor') {
+            if (Perfil === 'Proveedor') {
                 url = `${import.meta.env.VITE_BACKEND_URL}/registroProveedor`
-            } else if (Perfil == 'Cliente') {
+            } else if (Perfil === 'Cliente') {
                 url = `${import.meta.env.VITE_BACKEND_URL}/registroCliente`
-            }else if (Perfil == 'Administrador') {
-                url = `${import.meta.env.VITE_BACKEND_URL}/registro`
             }
             const respuesta = await axios.post(url, form)
             toast.success(respuesta.data.msg)
@@ -61,7 +59,6 @@ const Registro = () => {
                                 <select name="perfil" id="perfil" className='block py-1 px-1 w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 text-gray-500'>
                                     <option className='hover:bg-green-700' value="Proveedor">Proveedor</option>
                                     <option value="Cliente" className='hover:bg-green-700'>Cliente</option>
-                                    <option value="Administrador" className='hover:bg-green-700'>Administrador</option>
                                 </select>
                             </div>
                             <div className="my-3 grid grid-cols-2">
