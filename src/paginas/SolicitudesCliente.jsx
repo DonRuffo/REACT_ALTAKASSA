@@ -66,9 +66,9 @@ const SolicitudesCli = () => {
                 <p className="text-xl text-center font-semibold mb-5">Auí podrás visualizar tus solicitudes de trabajo</p>
                 <div className="flex justify-center gap-3 flex-wrap">
                     {trabajos.length !== 0 ? trabajos.some(tra => tra.status === "En espera") ? (
-                        trabajos.map((tra, index) => (
+                        trabajos.map((tra) => (
                             tra.status === "En espera" && (
-                                <div key={index} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
+                                <div key={tra._id} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
                                     <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold">{tra.servicio}</h1>
                                     <p className="text-center text-xl mt-1">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                     <div className="flex justify-around mt-2">

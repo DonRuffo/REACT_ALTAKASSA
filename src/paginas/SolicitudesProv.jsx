@@ -82,9 +82,9 @@ const SolicitudProv = () => {
                 <div className="flex justify-center gap-3 flex-wrap">
                     {trabajos.length !== 0 ?
                         trabajos.some(tra => tra.status === "En espera") ? (
-                            trabajos.map((tra, index) => (
+                            trabajos.map((tra) => (
                                 tra.status === "En espera" && (
-                                    <div key={index} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
+                                    <div key={tra._id} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
                                     <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold">{tra.servicio}</h1>
                                     <p className="text-center text-xl mt-1">Cliente: <span className="text-white">{tra.cliente.nombre} {tra.cliente.apellido}</span></p>
                                     <div className="flex justify-around mt-2">
@@ -107,12 +107,12 @@ const SolicitudProv = () => {
                             )
                             )) : (
                             <div className="w-[330px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
-                                <p className="text-lg text-gray-700 font-semibold">No hay solicitudes recientes</p>
+                                <p className="text-lg text-gray-700 font-semibold">Todos los trabajos están en espera</p>
                             </div>
                         )
                         : (
                             <div className="w-[330px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
-                                <p className="text-lg text-gray-700 font-semibold">Todos los trabajos están en espera</p>
+                                <p className="text-lg text-gray-700 font-semibold">No hay solicitudes recientes</p>
                             </div>
                         )}
                 </div>

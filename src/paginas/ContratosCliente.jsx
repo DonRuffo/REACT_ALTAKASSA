@@ -75,9 +75,9 @@ const ContratosCliente = () => {
                 <div className="flex justify-center flex-wrap gap-3">
                     {trabajos.length !== 0 ? (
                         trabajos.some(tra => tra.status !== "En espera") ? (
-                            trabajos.map((tra, index) => (
+                            trabajos.map((tra) => (
                                 (tra.status === "Rechazado" && (selectedOption === "Rechazadas" || selectedOption === "Todas") && (
-                                    <div key={index} className="w-[330px] h-[285px] radial-gradientRechazados-bg rounded-lg shadow-lg shadow-purple-400">
+                                    <div key={tra._id} className="w-[330px] h-[285px] radial-gradientRechazados-bg rounded-lg shadow-lg shadow-purple-400">
                                         <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                         <div className="flex justify-around mt-2">
@@ -99,7 +99,7 @@ const ContratosCliente = () => {
                                     </div>
                                 ))
                                 || (tra.status === "Agendado" && (selectedOption === "Aceptadas" || selectedOption === "Todas") && (
-                                    <div key={index} className="w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-green-400">
+                                    <div key={tra._id} className="w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-green-400">
                                         <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                         <div className="flex justify-around mt-2">

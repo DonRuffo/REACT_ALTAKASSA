@@ -30,9 +30,9 @@ const ContratosProv = () => {
                 <h1 className="text-center text-purple-800 font-semibold text-3xl mb-3">Trabajos actuales</h1>
                 <h2 className="text-xl mb-5 text-center">Aquí podrás ver tus trabajos agendados</h2>
                 <div className="flex justify-center flex-wrap gap-3">
-                    {trabajos.length!==0 ? trabajos.map((tra, index) => (
+                    {trabajos.length!==0 ? trabajos.map((tra) => (
                         tra.status === "Agendado" && (
-                            <div key={index} className="w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-purple-400">
+                            <div key={tra._id} className="w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-purple-400">
                                 <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                 <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                 <div className="flex justify-around mt-2">
