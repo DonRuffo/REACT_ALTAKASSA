@@ -1,19 +1,27 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import '../../CSS/fondos.css'
+import OfertaContext from "../context/OfertasProvider";
+import ModalActualizar from "../componentes/modals/ModalActualizar";
 
 const SolicitudesCli = () => {
     const [trabajos, setTrabajos] = useState([])
     const [trabajoSeleccionado, setTrabajoSeleccioando] = useState(null)
+    const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
+    const {modalTraActual, setModalTraActual} = useContext(OfertaContext)
 
     const seleccionarTrabajo = (id) => {
         setTrabajoSeleccioando(id)
     }
 
-    const ObtenerTrabajos = async () => {
+    const seleccionarOferta = (id) =>{
+        setOfertaSeleccionada(id)
+    }
+    
+    const ObtenerTrabajosCli = async () => {
         try {
             const token = localStorage.getItem('token')
-            const url = "http://localhost:5000/api/trabajos-cliente"
+            const url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-cliente`
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,7 +40,7 @@ const SolicitudesCli = () => {
         if (confirmar) {
             try {
                 const token = localStorage.getItem('token')
-                const url = `http://localhost:5000/api/eliminarTrabajo/${id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/eliminarTrabajo/${id}`
                 const options = {
                     headers: {
                         'Content-Type': 'application/json',
@@ -40,7 +48,7 @@ const SolicitudesCli = () => {
                     }
                 }
                 const respuesta = await axios.delete(url, options)
-                ObtenerTrabajos()
+                ObtenerTrabajosCli()
             } catch (error) {
                 console.log(error);
 
@@ -49,7 +57,7 @@ const SolicitudesCli = () => {
     }
 
     useEffect(() => {
-        ObtenerTrabajos()
+        ObtenerTrabajosCli()
     }, [])
     return (
         <>
@@ -70,14 +78,15 @@ const SolicitudesCli = () => {
                                     <p className="text-center font-semibold">Horario: <span className="text-white">{tra.desde} - {tra.hasta}</span></p>
                                     <div className="flex justify-center mt-3">
                                         <h1 className="text-5xl font-semibold">
-                                            ${tra.precioTotal}
+                                            ${tra.precioTotal = Math.round(tra.precioTotal * 100)/100}
                                         </h1>
                                     </div>
                                     <p className="text-center">Precio Total</p>
                                     <div className="flex justify-around mt-3">
-                                        <button className="px-3 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300">Actualizar</button>
+                                        <button className="px-3 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300" onClick={()=>{seleccionarTrabajo(tra._id);seleccionarOferta(tra.oferta._id)  ;setModalTraActual(!modalTraActual)}}>Actualizar</button>
                                         <button type="button" className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300" onClick={() => { EliminarTrabajo(tra._id, tra.servicio) }}>Eliminar</button>
                                     </div>
+                                    {trabajoSeleccionado === tra._id && ofertaSeleccionada === tra.oferta._id && modalTraActual && (<ModalActualizar idTrabajo={tra._id} idOferta={tra.oferta._id} actualizar={ObtenerTrabajosCli}/>)}
                                 </div>
                             )
                         ))
@@ -89,6 +98,7 @@ const SolicitudesCli = () => {
                         </div>
                     )}
                 </div>
+
             </section >
         </>
     )

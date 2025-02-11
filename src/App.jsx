@@ -18,12 +18,14 @@ import { OfertaProvider } from './context/OfertasProvider'
 import ListadoOfertas from './paginas/MisOfertas'
 import HistorialTrabajoCli from './paginas/HistorialTrabajosCli'
 import SolicitudProv from './paginas/SolicitudesProv'
-import PaginaInexistente from './paginas/NotFound'
+import PaginaNoPermitida from './paginas/PaginaNoPermitida'
 import RutasProveedor from './routes/RutasProveedor'
 import RutasCliente from './routes/RutasClientes'
 import Auth from './routes/Auth'
 import SolicitudesCli from './paginas/SolicitudesCliente'
 import ContratosCliente from './paginas/ContratosCliente'
+import ContratosProv from './paginas/ContratosProveedor'
+import NotFound from './paginas/NotFound'
 function App() {
 
   return (
@@ -38,6 +40,7 @@ function App() {
               <Route path='recuperar' element={<Recuperar />} />
               <Route path='confirmar/:token' element={<Confirmar />} />
               <Route path='restablecer/:token' element={<Restablecer />} />
+              <Route path='*' element={<NotFound />} />
             </Route>
             <Route path='dashboard/*' element={
               <PrivateRoutes>
@@ -54,10 +57,16 @@ function App() {
                           <ListadoOfertas />
                         </RutasProveedor>
                       } />
-                      
+
                       <Route path='solicitudes/proveedor' element={
                         <RutasProveedor>
                           <SolicitudProv />
+                        </RutasProveedor>
+                      } />
+
+                      <Route path='contratos/proveedor' element={
+                        <RutasProveedor>
+                          <ContratosProv />
                         </RutasProveedor>
                       } />
 
@@ -77,7 +86,8 @@ function App() {
                         </RutasCliente>
                       } />
                       <Route path='configuracion' element={<Configuracion />} />
-                      <Route path='no-encontrado' element={<PaginaInexistente />} />
+                      <Route path='no-encontrado' element={<PaginaNoPermitida />} />
+                      <Route path='*' element={<NotFound />} />
                     </Route>
                   </Routes>
                 </ConfigAuth>

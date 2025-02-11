@@ -14,7 +14,7 @@ const ContratosCliente = () => {
     const ObtenerTrabajos = async () => {
         try {
             const token = localStorage.getItem('token')
-            const url = "http://localhost:5000/api/trabajos-cliente"
+            const url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-cliente`
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ const ContratosCliente = () => {
         if (confirmar) {
             try {
                 const token = localStorage.getItem('token')
-                const url = `http://localhost:5000/api/eliminarTrabajo/${id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/eliminarTrabajo/${id}`
                 const options = {
                     headers: {
                         'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const ContratosCliente = () => {
     return (
         <>
             <section>
-                <h1 className="text-center text-purple-800 font-semibold text-2xl my-2">Contratos actuales</h1>
+                <h1 className="text-center text-purple-800 font-semibold text-2xl my-2">Trabajos actuales</h1>
                 <p className="text-center font-semibold text-xl mb-5">Aquí podrás ver las solicitudes que han sido aceptadas o rechazadas por los proveedores</p>
                 <div className="flex gap-2 mb-5">
                     <label className="has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-800 has-[input:checked]:bg-purple-50  w-36 border-2 rounded-md px-2 py-1 flex justify-between items-center">
@@ -86,7 +86,7 @@ const ContratosCliente = () => {
                                         </div>
                                         <p className="text-center font-semibold">Horario: <span className="text-red-700">{tra.desde} - {tra.hasta}</span></p>
                                         <div className="flex justify-around items-center mt-3">
-                                            <h1 className="text-5xl font-semibold">${tra.precioTotal}</h1>
+                                            <h1 className="text-5xl font-semibold">${tra.precioTotal = Math.round(tra.precioTotal * 100)/100}</h1>
                                             <h1 className="text-2xl font-semibold">{tra.status}</h1>
                                         </div>
                                         <div className="flex">
@@ -108,7 +108,7 @@ const ContratosCliente = () => {
                                         </div>
                                         <p className="text-center font-semibold">Horario: <span className="text-red-700">{tra.desde} - {tra.hasta}</span></p>
                                         <div className="flex justify-around items-center mt-3">
-                                            <h1 className="text-5xl font-semibold">${tra.precioTotal}</h1>
+                                            <h1 className="text-5xl font-semibold">${tra.precioTotal = Math.round(tra.precioTotal * 100)/100}</h1>
                                             <h1 className="text-2xl font-semibold">{tra.status}</h1>
                                         </div>
                                         <div className="flex">
@@ -129,7 +129,7 @@ const ContratosCliente = () => {
                         )
                     ) : (
                         <div className="w-[330px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
-                            <p className="text-lg bg-gray-700 tex-center font-semibold">No existen trabajos solicitados</p>
+                            <p className="text-lg text-gray-700 tex-center font-semibold">No existen trabajos solicitados</p>
                         </div>
                     )}
 

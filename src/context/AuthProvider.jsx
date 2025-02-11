@@ -17,11 +17,11 @@ const AuthProvider = ({children}) => {
         let url
         try{
             if(rol === "proveedor"){
-                url = "http://localhost:5000/api/perfil-proveedor"    
+                url = `${import.meta.env.VITE_BACKEND_URL}/perfil-proveedor`    
             }else if(rol === "cliente"){
-                url = "http://localhost:5000/api/perfilCliente"
+                url = `${import.meta.env.VITE_BACKEND_URL}/perfilCliente`
             }else if(rol === "administrador"){
-                url = "http://localhost:5000/api/perfil-admin"
+                url = `${import.meta.env.VITE_BACKEND_URL}/perfil-admin`
             }
             const options={
                 headers:{
@@ -53,11 +53,11 @@ const AuthProvider = ({children}) => {
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
         if(rol === "proveedor"){
-            url = "http://localhost:5000/api/actualizar-perfilProveedor"
+            url = `${import.meta.env.VITE_BACKEND_URL}/actualizar-perfilProveedor`
         }else if(rol === "cliente"){
-            url = "http://localhost:5000/api/actualizarPerfilCliente"
+            url = `${import.meta.env.VITE_BACKEND_URL}/actualizarPerfilCliente`
         }else if(rol === "administrador"){
-            url = "http://localhost:5000/api/actualizar-perfil"
+            url = `${import.meta.env.VITE_BACKEND_URL}/api/actualizar-perfil`
         }
         try{
             const options ={
@@ -76,6 +76,9 @@ const AuthProvider = ({children}) => {
         }catch(error){
             console.log(error)
             toast.error(error.response.data.msg)
+            error.response.data.msg.forEach((mensaje)=>{
+                toast.error(mensaje)
+            })
         }
     }
 
@@ -84,11 +87,11 @@ const AuthProvider = ({children}) => {
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
         if(rol === "proveedor"){
-            url = "http://localhost:5000/api/actualizar-contraseniaProveedor"
+            url = `${import.meta.env.VITE_BACKEND_URL}/actualizar-contraseniaProveedor`
         }else if(rol === "cliente"){
-            url = "http://localhost:5000/api/actualizarPasswordCliente'"
+            url = `${import.meta.env.VITE_BACKEND_URL}/actualizarPasswordCliente`
         }else if(rol === "administrador"){
-            url = "http://localhost:5000/api/actualizar-contrasenia"
+            url = `${import.meta.env.VITE_BACKEND_URL}/actualizar-contrasenia`
         }   
         try{
             const options ={

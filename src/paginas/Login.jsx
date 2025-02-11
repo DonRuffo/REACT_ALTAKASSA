@@ -28,13 +28,13 @@ const Login = () => {
         let url
         try {
             if (perfil === 'Proveedor') {
-                url = "http://localhost:5000/api/loginProveedor"
+                url = `${import.meta.env.VITE_BACKEND_URL}/loginProveedor`
                 
             } else if (perfil === 'Cliente') {
-                url = "http://localhost:5000/api/loginCliente"
+                url = `${import.meta.env.VITE_BACKEND_URL}/loginCliente`
                 
             } else if (perfil === 'Administrador') {
-                url = "http://localhost:5000/api/login"
+                url = `${import.meta.env.VITE_BACKEND_URL}/login`
                 
             }
             const respuesta = await axios.post(url, form)

@@ -9,7 +9,7 @@ const SolicitudProv = () => {
     const ObtenerTrabajos = async () => {
         try {
             const token = localStorage.getItem('token')
-            const url = "http://localhost:5000/api/trabajos-proveedor"
+            const url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-proveedor`
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const SolicitudProv = () => {
         if (confirmar) {
             try {
                 const token = localStorage.getItem('token')
-                const url = `http://localhost:5000/api/agendarTrabajo/${id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/agendarTrabajo/${id}`
                 const options = {
                     headers: {
                         method: 'PUT',
@@ -55,7 +55,7 @@ const SolicitudProv = () => {
         if (confirmar) {
             try {
                 const token = localStorage.getItem('token')
-                const url = `http://localhost:5000/api/rechazarTrabajo/${id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/rechazarTrabajo/${id}`
                 const options = {
                     headers: {
                         method: 'PUT',
@@ -94,7 +94,7 @@ const SolicitudProv = () => {
                                     <p className="text-center font-semibold">Horario: <span className="text-white">{tra.desde} - {tra.hasta}</span></p>
                                     <div className="flex justify-center mt-3">
                                         <h1 className="text-5xl font-semibold">
-                                            ${tra.precioTotal}
+                                            ${tra.precioTotal = Math.round(tra.precioTotal * 100)/100}
                                         </h1>
                                     </div>
                                     <p className="text-center">Precio Total</p>

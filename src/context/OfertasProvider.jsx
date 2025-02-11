@@ -7,6 +7,7 @@ const OfertaProvider = ({children}) =>{
     const[modalOf, setModalOf] = useState(false)
     const[modalEditOf, setModalEditOf] = useState(false)
     const[modalTra, setModalTra] = useState(false)
+    const[modalTraActual, setModalTraActual] = useState(false)
 
     const handleModalOf = () =>{
         setModalOf(!modalOf)
@@ -19,6 +20,10 @@ const OfertaProvider = ({children}) =>{
         setModalTra(!modalTra)
     }
 
+    const handleModalTraActual = () => {
+        setModalTraActual(!modalTraActual)
+    }
+
     return(
         <OfertaContext.Provider value={{
             handleModalOf,
@@ -29,7 +34,10 @@ const OfertaProvider = ({children}) =>{
             setModalEditOf,
             handleModalTra,
             modalTra,
-            setModalTra
+            setModalTra,
+            handleModalTraActual,
+            modalTraActual,
+            setModalTraActual
         }}>
             {children}
         </OfertaContext.Provider>

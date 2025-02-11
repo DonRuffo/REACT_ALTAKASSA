@@ -26,11 +26,11 @@ const Restablecer = () => {
         try {
             const usuario = localStorage.getItem('userR')
             if(usuario === 'proveedor'){
-                url = `http://localhost:5000/api/restablecer-contrasenia-prov/${token}`
+                url = `${import.meta.env.VITE_BACKEND_URL}/restablecer-contrasenia-prov/${token}`
             }else if(usuario === 'cliente'){
-                url = `http://localhost:5000/api/restablecerPasswordCliente/${token}`
+                url = `${import.meta.env.VITE_BACKEND_URL}/restablecerPasswordCliente/${token}`
             }else if(usuario === 'administrador'){
-                url = `http://localhost:5000/api/restablecer-contrasenia/${token}`
+                url = `${import.meta.env.VITE_BACKEND_URL}/restablecer-contrasenia/${token}`
             }
             
             const respuesta = await axios.post(url, form)

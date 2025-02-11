@@ -14,11 +14,11 @@ const Recuperar = () => {
         let url
         try {
             if(perfil==='proveedor'){
-                url = `http://localhost:5000/api/recuperar-contrasenia-prov`
+                url = `${import.meta.env.VITE_BACKEND_URL}/recuperar-contrasenia-prov`
             }else if(perfil === 'cliente'){
-                url = `http://localhost:5000/api/recuperarPasswordCliente`
+                url = `${import.meta.env.VITE_BACKEND_URL}/recuperarPasswordCliente`
             }else if(perfil === ' administrador'){
-                url = `http://localhost:5000/api/recuperar-contrasenia`
+                url = `${import.meta.env.VITE_BACKEND_URL}/recuperar-contrasenia`
             }
             console.log(url)
             const respuesta = await axios.post(url, mail)

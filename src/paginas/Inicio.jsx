@@ -18,7 +18,7 @@ const Inicio = () => {
     const ListarOfertas = async () => {
         try {
             const token = localStorage.getItem('token')
-            const url = "http://localhost:5000/api/listarOfertas"
+            const url = `${import.meta.env.VITE_BACKEND_URL}/listarOfertas`
             const options = {
                 headers: {
                     "Content-Type": "application/json",

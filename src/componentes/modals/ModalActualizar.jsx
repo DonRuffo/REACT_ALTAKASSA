@@ -1,33 +1,21 @@
-import React, { useContext } from "react";
-import { useState, useEffect } from "react";
-import OfertaContext from "../../context/OfertasProvider";
 import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import OfertaContext from "../../context/OfertasProvider";
 import { ToastContainer, toast } from "react-toastify";
 
-const ModalTrabajos = ({ idOferta }) => {
-    const { modalTra, setModalTra } = useContext(OfertaContext)
+const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
     const [selectedOption, setSelectedOption] = useState('');
+    const { modalTraActual, setModalTraActual } = useContext(OfertaContext)
+    const [formTrabajo, setFormTrabajo] = useState({
+        fecha: "",
+        servicio: "",
+        tipo: "",
+        precioTotal: null,
+        desde: "08:00",
+        hasta: "17:00"
+    })
 
-
-    const handleRadioChange = (event) => {
-        const tipoSeleccionado = event.target.value;
-        setSelectedOption(tipoSeleccionado);
-
-        setFormTrabajo(prev => {
-            const nuevoPrecio = tipoSeleccionado === "precioPorDia"
-                ? form.precioPorDia
-                : calcularPrecioPorHoras(prev);
-
-            return {
-                ...prev,
-                tipo: tipoSeleccionado,
-                precioTotal: nuevoPrecio
-            };
-        });
-    };
-
-
-    const [form, setForm] = useState({
+    const [formOferta, setFormOferta] = useState({
         proveedor: {
             nombre: "",
             apellido: "",
@@ -38,16 +26,30 @@ const ModalTrabajos = ({ idOferta }) => {
         servicio: "",
         descripcion: ""
     })
-
-    const [formTrabajo, setFormTrabajo] = useState({
-        oferta: idOferta,
-        fecha: "",
-        servicio: "",
-        tipo: "",
-        precioTotal: null,
-        desde: "08:00",
-        hasta: "17:00"
-    })
+    const ObtenerTrabajo = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            const url = `${import.meta.env.VITE_BACKEND_URL}/verTrabajo/${idTrabajo}`
+            const options = {   
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.get(url, options)
+            setFormTrabajo({
+                ...formTrabajo,
+                fecha:new Date(respuesta.data.fecha).toISOString().split('T')[0],
+                servicio:respuesta.data.servicio,
+                tipo:respuesta.data.tipo,
+                precioTotal:respuesta.data.precioTotal,
+                desde:respuesta.data.desde,
+                hasta:respuesta.data.hasta
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
     const ObtenerOferta = async () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/verOferta/${idOferta}`
@@ -59,69 +61,99 @@ const ModalTrabajos = ({ idOferta }) => {
                 }
             }
             const respuesta = await axios.get(url, options)
-            setForm(respuesta.data)
-            setFormTrabajo({
-                ...formTrabajo,
-                servicio: respuesta.data.servicio
-            })
+            setFormOferta(respuesta.data)
         } catch (error) {
             console.log(error)
         }
     }
-    const calcularPrecioPorHoras = (trabajo) => {
-        const formato = "2024-01-01";
-        const desdeTime = new Date(`${formato}T${trabajo.desde}:00`);
-        const hastaTime = new Date(`${formato}T${trabajo.hasta}:00`);
-
-        const diferenciaMs = hastaTime - desdeTime;
-        const diferenciaHoras = diferenciaMs / (1000 * 60 * 60);
-
-        const tarifaPorHora = form.precioPorHora || 0;
-
-        return diferenciaHoras * tarifaPorHora;
-    };
-
-    const handleChange = (e) => {
-        setFormTrabajo(prev => {
-            const nuevoEstado = {
-                ...prev,
-                [e.target.name]: e.target.value
-            }
-
-            if (e.target.name === "desde" || e.target.name === "hasta") {
-                nuevoEstado.precioTotal = calcularPrecioPorHoras(nuevoEstado)
-            }
-            return nuevoEstado
-        })
-    };
 
     const handleSubmitTrabajo = async (e) => {
         e.preventDefault()
         try {
             const token = localStorage.getItem('token')
-            const url = `${import.meta.env.VITE_BACKEND_URL}/crearTrabajo`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/actualizarTrabajo/${idTrabajo}`
             const options = {
                 headers: {
-                    method: 'POST',
+                    method: 'PUT',
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
             }
-            const respuesta = await axios.post(url, formTrabajo, options)
+            const respuesta = await axios.put(url, formTrabajo, options)
             toast.success(respuesta.data.msg)
+            actualizar()
         } catch (error) {
-            console.log(error)
+            console.log(error);
             toast.error(error.response.data.msg)
-            error.response.data.msg.forEach((mensaje) => {
-                toast.error(mensaje)
-            })
         }
-
     }
+    const calcularPrecioPorHoras = (trabajo) => {
+        if (!trabajo.desde || !trabajo.hasta) return 0
+    
+        const formato = "2024-01-01";
+        const desdeTime = new Date(`${formato}T${trabajo.desde}:00`)
+        const hastaTime = new Date(`${formato}T${trabajo.hasta}:00`)
+    
+        if (isNaN(desdeTime) || isNaN(hastaTime)) return 0
+    
+        const diferenciaMs = hastaTime - desdeTime;
+        const diferenciaHoras = diferenciaMs / (1000 * 60 * 60);
+    
+        const tarifaPorHora = parseFloat(formOferta.precioPorHora) || 0; 
+        return diferenciaHoras * tarifaPorHora;
+    };
+    
 
+    const handleChange = (e) => {
+        setFormTrabajo(prev => {
+            const nuevoObjeto = {
+                ...prev,
+                [e.target.name]: e.target.value
+            }
+
+            if (e.target.name === "desde" || e.target.name === "hasta") {
+                nuevoObjeto.precioTotal = calcularPrecioPorHoras(prev)
+            }
+            return nuevoObjeto
+        })
+    }
+    const handleRadioChange = (event) => {
+        const tipoSeleccionado = event.target.value;
+        setSelectedOption(tipoSeleccionado);
+        console.log(formTrabajo)
+        setFormTrabajo(prev => {
+            const nuevoPrecio = tipoSeleccionado === "precioPorDia"
+                ? parseFloat(formOferta.precioPorDia) || 0
+                : calcularPrecioPorHoras(prev);
+    
+            return {
+                ...prev,
+                tipo: tipoSeleccionado,
+                precioTotal: nuevoPrecio
+            };
+        });
+    };
+    
     useEffect(() => {
-        if (idOferta) ObtenerOferta();
-    }, [idOferta]);
+        ObtenerOferta().then(() => {
+            ObtenerTrabajo();
+        });
+    }, []);
+    
+    useEffect(() => {
+        if (formTrabajo.tipo === "precioPorHora") {
+            setFormTrabajo(prev => ({
+                ...prev,
+                precioTotal: calcularPrecioPorHoras(prev)
+            }));
+        } else if (formTrabajo.tipo === "precioPorDia") {
+            setFormTrabajo(prev => ({
+                ...prev,
+                precioTotal: parseFloat(formOferta.precioPorDia) || 0
+            }));
+        }
+    }, [formTrabajo.desde, formTrabajo.hasta, formTrabajo.tipo]);
+
     return (
         <>
             <div className="fixed bg-black bg-opacity-50 inset-0 transition-all duration-300">
@@ -178,8 +210,8 @@ const ModalTrabajos = ({ idOferta }) => {
                                 )}
                                 <div className="mb-3 mt-7">
                                     <div className="flex justify-around">
-                                        <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalTra(false) }, 5000) }}>Crear</button>
-                                        <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalTra(!modalTra) }}>Cerrar</button>
+                                        <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalTraActual(false) }, 5000) }}>Actualizar</button>
+                                        <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalTraActual(!modalTraActual) }}>Cerrar</button>
                                     </div>
                                 </div>
                             </form>
@@ -197,32 +229,33 @@ const ModalTrabajos = ({ idOferta }) => {
                                     <tbody className="text-center font-semibold">
                                         <tr>
                                             <td>Servicio</td>
-                                            <td className="text-yellow-700">{form.servicio}</td>
+                                            <td className="text-yellow-700">{formOferta.servicio}</td>
                                         </tr>
                                         <tr>
                                             <td>Proveedor</td>
-                                            <td className="text-yellow-700">{form.proveedor.nombre} {form.proveedor.apellido}</td>
+                                            <td className="text-yellow-700">{formOferta.proveedor.nombre} {formOferta.proveedor.apellido}</td>
                                         </tr>
                                         <tr>
                                             <td>Precio/Dia</td>
-                                            <td className="text-green-700">${form.precioPorDia}</td>
+                                            <td className="text-green-700">${formOferta.precioPorDia}</td>
                                         </tr>
                                         <tr>
                                             <td>Precio/Hora</td>
-                                            <td className="text-green-700">${form.precioPorHora}</td>
+                                            <td className="text-green-700">${formOferta.precioPorHora}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <h1 className="font-semibold ml-5">Descripción</h1>
-                            <p className="ml-5">{form.descripcion}</p>
+                            <p className="ml-5">{formOferta.descripcion}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </>
     )
+
 }
 
 
-export default ModalTrabajos
+export default ModalActualizar

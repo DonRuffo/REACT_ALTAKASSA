@@ -14,11 +14,11 @@ const Confirmar = () => {
         const usuario = localStorage.getItem('usuario')
         try {
             if(usuario === 'proveedor'){
-                url = `http://localhost:5000/api/confirmarProveedor/${token}`
+                url = `${import.meta.env.VITE_BACKEND_URL}/confirmarProveedor/${token}`
             }else if(usuario === 'cliente'){
-                url = `http://localhost:5000/api/confirmarCliente/${token}`
+                url = `${import.meta.env.VITE_BACKEND_URL}/confirmarCliente/${token}`
             }else if(usuario === 'administrador'){
-                url = `http://localhost:5000/api/confirmar/${token}`
+                url = `${import.meta.env.VITE_BACKEND_URL}/confirmar/${token}`
             }
             console.log(url)
             const respuesta = await axios.get(url)
@@ -43,7 +43,7 @@ const Confirmar = () => {
                     </div>
                     <h1 className="text-3xl text-sky-600 pt-5 font-semibold">Gracias por Confirmar</h1>
                     <p className="text-slate-600 text-xl pb-5">Ya puedes iniciar sesión</p>
-                    <Link className="p-2 bg-sky-600 text-white rounded-lg hover:bg-sky-800 duration-300" to='/login'>Iniciar Sesión</Link>
+                    <Link className="p-2 bg-sky-600 text-white rounded-lg hover:bg-sky-800 duration-300" to='/login' replace>Iniciar Sesión</Link>
                 </div>
             </div>
         </>

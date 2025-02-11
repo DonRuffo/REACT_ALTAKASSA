@@ -14,7 +14,7 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
     const {setModalEditOf, modalEditOf} = useContext(OfertaContext)
     const ObtenerOferta = async () =>{
         try{
-            const url = `http://localhost:5000/api/verOferta/${idOferta}`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/verOferta/${idOferta}`
             const token = localStorage.getItem('token')
             const options = {
                 headers: {
@@ -33,7 +33,7 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
         e.preventDefault()
         try{
             const token = localStorage.getItem('token')
-            const url = `http://localhost:5000/api/actualizarOferta/${idOferta}`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/actualizarOferta/${idOferta}`
             const options = {
                 headers: {
                     method:'PUT',
@@ -90,7 +90,7 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
-                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={()=>{setTimeout(()=>{setModalEditOf(false)}, 3000)}}>Actualizar</button>
+                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={()=>{setTimeout(()=>{setModalEditOf(false)}, 5000)}}>Actualizar</button>
                                 <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalEditOf(!modalEditOf) }}>Cerrar</button>
                             </div>
                         </div>

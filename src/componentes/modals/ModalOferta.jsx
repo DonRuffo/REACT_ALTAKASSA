@@ -6,7 +6,6 @@ import OfertaContext from "../../context/OfertasProvider";
 
 const ModalOferta = () => {
 
-    const { auth } = useContext(AuthContext)
     const { modalOf, setModalOf } = useContext(OfertaContext)
     const [formOf, setFormOf] = useState({
         precioPorDia: "",
@@ -18,7 +17,7 @@ const ModalOferta = () => {
     const handleCreateOferta = async (e) => {
         e.preventDefault()
         try {
-            const url = 'http://localhost:5000/api/crearOferta'
+            const url = `${import.meta.env.VITE_BACKEND_URL}/crearOferta`
             const token = localStorage.getItem('token')
             const options = {
                 headers: {
@@ -32,6 +31,9 @@ const ModalOferta = () => {
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
+            error.response.data.msg.forEach((mensaje) => {
+                toast.error(mensaje)
+            })
         }
 
     }
@@ -73,7 +75,7 @@ const ModalOferta = () => {
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
-                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={()=>{setTimeout(()=>{setModalOf(false)}, 3000)}}>Crear</button>
+                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalOf(false) }, 5000) }}>Crear</button>
                                 <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalOf(!modalOf) }}>Cerrar</button>
                             </div>
                         </div>
