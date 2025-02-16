@@ -72,7 +72,8 @@ const OfertaProvider = ({children}) =>{
             modalTraActual,
             setModalTraActual,
             trabajos,
-            setTrabajos
+            setTrabajos,
+            ObtenerTrabajos
         }}>
             {children}
         </OfertaContext.Provider>
