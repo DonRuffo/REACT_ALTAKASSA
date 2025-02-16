@@ -1,32 +1,16 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import '../../CSS/fondos.css'
+import OfertaContext from "../context/OfertasProvider";
 
 const ContratosCliente = () => {
 
-    const [trabajos, setTrabajos] = useState([])
+    const {trabajos, setTrabajos} = useContext(OfertaContext)
     const [selectedOption, setSelectedOption] = useState('')
 
     const handleRadioChange = (e) => {
         const tipo = e.target.value
         setSelectedOption(tipo)
-    }
-    const ObtenerTrabajos = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-cliente`
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-            const respuesta = await axios.get(url, options)
-            setTrabajos(respuesta.data)
-
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     const EliminarTrabajo = async (id, indx) => {
@@ -49,10 +33,6 @@ const ContratosCliente = () => {
             }
         }
     }
-
-    useEffect(() => {
-        ObtenerTrabajos()
-    }, [])
     return (
         <>
             <section>

@@ -5,9 +5,11 @@ import '../../CSS/fondos.css'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthProvider';
+import OfertaContext from '../context/OfertasProvider';
 
 const Login = () => {
     const {Perfil} = useContext(AuthContext)
+    const {ObtenerTrabajos} = useContext(OfertaContext) 
 
     const navigate = useNavigate()
     const [form, setForm] = useState({
@@ -43,6 +45,7 @@ const Login = () => {
             localStorage.removeItem('usuario')
             
             await Perfil(respuesta.data.token, respuesta.data.rol)
+            await ObtenerTrabajos(respuesta.data.rol, respuesta.data.token)
             navigate('/dashboard')
         } catch (error) {
             console.log(error)

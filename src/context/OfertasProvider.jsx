@@ -1,4 +1,5 @@
-import React, { Children, createContext, useState } from "react";
+import axios from "axios";
+import React, {createContext, useEffect, useState } from "react";
 
 const OfertaContext = createContext()
 
@@ -8,6 +9,38 @@ const OfertaProvider = ({children}) =>{
     const[modalEditOf, setModalEditOf] = useState(false)
     const[modalTra, setModalTra] = useState(false)
     const[modalTraActual, setModalTraActual] = useState(false)
+    const[trabajos, setTrabajos] = useState([])
+
+    const ObtenerTrabajos = async (rol, token) =>{
+        let url
+        try {
+            if(rol === "cliente"){
+                url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-cliente`
+            }else if(rol === "proveedor"){
+                url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-proveedor`
+            }
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.get(url, options)
+            setTrabajos(respuesta.data)
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    useEffect(()=>{
+        const rol = localStorage.getItem('rol')
+        const token = localStorage.getItem('token')
+        if(rol && token){
+            ObtenerTrabajos(rol, token)
+        }   
+    }, [])
 
     const handleModalOf = () =>{
         setModalOf(!modalOf)
@@ -37,7 +70,9 @@ const OfertaProvider = ({children}) =>{
             setModalTra,
             handleModalTraActual,
             modalTraActual,
-            setModalTraActual
+            setModalTraActual,
+            trabajos,
+            setTrabajos
         }}>
             {children}
         </OfertaContext.Provider>

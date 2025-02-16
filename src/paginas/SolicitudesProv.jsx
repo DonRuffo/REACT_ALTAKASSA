@@ -1,31 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
+import OfertaContext from "../context/OfertasProvider";
 
 const SolicitudProv = () => {
-    const [trabajos, setTrabajos] = useState([])
-
-    const ObtenerTrabajos = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-proveedor`
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-            const respuesta = await axios.get(url, options)
-            setTrabajos(respuesta.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        ObtenerTrabajos()
-    }, [])
+    const {trabajos, setTrabajos} = useContext(OfertaContext)
 
     const AceptarSolicitud = async (id, indx) => {
         const confirmar = confirm(`¿Estás seguro de aceptar el trabajo para ${indx}?`)

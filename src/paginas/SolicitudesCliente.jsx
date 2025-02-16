@@ -5,10 +5,9 @@ import OfertaContext from "../context/OfertasProvider";
 import ModalActualizar from "../componentes/modals/ModalActualizar";
 
 const SolicitudesCli = () => {
-    const [trabajos, setTrabajos] = useState([])
     const [trabajoSeleccionado, setTrabajoSeleccioando] = useState(null)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
-    const {modalTraActual, setModalTraActual} = useContext(OfertaContext)
+    const {modalTraActual, setModalTraActual, trabajos, setTrabajos} = useContext(OfertaContext)
 
     const seleccionarTrabajo = (id) => {
         setTrabajoSeleccioando(id)
@@ -16,23 +15,6 @@ const SolicitudesCli = () => {
 
     const seleccionarOferta = (id) =>{
         setOfertaSeleccionada(id)
-    }
-    
-    const ObtenerTrabajosCli = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-cliente`
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-            const respuesta = await axios.get(url, options)
-            setTrabajos(respuesta.data)
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     const EliminarTrabajo = async (id, indx) => {
@@ -56,9 +38,6 @@ const SolicitudesCli = () => {
         }
     }
 
-    useEffect(() => {
-        ObtenerTrabajosCli()
-    }, [])
     return (
         <>
             <section>
