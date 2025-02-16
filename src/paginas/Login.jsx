@@ -8,8 +8,8 @@ import AuthContext from '../context/AuthProvider';
 import OfertaContext from '../context/OfertasProvider';
 
 const Login = () => {
-    const {Perfil} = useContext(AuthContext)
-    const {ObtenerTrabajos} = useContext(OfertaContext) 
+    const { Perfil } = useContext(AuthContext)
+    const { ObtenerTrabajos } = useContext(OfertaContext)
 
     const navigate = useNavigate()
     const [form, setForm] = useState({
@@ -31,19 +31,19 @@ const Login = () => {
         try {
             if (perfil === 'Proveedor') {
                 url = `${import.meta.env.VITE_BACKEND_URL}/loginProveedor`
-                
+
             } else if (perfil === 'Cliente') {
                 url = `${import.meta.env.VITE_BACKEND_URL}/loginCliente`
-                
+
             } else if (perfil === 'Administrador') {
                 url = `${import.meta.env.VITE_BACKEND_URL}/login`
-                
+
             }
             const respuesta = await axios.post(url, form)
             localStorage.setItem('token', respuesta.data.token)
             localStorage.setItem('rol', respuesta.data.rol)
             localStorage.removeItem('usuario')
-            
+
             await Perfil(respuesta.data.token, respuesta.data.rol)
             await ObtenerTrabajos(respuesta.data.rol, respuesta.data.token)
             navigate('/dashboard')
@@ -90,10 +90,17 @@ const Login = () => {
                             </div>
                             <hr />
                             <div className='mt-1 md:mt-3 md:mb-1'>
-                                <p className='text-sm text-slate-500 mb-1 font-semibold'>Olvidaste tu contraseña: <Link className='hover:text-blue-800 hover:underline duration-300' to='/recuperar'>Click Aqui</Link></p>
-                                <p className='text-sm text-slate-500 font-semibold'>No tienes una cuenta: <Link className='hover:text-blue-800 hover:underline duration-300' to='/registro'>Registrate Aqui</Link></p>
+                                <p className='text-sm text-slate-500 mb-1 font-semibold'>Olvidaste tu contraseña: <Link className='hover:text-blue-800 hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
+                                <p className='text-sm text-slate-500 font-semibold'>No tienes una cuenta: <Link className='hover:text-blue-800 hover:underline duration-300' to='/registro'>Registrate Aquí</Link></p>
                             </div>
-                        </form>
+                        </form><br />
+                        <div>
+                            <button className='group/inicio flex justify-around items-center px-3 py-1 rounded-lg bg-purple-700 text-white text-sm font-semibold hover:bg-purple-900 duration-300' onClick={() => { navigate("/") }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" className='group-hover/inicio:-translate-x-0.5 transition-all duration-300'>
+                                    <path d="M14 19l-7-7 7-7v14z" />
+                                </svg>
+                                Volver al Inicio</button>
+                        </div>
                     </div>
                 </div>
             </div>

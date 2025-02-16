@@ -13,6 +13,7 @@ const useAuth = () => {
 const AuthProvider = ({children}) => {
 
     const [auth, setAuth] = useState({})
+    const [dark, setDark] = useState(false)
     const Perfil = async (token, rol)=>{
         let url
         try{
@@ -45,6 +46,14 @@ const AuthProvider = ({children}) => {
         }
     }, [])
 
+    useEffect(()=>{
+        const tema = localStorage.getItem('tema')
+        if(tema==="Oscuro"){
+            setDark(true)
+        }else if(tema === "Claro" || !tema ){
+            setDark(false)
+        }
+    }, [dark])
 
     
 
@@ -125,7 +134,9 @@ const AuthProvider = ({children}) => {
             setAuth,
             ActualizarPerfil,
             ActualizarContrasenia,
-            Perfil
+            Perfil,
+            dark,
+            setDark
            }
         }>
             {children}

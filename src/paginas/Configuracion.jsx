@@ -5,6 +5,9 @@ import logoPerfil from '../assets/Perfil_negro.png'
 import ConfigContext from "../context/ConfigProvider";
 import logoMenu from '../assets/category.png'
 import logoMenuAbierto from '../assets/hamburger.png'
+import logoTema from '../assets/tema_oscuro.png'
+import logoOscuro from '../assets/ModoOscuro.png'
+import logoClaro from '../assets/ModoClaro.png'
 import AuthContext, { useAuth } from "../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -12,10 +15,11 @@ import { ToastContainer, toast } from "react-toastify";
 const Configuracion = () => {
     const [menu, setMenu] = useState(false)
     const { auth } = useContext(AuthContext)
-    const { modalContra, setModalContra, modalPerfil, setModalPerfil } = useContext(ConfigContext)
-    const { ActualizarPerfil, ActualizarContrasenia } = useContext(AuthContext)
+    const { modalContra, setModalContra, modalPerfil, setModalPerfil, modalTema, setModalTema} = useContext(ConfigContext)
+    const { ActualizarPerfil, ActualizarContrasenia, dark, setDark  } = useContext(AuthContext)
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
+    const accesoTema = () => { setModalTema(!modalTema) }
     const [formPerfil, setFormPerfil] = useState({
         nombre: auth.nombre || "",
         apellido: auth.apellido || "",
@@ -67,23 +71,44 @@ const Configuracion = () => {
             const respuesta = await ActualizarContrasenia(formContra)
         } catch (error) {
             console.log(error)
-            
+
         }
     }
+
+    const handleRadioChange = (e) =>{
+        const valor = e.target.value
+        if (valor === "Oscuro"){
+            localStorage.setItem('tema', "Oscuro")
+            setDark(true)
+        }else if(valor === "Claro"){
+            localStorage.setItem('tema', "Claro")
+            setDark(false)
+        }
+        console.log(valor)
+    } 
     useEffect(() => {
         if (modalContra) {
-            setModalPerfil(false);
+            setModalPerfil(false)
+            setModalTema(false)
         }
     }, [modalContra]);
 
     useEffect(() => {
         if (modalPerfil) {
-            setModalContra(false);
+            setModalContra(false)
+            setModalTema(false)
         }
     }, [modalPerfil]);
 
+    useEffect(() => {
+        if (modalTema) {
+            setModalContra(false)
+            setModalPerfil(false)
+        }
+    }, [modalTema])
+
     return (
-        <>  
+        <>
             <div className="lg:hidden pb-2">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
@@ -91,10 +116,11 @@ const Configuracion = () => {
             <h1 className="text-3xl font-semibold text-sky-600 pb-5">Configuración</h1>
             <ToastContainer />
             <section className="flex flex-col md:flex-row justify-between">
-                <div className="w-full md:w-2/5 flex bg-white rounded-xl shadow-lg md:max-h-[115px] border border-gray-100 mb-8 md:mb-0">
+                <div className="w-full md:w-2/5 flex bg-white rounded-xl shadow-lg md:max-h-[165px] border border-gray-100 mb-8 md:mb-0">
                     <ul className="w-full p-2">
                         <OpcionConfig titulo={"Cambiar contraseña"} logo={logoContrasenia} clic={accesoContra} />
                         <OpcionConfig titulo={"Actualizar perfil"} logo={logoPerfil} clic={accesoPerfil} />
+                        <OpcionConfig titulo={"Tema"} logo={logoTema} clic={accesoTema} />
                     </ul>
                 </div>
                 <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-purple-400 p-5`}>
@@ -155,6 +181,20 @@ const Configuracion = () => {
                         </form>
 
                     </div>
+                </div>
+                <div className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-white rounded-xl shadow-xl border`}>
+                    <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
+                        <div className="flex gap-2">
+                            <img src={logoOscuro} alt="OscuroMood" width={23} height={23}/> Tema Oscuro
+                        </div>
+                        <input type="radio" name="tema" id="Oscuro" value="Oscuro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800 checked:shadow-md checked:shadow-indigo-400" />
+                    </label>
+                    <label htmlFor="Claro" className="cursor-pointer flex justify-between px-4 py-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
+                        <div className="flex gap-2">
+                            <img src={logoClaro} alt="ClaroMood" width={23} height={23}/> Tema Claro
+                        </div>
+                        <input type="radio" name="tema" id="Claro" value="Claro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800 checked:shadow-md checked:shadow-indigo-400" />
+                    </label>
                 </div>
             </section>
         </>
