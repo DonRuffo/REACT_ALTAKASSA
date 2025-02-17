@@ -5,7 +5,7 @@ import ConfigContext from "../context/ConfigProvider";
 const OpcionConfig = ({titulo, logo, clic}) => {
     
     return (
-        <li className="group/list w-full rounded-xl hover:bg-gray-100 duration-100 ">
+        <li className="group/list w-full rounded-xl hover:bg-gray-100 dark:hover:bg-gray-900 duration-100 ">
             <Link onClick={clic} className="flex justify-between px-5 py-3"> 
                 <div className="flex gap-2">
                     <img src={logo} alt={titulo} width={25} height={20}/>

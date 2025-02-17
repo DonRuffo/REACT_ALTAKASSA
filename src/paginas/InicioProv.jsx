@@ -21,9 +21,9 @@ const InicioProve = () => {
                 </div>
             </div><br />
             <section className="flex justify-center">
-                <div className="rounded-md shadow-lg w-4/5 bg-white border border-gray-100">
+                <div className="rounded-md shadow-lg w-4/5 bg-white dark:bg-transparent border border-gray-100">
                     <h1 className="text-3xl text-center text-purple-800 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}!</h1>
-                    <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0">Listo para un nuevo trabajo, el sistema te espera</h2>
+                    <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0 dark:text-white">Listo para un nuevo trabajo, el sistema te espera</h2>
                     <div className="flex justify-center pb-5">
                         <img src={logoInicioProv} alt="Proveedor" width={110} height={110} className='rounded-full border-2 border-black-600' />
                     </div>
