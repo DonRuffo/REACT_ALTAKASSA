@@ -52,6 +52,13 @@ const Login = () => {
             toast.error(error.response.data.msg)
         }
     }
+
+    setTimeout(()=>{
+        const tiempo = document.getElementById('Formulario')
+        if (tiempo){
+            tiempo.scrollIntoView({behavior:"smooth"})
+        }
+    }, 1500)
     return (
         <>
             <ToastContainer />
@@ -60,7 +67,7 @@ const Login = () => {
                 <div className="radial-gradientLogin-bg md:w-full h-screen flex items-center justify-center">
                     <img src={logoNegroAK} alt='Altakassa' />
                 </div>
-                <div className="bg-white flex items-center justify-center h-screen">
+                <div id='Formulario' className="bg-white flex items-center justify-center h-screen">
                     <div className='w-5/6 md:w-4/6'>
                         <h1 className='text-blue-600 font-bold text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
                         <hr />
