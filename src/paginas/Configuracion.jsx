@@ -12,11 +12,11 @@ import AuthContext, { useAuth } from "../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 
 
+
 const Configuracion = () => {
-    const [menu, setMenu] = useState(false)
     const { auth } = useContext(AuthContext)
     const { modalContra, setModalContra, modalPerfil, setModalPerfil, modalTema, setModalTema} = useContext(ConfigContext)
-    const { ActualizarPerfil, ActualizarContrasenia, dark, setDark  } = useContext(AuthContext)
+    const { ActualizarPerfil, ActualizarContrasenia, dark, setDark, menu, handleMenu } = useContext(AuthContext)
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
     const accesoTema = () => { setModalTema(!modalTema) }
@@ -110,8 +110,8 @@ const Configuracion = () => {
     return (
         <>
             <div className="lg:hidden pb-2">
-                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
-                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
+                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
+                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <h1 className="text-3xl font-semibold text-sky-600 pb-5">Configuración</h1>
             <ToastContainer />
@@ -137,11 +137,11 @@ const Configuracion = () => {
                     <div className="w-full">
                         <form onSubmit={handleSubmitContrasenia}>
                             <div className="mb-3">
-                                <label className="text-black font-semibold block mb-2 dark:text-white">Contraseña actual:</label>
+                                <label htmlFor="contrasenia" className="text-black font-semibold block mb-2 dark:text-white">Contraseña actual:</label>
                                 <input type="password" name="contrasenia" onChange={handleChangeContrasenia} value={formContra.contrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
                             </div>
                             <div className="mb-3">
-                                <label className="text-black font-semibold block mb-2 dark:text-white">Nueva contraseña:</label>
+                                <label htmlFor="nuevaContrasenia" className="text-black font-semibold block mb-2 dark:text-white">Nueva contraseña:</label>
                                 <input type="password" name="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
                             </div><br />
                             <div className="mb-3 flex justify-around">

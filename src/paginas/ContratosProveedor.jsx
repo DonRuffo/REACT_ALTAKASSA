@@ -2,16 +2,24 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import '../../CSS/fondos.css'
 import OfertaContext from "../context/OfertasProvider";
+import logoMenu from '../assets/category.png'
+import logoMenuAbierto from '../assets/hamburger.png'
+import AuthContext from "../context/AuthProvider";
 
 const ContratosProv = () => {
-    const {trabajos, setTrabajos} = useContext(OfertaContext)
+    const { trabajos, setTrabajos } = useContext(OfertaContext)
+    const {menu, handleMenu} = useContext(AuthContext)
     return (
         <>
+            <div className="lg:hidden pb-2">
+                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
+                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
+            </div>
             <section>
                 <h1 className="text-center text-purple-800 font-semibold text-3xl mb-3">Trabajos actuales</h1>
                 <h2 className="text-xl mb-5 text-center">Aquí podrás ver tus trabajos agendados</h2>
                 <div className="flex justify-center flex-wrap gap-3">
-                    {trabajos.length!==0 ? trabajos.map((tra) => (
+                    {trabajos.length !== 0 ? trabajos.map((tra) => (
                         tra.status === "Agendado" && (
                             <div key={tra._id} className="w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-purple-400">
                                 <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
@@ -22,7 +30,7 @@ const ContratosProv = () => {
                                 </div>
                                 <p className="text-center font-semibold">Horario: <span className="text-red-700">{tra.desde} - {tra.hasta}</span></p>
                                 <div className="flex justify-around items-center mt-3">
-                                    <h1 className="text-5xl font-semibold">${tra.precioTotal = Math.round(tra.precioTotal * 100)/100}</h1>
+                                    <h1 className="text-5xl font-semibold">${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}</h1>
                                     <h1 className="text-2xl font-semibold">{tra.status}</h1>
                                 </div>
                                 <div className="flex">
@@ -34,9 +42,9 @@ const ContratosProv = () => {
                                 </div>
                             </div>
                         )
-                    )):(
-                        <div className="w-[330px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
-                                <p className="text-lg text-gray-700 font-semibold">No hay trabajos agendados</p>
+                    )) : (
+                        <div className="w-[300px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
+                            <p className="text-lg text-gray-700 font-semibold">No hay trabajos agendados</p>
                         </div>
                     )}
                 </div>

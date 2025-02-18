@@ -37,7 +37,7 @@ const OfertaProvider = ({children}) =>{
     useEffect(()=>{
         const rol = localStorage.getItem('rol')
         const token = localStorage.getItem('token')
-        if(rol && token){
+        if(rol && token && trabajos.length === 0){
             ObtenerTrabajos(rol, token)
         }   
     }, [])

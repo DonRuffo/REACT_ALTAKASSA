@@ -12,12 +12,12 @@ import AuthContext, { useAuth } from "../context/AuthProvider";
 const Dashboard = () => {
     const navigate = useNavigate()
     const { auth } = useAuth()
-    const {dark, setDark} = useContext(AuthContext)
+    const {dark, menu, sideBar} = useContext(AuthContext)
     return (
         <>
             <div className={dark ? "dark" : ""}>
                 <div className="flex h-screen">
-                    <div className="fixed inset-y-0 left-0 w-64 bg-sky-900 text-white p-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static lg:block">
+                    <div ref={sideBar} className={`fixed inset-y-0 left-0 w-64 bg-sky-900 text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static lg:block`}>
                         <h1 className="text-2xl text-white text-center font-bold">AltaKassa</h1>
                         <div className="flex justify-center">
                             <img src={logoAlta} alt="AltaKassa Logo" width={160} height={160} />

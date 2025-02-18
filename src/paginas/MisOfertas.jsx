@@ -3,13 +3,17 @@ import React, { useContext, useEffect, useState } from "react";
 import ModalEditarOferta from "../componentes/modals/ModalEditarOferta";
 import OfertaContext from "../context/OfertasProvider";
 import iconoDelete from '../assets/Icono-Delete.png'
+import logoMenu from '../assets/category.png'
+import logoMenuAbierto from '../assets/hamburger.png'
 import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
+import AuthContext from "../context/AuthProvider";
 
 const ListadoOfertas = () => {
     const { modalEditOf, setModalEditOf } = useContext(OfertaContext)
     const [oferta, setOferta] = useState([])
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
+    const {menu, handleMenu} = useContext(AuthContext)
     const listarOfertas = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -61,7 +65,10 @@ const ListadoOfertas = () => {
 
     return (
         <>
-
+            <div className="lg:hidden pb-2">
+                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
+                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
+            </div>
             <h1 className="text-3xl text-center font-semibold text-purple-800 mb-5">Tus ofertas</h1>
             <h2 className="text-xl mb-5 text-center">Aquí puedes ver tus ofertas creadas</h2>
             <div className="flex justify-center gap-3 flex-wrap">

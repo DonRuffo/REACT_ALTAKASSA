@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 const AuthContext = createContext()
@@ -12,8 +12,31 @@ const useAuth = () => {
 
 const AuthProvider = ({children}) => {
 
+    const [menu, setMenu] = useState(false)
     const [auth, setAuth] = useState({})
     const [dark, setDark] = useState(false)
+
+    const handleMenu = () =>{
+        setMenu(!menu)
+    }
+
+    const sideBar = useRef(null)
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (sideBar.current && !sideBar.current.contains(event.target)) {
+                setMenu(false)
+            }
+        }
+        if (menu) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [menu]);
+
+
     const Perfil = async (token, rol)=>{
         let url
         try{
@@ -136,7 +159,11 @@ const AuthProvider = ({children}) => {
             ActualizarContrasenia,
             Perfil,
             dark,
-            setDark
+            setDark,
+            menu,
+            setMenu,
+            handleMenu,
+            sideBar
            }
         }>
             {children}

@@ -10,8 +10,7 @@ import OfertaContext from "../context/OfertasProvider";
 import ModalTrabajos from "../componentes/modals/ModalTrabajos";
 
 const Inicio = () => {
-    const [menu, setMenu] = useState(false)
-    const { auth } = useContext(AuthContext)
+    const { auth, menu, setMenu } = useContext(AuthContext)
     const [oferta, setOferta] = useState([])
     const {modalTra, setModalTra} = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);

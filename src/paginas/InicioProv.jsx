@@ -8,16 +8,15 @@ import OfertaContext from "../context/OfertasProvider";
 import ModalOferta from "../componentes/modals/ModalOferta";
 
 const InicioProve = () => {
-    const [menu, setMenu] = useState(false)
-    const {auth} = useContext(AuthContext)
+    const {auth, menu, handleMenu} = useContext(AuthContext)
     const {modalOf, handleModalOf} = useContext(OfertaContext)
     const navigate = useNavigate()
     return (
         <>
             <div className="flex justify-between md:justify-end">
                 <div className="lg:hidden pb-2">
-                    <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
-                    <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => setMenu(!menu)} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
+                    <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
+                    <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
                 </div>
             </div><br />
             <section className="flex justify-center">
