@@ -16,12 +16,13 @@ const AuthProvider = ({children}) => {
     const [auth, setAuth] = useState({})
     const [dark, setDark] = useState(false)
 
+    //Funcion para mostrar y ocultar la barra lateral
     const handleMenu = () =>{
         setMenu(!menu)
     }
 
     const sideBar = useRef(null)
-
+    //Funcion para mostrar y ocultar la barra lateral
     useEffect(() => {
         function handleClickOutside(event) {
             if (sideBar.current && !sideBar.current.contains(event.target)) {
@@ -36,7 +37,7 @@ const AuthProvider = ({children}) => {
         };
     }, [menu]);
 
-
+    //Funcion para obtener los datos del perfil de un usuario
     const Perfil = async (token, rol)=>{
         let url
         try{

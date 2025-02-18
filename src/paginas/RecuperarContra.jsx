@@ -29,12 +29,18 @@ const Recuperar = () => {
             toast.error(error.response.data.msg)
         }
     }
+    setTimeout(()=>{
+        const tiempo = document.getElementById('Formulario')
+        if (tiempo){
+            tiempo.scrollIntoView({behavior:"smooth"})
+        }
+    }, 1200)
 
     return(
         <>
             <ToastContainer />
             <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="bg-white h-screen flex items-center justify-center h-screen">
+                <div id="Formulario" className="bg-white h-screen flex items-center justify-center h-screen">
                     <div className="w-5/6 md:w-4/6">
                         <h1 className="mb-3 font-bold text-orange-600 text-center">RECUPERAR CONTRASEÑA</h1>
                         <hr />

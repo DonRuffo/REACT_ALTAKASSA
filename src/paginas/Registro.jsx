@@ -45,11 +45,17 @@ const Registro = () => {
             })
         }
     }
+    setTimeout(()=>{
+        const tiempo = document.getElementById('Formulario')
+        if (tiempo){
+            tiempo.scrollIntoView({behavior:"smooth"})
+        }
+    }, 1200)
     return (
         <>
             <ToastContainer />
             <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="bg-white flex items-center justify-center h-screen">
+                <div id="Formulario" className="bg-white flex items-center justify-center h-screen">
                     <div className="w-4/5 md:4/6">
                         <h1 className="mb-3 font-bold text-purple-700 text-center">REGISTRO</h1>
                         <hr />
