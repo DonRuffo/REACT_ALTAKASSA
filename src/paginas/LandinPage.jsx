@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logoDarkMode from '../assets/moon.png';
@@ -40,11 +40,12 @@ import CardServicios from "../componentes/cardsServicios";
 import ListasAnimadas from "../componentes/Listas";
 import ListasAnimadasProv from "../componentes/ListasProv";
 import imPerfilDinamica from '../assets/PERFIL_dinamica.jpg'
+import AuthContext from "../context/AuthProvider";
 //text-slate-400 - texto para cards
 //#60E8FE color para iconos
 const LandingPage = () => {
 
-    const [darkMode, setDarkMode] = useState(false)
+    const {darkMode, handleDarkPage} = useContext(AuthContext)
     const [selectedOption, setSelectedOption] = useState('');
 
 
@@ -70,7 +71,7 @@ const LandingPage = () => {
                             <option value="Servicios" className="text-base text-sm">Servicios</option>
                             <option value="Contacto" className="text-base text-sm">Contacto</option>
                         </select>
-                        <img src={logoDarkMode} alt="CambioTema" onClick={() => setDarkMode(!darkMode)} width={40} height={40} className="cursor-pointer" />
+                        <img src={logoDarkMode} alt="CambioTema" onClick={() => handleDarkPage()} width={40} height={40} className="cursor-pointer" />
                         <ul className="flex items-center">
                             <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-purple-600 text-white rounded-xl hover:bg-purple-800 duration-300 text-center dark:shadow-md dark:shadow-gray-400">Login</Link></li>
                         </ul>

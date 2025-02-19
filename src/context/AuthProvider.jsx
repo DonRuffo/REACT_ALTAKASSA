@@ -15,10 +15,20 @@ const AuthProvider = ({children}) => {
     const [menu, setMenu] = useState(false)
     const [auth, setAuth] = useState({})
     const [dark, setDark] = useState(false)
+    const [darkMode, setDarkMode] = useState(false)
+    
 
     //Funcion para mostrar y ocultar la barra lateral
     const handleMenu = () =>{
         setMenu(!menu)
+    }
+    const handleDarkPage = () =>{
+        setDarkMode(!darkMode)
+        if (darkMode === true) {
+            localStorage.setItem('ldPag', "Oscuro")
+        } else if (darkMode === false || !darkMode){
+            localStorage.setItem('ldPag', "Claro")
+        }
     }
 
     const sideBar = useRef(null)
@@ -78,6 +88,15 @@ const AuthProvider = ({children}) => {
             setDark(false)
         }
     }, [dark])
+
+    useEffect(()=>{
+        const temaPage = localStorage.getItem('ldPg')
+        if (temaPage ==="Oscuro" ) {
+            setDarkMode(true)
+        }else if (temaPage === "Claro"){
+            setDarkMode(false)
+        }
+    }, [darkMode])
 
     
 
@@ -164,7 +183,9 @@ const AuthProvider = ({children}) => {
             menu,
             setMenu,
             handleMenu,
-            sideBar
+            sideBar,
+            darkMode,
+            handleDarkPage
            }
         }>
             {children}
