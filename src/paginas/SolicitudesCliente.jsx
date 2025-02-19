@@ -3,17 +3,21 @@ import React, { useContext, useEffect, useState } from "react";
 import '../../CSS/fondos.css'
 import OfertaContext from "../context/OfertasProvider";
 import ModalActualizar from "../componentes/modals/ModalActualizar";
+import logoMenu from '../assets/category.png'
+import logoMenuAbierto from '../assets/hamburger.png'
+import AuthContext from "../context/AuthProvider";
 
 const SolicitudesCli = () => {
     const [trabajoSeleccionado, setTrabajoSeleccioando] = useState(null)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
-    const {modalTraActual, setModalTraActual, trabajos, setTrabajos} = useContext(OfertaContext)
+    const { modalTraActual, setModalTraActual, trabajos, setTrabajos } = useContext(OfertaContext)
+    const {menu, handleMenu} = useContext(AuthContext)
 
     const seleccionarTrabajo = (id) => {
         setTrabajoSeleccioando(id)
     }
 
-    const seleccionarOferta = (id) =>{
+    const seleccionarOferta = (id) => {
         setOfertaSeleccionada(id)
     }
 
@@ -40,9 +44,13 @@ const SolicitudesCli = () => {
 
     return (
         <>
+            <div className="lg:hidden pb-2">
+                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
+                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
+            </div>
             <section>
-                <h1 className="text-3xl text-center text-purple-800 font-semibold my-2">Solicitudes</h1>
-                <p className="text-xl text-center font-semibold mb-5">Auí podrás visualizar tus solicitudes de trabajo</p>
+                <h1 className="text-3xl text-center text-purple-700 font-semibold my-2">Solicitudes</h1>
+                <p className="text-xl text-center font-semibold mb-5 dark:text-white">Auí podrás visualizar tus solicitudes de trabajo</p>
                 <div className="flex justify-center gap-3 flex-wrap">
                     {trabajos.length !== 0 ? trabajos.some(tra => tra.status === "En espera") ? (
                         trabajos.map((tra) => (
@@ -57,15 +65,15 @@ const SolicitudesCli = () => {
                                     <p className="text-center font-semibold">Horario: <span className="text-white">{tra.desde} - {tra.hasta}</span></p>
                                     <div className="flex justify-center mt-3">
                                         <h1 className="text-5xl font-semibold">
-                                            ${tra.precioTotal = Math.round(tra.precioTotal * 100)/100}
+                                            ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
                                         </h1>
                                     </div>
                                     <p className="text-center">Precio Total</p>
                                     <div className="flex justify-around mt-3">
-                                        <button className="px-3 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300" onClick={()=>{seleccionarTrabajo(tra._id);seleccionarOferta(tra.oferta._id)  ;setModalTraActual(!modalTraActual)}}>Actualizar</button>
+                                        <button className="px-3 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300" onClick={() => { seleccionarTrabajo(tra._id); seleccionarOferta(tra.oferta._id); setModalTraActual(!modalTraActual) }}>Actualizar</button>
                                         <button type="button" className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300" onClick={() => { EliminarTrabajo(tra._id, tra.servicio) }}>Eliminar</button>
                                     </div>
-                                    {trabajoSeleccionado === tra._id && ofertaSeleccionada === tra.oferta._id && modalTraActual && (<ModalActualizar idTrabajo={tra._id} idOferta={tra.oferta._id} actualizar={ObtenerTrabajosCli}/>)}
+                                    {trabajoSeleccionado === tra._id && ofertaSeleccionada === tra.oferta._id && modalTraActual && (<ModalActualizar idTrabajo={tra._id} idOferta={tra.oferta._id} actualizar={ObtenerTrabajosCli} />)}
                                 </div>
                             )
                         ))

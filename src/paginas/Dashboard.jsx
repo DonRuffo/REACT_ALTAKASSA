@@ -17,7 +17,7 @@ const Dashboard = () => {
         <>
             <div className={dark ? "dark" : ""}>
                 <div className="flex h-screen">
-                    <div ref={sideBar} className={`fixed inset-y-0 left-0 w-64 bg-sky-900 text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static lg:block`}>
+                    <div ref={sideBar} className={`fixed inset-y-0 left-0 w-64 bg-sky-900 dark:bg-gray-950 text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static lg:block`}>
                         <h1 className="text-2xl text-white text-center font-bold">AltaKassa</h1>
                         <div className="flex justify-center">
                             <img src={logoAlta} alt="AltaKassa Logo" width={160} height={160} />

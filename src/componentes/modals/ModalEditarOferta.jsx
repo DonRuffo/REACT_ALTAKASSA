@@ -63,11 +63,11 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
         <>
             <div className="fixed bg-black bg-opacity-50 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="fixed top-1/4 left-[580px] lg:w-1/3 lg:h-3/5 rounded-lg shadow-2xl bg-white border border-2 border-green-800">
+                <div className="fixed top-1/4 left-[60px] right-[60px] min-w-64 lg:w-1/3 lg:h-3/5 rounded-lg shadow-2xl bg-white border border-2 border-green-800">
                     <h1 className="border-b-2 border-green-800 bg-gray-300 rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-800">Editar oferta</h1>
                     <form onSubmit={handleSubmitOferta}>
                         <div className="my-3">
-                            <div className="flex justify-around">
+                            <div className="flex justify-around flex-wrap gap-2">
                                 <div className="flex gap-2">
                                     <label htmlFor="precioPorDia" className="text-md font-semibold">Precio/Dia:</label>
                                     <input type="text" id="precioPorDia" name="precioPorDia" onChange={handleChancheOfertas} value={form.precioPorDia || ""} className="w-20 py-1 px-2 rounded-md border border-gray-600 bg-gray-300 focus:ring-1 focus:ring-blue-700 focus:outline-none focus:border-blue-700" />

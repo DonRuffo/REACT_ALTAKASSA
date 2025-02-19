@@ -84,7 +84,6 @@ const Configuracion = () => {
             localStorage.setItem('tema', "Claro")
             setDark(false)
         }
-        console.log(valor)
     } 
     useEffect(() => {
         if (modalContra) {
