@@ -10,7 +10,7 @@ import AuthContext from "../context/AuthProvider";
 const SolicitudesCli = () => {
     const [trabajoSeleccionado, setTrabajoSeleccioando] = useState(null)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
-    const { modalTraActual, setModalTraActual, trabajos, setTrabajos } = useContext(OfertaContext)
+    const { modalTraActual, setModalTraActual, trabajos, ObtenerTrabajos } = useContext(OfertaContext)
     const {menu, handleMenu} = useContext(AuthContext)
 
     const seleccionarTrabajo = (id) => {
@@ -73,7 +73,7 @@ const SolicitudesCli = () => {
                                         <button className="px-3 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300" onClick={() => { seleccionarTrabajo(tra._id); seleccionarOferta(tra.oferta._id); setModalTraActual(!modalTraActual) }}>Actualizar</button>
                                         <button type="button" className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300" onClick={() => { EliminarTrabajo(tra._id, tra.servicio) }}>Eliminar</button>
                                     </div>
-                                    {trabajoSeleccionado === tra._id && ofertaSeleccionada === tra.oferta._id && modalTraActual && (<ModalActualizar idTrabajo={tra._id} idOferta={tra.oferta._id} actualizar={ObtenerTrabajosCli} />)}
+                                    {trabajoSeleccionado === tra._id && ofertaSeleccionada === tra.oferta._id && modalTraActual && (<ModalActualizar idTrabajo={tra._id} idOferta={tra.oferta._id} actualizar={ObtenerTrabajos} />)}
                                 </div>
                             )
                         ))

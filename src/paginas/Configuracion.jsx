@@ -10,12 +10,15 @@ import logoOscuro from '../assets/ModoOscuro.png'
 import logoClaro from '../assets/ModoClaro.png'
 import AuthContext, { useAuth } from "../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
-
+import { EyeOff, Eye } from 'lucide-react';
 
 
 const Configuracion = () => {
+    const [ojoActivo, setOjoActivo] = useState(false)
+    const [ojoActivo2, setOjoActivo2] = useState(false) 
+
     const { auth } = useContext(AuthContext)
-    const { modalContra, setModalContra, modalPerfil, setModalPerfil, modalTema, setModalTema} = useContext(ConfigContext)
+    const { modalContra, setModalContra, modalPerfil, setModalPerfil, modalTema, setModalTema } = useContext(ConfigContext)
     const { ActualizarPerfil, ActualizarContrasenia, dark, setDark, menu, handleMenu } = useContext(AuthContext)
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
@@ -75,16 +78,16 @@ const Configuracion = () => {
         }
     }
 
-    const handleRadioChange = (e) =>{
+    const handleRadioChange = (e) => {
         const valor = e.target.value
-        if (valor === "Oscuro"){
+        if (valor === "Oscuro") {
             localStorage.setItem('tema', "Oscuro")
             setDark(true)
-        }else if(valor === "Claro"){
+        } else if (valor === "Claro") {
             localStorage.setItem('tema', "Claro")
             setDark(false)
         }
-    } 
+    }
     useEffect(() => {
         if (modalContra) {
             setModalPerfil(false)
@@ -137,11 +140,17 @@ const Configuracion = () => {
                         <form onSubmit={handleSubmitContrasenia}>
                             <div className="mb-3">
                                 <label htmlFor="contrasenia" className="text-black font-semibold block mb-2 dark:text-white">Contraseña actual:</label>
-                                <input type="password" name="contrasenia" onChange={handleChangeContrasenia} value={formContra.contrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
+                                <div className="relative">
+                                    <input type={ojoActivo ? "text" : "password"} name="contrasenia" onChange={handleChangeContrasenia} value={formContra.contrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
+                                    <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
+                                </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="nuevaContrasenia" className="text-black font-semibold block mb-2 dark:text-white">Nueva contraseña:</label>
-                                <input type="password" name="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
+                                <div className="relative">
+                                    <input type={ojoActivo2 ? "text" : "password"} name="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
+                                    <button type='button' onClick={() => setOjoActivo2(!ojoActivo2)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo2 === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
+                                </div>
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button type="submit" className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300 font-semibold">Cambiar</button>
@@ -184,13 +193,13 @@ const Configuracion = () => {
                 <div className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-white rounded-xl shadow-xl border dark:bg-transparent dark:text-white `}>
                     <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
-                            <img src={logoOscuro} alt="OscuroMood" width={23} height={23}/> Tema Oscuro
+                            <img src={logoOscuro} alt="OscuroMood" width={23} height={23} /> Tema Oscuro
                         </div>
                         <input type="radio" name="tema" id="Oscuro" value="Oscuro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800 checked:shadow-md checked:shadow-indigo-400" />
                     </label>
                     <label htmlFor="Claro" className="cursor-pointer flex justify-between px-4 py-3 mx-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
-                            <img src={logoClaro} alt="ClaroMood" width={23} height={23}/> Tema Claro
+                            <img src={logoClaro} alt="ClaroMood" width={23} height={23} /> Tema Claro
                         </div>
                         <input type="radio" name="tema" id="Claro" value="Claro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800 checked:shadow-md checked:shadow-indigo-400" />
                     </label>

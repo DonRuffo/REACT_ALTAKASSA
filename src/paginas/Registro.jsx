@@ -99,9 +99,9 @@ const Registro = () => {
                                 </div>
                                 <div className="mb-3 mx-1">
                                     <label className="mb-2 block text-sm font-semibold dark: text-purple-600">Contraseña</label>
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2 relative">
                                         <input type={ojoActivo ? "text" : "password"} name='contrasenia' placeholder="*****" onChange={HandleChange} value={form.contrasenia || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
-                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)}>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
+                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                     </div>
                                 </div>
                                 <div className="text-sm rounded-md bg-red-200 py-1 px-2 dark:bg-gray-950 dark:text-gray-400">
