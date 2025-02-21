@@ -10,32 +10,16 @@ import '../../CSS/fondos.css'
 import AuthContext from "../context/AuthProvider";
 
 const ListadoOfertas = () => {
-    const { modalEditOf, setModalEditOf } = useContext(OfertaContext)
-    const [oferta, setOferta] = useState([])
+    const { modalEditOf, setModalEditOf, oferta, ListarOfertas} = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
     const {menu, handleMenu} = useContext(AuthContext)
-    const listarOfertas = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            const url = `${import.meta.env.VITE_BACKEND_URL}/misOfertas`
-            const options = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            };
-            const respuesta = await axios.get(url, options)
-            setOferta(respuesta.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     const EliminarOferta = async (id, indx) => {
         try {
             const confirmar = confirm(`¿Estás seguro de eliminar la Oferta N°${indx}?`)
             if (confirmar) {
                 const token = localStorage.getItem('token')
+                const rol = localStorage.getItem('rol')
                 const url = `${import.meta.env.VITE_BACKEND_URL}/eliminarOferta/${id}`
                 const options = {
                     headers: {
@@ -46,7 +30,7 @@ const ListadoOfertas = () => {
                 };
                 const respuesta = await axios.delete(url, options)
                 toast.success(respuesta.data.msg)
-                listarOfertas()
+                ListarOfertas(rol, token)
             }
         } catch (error) {
             console.log(error);
@@ -54,10 +38,6 @@ const ListadoOfertas = () => {
         }
 
     }
-
-    useEffect(() => {
-        listarOfertas();
-    }, []);
 
     const handleModalEditOf = (id) => {
         setOfertaSeleccionada(id);
@@ -95,7 +75,7 @@ const ListadoOfertas = () => {
                             <button className="px-2 py-1 rounded-md bg-red-600 hover:bg-red-800 hover:scale-110 duration-300" onClick={() => { handleModalEditOf(of._id); EliminarOferta(of._id, index + 1) }}><img src={iconoDelete} alt="iconoDelete" /></button>
                         </div>
                         {ofertaSeleccionada === of._id && modalEditOf && (
-                            <ModalEditarOferta idOferta={of._id} listarOfertas={listarOfertas} />
+                            <ModalEditarOferta idOferta={of._id} listarOfertas={ListarOfertas} />
                         )}
                     </div>
                 )) : (

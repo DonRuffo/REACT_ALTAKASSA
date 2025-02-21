@@ -11,29 +11,8 @@ import ModalTrabajos from "../componentes/modals/ModalTrabajos";
 
 const Inicio = () => {
     const { auth, menu, handleMenu } = useContext(AuthContext)
-    const [oferta, setOferta] = useState([])
-    const { modalTra, setModalTra } = useContext(OfertaContext)
+    const { modalTra, setModalTra, oferta, ObtenerTrabajos } = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
-    const ListarOfertas = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const url = `${import.meta.env.VITE_BACKEND_URL}/listarOfertas`
-            const options = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            };
-            const respuesta = await axios.get(url, options)
-            setOferta(respuesta.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        ListarOfertas()
-    }, [])
 
     const handleModalTra = (id) => {
         setOfertaSeleccionada(id);
@@ -91,7 +70,7 @@ const Inicio = () => {
                             <div className="flex justify-center mt-5">
                                 <button className="px-2 py-1 rounded-md bg-blue-700 text-white font-semibold hover:bg-blue-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); setModalTra(!modalTra) }}>Solicitar</button>
                             </div>
-                            {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} />)}
+                            {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
                         </div>
                     ))}
                 </div>

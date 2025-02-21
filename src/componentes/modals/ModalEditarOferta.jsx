@@ -33,6 +33,7 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
         e.preventDefault()
         try{
             const token = localStorage.getItem('token')
+            const rol = localStorage.getItem('rol')
             const url = `${import.meta.env.VITE_BACKEND_URL}/actualizarOferta/${idOferta}`
             const options = {
                 headers: {
@@ -43,7 +44,7 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
             }
             const respuesta = await axios.put(url,form,options)
             toast.success(respuesta.data.msg)
-            listarOfertas()
+            listarOfertas(rol, token)
         }catch(error){ 
             console.log(error);
             toast.error(error.response.data.msg)

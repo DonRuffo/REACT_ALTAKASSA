@@ -9,7 +9,7 @@ import ModalOferta from "../componentes/modals/ModalOferta";
 
 const InicioProve = () => {
     const { auth, menu, handleMenu } = useContext(AuthContext)
-    const { modalOf, handleModalOf } = useContext(OfertaContext)
+    const { modalOf, handleModalOf, ListarOfertas } = useContext(OfertaContext)
     const navigate = useNavigate()
     return (
         <>
@@ -33,7 +33,7 @@ const InicioProve = () => {
                     </div>
                 </div>
             </section>
-            {modalOf && (<ModalOferta />)}
+            {modalOf && (<ModalOferta ListarOfertas={ListarOfertas}/>)}
         </>
     )
 }

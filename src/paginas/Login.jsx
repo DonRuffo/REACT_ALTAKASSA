@@ -10,7 +10,7 @@ import { EyeOff, Eye } from 'lucide-react';
 
 const Login = () => {
     const { Perfil, darkMode } = useContext(AuthContext)
-    const { ObtenerTrabajos } = useContext(OfertaContext)
+    const { ObtenerTrabajos, ListarOfertas } = useContext(OfertaContext)
     const [ojoActivo, setOjoActivo] = useState(false)
 
     const navigate = useNavigate()
@@ -45,7 +45,7 @@ const Login = () => {
             localStorage.setItem('token', respuesta.data.token)
             localStorage.setItem('rol', respuesta.data.rol)
             localStorage.removeItem('usuario')
-
+            await ListarOfertas(respuesta.data.rol, respuesta.data.token)
             await Perfil(respuesta.data.token, respuesta.data.rol)
             await ObtenerTrabajos(respuesta.data.rol, respuesta.data.token)
             navigate('/dashboard')

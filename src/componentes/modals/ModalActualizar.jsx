@@ -71,6 +71,7 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
         e.preventDefault()
         try {
             const token = localStorage.getItem('token')
+            const rol = localStorage.getItem('rol')
             const url = `${import.meta.env.VITE_BACKEND_URL}/actualizarTrabajo/${idTrabajo}`
             const options = {
                 headers: {
@@ -81,7 +82,7 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
             }
             const respuesta = await axios.put(url, formTrabajo, options)
             toast.success(respuesta.data.msg)
-            actualizar()
+            actualizar(rol, token)
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.msg)

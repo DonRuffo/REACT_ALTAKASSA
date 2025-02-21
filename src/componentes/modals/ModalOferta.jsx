@@ -4,7 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import OfertaContext from "../../context/OfertasProvider";
 
-const ModalOferta = () => {
+const ModalOferta = ({ListarOfertas}) => {
 
     const { modalOf, setModalOf } = useContext(OfertaContext)
     const [formOf, setFormOf] = useState({
@@ -19,6 +19,7 @@ const ModalOferta = () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/crearOferta`
             const token = localStorage.getItem('token')
+            const rol = localStorage.getItem('rol')
             const options = {
                 headers: {
                     method: 'POST',
@@ -28,6 +29,7 @@ const ModalOferta = () => {
             }
             const respuesta = await axios.post(url, formOf, options)
             toast.success(respuesta.data.msg)
+            ListarOfertas(rol, token)
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)

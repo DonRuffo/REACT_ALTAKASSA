@@ -1,22 +1,55 @@
 import axios from "axios";
-import React, {createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 const OfertaContext = createContext()
 
-const OfertaProvider = ({children}) =>{
+const OfertaProvider = ({ children }) => {
 
-    const[modalOf, setModalOf] = useState(false)
-    const[modalEditOf, setModalEditOf] = useState(false)
-    const[modalTra, setModalTra] = useState(false)
-    const[modalTraActual, setModalTraActual] = useState(false)
-    const[trabajos, setTrabajos] = useState([])
+    const [modalOf, setModalOf] = useState(false)
+    const [modalEditOf, setModalEditOf] = useState(false)
+    const [modalTra, setModalTra] = useState(false)
+    const [modalTraActual, setModalTraActual] = useState(false)
+    const [trabajos, setTrabajos] = useState([])
+    const [oferta, setOferta] = useState([])
 
-    const ObtenerTrabajos = async (rol, token) =>{
+    const ListarOfertas = async (rol, token) =>{
         let url
         try {
             if(rol === "cliente"){
+                url = `${import.meta.env.VITE_BACKEND_URL}/listarOfertas`
+            }else if (rol === "proveedor"){
+                url = `${import.meta.env.VITE_BACKEND_URL}/misOfertas`
+            }
+
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options)
+            setOferta(respuesta.data)
+        } catch (error) {
+            console.log(error);
+        } 
+    }
+
+    useEffect(()=>{
+        const rol = localStorage.getItem('rol')
+        const token = localStorage.getItem('token')
+
+        if (rol && token && oferta.length === 0){
+            ListarOfertas(rol, token)
+        }
+    }, [])
+
+    const ObtenerTrabajos = async (rol, token) => {
+        let url
+        try {
+            if (rol === "cliente") {
                 url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-cliente`
-            }else if(rol === "proveedor"){
+            } else if (rol === "proveedor") {
                 url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-proveedor`
             }
             const options = {
@@ -34,22 +67,22 @@ const OfertaProvider = ({children}) =>{
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const rol = localStorage.getItem('rol')
         const token = localStorage.getItem('token')
-        if(rol && token && trabajos.length === 0){
+        if (rol && token && trabajos.length === 0) {
             ObtenerTrabajos(rol, token)
-        }   
+        }
     }, [])
 
-    const handleModalOf = () =>{
+    const handleModalOf = () => {
         setModalOf(!modalOf)
     }
-    const handleModalEditOf = () =>{
+    const handleModalEditOf = () => {
         setModalEditOf(!modalEditOf)
     }
 
-    const handleModalTra = ()=>{
+    const handleModalTra = () => {
         setModalTra(!modalTra)
     }
 
@@ -57,7 +90,7 @@ const OfertaProvider = ({children}) =>{
         setModalTraActual(!modalTraActual)
     }
 
-    return(
+    return (
         <OfertaContext.Provider value={{
             handleModalOf,
             modalOf,
@@ -73,7 +106,10 @@ const OfertaProvider = ({children}) =>{
             setModalTraActual,
             trabajos,
             setTrabajos,
-            ObtenerTrabajos
+            ObtenerTrabajos,
+            oferta,
+            setOferta,
+            ListarOfertas
         }}>
             {children}
         </OfertaContext.Provider>
@@ -81,5 +117,5 @@ const OfertaProvider = ({children}) =>{
 }
 
 
-export {OfertaProvider}
+export { OfertaProvider }
 export default OfertaContext

@@ -4,7 +4,7 @@ import OfertaContext from "../../context/OfertasProvider";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
-const ModalTrabajos = ({ idOferta }) => {
+const ModalTrabajos = ({ idOferta , trabajos}) => {
     const { modalTra, setModalTra } = useContext(OfertaContext)
     const [selectedOption, setSelectedOption] = useState('');
 
@@ -99,6 +99,7 @@ const ModalTrabajos = ({ idOferta }) => {
         e.preventDefault()
         try {
             const token = localStorage.getItem('token')
+            const rol = localStorage.getItem('rol')
             const url = `${import.meta.env.VITE_BACKEND_URL}/crearTrabajo`
             const options = {
                 headers: {
@@ -109,6 +110,7 @@ const ModalTrabajos = ({ idOferta }) => {
             }
             const respuesta = await axios.post(url, formTrabajo, options)
             toast.success(respuesta.data.msg)
+            trabajos(rol, token)
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
