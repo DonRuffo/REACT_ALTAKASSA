@@ -65,7 +65,7 @@ const SolicitudProv = () => {
             </div>
             <ToastContainer />
             <h1 className="text-center font-semibold text-3xl text-purple-800 mb-5">Solicitudes</h1>
-            <h2 className="text-xl mb-5 text-center">Aquí puedes ver tus solicitudes de trabajo</h2>
+            <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus solicitudes de trabajo</h2>
             <section>
                 <div className="flex justify-center gap-3 flex-wrap">
                     {trabajos.length !== 0 ?

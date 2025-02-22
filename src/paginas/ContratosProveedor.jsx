@@ -8,7 +8,8 @@ import AuthContext from "../context/AuthProvider";
 
 const ContratosProv = () => {
     const { trabajos, setTrabajos } = useContext(OfertaContext)
-    const {menu, handleMenu} = useContext(AuthContext)
+    const { menu, handleMenu } = useContext(AuthContext)
+    const [conteo, setConteo] = useState(0)
     return (
         <>
             <div className="lg:hidden pb-2">
@@ -17,9 +18,9 @@ const ContratosProv = () => {
             </div>
             <section>
                 <h1 className="text-center text-purple-800 font-semibold text-3xl mb-3">Trabajos actuales</h1>
-                <h2 className="text-xl mb-5 text-center">Aquí podrás ver tus trabajos agendados</h2>
+                <h2 className="text-xl mb-5 text-center dark:text-white">Aquí podrás ver tus trabajos agendados</h2>
                 <div className="flex justify-center flex-wrap gap-3">
-                    {trabajos.length !== 0 ? trabajos.map((tra) => (
+                    {trabajos.length !== 0 && trabajos.some((tra) => tra.status === "Agendado") ? trabajos.map((tra) => (
                         tra.status === "Agendado" && (
                             <div key={tra._id} className="w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-purple-400">
                                 <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
@@ -39,7 +40,7 @@ const ContratosProv = () => {
                                 </div>
                                 <div className="flex justify-around mt-3">
                                     <button type="button" className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300">Cancelar</button>
-                                </div>
+                                </div>{setConteo(conteo + 1)}
                             </div>
                         )
                     )) : (
