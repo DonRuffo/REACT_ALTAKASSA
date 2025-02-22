@@ -22,15 +22,15 @@ const AuthProvider = ({children}) => {
     const handleMenu = () =>{
         setMenu(!menu)
     }
+
     const handleDarkPage = () =>{
         setDarkMode(!darkMode)
         if (darkMode === true) {
-            localStorage.setItem('ldPag', "Oscuro")
-        } else if (darkMode === false || !darkMode){
             localStorage.setItem('ldPag', "Claro")
+        } else if (darkMode === false){
+            localStorage.setItem('ldPag', "Oscuro")
         }
     }
-
     const sideBar = useRef(null)
     //Funcion para mostrar y ocultar la barra lateral
     useEffect(() => {
@@ -90,13 +90,13 @@ const AuthProvider = ({children}) => {
     }, [dark])
 
     useEffect(()=>{
-        const temaPage = localStorage.getItem('ldPg')
+        const temaPage = localStorage.getItem('ldPag')
         if (temaPage ==="Oscuro" ) {
             setDarkMode(true)
-        }else if (temaPage === "Claro"){
+        }else if (temaPage === "Claro" || !temaPage){
             setDarkMode(false)
         }
-    }, [darkMode])
+    }, [])
 
     
 
@@ -186,7 +186,7 @@ const AuthProvider = ({children}) => {
             sideBar,
             darkMode,
             handleDarkPage
-           }
+            }
         }>
             {children}
         </AuthContext.Provider>

@@ -25,6 +25,7 @@ import SolicitudesCli from './paginas/SolicitudesCliente'
 import ContratosCliente from './paginas/ContratosCliente'
 import ContratosProv from './paginas/ContratosProveedor'
 import NotFound from './paginas/NotFound'
+import Calendario from './componentes/Calendario'
 function App() {
 
   return (
@@ -86,6 +87,7 @@ function App() {
                       } />
                       <Route path='configuracion' element={<Configuracion />} />
                       <Route path='no-encontrado' element={<PaginaNoPermitida />} />
+                      <Route path='calendario' element={<Calendario />} />
                       <Route path='*' element={<NotFound />} />
                     </Route>
                   </Routes>
