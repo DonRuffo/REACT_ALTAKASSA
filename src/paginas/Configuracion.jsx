@@ -1,13 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import OpcionConfig from "../componentes/opcionesConfiguracion";
-import logoContrasenia from '../assets/CandadoPassword.png'
-import logoPerfil from '../assets/Perfil_negro.png'
 import ConfigContext from "../context/ConfigProvider";
 import logoMenu from '../assets/category.png'
 import logoMenuAbierto from '../assets/hamburger.png'
-import logoTema from '../assets/tema_oscuro.png'
-import logoOscuro from '../assets/ModoOscuro.png'
-import logoClaro from '../assets/ModoClaro.png'
 import AuthContext, { useAuth } from "../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import { EyeOff, Eye } from 'lucide-react';
@@ -15,7 +10,7 @@ import { EyeOff, Eye } from 'lucide-react';
 
 const Configuracion = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
-    const [ojoActivo2, setOjoActivo2] = useState(false) 
+    const [ojoActivo2, setOjoActivo2] = useState(false)
 
     const { auth } = useContext(AuthContext)
     const { modalContra, setModalContra, modalPerfil, setModalPerfil, modalTema, setModalTema } = useContext(ConfigContext)
@@ -120,9 +115,27 @@ const Configuracion = () => {
             <section className="flex flex-col md:flex-row justify-between">
                 <div className="w-full md:w-2/5 flex bg-white dark:bg-transparent dark:text-white rounded-xl shadow-lg md:max-h-[165px] border border-gray-100 mb-8 md:mb-0">
                     <ul className="w-full p-2">
-                        <OpcionConfig titulo={"Cambiar contraseña"} logo={logoContrasenia} clic={accesoContra} />
-                        <OpcionConfig titulo={"Actualizar perfil"} logo={logoPerfil} clic={accesoPerfil} />
-                        <OpcionConfig titulo={"Tema"} logo={logoTema} clic={accesoTema} />
+                        <OpcionConfig titulo={"Cambiar contraseña"} logo={
+                            (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="2" />
+                                <path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" stroke-width="2" />
+                                <circle cx="12" cy="15" r="1.5" fill="currentColor" />
+                            </svg>
+                            )
+                        } clic={accesoContra} />
+                        <OpcionConfig titulo={"Actualizar perfil"} logo={(
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+                                <path d="M4 20a8 8 0 0116 0" stroke="currentColor" stroke-width="2" />
+                            </svg>
+
+                        )} clic={accesoPerfil} />
+                        <OpcionConfig titulo={"Tema"} logo={(
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                                <path d="M12 2a10 10 0 000 20 5 5 0 010-10A5 5 0 0112 2z" fill="currentColor" />
+                            </svg>
+                        )} clic={accesoTema} />
                     </ul>
                 </div>
                 <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-purple-400 p-5 dark:bg-transparent`}>
@@ -193,13 +206,20 @@ const Configuracion = () => {
                 <div className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-white rounded-xl shadow-xl border dark:bg-transparent dark:text-white `}>
                     <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
-                            <img src={logoOscuro} alt="OscuroMood" width={23} height={23} /> Tema Oscuro
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1021 12.79z" fill="currentColor" />
+                            </svg>
+                            Tema Oscuro
                         </div>
                         <input type="radio" name="tema" id="Oscuro" value="Oscuro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800 checked:shadow-md checked:shadow-indigo-400" />
                     </label>
-                    <label htmlFor="Claro" className="cursor-pointer flex justify-between px-4 py-3 mx-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
+                    <label htmlFor="Claro" className="cursor-pointer flex justify-between px-4 py-2 mx-2 mb-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
-                            <img src={logoClaro} alt="ClaroMood" width={23} height={23} /> Tema Claro
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="5" fill="currentColor" />
+                                <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            Tema Claro
                         </div>
                         <input type="radio" name="tema" id="Claro" value="Claro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800 checked:shadow-md checked:shadow-indigo-400" />
                     </label>

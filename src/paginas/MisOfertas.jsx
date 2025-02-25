@@ -72,7 +72,7 @@ const ListadoOfertas = () => {
                             <button className="px-3 py-1 bg-blue-800 rounded-md text-white font-semibold hover:bg-blue-900 duration-300 hover:scale-110" onClick={() => { handleModalEditOf(of._id); setModalEditOf(!modalEditOf) }}>
                                 Editar
                             </button>
-                            <button className="px-2 py-1 rounded-md bg-red-600 hover:bg-red-800 hover:scale-110 duration-300" onClick={() => { handleModalEditOf(of._id); EliminarOferta(of._id, index + 1) }}><img src={iconoDelete} alt="iconoDelete" /></button>
+                            <button className="px-2 py-1 rounded-md bg-gray-800 hover:bg-black hover:scale-110 duration-300" onClick={() => { handleModalEditOf(of._id); EliminarOferta(of._id, index + 1) }}><img src={iconoDelete} alt="iconoDelete" /></button>
                         </div>
                         {ofertaSeleccionada === of._id && modalEditOf && (
                             <ModalEditarOferta idOferta={of._id} listarOfertas={ListarOfertas} />

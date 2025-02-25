@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
 import OfertaContext from "../context/OfertasProvider";
@@ -8,14 +8,15 @@ import logoMenuAbierto from '../assets/hamburger.png'
 import AuthContext from "../context/AuthProvider";
 
 const SolicitudProv = () => {
-    const { trabajos, setTrabajos } = useContext(OfertaContext)
-    const {menu, handleMenu} = useContext(AuthContext)
+    const { trabajos, ObtenerTrabajos } = useContext(OfertaContext)
+    const { menu, handleMenu } = useContext(AuthContext)
+    const token = localStorage.getItem('token')
+    const rol = localStorage.getItem('rol')
 
     const AceptarSolicitud = async (id, indx) => {
         const confirmar = confirm(`¿Estás seguro de aceptar el trabajo para ${indx}?`)
         if (confirmar) {
             try {
-                const token = localStorage.getItem('token')
                 const url = `${import.meta.env.VITE_BACKEND_URL}/agendarTrabajo/${id}`
                 const options = {
                     headers: {
@@ -26,7 +27,7 @@ const SolicitudProv = () => {
                 }
                 const respuesta = await axios.put(url, {}, options)
                 toast.success(respuesta.data.msg)
-                ObtenerTrabajos()
+                ObtenerTrabajos(rol, token)
             } catch (error) {
                 console.log(error)
                 toast.error(error.response.data.msg)
@@ -38,7 +39,6 @@ const SolicitudProv = () => {
         const confirmar = confirm(`¿Estás seguro de rechazar el trabajo para ${indx}?`)
         if (confirmar) {
             try {
-                const token = localStorage.getItem('token')
                 const url = `${import.meta.env.VITE_BACKEND_URL}/rechazarTrabajo/${id}`
                 const options = {
                     headers: {
@@ -49,7 +49,7 @@ const SolicitudProv = () => {
                 }
                 const respuesta = await axios.put(url, {}, options)
                 toast.success(respuesta.data.msg)
-                ObtenerTrabajos()
+                ObtenerTrabajos(rol, token)
             } catch (error) {
                 console.log(error)
                 toast.error(error.response.data.msg)
