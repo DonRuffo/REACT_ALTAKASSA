@@ -3,11 +3,16 @@ import { useState, useEffect } from "react";
 import OfertaContext from "../../context/OfertasProvider";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import Calendario from "../Calendario";
 
-const ModalTrabajos = ({ idOferta , trabajos}) => {
+const ModalTrabajos = ({ idOferta, trabajos }) => {
     const { modalTra, setModalTra } = useContext(OfertaContext)
     const [selectedOption, setSelectedOption] = useState('');
+    const [calendario, setCalendario] = useState(false)
 
+    const handleCalendarioChange = () => {
+        setCalendario(!calendario)
+    }
 
     const handleRadioChange = (event) => {
         const tipoSeleccionado = event.target.value;
@@ -126,9 +131,9 @@ const ModalTrabajos = ({ idOferta , trabajos}) => {
     }, [idOferta]);
     return (
         <>
-            <div className="fixed bg-black bg-opacity-50 inset-0 transition-all duration-300">
+            <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="dark:bg-black outline outline-1 outline-green-900 outline-offset-1 fixed top-1/4 lg:left-1/3 lg:w-1/2 lg:h-3/5 rounded-lg shadow-2xl bg-white">
+                <div className="dark:bg-black outline outline-1 outline-green-900 outline-offset-1 fixed top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-white">
                     <h1 className="dark:bg-black border-b-2 border-green-800 bg-gray-300 rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-800">Solicitud de Trabajo</h1>
                     <div className="grid grid-cols-2">
                         <div className="border-r-2 border-black dark:border-white">
@@ -138,9 +143,9 @@ const ModalTrabajos = ({ idOferta , trabajos}) => {
                                 <div className="mb-3 mt-1">
                                     <div className="flex justify-around flex-wrap gap-2 lg:gap-0">
                                         <div className="flex items-center gap-2">
-                                            <label htmlFor="precioPorDia" className=" dark:text-white px-3 py-1 has-[input:checked]:text-indigo-800 has-[input:checked]:border-indigo-800 rounded-md text-md text-slate-600 font-semibold flex justify-between items-center gap-3 border">
+                                            <label htmlFor="precioPorDia" className=" dark:text-white px-3 py-1 has-[input:checked]:text-indigo-800 has-[input:checked]:dark:text-purple-600 has-[input:checked]:border-indigo-800 has-[input:checked]:dark:border-purple-600 rounded-md text-md text-slate-600 font-semibold flex justify-between items-center gap-3 border">
                                                 Precio/Dia:
-                                                <input type="radio" id="precioPorDia" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorDia" checked={formTrabajo.tipo === "precioPorDia"} className="appearance-none border w-4 h-4 rounded-full border border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400" />
+                                                <input type="radio" id="precioPorDia" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorDia" checked={formTrabajo.tipo === "precioPorDia"} className="appearance-none border w-4 h-4 rounded-full border border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400 dark:checked:purple-indigo-600 dark:checked:shadow-purple-400" />
                                             </label>
                                         </div>
                                         <div className="flex items-center gap-2">
@@ -151,9 +156,13 @@ const ModalTrabajos = ({ idOferta , trabajos}) => {
                                         </div>
                                     </div>
                                 </div><hr />
-                                <div className="mb-3 px-2 lg:px-6">
-                                    <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white">Fecha: </label>
-                                    <input type="date" name="fecha" onChange={handleChange} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
+                                <div className="mb-3 px-2 lg:px-6 flex gap-2 flex-wrap items-center">
+                                    <div>
+                                        <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white mb-1">Fecha: </label>
+                                        <input type="date" name="fecha" onChange={handleChange} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
+                                    </div>
+                                    
+                                    <button type="button" className="bg-blue-600 dark:text-white text-sm px-2 py-1 mt-3 ml-11 md:ml-8 rounded-lg hover:bg-blue-800 duration-300" onClick={()=>{handleCalendarioChange()}}>Ver fechas</button>
                                 </div><hr />
                                 {selectedOption === 'precioPorHora' && (
                                     <>
@@ -179,14 +188,14 @@ const ModalTrabajos = ({ idOferta , trabajos}) => {
                                     </>
                                 )}
                                 <div className="mb-3 mt-7">
-                                    <div className="flex justify-around flex-wrap gap-3 lg:gap-0">
+                                    <div className="flex justify-around flex-wrap gap-3 lg:gap-0 md:pb-2">
                                         <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalTra(false) }, 5000) }}>Crear</button>
                                         <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalTra(!modalTra) }}>Cerrar</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div>
+                        <div className={`${calendario === true ? "hidden" : ""} transition ease-in-out duration-300`}>
                             <h1 className="text-xl font-semibold text-center my-2 dark:text-white">Información</h1>
                             <div className="flex justify-center">
                                 <table className="table-auto border-collapse border border-gray-300 w-full mb-3">
@@ -218,6 +227,14 @@ const ModalTrabajos = ({ idOferta , trabajos}) => {
                             </div>
                             <h1 className="font-semibold ml-3 dark:text-white">Descripción</h1>
                             <p className="mx-3 dark:text-white">{form.descripcion}</p>
+                        </div>
+                        <div className={`${calendario === false ? "hidden" : ""} transition ease-in-out duration-300`}>
+                            <h1 className="text-xl text-center font-semibold mt-2 dark:text-white">Disponibilidad en fechas</h1>
+                            <div className="flex justify-center mt-3">
+                                <Calendario />
+                            </div>
+                            <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-600">rojo</b> están agendados</p>
+
                         </div>
                     </div>
                 </div>

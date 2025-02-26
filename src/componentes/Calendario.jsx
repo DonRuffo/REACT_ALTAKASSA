@@ -1,12 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthProvider";
+import OfertaContext from "../context/OfertasProvider";
 
 const Calendario = () => {
-    const {dark} = useContext(AuthContext)
-    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    const { dark } = useContext(AuthContext)
+    const { trabajos } = useContext(OfertaContext)
+    const fechas = []
     const meses2 = [
         {
-            id:0,
+            id: 1,
             mes: 'Enero',
             D: ['-', '5', '12', '19', '26', '-'],
             L: ['-', '6', '13', '20', '27', '-'],
@@ -17,7 +19,7 @@ const Calendario = () => {
             S: ['4', '11', '18', '25', '-', '-']
         },
         {
-            id:1,
+            id: 2,
             mes: 'Febrero',
             D: ['-', '2', '9', '16', '23', '-'],
             L: ['-', '3', '10', '17', '24', '-'],
@@ -28,7 +30,7 @@ const Calendario = () => {
             S: ['1', '8', '15', '22', '-', '-']
         },
         {
-            id:2,
+            id: 3,
             mes: 'Marzo',
             D: ['-', '2', '9', '16', '23', '30'],
             L: ['-', '3', '10', '17', '24', '31'],
@@ -39,7 +41,7 @@ const Calendario = () => {
             S: ['1', '8', '15', '22', '29', '-']
         },
         {
-            id:3,
+            id: 4,
             mes: 'Abril',
             D: ['-', '6', '13', '20', '27', '-'],
             L: ['-', '7', '14', '21', '28', '-'],
@@ -50,7 +52,7 @@ const Calendario = () => {
             S: ['5', '12', '19', '26', '-', '-']
         },
         {
-            id:4,
+            id: 5,
             mes: 'Mayo',
             D: ['-', '4', '11', '18', '25', '-'],
             L: ['-', '5', '12', '19', '26', '-'],
@@ -61,7 +63,7 @@ const Calendario = () => {
             S: ['3', '10', '17', '24', '31', '-']
         },
         {
-            id:5,
+            id: 6,
             mes: 'Junio',
             D: ['1', '8', '15', '22', '29', '-'],
             L: ['2', '9', '16', '23', '30', '-'],
@@ -72,7 +74,7 @@ const Calendario = () => {
             S: ['7', '14', '21', '28', '-', '-']
         },
         {
-            id:6,
+            id: 7,
             mes: 'Julio',
             D: ['-', '6', '13', '20', '27', '-'],
             L: ['-', '7', '14', '21', '28', '-'],
@@ -83,7 +85,7 @@ const Calendario = () => {
             S: ['5', '12', '19', '26', '-', '-']
         },
         {
-            id:7,
+            id: 8,
             mes: 'Agosto',
             D: ['-', '3', '10', '17', '24', '31'],
             L: ['-', '4', '11', '18', '25', '-'],
@@ -94,7 +96,7 @@ const Calendario = () => {
             S: ['2', '9', '16', '23', '30', '-']
         },
         {
-            id:8,
+            id: 9,
             mes: 'Septiembre',
             D: ['-', '7', '14', '21', '28', '-'],
             L: ['1', '8', '15', '22', '29', '-'],
@@ -105,7 +107,7 @@ const Calendario = () => {
             S: ['6', '13', '20', '27', '-', '-']
         },
         {
-            id:9,
+            id: 10,
             mes: 'Octubre',
             D: ['-', '5', '12', '19', '26', '-'],
             L: ['-', '6', '13', '20', '27', '-'],
@@ -116,7 +118,7 @@ const Calendario = () => {
             S: ['4', '11', '18', '25', '-', '-']
         },
         {
-            id:10,
+            id: 11,
             mes: 'Noviembre',
             D: ['-', '2', '9', '16', '23', '30'],
             L: ['-', '3', '10', '17', '24', '-'],
@@ -127,7 +129,7 @@ const Calendario = () => {
             S: ['1', '8', '15', '22', '29', '-']
         },
         {
-            id:11,
+            id: 12,
             mes: 'Diciembre',
             D: ['-', '7', '14', '21', '28', '-'],
             L: ['1', '8', '15', '22', '29', '-'],
@@ -139,33 +141,50 @@ const Calendario = () => {
         }
     ]
 
-    const [conteo, setConteo] = useState(0)
+    useEffect(() => {
+        trabajos.forEach((tra) => {
+            if (tra.status === "Agendado") {
+                const partes = tra.fecha.split("T")[0].split("-");
+                const nuevaFecha = [partes[1], partes[2]].join("-");
 
-    function derecha(){
-        if(conteo >= 0 && conteo<=10){
-           setConteo(conteo + 1)
-        }else{
-            setConteo(11)
+                
+                if (!fechas.includes(nuevaFecha)) {
+                    fechas.push(nuevaFecha);
+                }
+            }
+        });
+        console.log(fechas)
+    }, [trabajos])
+
+    const [conteo, setConteo] = useState(1)
+
+    function derecha() {
+        if (conteo >= 1 && conteo <= 11) {
+            setConteo(conteo + 1)
+        } else {
+            setConteo(12)
         }
     }
-    function izquierda(){
-        if(conteo !== 0){
+    function izquierda() {
+        if (conteo !== 1) {
             setConteo(conteo - 1)
-        }else{
-            setConteo(0)
+        } else {
+            setConteo(1)
         }
     }
+
+
     return (
         <>
             <div className={dark ? 'dark' : ''}>
                 {meses2.map((mes) => (
-                    <div className={`${conteo === mes.id ? "" : "hidden"} w-[165px] h-[150px] outline outline-1 outline-blue-100 dark:outline-gray-900 outline-offset-0 outline-offset-4 rounded-md shadow-lg dark:bg-transparent dark:shadow-none p-1`}>
+                    <div key={mes.id} className={`${conteo === mes.id ? "" : "hidden"} w-[165px] h-[150px] outline outline-1 outline-blue-100 dark:outline-gray-900 outline-offset-0 outline-offset-4 rounded-md shadow-lg dark:bg-transparent dark:shadow-none p-1`}>
                         <div className="flex justify-between pt-1 dark:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" className='cursor-pointer hover:-translate-x-0.5 transition-all duration-300' onClick={()=>izquierda()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" className='cursor-pointer hover:-translate-x-0.5 transition-all duration-300' onClick={() => izquierda()}>
                                 <path d="M14 19l-7-7 7-7v14z" />
                             </svg>
                             <h1 className="font-semibold text-blue-700">{mes.mes}</h1>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" className='cursor-pointer hover:translate-x-0.5 transition-all duration-300' onClick={()=>derecha()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" className='cursor-pointer hover:translate-x-0.5 transition-all duration-300' onClick={() => derecha()}>
                                 <path d="M10 5l7 7-7 7V5z" />
                             </svg>
                         </div>
