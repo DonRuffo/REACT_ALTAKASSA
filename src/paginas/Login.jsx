@@ -7,12 +7,13 @@ import axios from 'axios';
 import AuthContext from '../context/AuthProvider';
 import OfertaContext from '../context/OfertasProvider';
 import { EyeOff, Eye } from 'lucide-react';
+import RelojDeArena from '../componentes/RelojArena';
 
 const Login = () => {
     const { Perfil, darkMode } = useContext(AuthContext)
     const { ObtenerTrabajos, ListarOfertas } = useContext(OfertaContext)
     const [ojoActivo, setOjoActivo] = useState(false)
-
+    const [carga, setCarga] = useState(false)
     const navigate = useNavigate()
     const [form, setForm] = useState({
         email: "",
@@ -52,6 +53,7 @@ const Login = () => {
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
+            setCarga(false)
         }
     }
 
@@ -99,7 +101,8 @@ const Login = () => {
 
 
                                 <div className="my-7 flex justify-center">
-                                    <button type='submit' className="py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white">Ingresar</button>
+                                    <button type='submit' onClick={()=>setCarga(true)} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white`}>Ingresar</button>
+                                    {carga && (<RelojDeArena />)}
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />
                                 <div className='mt-1 md:mt-3 md:mb-1'>
