@@ -6,14 +6,13 @@ import { ToastContainer, toast } from "react-toastify";
 import Calendario from "../Calendario";
 
 const ModalTrabajos = ({ idOferta, trabajos }) => {
-    const { modalTra, setModalTra } = useContext(OfertaContext)
+    const { modalTra, setModalTra, idProveedor , setIdProveedor } = useContext(OfertaContext)
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
-
     const handleCalendarioChange = () => {
         setCalendario(!calendario)
     }
-
+    
     const handleRadioChange = (event) => {
         const tipoSeleccionado = event.target.value;
         setSelectedOption(tipoSeleccionado);
@@ -69,6 +68,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                 ...formTrabajo,
                 servicio: respuesta.data.servicio
             })
+            setIdProveedor(respuesta.data.proveedor._id) 
         } catch (error) {
             console.log(error)
         }
@@ -231,7 +231,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                         <div className={`${calendario === false ? "hidden" : ""} transition ease-in-out duration-300`}>
                             <h1 className="text-xl text-center font-semibold mt-2 dark:text-white">Disponibilidad en fechas</h1>
                             <div className="flex justify-center mt-3">
-                                <Calendario />
+                                {calendario && (<Calendario />)} 
                             </div>
                             <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-600">rojo</b> están agendados</p>
 

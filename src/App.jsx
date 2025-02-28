@@ -88,6 +88,7 @@ function App() {
                       <Route path='configuracion' element={<Configuracion />} />
                       <Route path='no-encontrado' element={<PaginaNoPermitida />} />
                       <Route path='*' element={<NotFound />} />
+                      <Route path='pruebas' element={<Calendario/>}/>
                     </Route>
                   </Routes>
                 </ConfigAuth>

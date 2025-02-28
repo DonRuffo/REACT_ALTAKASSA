@@ -11,6 +11,7 @@ const OfertaProvider = ({ children }) => {
     const [modalTraActual, setModalTraActual] = useState(false)
     const [trabajos, setTrabajos] = useState([])
     const [oferta, setOferta] = useState([])
+    const [idProveedor , setIdProveedor] = useState('')
 
     const ListarOfertas = async (rol, token) =>{
         let url
@@ -109,7 +110,9 @@ const OfertaProvider = ({ children }) => {
             ObtenerTrabajos,
             oferta,
             setOferta,
-            ListarOfertas
+            ListarOfertas,
+            idProveedor ,
+            setIdProveedor
         }}>
             {children}
         </OfertaContext.Provider>
