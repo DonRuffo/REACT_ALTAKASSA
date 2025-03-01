@@ -5,31 +5,7 @@ import axios from "axios";
 
 const Calendario = () => {
     const { dark } = useContext(AuthContext)
-    const { idProveedor } = useContext(OfertaContext)
-    const [traProveedor, setTraProveedor] = useState([])
-    const [fechas, setFechas] = useState([])
-
-    const TrabajosAgendados = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-agendados/${idProveedor}`
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-
-            const respuesta = await axios.get(url, options)
-            setTraProveedor(respuesta.data)
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    useEffect(() => {
-        TrabajosAgendados()
-    }, [idProveedor])
+    const { fechas } = useContext(OfertaContext)
 
     const meses2 = [
         {
@@ -166,24 +142,6 @@ const Calendario = () => {
         }
     ]
 
-    useEffect(() => {
-        setFechas((prevFechas)=>{
-            const nuevasFechas = [...prevFechas]
-            traProveedor.forEach((tra) => {
-            if (tra.status === "Agendado") {
-                const partes = tra.fecha.split("T")[0].split("-");
-                const nuevaFecha = [partes[1], partes[2]].join("-");
-
-
-                if (!fechas.includes(nuevaFecha)) {
-                    nuevasFechas.push(nuevaFecha);
-                }
-            }
-        });
-        return nuevasFechas
-        })
-}, [traProveedor])
-
 const [conteo, setConteo] = useState(1)
 
 function derecha() {
@@ -201,10 +159,11 @@ function izquierda() {
     }
 }
 
+
 const diasEnCalendario = (dia, id) =>{
     const array = [0,1,2,3,4,5]
     return array.map((indx) =>(
-        <p className={`text-center ${dia[indx] === '-' ? 'invisible' : ''} ${fechas.some((fecha) => {
+        <p key={indx} className={`text-center ${dia[indx] === '-' ? 'invisible' : ''} ${fechas.some((fecha) => {
             let [mesNum, diaNum] = fecha.split('-').map(num => parseInt(num, 10));
             return mesNum === id && diaNum === parseInt(dia[indx], 10);
         }) ? 'bg-red-600' : ''}  rounded-md`}>{dia[indx]}</p>

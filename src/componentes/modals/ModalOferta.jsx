@@ -77,7 +77,7 @@ const ModalOferta = ({ListarOfertas}) => {
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
-                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalOf(false) }, 5000) }}>Crear</button>
+                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalOf(false) }, 2500) }}>Crear</button>
                                 <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalOf(!modalOf) }}>Cerrar</button>
                             </div>
                         </div>

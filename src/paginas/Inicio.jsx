@@ -11,12 +11,16 @@ import ModalTrabajos from "../componentes/modals/ModalTrabajos";
 
 const Inicio = () => {
     const { auth, menu, handleMenu } = useContext(AuthContext)
-    const { modalTra, setModalTra, oferta, ObtenerTrabajos } = useContext(OfertaContext)
+    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor } = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
 
     const handleModalTra = (id) => {
         setOfertaSeleccionada(id);
     };
+
+    const proveedorSeleccionado = (idProv) =>{
+        setIdProveedor(idProv)
+    }
     return (//#BA05FF COLOR DEL SISTEMA
         <>
             <div className="lg:hidden pb-2">
@@ -68,7 +72,7 @@ const Inicio = () => {
                                 <b className="text-xl ml-5 text-yellow-500">${of.precioPorHora}</b>
                             </p>
                             <div className="flex justify-center mt-5">
-                                <button className="px-2 py-1 rounded-md bg-blue-700 text-white font-semibold hover:bg-blue-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); setModalTra(!modalTra) }}>Solicitar</button>
+                                <button className="px-2 py-1 rounded-md bg-blue-700 text-white font-semibold hover:bg-blue-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id) ;setModalTra(!modalTra) }}>Solicitar</button>
                             </div>
                             {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
                         </div>

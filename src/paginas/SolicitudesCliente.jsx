@@ -6,6 +6,7 @@ import ModalActualizar from "../componentes/modals/ModalActualizar";
 import logoMenu from '../assets/category.png'
 import logoMenuAbierto from '../assets/hamburger.png'
 import AuthContext from "../context/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
 
 const SolicitudesCli = () => {
     const [trabajoSeleccionado, setTrabajoSeleccioando] = useState(null)
@@ -34,16 +35,16 @@ const SolicitudesCli = () => {
                     }
                 }
                 const respuesta = await axios.delete(url, options)
-                ObtenerTrabajosCli()
+                ObtenerTrabajos()
             } catch (error) {
                 console.log(error);
-
             }
         }
     }
 
     return (
         <>
+
             <div className="lg:hidden pb-2">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />

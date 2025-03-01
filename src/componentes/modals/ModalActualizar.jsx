@@ -211,7 +211,7 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
                                 )}
                                 <div className="mb-3 mt-7">
                                     <div className="flex justify-around flex-wrap gap-2 lg:gap-0 md:pb-2">
-                                        <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalTraActual(false) }, 5000) }}>Actualizar</button>
+                                        <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalTraActual(false) }, 2500) }}>Actualizar</button>
                                         <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalTraActual(!modalTraActual) }}>Cerrar</button>
                                     </div>
                                 </div>

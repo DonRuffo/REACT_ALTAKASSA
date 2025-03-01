@@ -11,14 +11,16 @@ const OfertaProvider = ({ children }) => {
     const [modalTraActual, setModalTraActual] = useState(false)
     const [trabajos, setTrabajos] = useState([])
     const [oferta, setOferta] = useState([])
-    const [idProveedor , setIdProveedor] = useState('')
+    const [idProveedor, setIdProveedor] = useState('')
+    const [traProveedor, setTraProveedor] = useState([])
+    const [fechas, setFechas] = useState([])
 
-    const ListarOfertas = async (rol, token) =>{
+    const ListarOfertas = async (rol, token) => {
         let url
         try {
-            if(rol === "cliente"){
+            if (rol === "cliente") {
                 url = `${import.meta.env.VITE_BACKEND_URL}/listarOfertas`
-            }else if (rol === "proveedor"){
+            } else if (rol === "proveedor") {
                 url = `${import.meta.env.VITE_BACKEND_URL}/misOfertas`
             }
 
@@ -33,14 +35,14 @@ const OfertaProvider = ({ children }) => {
             setOferta(respuesta.data)
         } catch (error) {
             console.log(error);
-        } 
+        }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const rol = localStorage.getItem('rol')
         const token = localStorage.getItem('token')
 
-        if (rol && token && oferta.length === 0){
+        if (rol && token && oferta.length === 0) {
             ListarOfertas(rol, token)
         }
     }, [])
@@ -111,8 +113,12 @@ const OfertaProvider = ({ children }) => {
             oferta,
             setOferta,
             ListarOfertas,
-            idProveedor ,
-            setIdProveedor
+            idProveedor,
+            setIdProveedor,
+            fechas,
+            setFechas,
+            traProveedor,
+            setTraProveedor
         }}>
             {children}
         </OfertaContext.Provider>

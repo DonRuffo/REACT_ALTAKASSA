@@ -6,13 +6,53 @@ import { ToastContainer, toast } from "react-toastify";
 import Calendario from "../Calendario";
 
 const ModalTrabajos = ({ idOferta, trabajos }) => {
-    const { modalTra, setModalTra, idProveedor , setIdProveedor } = useContext(OfertaContext)
+    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, fechas, setTraProveedor, traProveedor } = useContext(OfertaContext)
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
+
+    const TrabajosAgendados = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            const url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-agendados/${idProveedor}`
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options)
+            setTraProveedor(respuesta.data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        TrabajosAgendados()
+    }, [idProveedor])
+
+    useEffect(() => {
+        setFechas([]); // Primero limpiamos
+        setTimeout(() => { // Esperamos un momento antes de agregar nuevas fechas
+            setFechas(() => {
+                const nuevasFechas = new Set();
+                traProveedor.forEach((tra) => {
+                    if (tra.status === "Agendado") {
+                        const partes = tra.fecha.split("T")[0].split("-");
+                        const nuevaFecha = `${partes[1]}-${partes[2]}`;
+                        nuevasFechas.add(nuevaFecha);
+                    }
+                });
+                return Array.from(nuevasFechas);
+            });
+        }, 100);
+    }, [traProveedor]);
+
     const handleCalendarioChange = () => {
         setCalendario(!calendario)
     }
-    
+
     const handleRadioChange = (event) => {
         const tipoSeleccionado = event.target.value;
         setSelectedOption(tipoSeleccionado);
@@ -68,7 +108,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                 ...formTrabajo,
                 servicio: respuesta.data.servicio
             })
-            setIdProveedor(respuesta.data.proveedor._id) 
+            setIdProveedor(respuesta.data.proveedor._id)
         } catch (error) {
             console.log(error)
         }
@@ -100,6 +140,17 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
         })
     };
 
+    const compararFechas = (e) => {
+        const fechaElegida = new Date(e.target.value)
+        const fechaHoy = new Date()
+        fechaHoy.setHours(0, 0, 0, 0)
+
+        if (fechaElegida < fechaHoy) {
+            alert("No puedes seleccionar una fecha pasada")
+            e.target.value = 'dd/mm/aaaa'
+        }
+    }
+
     const handleSubmitTrabajo = async (e) => {
         e.preventDefault()
         try {
@@ -129,6 +180,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
     useEffect(() => {
         if (idOferta) ObtenerOferta();
     }, [idOferta]);
+    
     return (
         <>
             <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
@@ -159,10 +211,10 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                 <div className="mb-3 px-2 lg:px-6 flex gap-2 flex-wrap items-center">
                                     <div>
                                         <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white mb-1">Fecha: </label>
-                                        <input type="date" name="fecha" onChange={handleChange} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
+                                        <input type="date" name="fecha" onChange={(e) => { handleChange(e); compararFechas(e) }} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
                                     </div>
-                                    
-                                    <button type="button" className="bg-blue-600 dark:text-white text-sm px-2 py-1 mt-3 ml-11 md:ml-8 rounded-lg hover:bg-blue-800 duration-300" onClick={()=>{handleCalendarioChange()}}>Ver fechas</button>
+
+                                    <button type="button" className="bg-blue-600 dark:text-white text-sm px-2 py-1 mt-3 ml-11 md:ml-8 rounded-lg hover:bg-blue-800 duration-300" onClick={() => { handleCalendarioChange() }}>Ver fechas</button>
                                 </div><hr />
                                 {selectedOption === 'precioPorHora' && (
                                     <>
@@ -189,8 +241,8 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                 )}
                                 <div className="mb-3 mt-7">
                                     <div className="flex justify-around flex-wrap gap-3 lg:gap-0 md:pb-2">
-                                        <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalTra(false) }, 5000) }}>Crear</button>
-                                        <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalTra(!modalTra) }}>Cerrar</button>
+                                        <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalTra(false) }, 2500) }}>Crear</button>
+                                        <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalTra(!modalTra)}}>Cerrar</button>
                                     </div>
                                 </div>
                             </form>
@@ -231,7 +283,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                         <div className={`${calendario === false ? "hidden" : ""} transition ease-in-out duration-300`}>
                             <h1 className="text-xl text-center font-semibold mt-2 dark:text-white">Disponibilidad en fechas</h1>
                             <div className="flex justify-center mt-3">
-                                {calendario && (<Calendario />)} 
+                                <Calendario />
                             </div>
                             <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-600">rojo</b> están agendados</p>
 
