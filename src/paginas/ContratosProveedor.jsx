@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import '../../CSS/fondos.css'
 import OfertaContext from "../context/OfertasProvider";
 import logoMenu from '../assets/category.png'
@@ -7,7 +7,7 @@ import logoMenuAbierto from '../assets/hamburger.png'
 import AuthContext from "../context/AuthProvider";
 
 const ContratosProv = () => {
-    const { trabajos, setTrabajos } = useContext(OfertaContext)
+    const { trabajos } = useContext(OfertaContext)
     const { menu, handleMenu } = useContext(AuthContext)
     return (
         <>
