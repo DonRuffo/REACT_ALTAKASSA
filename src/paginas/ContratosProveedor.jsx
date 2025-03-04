@@ -9,7 +9,6 @@ import AuthContext from "../context/AuthProvider";
 const ContratosProv = () => {
     const { trabajos, setTrabajos } = useContext(OfertaContext)
     const { menu, handleMenu } = useContext(AuthContext)
-    const [conteo, setConteo] = useState(0)
     return (
         <>
             <div className="lg:hidden pb-2">
@@ -40,7 +39,7 @@ const ContratosProv = () => {
                                 </div>
                                 <div className="flex justify-around mt-3">
                                     <button type="button" className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300">Cancelar</button>
-                                </div>{setConteo(conteo + 1)}
+                                </div>
                             </div>
                         )
                     )) : (
