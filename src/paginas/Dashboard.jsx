@@ -70,13 +70,13 @@ const Dashboard = () => {
                                 </svg>
                                 <p className=" px-2">Historial</p>
                             </Link>
-                            <Link to='/dashboard/novedades' onClick={() => { handleMenu() }} className="hidden py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1 focus:bg-gray-800">
+                            <Link to='/dashboard/novedades' onClick={() => { handleMenu() }} className="hidden py-2 px-3 rounded hover:bg-gray-800 duration-100 gap-1 focus:bg-gray-800">
                                 <img src={logoNovedades} alt="Novedades" width={26} height={26} /><p className=" px-2">Novedades</p>
                             </Link>
-                            <Link to='/dashboard/novedades' onClick={() => { handleMenu() }} className="hidden py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1 focus:bg-gray-800">
+                            <Link to='/dashboard/novedades' onClick={() => { handleMenu() }} className="hidden py-2 px-3 rounded hover:bg-gray-800 duration-100 gap-1 focus:bg-gray-800">
                                 <img src={logoAyuda} alt="Ayuda" width={26} height={26} /><p className=" px-2">Ayuda</p>
                             </Link>
-                            <Link to='/dashboard/configuracion' onClick={() => { handleMenu() }} className="block group/Config py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1 focus:bg-gray-800">
+                            <Link to='/dashboard/configuracion' onClick={() => { handleMenu() }} className=" group/Config py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1 focus:bg-gray-800">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-focus/Config:text-yellow-700 group-focus/Config:drop-shadow-[0_5px_10px_rgba(255,255,0,0.5)] transition duration-300 ease-in-out">
                                     <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" strokeWidth="2" />
                                     <path d="M19.4 12a7.4 7.4 0 00-.1-1l2.1-1.8a1 1 0 00-.3-1.7l-2.6-.9a7.7 7.7 0 00-.9-.9l-.9-2.6a1 1 0 00-1.7-.3L13 4.7a7.4 7.4 0 00-2 0L9.1 2.1a1 1 0 00-1.7.3l-.9 2.6c-.3.3-.6.6-.9.9l-2.6.9a1 1 0 00-.3 1.7l2.1 1.8a7.4 7.4 0 000 2l-2.1 1.8a1 1 0 00.3 1.7l2.6.9c.3.3.6.6.9.9l.9 2.6a1 1 0 001.7.3l1.8-2.1a7.4 7.4 0 002 0l1.8 2.1a1 1 0 001.7-.3l.9-2.6c.3-.3.6-.6.9-.9l2.6-.9a1 1 0 00.3-1.7l-2.1-1.8a7.4 7.4 0 00.1-1z" stroke="currentColor" strokeWidth="2" />

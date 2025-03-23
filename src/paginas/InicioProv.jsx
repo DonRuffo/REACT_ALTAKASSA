@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 import logoInicioProv from '../assets/Motivacion.svg';
@@ -12,37 +12,48 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
 const InicioProve = () => {
-    const { auth, menu, handleMenu } = useContext(AuthContext)
+    const { auth, menu, handleMenu, ubi, setUbi } = useContext(AuthContext)
     const { modalOf, handleModalOf, ListarOfertas } = useContext(OfertaContext)
     const navigate = useNavigate()
     const [carga, setCarga] = useState(false)
-    const [ubi, setUbi] = useState(false)
 
-    document.getElementById('localitation').addEventListener('click', () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(async (position) => {
-                const { latitude, longitude } = position.coords;
-                try {
-                    const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-prov`
-                    const token = localStorage.getItem('token')
-                    const options = {
-                        headers: { "Content-Type": "application/json" },
-                        Authorization: `Bearer ${token}`
-                    }
-                    const respuesta = await axios.post(url,{ latitude, longitude },options)
-                    toast.success(respuesta.data.msg)
-                    setUbi(true)
-                } catch (error) {
-                    console.log(error)
-                    toast.error(error.response?.data?.msg || "Error al guardar la ubicación")
+    const localitation = useRef(null)
+
+    useEffect(() => {
+        const localitationElement = localitation.current
+        if (localitationElement) {
+            localitationElement.addEventListener('click', () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const { latitude, longitude } = position.coords;
+                        try {
+                            const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-prov`
+                            const token = localStorage.getItem('token')
+                            const options = {
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    Authorization: `Bearer ${token}`
+                                }
+                            }
+                            const respuesta = await axios.post(url, { latitude, longitude }, options)
+                            toast.success(respuesta.data.msg)
+                            setUbi(true)
+                            setCarga(false)
+                        } catch (error) {
+                            console.log(error)
+                            toast.error(error.response?.data?.msg || "Error al guardar la ubicación")
+                        }
+                    });
+                } else {
+                    alert("Tu navegador no soporta geolocalización.");
                 }
-            });
-        } else {
-            alert("Tu navegador no soporta geolocalización.");
+            })
         }
-    })
+    }, [])
+
     return (
         <>
+            <ToastContainer />
             <div className="lg:hidden pb-2">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
@@ -56,17 +67,32 @@ const InicioProve = () => {
                     </div>
                 </div>
             </section><br />
-            <section className="flex justify-center">
-                <div className="w-4/5 flex justify-center gap-5">
-                    <div id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col border-4 border-gray-600 border-dashed bg-transparent h-[250px] w-[200px] rounded-lg cursor-pointer items-center justify-center shadow-lg`} onClick={() => setCarga(true)}>
+            <section className="flex justify-center mb-2">
+                <div className="w-4/5 flex justify-center gap-5 flex-wrap">
+                    <div ref={localitation} id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col border-4 border-gray-600 border-dashed bg-transparent h-[250px] w-[200px] rounded-lg cursor-pointer items-center justify-center shadow-lg`} onClick={() => setCarga(true)}>
                         <img src={LocationImg} alt="localization" width={90} height={90} className={`${carga ? 'hidden' : 'block'}`} />
                         {carga && <SpinnerCarga />}
-                        <h1 className="font-semibold text-lg text-center text-slate-500">Ingresa tu ubicación primero</h1>
+                        <h1 className="font-semibold text-lg text-center dark:text-slate-300 text-slate-600">Ingresa tu ubicación primero</h1>
                     </div>
-                    <div className={`${ubi === false ? 'cursor-not-allowed pointer-events-none ' : 'cursor-pointer'} flex border-4 border-gray-600 border-dashed bg-gray-300 h-[250px] w-[200px] rounded-lg items-center justify-center shadow-lg`} onClick={handleModalOf}>
-                        <h1 className="font-semibold text-lg text-center text-slate-600">Ingresa una nueva oferta</h1>
+                    <div className={`${ubi === false ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'} flex border-4 ${ubi === false ? 'dark:border-gray-900 dark:bg-gray-800' : 'dark:border-gray-600 dark:bg-gray-300 bg-gray-400'} border-dashed h-[250px] w-[200px] rounded-lg items-center justify-center shadow-lg`} onClick={handleModalOf}>
+                        <h1 className={`font-semibold text-lg text-center ${ubi === false ? 'text-slate-300 dark:text-slate-600' : 'text-slate-600 dark:text-slate-700'}`}>Ingresa una nueva oferta</h1>
                     </div>
                 </div>
+            </section>
+            <section>
+                <div className="flex justify-end">
+                    <button className="group/Ubi flex justify-around font-semibold px-4 py-1 dark:text-white bg-transparent border-2 border-purple-700 rounded-xl hover:bg-purple-700 duration-300">
+                        Ver Ubicación
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover/Ubi:text-white">
+                            <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
+                                stroke="purple" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="12" cy="9" r="3" stroke="purple" stroke-width="2" />
+                        </svg>
+                    </button>
+                </div>
+            </section>
+            <section>
+                <div id="map" className="h-[500px]"></div>
             </section>
             {modalOf && (<ModalOferta ListarOfertas={ListarOfertas} />)}
         </>

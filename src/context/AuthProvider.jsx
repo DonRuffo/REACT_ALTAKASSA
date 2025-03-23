@@ -4,30 +4,31 @@ import { ToastContainer, toast } from "react-toastify";
 const AuthContext = createContext()
 const useAuth = () => {
     const context = useContext(AuthContext)
-    if(!context) {
+    if (!context) {
         throw new Error('useAuth debe estar dentro del proveedor AuthProvider')
     }
     return context
 }
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
 
     const [menu, setMenu] = useState(false)
     const [auth, setAuth] = useState({})
     const [dark, setDark] = useState(false)
     const [darkMode, setDarkMode] = useState(false)
-    
+    const [ubi, setUbi] = useState(false)
+
 
     //Funcion para mostrar y ocultar la barra lateral
-    const handleMenu = () =>{
+    const handleMenu = () => {
         setMenu(!menu)
     }
 
-    const handleDarkPage = () =>{
+    const handleDarkPage = () => {
         setDarkMode(!darkMode)
         if (darkMode === true) {
             localStorage.setItem('ldPag', "Claro")
-        } else if (darkMode === false){
+        } else if (darkMode === false) {
             localStorage.setItem('ldPag', "Oscuro")
         }
     }
@@ -48,144 +49,182 @@ const AuthProvider = ({children}) => {
     }, [menu]);
 
     //Funcion para obtener los datos del perfil de un usuario
-    const Perfil = async (token, rol)=>{
+    const Perfil = async (token, rol) => {
         let url
-        try{
-            if(rol === "proveedor"){
-                url = `${import.meta.env.VITE_BACKEND_URL}/perfil-proveedor`    
-            }else if(rol === "cliente"){
+        try {
+            if (rol === "proveedor") {
+                url = `${import.meta.env.VITE_BACKEND_URL}/perfil-proveedor`
+            } else if (rol === "cliente") {
                 url = `${import.meta.env.VITE_BACKEND_URL}/perfilCliente`
-            }else if(rol === "administrador"){
+            } else if (rol === "administrador") {
                 url = `${import.meta.env.VITE_BACKEND_URL}/perfil-admin`
             }
-            const options={
-                headers:{
-                    'Content-Type':'application/json',
-                    Authorization:`Bearer ${token}`
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
                 }
             }
-            
+
             const respuesta = await axios.get(url, options)
             setAuth(respuesta.data)
-        }catch(error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    useEffect(()=>{
+    //funcion para verificar si el usuario ya guardo su ubicación
+    const Ubicacion = async (token, rol) => {
+        try {
+            let url
+            if (rol === 'proveedor') {
+                url = `${import.meta.env.VITE_BACKEND_URL}/ubicacion-prov`
+            } else if (rol === 'cliente') {
+                url = `${import.meta.env.VITE_BACKEND_URL}/ubicacion-cli`
+            }
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options)
+            const verify = respuesta.data.msg
+            if (verify === "Si") {
+                setUbi(true)
+            } else if (verify === 'No') {
+                setUbi(false)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
-        if(token && rol){
+        if (token && rol) {
             Perfil(token, rol)
         }
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const rol = localStorage.getItem('rol')
+        if (token && rol) {
+            Ubicacion(token, rol)
+        }
+    }, [])
+
+    useEffect(() => {
         const tema = localStorage.getItem('tema')
-        if(tema==="Oscuro"){
+        if (tema === "Oscuro") {
             setDark(true)
-        }else if(tema === "Claro" || !tema ){
+        } else if (tema === "Claro" || !tema) {
             setDark(false)
         }
     }, [dark])
 
-    useEffect(()=>{
+    useEffect(() => {
         const temaPage = localStorage.getItem('ldPag')
-        if (temaPage ==="Oscuro" ) {
+        if (temaPage === "Oscuro") {
             setDarkMode(true)
-        }else if (temaPage === "Claro" || !temaPage){
+        } else if (temaPage === "Claro" || !temaPage) {
             setDarkMode(false)
         }
     }, [])
 
-    
 
-    const ActualizarPerfil = async (datos) =>{
+
+    const ActualizarPerfil = async (datos) => {
         let url
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
-        if(rol === "proveedor"){
+        if (rol === "proveedor") {
             url = `${import.meta.env.VITE_BACKEND_URL}/actualizar-perfilProveedor`
-        }else if(rol === "cliente"){
+        } else if (rol === "cliente") {
             url = `${import.meta.env.VITE_BACKEND_URL}/actualizarPerfilCliente`
-        }else if(rol === "administrador"){
+        } else if (rol === "administrador") {
             url = `${import.meta.env.VITE_BACKEND_URL}/api/actualizar-perfil`
         }
-        try{
-            const options ={
+        try {
+            const options = {
                 headers: {
                     method: 'PUT',
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
             }
-            const respuesta = await axios.put(url,datos, options)
+            const respuesta = await axios.put(url, datos, options)
             setAuth({
                 ...auth,
                 ...datos
             })
             toast.success(respuesta.data.msg)
-        }catch(error){
+        } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
-            error.response.data.msg.forEach((mensaje)=>{
+            error.response.data.msg.forEach((mensaje) => {
                 toast.error(mensaje)
             })
         }
     }
 
-    const ActualizarContrasenia = async (datos) =>{
+    const ActualizarContrasenia = async (datos) => {
         let url
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
-        if(rol === "proveedor"){
+        if (rol === "proveedor") {
             url = `${import.meta.env.VITE_BACKEND_URL}/actualizar-contraseniaProveedor`
-        }else if(rol === "cliente"){
+        } else if (rol === "cliente") {
             url = `${import.meta.env.VITE_BACKEND_URL}/actualizarPasswordCliente`
-        }else if(rol === "administrador"){
+        } else if (rol === "administrador") {
             url = `${import.meta.env.VITE_BACKEND_URL}/actualizar-contrasenia`
-        }   
-        try{
-            const options ={
+        }
+        try {
+            const options = {
                 headers: {
                     method: 'PUT',
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
             }
-            const respuesta = await axios.put(url,datos, options)
+            const respuesta = await axios.put(url, datos, options)
             setAuth({
                 ...auth,
                 ...datos
             })
             toast.success(respuesta.data.msg)
-        }catch(error){
+        } catch (error) {
             console.log(error)
 
-            error.response.data.msg.forEach((mensaje)=>{
+            error.response.data.msg.forEach((mensaje) => {
                 toast.error(mensaje)
             })
         }
     }
-    
 
 
-    return(
-        <AuthContext.Provider value ={
-           { //contenido del mensaje
-            auth,
-            setAuth,
-            ActualizarPerfil,
-            ActualizarContrasenia,
-            Perfil,
-            dark,
-            setDark,
-            menu,
-            setMenu,
-            handleMenu,
-            sideBar,
-            darkMode,
-            handleDarkPage
+
+    return (
+        <AuthContext.Provider value={
+            { //contenido del mensaje
+                auth,
+                setAuth,
+                ActualizarPerfil,
+                ActualizarContrasenia,
+                Perfil,
+                dark,
+                setDark,
+                menu,
+                setMenu,
+                handleMenu,
+                sideBar,
+                darkMode,
+                handleDarkPage,
+                ubi,
+                setUbi
             }
         }>
             {children}
@@ -193,5 +232,5 @@ const AuthProvider = ({children}) => {
     )
 }
 
-export {AuthProvider, useAuth}
+export { AuthProvider, useAuth }
 export default AuthContext
