@@ -126,7 +126,6 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
             const nuevoPrecio = tipoSeleccionado === "precioPorDia"
                 ? parseFloat(formOferta.precioPorDia) || 0
                 : calcularPrecioPorHoras(prev);
-    
             return {
                 ...prev,
                 tipo: tipoSeleccionado,
@@ -171,13 +170,13 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
                                         <div className="flex items-center gap-2">
                                             <label htmlFor="precioPorDia" className=" dark:text-white px-3 py-1 has-[input:checked]:text-indigo-800 has-[input:checked]:dark:text-purple-600 has-[input:checked]:border-indigo-800 has-[input:checked]:dark:border-purple-600 rounded-md text-md text-slate-600 font-semibold flex justify-between items-center gap-3 border">
                                                 Precio/Dia:
-                                                <input type="radio" id="precioPorDia" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorDia" checked={formTrabajo.tipo === "precioPorDia"} className="appearance-none border w-4 h-4 rounded-full border border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400 dark:checked:border-purple-600 dark:checked:shadow-purple-400" />
+                                                <input type="radio" id="precioPorDia" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorDia" checked={formTrabajo.tipo === "precioPorDia"} className="appearance-none border w-4 h-4 rounded-full border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400 dark:checked:border-purple-600 dark:checked:shadow-purple-400" />
                                             </label>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <label htmlFor="precioPorHora" className=" dark:text-white px-3 py-1 has-[input:checked]:text-indigo-800 has-[input:checked]:dark:text-purple-600 has-[input:checked]:border-indigo-800 has-[input:checked]:dark:border-purple-600 rounded-md text-md text-slate-600 font-semibold flex justify-between items-center gap-3 border">
                                                 Precio/Hora:
-                                                <input type="radio" id="precioPorHora" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorHora" checked={formTrabajo.tipo === "precioPorHora"} className="appearance-none border w-4 h-4 rounded-full border border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400 dark:checked:border-purple-600 dark:checked:shadow-purple-400" />
+                                                <input type="radio" id="precioPorHora" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorHora" checked={formTrabajo.tipo === "precioPorHora"} className="appearance-none border w-4 h-4 rounded-full border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400 dark:checked:border-purple-600 dark:checked:shadow-purple-400" />
                                             </label>
                                         </div>
                                     </div>

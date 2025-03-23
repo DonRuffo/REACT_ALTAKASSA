@@ -66,10 +66,10 @@ const LandingPage = () => {
                                 }
                             }}
                         >
-                            <option value="Menu" className="text-base text-sm">Menu</option>
-                            <option value="QuienesSomos" className="text-base text-sm">Quienes Somos</option>
-                            <option value="Servicios" className="text-base text-sm">Servicios</option>
-                            <option value="Contacto" className="text-base text-sm">Contacto</option>
+                            <option value="Menu" className="text-sm">Menu</option>
+                            <option value="QuienesSomos" className="text-sm">Quienes Somos</option>
+                            <option value="Servicios" className="text-sm">Servicios</option>
+                            <option value="Contacto" className="text-sm">Contacto</option>
                         </select>
                         <img src={logoDarkMode} alt="CambioTema" onClick={() => {handleDarkPage()}} width={40} height={40} className="cursor-pointer" />
                         <ul className="flex items-center">

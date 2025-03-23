@@ -64,7 +64,7 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
         <>
             <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="dark:bg-black dark:border-none outline outline-1 outline-green-900 outline-offset-1 fixed top-1/4 left-[60px] right-[60px] min-w-60 lg:top-1/4 lg:left-[550px] lg:right-[300px] rounded-lg shadow-2xl bg-white border border-2 border-green-800">
+                <div className="dark:bg-black dark:border-none outline outline-1 outline-green-900 outline-offset-1 fixed top-1/4 left-[60px] right-[60px] min-w-60 lg:top-1/4 lg:left-[550px] lg:right-[300px] rounded-lg shadow-2xl bg-white border-2 border-green-800">
                     <h1 className="dark:bg-black border-b-2 border-green-800 bg-gray-300 rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-800">Editar oferta</h1>
                     <form onSubmit={handleSubmitOferta}>
                         <div className="my-3">
