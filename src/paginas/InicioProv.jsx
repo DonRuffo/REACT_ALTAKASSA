@@ -10,14 +10,22 @@ import LocationImg from '../assets/LOCATION.png'
 import SpinnerCarga from "../componentes/RuedaCarga";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
 
 const InicioProve = () => {
     const { auth, menu, handleMenu, ubi, setUbi } = useContext(AuthContext)
     const { modalOf, handleModalOf, ListarOfertas } = useContext(OfertaContext)
     const navigate = useNavigate()
     const [carga, setCarga] = useState(false)
+    const [revelar, setRevelar] = useState(false)
 
     const localitation = useRef(null)
+    const ubicacion = useRef(null)
+
+    const mapRef = useRef(null)
+    const mapContainerRef = useRef(null)
 
     useEffect(() => {
         const localitationElement = localitation.current
@@ -51,6 +59,64 @@ const InicioProve = () => {
         }
     }, [])
 
+    //Creacion del mapa
+
+    useEffect(() => {
+        if (revelar) {
+            if (!mapRef.current && mapContainerRef.current) {
+                mapRef.current = L.map(mapContainerRef.current).setView([0, 0], 2)
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution: "© OpenStreetMap contributors",
+                }).addTo(mapRef.current);
+            } else {
+                setTimeout(() => {
+                    mapRef.current.invalidateSize()
+                    mapRef.current.setView([0, 0], 2)
+                }, 500);
+            }
+        }
+    }, [revelar]);
+
+
+
+
+    useEffect(() => {
+        const ubicacionElement = ubicacion.current
+        if (ubicacionElement) {
+            ubicacionElement.addEventListener('click', async () => {
+                try {
+                    let url
+                    const token = localStorage.getItem('token')
+                    const rol = localStorage.getItem('rol')
+                    if (rol === 'proveedor') {
+                        url = `${import.meta.env.VITE_BACKEND_URL}/obtenerUbicacion-prov`
+                    } else if (rol === 'cliente') {
+                        url = `${import.meta.env.VITE_BACKEND_URL}/obtenerUbicacion-cli`
+                    }
+                    const options = {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+
+                    const respuesta = await axios.get(url, options)
+                    const latitud = respuesta.data.latitud
+                    const longitud = respuesta.data.longitud
+                    if (mapRef.current) {
+                        mapRef.current.setView([latitud, longitud], 15);
+                        L.marker([latitud, longitud]).addTo(mapRef.current)
+                            .bindPopup("¡Aquí estás!")
+                            .openPopup();
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            })
+        }
+    }, [])
+
+
     return (
         <>
             <ToastContainer />
@@ -80,19 +146,19 @@ const InicioProve = () => {
                 </div>
             </section>
             <section>
-                <div className="flex justify-end">
-                    <button className="group/Ubi flex justify-around font-semibold px-4 py-1 dark:text-white bg-transparent border-2 border-purple-700 rounded-xl hover:bg-purple-700 duration-300">
+                <div className="flex justify-center lg:justify-end">
+                    <button ref={ubicacion} type="button" className="group flex justify-around font-semibold px-4 py-1 dark:text-white bg-transparent border-2 border-purple-700 rounded-xl hover:bg-purple-700 duration-300" onClick={() => setRevelar(!revelar)}>
                         Ver Ubicación
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover/Ubi:text-white">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white text-red-700 duration-300">
                             <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
-                                stroke="purple" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="12" cy="9" r="3" stroke="purple" stroke-width="2" />
+                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <circle cx="12" cy="9" r="3" strokeWidth="2" stroke="currentColor" />
                         </svg>
                     </button>
                 </div>
             </section>
-            <section>
-                <div id="map" className="h-[500px]"></div>
+            <section className="flex justify-center">
+                <div ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[400px] w-1/2 rounded-md`}></div>
             </section>
             {modalOf && (<ModalOferta ListarOfertas={ListarOfertas} />)}
         </>
