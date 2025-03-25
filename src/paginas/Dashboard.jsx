@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import logoHistorial from '../assets/Historial-icon.png'
 import logoNovedades from '../assets/Novedades-icon.png'
@@ -9,6 +9,7 @@ const Dashboard = () => {
     const navigate = useNavigate()
     const { auth } = useAuth()
     const { dark, menu, sideBar, handleMenu } = useContext(AuthContext)
+    
     return (
         <>
             <div className={dark ? "dark" : ""}>

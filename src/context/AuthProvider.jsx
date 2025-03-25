@@ -101,19 +101,39 @@ const AuthProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        const rol = localStorage.getItem('rol')
-        if (token && rol) {
-            Perfil(token, rol)
+    // funcion para guardar la ubicacion del usuario cliente
+    const ubiCliente = async (token) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude, longitude } = position.coords
+                try {
+                    const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-cli`
+                    const options = {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                    const repuesta = await axios.post(url, { latitude, longitude }, options)
+                } catch (error) {
+                    console.log(error)
+                }
+            })
         }
-    }, [])
+    }
 
+    //ejecución de funciones
     useEffect(() => {
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
-        if (token && rol) {
-            Ubicacion(token, rol)
+
+        if (!rol || !token) return
+
+        Perfil(token, rol)
+        Ubicacion(token, rol)
+
+        if (rol === 'cliente') {
+            ubiCliente(token)
         }
     }, [])
 
@@ -136,7 +156,7 @@ const AuthProvider = ({ children }) => {
     }, [])
 
 
-
+    //funciones para usuarios
     const ActualizarPerfil = async (datos) => {
         let url
         const token = localStorage.getItem('token')

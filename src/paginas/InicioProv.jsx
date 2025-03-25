@@ -12,6 +12,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { motion } from "framer-motion";
 
 
 const InicioProve = () => {
@@ -33,7 +34,7 @@ const InicioProve = () => {
             localitationElement.addEventListener('click', () => {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(async (position) => {
-                        const { latitude, longitude } = position.coords;
+                        const { latitude, longitude } = position.coords
                         try {
                             const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-prov`
                             const token = localStorage.getItem('token')
@@ -63,22 +64,18 @@ const InicioProve = () => {
 
     useEffect(() => {
         if (revelar) {
+            if(mapRef.current){
+                mapRef.current.remove()
+                mapRef.current = null
+            }
             if (!mapRef.current && mapContainerRef.current) {
                 mapRef.current = L.map(mapContainerRef.current).setView([0, 0], 2)
                 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
                     attribution: "© OpenStreetMap contributors",
                 }).addTo(mapRef.current);
-            } else {
-                setTimeout(() => {
-                    mapRef.current.invalidateSize()
-                    mapRef.current.setView([0, 0], 2)
-                }, 500);
             }
         }
     }, [revelar]);
-
-
-
 
     useEffect(() => {
         const ubicacionElement = ubicacion.current
@@ -111,10 +108,11 @@ const InicioProve = () => {
                     }
                 } catch (error) {
                     console.log(error)
+                    toast.error(error.response.data.msg)
                 }
             })
         }
-    }, [])
+    }, [revelar])
 
 
     return (
@@ -134,21 +132,24 @@ const InicioProve = () => {
                 </div>
             </section><br />
             <section className="flex justify-center mb-2">
-                <div className="w-4/5 flex justify-center gap-5 flex-wrap">
-                    <div ref={localitation} id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col border-4 border-gray-600 border-dashed bg-transparent h-[250px] w-[200px] rounded-lg cursor-pointer items-center justify-center shadow-lg`} onClick={() => setCarga(true)}>
+                <motion.div layout className="w-4/5 flex justify-center gap-5 flex-wrap transition-all duration-300"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}>
+                    <motion.div layout ref={localitation} id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col border-4 border-gray-600 border-dashed bg-transparent h-[260px] w-[200px] rounded-lg cursor-pointer items-center justify-center shadow-lg`} onClick={() => setCarga(true)}>
                         <img src={LocationImg} alt="localization" width={90} height={90} className={`${carga ? 'hidden' : 'block'}`} />
                         {carga && <SpinnerCarga />}
                         <h1 className="font-semibold text-lg text-center dark:text-slate-300 text-slate-600">Ingresa tu ubicación primero</h1>
-                    </div>
-                    <div className={`${ubi === false ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'} flex border-4 ${ubi === false ? 'dark:border-gray-900 dark:bg-gray-800' : 'dark:border-gray-600 dark:bg-gray-300 bg-gray-400'} border-dashed h-[250px] w-[200px] rounded-lg items-center justify-center shadow-lg`} onClick={handleModalOf}>
-                        <h1 className={`font-semibold text-lg text-center ${ubi === false ? 'text-slate-300 dark:text-slate-600' : 'text-slate-600 dark:text-slate-700'}`}>Ingresa una nueva oferta</h1>
-                    </div>
-                </div>
+                    </motion.div>
+                    <motion.div layout className={`${ubi === false || revelar ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'} flex border-4 ${ubi === false || revelar ? 'dark:border-gray-900 dark:bg-gray-800' : 'dark:border-gray-600 dark:bg-gray-300 bg-gray-400'} border-dashed h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`} onClick={handleModalOf}>
+                        <h1 className={`font-semibold text-lg text-center ${ubi === false || revelar ? 'text-slate-300 dark:text-slate-600' : 'text-slate-600 dark:text-slate-700'}`}>Ingresa una nueva oferta</h1>
+                    </motion.div>
+                    <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[260px] w-[350px] rounded-md transition-all duration-300`}></motion.div>
+                </motion.div>
             </section>
             <section>
                 <div className="flex justify-center lg:justify-end">
                     <button ref={ubicacion} type="button" className="group flex justify-around font-semibold px-4 py-1 dark:text-white bg-transparent border-2 border-purple-700 rounded-xl hover:bg-purple-700 duration-300" onClick={() => setRevelar(!revelar)}>
-                        Ver Ubicación
+                        <p className={`${revelar ? 'hidden' : 'block'}`}>Ver Ubicación</p>
+                        <p className={`${revelar ? 'block' : 'hidden'}`}>Cerrar</p>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white text-red-700 duration-300">
                             <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -156,9 +157,6 @@ const InicioProve = () => {
                         </svg>
                     </button>
                 </div>
-            </section>
-            <section className="flex justify-center">
-                <div ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[400px] w-1/2 rounded-md`}></div>
             </section>
             {modalOf && (<ModalOferta ListarOfertas={ListarOfertas} />)}
         </>
