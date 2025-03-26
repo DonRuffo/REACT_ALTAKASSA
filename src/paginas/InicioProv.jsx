@@ -12,6 +12,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { motion } from "framer-motion";
 
 
@@ -27,6 +29,13 @@ const InicioProve = () => {
 
     const mapRef = useRef(null)
     const mapContainerRef = useRef(null)
+
+    const iconMap = L.icon({
+        iconUrl: markerIcon,
+        shadowUrl: markerShadow,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41]
+    })
 
     useEffect(() => {
         const localitationElement = localitation.current
@@ -64,7 +73,7 @@ const InicioProve = () => {
 
     useEffect(() => {
         if (revelar) {
-            if(mapRef.current){
+            if (mapRef.current) {
                 mapRef.current.remove()
                 mapRef.current = null
             }
@@ -102,7 +111,7 @@ const InicioProve = () => {
                     const longitud = respuesta.data.longitud
                     if (mapRef.current) {
                         mapRef.current.setView([latitud, longitud], 15);
-                        L.marker([latitud, longitud]).addTo(mapRef.current)
+                        L.marker([latitud, longitud], {icon:iconMap}).addTo(mapRef.current)
                             .bindPopup("¡Aquí estás!")
                             .openPopup();
                     }
