@@ -75,6 +75,7 @@ const AuthProvider = ({ children }) => {
 
     //funcion para verificar si el usuario ya guardo su ubicación
     const Ubicacion = async (token, rol) => {
+
         try {
             let url
             if (rol === 'proveedor') {
@@ -102,7 +103,9 @@ const AuthProvider = ({ children }) => {
     }
 
     // funcion para guardar la ubicacion del usuario cliente
-    const ubiCliente = async (token) => {
+    const ubiCliente = async (token, rol) => {
+        if(rol !== "cliente") return
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position) => {
                 const { latitude, longitude } = position.coords
@@ -131,10 +134,7 @@ const AuthProvider = ({ children }) => {
 
         Perfil(token, rol)
         Ubicacion(token, rol)
-
-        if (rol === 'cliente') {
-            ubiCliente(token)
-        }
+        ubiCliente(token, rol)
     }, [])
 
     useEffect(() => {
@@ -244,7 +244,9 @@ const AuthProvider = ({ children }) => {
                 darkMode,
                 handleDarkPage,
                 ubi,
-                setUbi
+                setUbi,
+                Ubicacion,
+                ubiCliente
             }
         }>
             {children}

@@ -10,7 +10,7 @@ import { EyeOff, Eye } from 'lucide-react';
 import RelojDeArena from '../componentes/RelojArena';
 
 const Login = () => {
-    const { Perfil, darkMode } = useContext(AuthContext)
+    const { Perfil, darkMode, Ubicacion, ubiCliente } = useContext(AuthContext)
     const { ObtenerTrabajos, ListarOfertas } = useContext(OfertaContext)
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)
@@ -48,6 +48,8 @@ const Login = () => {
             localStorage.removeItem('usuario')
             await ListarOfertas(respuesta.data.rol, respuesta.data.token)
             await Perfil(respuesta.data.token, respuesta.data.rol)
+            await Ubicacion(respuesta.data.token, respuesta.data.rol)
+            await ubiCliente(respuesta.data.token, respuesta.data.rol)
             await ObtenerTrabajos(respuesta.data.rol, respuesta.data.token)
             navigate('/dashboard')
         } catch (error) {

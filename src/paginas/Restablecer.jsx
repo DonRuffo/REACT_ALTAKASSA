@@ -3,6 +3,7 @@ import logoCohete from '../assets/Rocket2.png'
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import RelojDeArena from "../componentes/RelojArena";
 
 const Restablecer = () => {
 
@@ -12,6 +13,7 @@ const Restablecer = () => {
         email: "",
         contrasenia: ""
     })
+    const [reloj, setReloj] = useState(false)
 
     const HandleChange = (e) => {
         setForm({
@@ -35,6 +37,7 @@ const Restablecer = () => {
             
             const respuesta = await axios.post(url, form)
             toast.success(respuesta.data.msg)
+            setReloj(false)
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
@@ -57,7 +60,8 @@ const Restablecer = () => {
                                 <input type="password" placeholder="*******" name="contrasenia" onChange={HandleChange} value={form.contrasenia || ""} className="p-1 w-full text-slate-800 rounded-md border border-slate-400 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700" />
                             </div>
                             <div className="my-3 flex justify-center">
-                                <button className="px-3 py-2 rounded-lg bg-orange-700 text-white hover:bg-orange-900 duration-300">Enviar</button>
+                                <button type="submit" className={`${reloj ? 'hidden' : ''} px-3 py-2 rounded-lg bg-orange-700 text-white hover:bg-orange-900 duration-300`} onClick={()=>setReloj(true)}>Enviar</button>
+                                {reloj && <RelojDeArena />}
                             </div>
                         </form>
                     </div>

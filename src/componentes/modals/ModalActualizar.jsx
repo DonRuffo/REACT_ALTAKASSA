@@ -2,10 +2,12 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import OfertaContext from "../../context/OfertasProvider";
 import { ToastContainer, toast } from "react-toastify";
+import SpinnerCargaModal from "../RuedaCargaModal";
 
 const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
     const [selectedOption, setSelectedOption] = useState('');
     const { modalTraActual, setModalTraActual } = useContext(OfertaContext)
+    const [carga, setCarga] = useState(true)
     const [formTrabajo, setFormTrabajo] = useState({
         fecha: "",
         servicio: "",
@@ -62,6 +64,7 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
             }
             const respuesta = await axios.get(url, options)
             setFormOferta(respuesta.data)
+            setCarga(false)
         } catch (error) {
             console.log(error)
         }
@@ -158,8 +161,8 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
         <>
             <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="dark:bg-black fixed top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-white outline outline-1 outline-green-900 outline-offset-1">
-                    <h1 className="dark:bg-black border-b-2 border-green-800 bg-gray-300 rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-800">Solicitud de Trabajo</h1>
+                <div className="dark:bg-black fixed top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-white outline outline-1 outline-green-800 outline-offset-1">
+                    <h1 className="dark:bg-black border-b-2 border-green-700 bg-white rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-700">Solicitud de Trabajo</h1>
                     <div className="grid grid-cols-2">
                         <div className="border-r-2 border-black dark:border-white">
                             <h1 className=" dark:text-white text-xl font-semibold text-center my-2">Seleccionar</h1>
@@ -229,25 +232,25 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
                                     <tbody className="text-center font-semibold">
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Servicio</td>
-                                            <td className="text-yellow-700">{formOferta.servicio}</td>
+                                            <td className="text-yellow-600">{carga && <SpinnerCargaModal />}{formOferta.servicio}</td>
                                         </tr>
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Proveedor</td>
-                                            <td className="text-yellow-700">{formOferta.proveedor.nombre} {formOferta.proveedor.apellido}</td>
+                                            <td className="text-yellow-600">{carga && <SpinnerCargaModal />}{formOferta.proveedor.nombre} {formOferta.proveedor.apellido}</td>
                                         </tr>
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Precio/Dia</td>
-                                            <td className="text-green-700">${formOferta.precioPorDia}</td>
+                                            <td className="text-green-600">{carga && <SpinnerCargaModal />}{(`${formOferta.precioPorDia ? '$' : ''}`)+formOferta.precioPorDia}</td>
                                         </tr>
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Precio/Hora</td>
-                                            <td className="text-green-700">${formOferta.precioPorHora}</td>
+                                            <td className="text-green-600">{carga && <SpinnerCargaModal />}{(`${formOferta.precioPorHora ? '$' : ''}`)+formOferta.precioPorHora}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <h1 className="font-semibold ml-5 dark:text-white">Descripción</h1>
-                            <p className="ml-5 dark:text-white">{formOferta.descripcion}</p>
+                            <p className="ml-5 dark:text-white">{carga && <SpinnerCargaModal />}{formOferta.descripcion}</p>
                         </div>
                     </div>
                 </div>

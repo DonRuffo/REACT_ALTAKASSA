@@ -117,22 +117,22 @@ const Configuracion = () => {
                     <ul className="w-full p-2">
                         <OpcionConfig titulo={"Cambiar contraseña"} logo={
                             (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="2" />
-                                <path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" stroke-width="2" />
+                                <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" strokeWidth="2" />
+                                <path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" strokeWidth="2" />
                                 <circle cx="12" cy="15" r="1.5" fill="currentColor" />
                             </svg>
                             )
                         } clic={accesoContra} />
                         <OpcionConfig titulo={"Actualizar perfil"} logo={(
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
-                                <path d="M4 20a8 8 0 0116 0" stroke="currentColor" stroke-width="2" />
+                                <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
+                                <path d="M4 20a8 8 0 0116 0" stroke="currentColor" strokeWidth="2" />
                             </svg>
 
                         )} clic={accesoPerfil} />
                         <OpcionConfig titulo={"Tema"} logo={(
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
                                 <path d="M12 2a10 10 0 000 20 5 5 0 010-10A5 5 0 0112 2z" fill="currentColor" />
                             </svg>
                         )} clic={accesoTema} />
@@ -154,14 +154,14 @@ const Configuracion = () => {
                             <div className="mb-3">
                                 <label htmlFor="contrasenia" className="text-black font-semibold block mb-2 dark:text-white">Contraseña actual:</label>
                                 <div className="relative">
-                                    <input type={ojoActivo ? "text" : "password"} name="contrasenia" onChange={handleChangeContrasenia} value={formContra.contrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
+                                    <input type={ojoActivo ? "text" : "password"} name="contrasenia" id="contrasenia" onChange={handleChangeContrasenia} value={formContra.contrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
                                     <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="nuevaContrasenia" className="text-black font-semibold block mb-2 dark:text-white">Nueva contraseña:</label>
                                 <div className="relative">
-                                    <input type={ojoActivo2 ? "text" : "password"} name="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
+                                    <input type={ojoActivo2 ? "text" : "password"} name="nuevaContrasenia" id="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
                                     <button type='button' onClick={() => setOjoActivo2(!ojoActivo2)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo2 === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                 </div>
                             </div><br />
@@ -181,19 +181,19 @@ const Configuracion = () => {
                         <form onSubmit={handleSubmitPerfil}>
                             <div className="mb-4">
                                 <label htmlFor="nombre" className="font-semibold dark:text-white">Nombre:</label>
-                                <input type="text" name="nombre" value={formPerfil.nombre || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700  dark:bg-transparent dark:text-white" />
+                                <input type="text" name="nombre" id="nombre" value={formPerfil.nombre || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700  dark:bg-transparent dark:text-white" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="apellido" className="font-semibold dark:text-white">Apellido:</label>
-                                <input type="text" name="apellido" value={formPerfil.apellido || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
+                                <input type="text" name="apellido" id="apellido" value={formPerfil.apellido || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="direccion" className="font-semibold dark:text-white">Dirección:</label>
-                                <input type="text" name="direccion" value={formPerfil.direccion || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
+                                <input type="text" name="direccion" id="direccion" value={formPerfil.direccion || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="telefono" className="font-semibold dark:text-white">Teléfono:</label>
-                                <input type="text" name="telefono" value={formPerfil.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
+                                <input type="text" name="telefono" id="telefono" value={formPerfil.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button type="submit" className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 font-semibold">Actualizar</button>
@@ -217,7 +217,7 @@ const Configuracion = () => {
                         <div className="flex gap-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="12" r="5" fill="currentColor" />
-                                <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                             </svg>
                             Tema Claro
                         </div>
