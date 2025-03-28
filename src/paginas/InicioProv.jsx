@@ -20,12 +20,8 @@ import { motion } from "framer-motion";
 const InicioProve = () => {
     const { auth, menu, handleMenu, ubi, setUbi } = useContext(AuthContext)
     const { modalOf, handleModalOf, ListarOfertas } = useContext(OfertaContext)
-    const navigate = useNavigate()
     const [carga, setCarga] = useState(false)
     const [revelar, setRevelar] = useState(false)
-
-    const localitation = useRef(null)
-    const ubicacion = useRef(null)
 
     const mapRef = useRef(null)
     const mapContainerRef = useRef(null)
@@ -36,41 +32,35 @@ const InicioProve = () => {
         iconSize: [25, 41],
         iconAnchor: [12, 41]
     })
-
-    useEffect(() => {
-        const localitationElement = localitation.current
-        if (localitationElement) {
-            localitationElement.addEventListener('click', () => {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(async (position) => {
-                        const { latitude, longitude } = position.coords
-                        try {
-                            const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-prov`
-                            const token = localStorage.getItem('token')
-                            const options = {
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    Authorization: `Bearer ${token}`
-                                }
-                            }
-                            const respuesta = await axios.post(url, { latitude, longitude }, options)
-                            toast.success(respuesta.data.msg)
-                            setUbi(true)
-                            setCarga(false)
-                        } catch (error) {
-                            console.log(error)
-                            toast.error(error.response?.data?.msg || "Error al guardar la ubicación")
+    //funcion para guardar ubicacion
+    const guardarUbi = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude, longitude } = position.coords
+                try {
+                    const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-prov`
+                    const token = localStorage.getItem('token')
+                    const options = {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`
                         }
-                    });
-                } else {
-                    alert("Tu navegador no soporta geolocalización.");
+                    }
+                    const respuesta = await axios.post(url, { latitude, longitude }, options)
+                    toast.success(respuesta.data.msg)
+                    setUbi(true)
+                    setCarga(false)
+                } catch (error) {
+                    console.log(error)
+                    toast.error(error.response?.data?.msg || "Error al guardar la ubicación")
                 }
-            })
+            });
+        } else {
+            alert("Tu navegador no soporta geolocalización.");
         }
-    }, [])
+    }
 
     //Creacion del mapa
-
     useEffect(() => {
         if (revelar) {
             if (mapRef.current) {
@@ -82,46 +72,43 @@ const InicioProve = () => {
                 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
                     attribution: "© OpenStreetMap contributors",
                 }).addTo(mapRef.current);
+                creacionMapa()
             }
         }
     }, [revelar]);
 
-    useEffect(() => {
-        const ubicacionElement = ubicacion.current
-        if (ubicacionElement) {
-            ubicacionElement.addEventListener('click', async () => {
-                try {
-                    let url
-                    const token = localStorage.getItem('token')
-                    const rol = localStorage.getItem('rol')
-                    if (rol === 'proveedor') {
-                        url = `${import.meta.env.VITE_BACKEND_URL}/obtenerUbicacion-prov`
-                    } else if (rol === 'cliente') {
-                        url = `${import.meta.env.VITE_BACKEND_URL}/obtenerUbicacion-cli`
-                    }
-                    const options = {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-
-                    const respuesta = await axios.get(url, options)
-                    const latitud = respuesta.data.latitud
-                    const longitud = respuesta.data.longitud
-                    if (mapRef.current) {
-                        mapRef.current.setView([latitud, longitud], 15);
-                        L.marker([latitud, longitud], {icon:iconMap}).addTo(mapRef.current)
-                            .bindPopup("¡Aquí estás!")
-                            .openPopup();
-                    }
-                } catch (error) {
-                    console.log(error)
-                    toast.error(error.response.data.msg)
+    //
+    const creacionMapa = async() =>{
+        try {
+            let url
+            const token = localStorage.getItem('token')
+            const rol = localStorage.getItem('rol')
+            if (rol === 'proveedor') {
+                url = `${import.meta.env.VITE_BACKEND_URL}/obtenerUbicacion-prov`
+            } else if (rol === 'cliente') {
+                url = `${import.meta.env.VITE_BACKEND_URL}/obtenerUbicacion-cli`
+            }
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
                 }
-            })
+            }
+
+            const respuesta = await axios.get(url, options)
+            const latitud = respuesta.data.latitud
+            const longitud = respuesta.data.longitud
+            if (mapRef.current) {
+                mapRef.current.setView([latitud, longitud], 15);
+                L.marker([latitud, longitud], { icon: iconMap }).addTo(mapRef.current)
+                    .bindPopup("¡Aquí estás!")
+                    .openPopup();
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.msg)
         }
-    }, [revelar])
+    }
 
 
     return (
@@ -143,7 +130,7 @@ const InicioProve = () => {
             <section className="flex justify-center mb-2">
                 <motion.div layout className="w-4/5 flex justify-center gap-5 flex-wrap transition-all duration-300"
                     transition={{ duration: 0.3, ease: "easeInOut" }}>
-                    <motion.div layout ref={localitation} id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col border-4 border-gray-600 border-dashed bg-transparent h-[260px] w-[200px] rounded-lg cursor-pointer items-center justify-center shadow-lg`} onClick={() => setCarga(true)}>
+                    <motion.div layout id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col border-4 border-gray-600 border-dashed bg-transparent h-[260px] w-[200px] rounded-lg cursor-pointer items-center justify-center shadow-lg`} onClick={() =>{setCarga(true); guardarUbi()}}>
                         <img src={LocationImg} alt="localization" width={90} height={90} className={`${carga ? 'hidden' : 'block'}`} />
                         {carga && <SpinnerCarga />}
                         <h1 className="font-semibold text-lg text-center dark:text-slate-300 text-slate-600">Ingresa tu ubicación primero</h1>
@@ -151,12 +138,12 @@ const InicioProve = () => {
                     <motion.div layout className={`${ubi === false || revelar ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'} flex border-4 ${ubi === false || revelar ? 'dark:border-gray-900 dark:bg-gray-800' : 'dark:border-gray-600 dark:bg-gray-300 bg-gray-400'} border-dashed h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`} onClick={handleModalOf}>
                         <h1 className={`font-semibold text-lg text-center ${ubi === false || revelar ? 'text-slate-300 dark:text-slate-600' : 'text-slate-600 dark:text-slate-700'}`}>Ingresa una nueva oferta</h1>
                     </motion.div>
-                    <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[260px] w-[350px] rounded-md transition-all duration-300`}></motion.div>
+                    <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[300px] w-[225px] md:h-[260px] md:w-[350px] rounded-md transition-all duration-300`}></motion.div>
                 </motion.div>
             </section>
             <section>
                 <div className="flex justify-center lg:justify-end">
-                    <button ref={ubicacion} type="button" className="group flex justify-around font-semibold px-4 py-1 dark:text-white bg-transparent border-2 border-purple-700 rounded-xl hover:bg-purple-700 duration-300" onClick={() => setRevelar(!revelar)}>
+                    <button type="button" className="group flex justify-around font-semibold px-4 py-1 dark:text-white bg-transparent border-2 border-purple-700 rounded-xl hover:bg-purple-700 duration-300" onClick={() => {setRevelar(!revelar); creacionMapa()}}>
                         <p className={`${revelar ? 'hidden' : 'block'}`}>Ver Ubicación</p>
                         <p className={`${revelar ? 'block' : 'hidden'}`}>Cerrar</p>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white text-red-700 duration-300">

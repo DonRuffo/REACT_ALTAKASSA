@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import OpcionConfig from "../componentes/opcionesConfiguracion";
 import ConfigContext from "../context/ConfigProvider";
 import logoMenu from '../assets/category.png'
@@ -6,6 +6,8 @@ import logoMenuAbierto from '../assets/hamburger.png'
 import AuthContext, { useAuth } from "../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import { EyeOff, Eye } from 'lucide-react';
+import imgLocation from '../assets/LOCATION.png'
+import axios from "axios";
 
 
 const Configuracion = () => {
@@ -13,11 +15,14 @@ const Configuracion = () => {
     const [ojoActivo2, setOjoActivo2] = useState(false)
 
     const { auth } = useContext(AuthContext)
-    const { modalContra, setModalContra, modalPerfil, setModalPerfil, modalTema, setModalTema } = useContext(ConfigContext)
+    const { modalContra, setModalContra, modalPerfil,
+        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi } = useContext(ConfigContext)
     const { ActualizarPerfil, ActualizarContrasenia, dark, setDark, menu, handleMenu } = useContext(AuthContext)
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
     const accesoTema = () => { setModalTema(!modalTema) }
+    const accesoUbi = () => { setModalUbi(!modalUbi) }
+    const localizacion = useRef(null)
     const [formPerfil, setFormPerfil] = useState({
         nombre: auth.nombre || "",
         apellido: auth.apellido || "",
@@ -87,6 +92,7 @@ const Configuracion = () => {
         if (modalContra) {
             setModalPerfil(false)
             setModalTema(false)
+            setModalUbi(false)
         }
     }, [modalContra]);
 
@@ -94,6 +100,7 @@ const Configuracion = () => {
         if (modalPerfil) {
             setModalContra(false)
             setModalTema(false)
+            setModalUbi(false)
         }
     }, [modalPerfil]);
 
@@ -101,9 +108,47 @@ const Configuracion = () => {
         if (modalTema) {
             setModalContra(false)
             setModalPerfil(false)
+            setModalUbi(false)
         }
     }, [modalTema])
 
+    useEffect(() => {
+        if (modalUbi) {
+            setModalContra(false)
+            setModalPerfil(false)
+            setModalTema(false)
+        }
+    }, [modalUbi])
+
+    //funcion para actualizar la ubicación
+    const actualizarUbi = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude, longitude } = position.coords
+                try {
+                    let url
+                    const token = localStorage.getItem('token')
+                    const rol = localStorage.getItem('rol')
+                    if (rol === 'cliente') {
+                        url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-cli`
+                    } else if (rol === 'proveedor') {
+                        url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-prov`
+                    }
+                    const options = {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                    const respuesta = await axios.post(url, { latitude, longitude }, options)
+                    toast.success('Ubicación actualizada')
+                } catch (error) {
+                    console.error('Error al actualizar la ubicación')
+                    toast.error('Error al actualizar')
+                }
+            })
+        }
+    }
     return (
         <>
             <div className="lg:hidden pb-2">
@@ -113,7 +158,7 @@ const Configuracion = () => {
             <h1 className="text-3xl font-semibold text-sky-600 pb-5">Configuración</h1>
             <ToastContainer />
             <section className="flex flex-col md:flex-row justify-between">
-                <div className="w-full md:w-2/5 flex bg-white dark:bg-transparent dark:text-white rounded-xl shadow-lg md:max-h-[165px] border border-gray-100 mb-8 md:mb-0">
+                <div className="w-full md:w-2/5 flex bg-white dark:bg-transparent dark:text-white rounded-xl shadow-lg md:max-h-[210px] border border-gray-100 mb-8 md:mb-0">
                     <ul className="w-full p-2">
                         <OpcionConfig titulo={"Cambiar contraseña"} logo={
                             (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -130,6 +175,13 @@ const Configuracion = () => {
                             </svg>
 
                         )} clic={accesoPerfil} />
+                        <OpcionConfig titulo={"Actualizar Ubicación"} logo={(
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2">
+                                <polygon points="3,6 9,2 15,6 21,2 21,18 15,22 9,18 3,22" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        )} clic={accesoUbi} />
                         <OpcionConfig titulo={"Tema"} logo={(
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
@@ -139,7 +191,7 @@ const Configuracion = () => {
                     </ul>
                 </div>
                 <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-purple-400 p-5 dark:bg-transparent`}>
-                    <h1 className="text-2xl text-center text-purple-800 font-semibold pb-5">Cambio de contraseña</h1>
+                    <h1 className="text-2xl text-center text-purple-600 font-semibold pb-5">Cambio de contraseña</h1>
                     <div className="border px-3 py-2 mb-3 bg-slate-200 rounded-lg dark:bg-transparent dark:text-white">
                         <h1 className="font-bold">Tener en cuenta:</h1>
                         <ul>
@@ -174,7 +226,7 @@ const Configuracion = () => {
                 </div>
                 <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-white rounded-xl shadow-xl h-auto border border-green-400 dark:bg-transparent`}>
                     <div className="w-full p-2 flex flex-col items-center">
-                        <h1 className="font-semibold text-green-700 text-2xl pt-3">Actualizar perfil</h1>
+                        <h1 className="font-semibold text-green-600 text-2xl pt-3">Actualizar perfil</h1>
                         <span className="font-semibold text-sm text-slate-500 text-center">Cambia los campos que requieras y presiona actualiza</span>
                     </div>
                     <div className="w-full p-6 flex flex-col">
@@ -223,6 +275,16 @@ const Configuracion = () => {
                         </div>
                         <input type="radio" name="tema" id="Claro" value="Claro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800 checked:shadow-md checked:shadow-indigo-400" />
                     </label>
+                </div>
+                <div className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-white rounded-xl shadow-xl border border-red-500 dark:bg-transparent dark:text-white `}>
+                    <div className="flex flex-col items-center">
+                        <h1 className="font-semibold text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
+                        <span className="font-semibold text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>
+                        <div className="cursor-pointer flex flex-col justify-center items-center border-dashed border-2 border-gray-400 bg-transparent rounded-lg w-[100px] h-[110px] mt-3 mb-2 lg:mb-0" onClick={actualizarUbi}>
+                            <img src={imgLocation} alt="actualizarUbi" width={30} height={30} />
+                            <p className="font-semibold text-sm text-slate-300 text-center">¡Clic para actualizar!</p>
+                        </div>
+                    </div>
                 </div>
             </section>
         </>
