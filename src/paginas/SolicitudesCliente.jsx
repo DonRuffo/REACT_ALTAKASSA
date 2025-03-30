@@ -50,7 +50,7 @@ const SolicitudesCli = () => {
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <section>
-                <h1 className="text-3xl text-center text-purple-700 font-semibold my-2">Solicitudes</h1>
+                <h1 className="text-3xl text-center text-purple-600 font-semibold my-2">Solicitudes</h1>
                 <p className="text-xl text-center font-semibold mb-5 dark:text-white">Auí podrás visualizar tus solicitudes de trabajo</p>
                 <div className="flex justify-center gap-3 flex-wrap">
                     {trabajos.length !== 0 ? trabajos.some(tra => tra.status === "En espera") ? (

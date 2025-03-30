@@ -26,6 +26,7 @@ import ContratosCliente from './paginas/ContratosCliente'
 import ContratosProv from './paginas/ContratosProveedor'
 import NotFound from './paginas/NotFound'
 import Calendario from './componentes/Calendario'
+import Sugerencias from './paginas/Sugerencias'
 function App() {
 
   return (
@@ -85,6 +86,7 @@ function App() {
                           <ContratosCliente />
                         </RutasCliente>
                       } />
+                      <Route path='sugerencias' element={<Sugerencias />}/>
                       <Route path='configuracion' element={<Configuracion />} />
                       <Route path='no-encontrado' element={<PaginaNoPermitida />} />
                       <Route path='*' element={<NotFound />} />

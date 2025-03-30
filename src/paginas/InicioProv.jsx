@@ -77,7 +77,6 @@ const InicioProve = () => {
         }
     }, [revelar]);
 
-    //
     const creacionMapa = async() =>{
         try {
             let url

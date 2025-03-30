@@ -16,7 +16,7 @@ const ContratosProv = () => {
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <section>
-                <h1 className="text-center text-purple-800 font-semibold text-3xl mb-3">Trabajos actuales</h1>
+                <h1 className="text-center text-purple-600 font-semibold text-3xl mb-3">Trabajos actuales</h1>
                 <h2 className="text-xl mb-5 text-center dark:text-white">Aquí podrás ver tus trabajos agendados</h2>
                 <div className="flex justify-center flex-wrap gap-3">
                     {trabajos.length !== 0 && trabajos.some((tra) => tra.status === "Agendado") ? trabajos.map((tra) => (

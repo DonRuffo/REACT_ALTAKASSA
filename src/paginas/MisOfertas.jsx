@@ -49,7 +49,7 @@ const ListadoOfertas = () => {
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
-            <h1 className="text-3xl text-center font-semibold text-purple-800 mb-5">Tus ofertas</h1>
+            <h1 className="text-3xl text-center font-semibold text-purple-600 mb-5">Tus ofertas</h1>
             <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus ofertas creadas</h2>
             <div className="flex justify-center gap-3 flex-wrap">
                 {oferta.length !== 0 ? oferta.map((of, index) => (
