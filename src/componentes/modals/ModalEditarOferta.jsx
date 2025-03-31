@@ -3,17 +3,17 @@ import OfertaContext from "../../context/OfertasProvider";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
-const ModalEditarOferta = ({idOferta, listarOfertas}) => {
+const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
 
     const [form, setForm] = useState({
-        precioPorDia:"",
-        precioPorHora:"",
-        servicio:"",
-        descripcion:""
+        precioPorDia: "",
+        precioPorHora: "",
+        servicio: "",
+        descripcion: ""
     })
-    const {setModalEditOf, modalEditOf} = useContext(OfertaContext)
-    const ObtenerOferta = async () =>{
-        try{
+    const { setModalEditOf, modalEditOf } = useContext(OfertaContext)
+    const ObtenerOferta = async () => {
+        try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/verOferta/${idOferta}`
             const token = localStorage.getItem('token')
             const options = {
@@ -24,42 +24,42 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
             }
             const respuesta = await axios.get(url, options)
             setForm(respuesta.data)
-        }catch(error){
+        } catch (error) {
             console.log(error)
         }
     }
-    
-    const handleSubmitOferta = async (e) =>{
+
+    const handleSubmitOferta = async (e) => {
         e.preventDefault()
-        try{
+        try {
             const token = localStorage.getItem('token')
             const rol = localStorage.getItem('rol')
             const url = `${import.meta.env.VITE_BACKEND_URL}/actualizarOferta/${idOferta}`
             const options = {
                 headers: {
-                    method:'PUT',
+                    method: 'PUT',
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
             }
-            const respuesta = await axios.put(url,form,options)
+            const respuesta = await axios.put(url, form, options)
             toast.success(respuesta.data.msg)
             listarOfertas(rol, token)
-        }catch(error){ 
+        } catch (error) {
             console.log(error);
             toast.error(error.response.data.msg)
         }
     }
 
-    const handleChancheOfertas = (e) =>{
+    const handleChancheOfertas = (e) => {
         setForm({
             ...form,
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
     }
     useEffect(() => {
         if (idOferta) ObtenerOferta();
-    }, [idOferta]);    
+    }, [idOferta]);
     return (
         <>
             <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
@@ -82,7 +82,18 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
                         <div className="mb-3">
                             <div className="flex justify-center items-center gap-2 px-6">
                                 <label htmlFor="servicio" className="text-md font-semibold dark:text-white">Servicio:</label>
-                                <input type="text" id="servicio" name="servicio" onChange={handleChancheOfertas} value={form.servicio || ""} className="dark:bg-gray-900 dark:text-slate-200 w-full py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700" />
+                                <select name="servicio" id="servicio" className="dark:bg-gray-900 dark:text-slate-200 w-full py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700">
+                                    <option value="Limpieza">Limpieza</option>
+                                    <option value="Chofer">Chófer</option>
+                                    <option value="Niñero/a">Niñero/a</option>
+                                    <option value="Téc.Electrodomésticos">Téc.Electrodomésticos</option>
+                                    <option value="Plomeria">Plomería</option>
+                                    <option value="Pintor">Pintor</option>
+                                    <option value="Albañilería">Albañilería</option>
+                                    <option value="Cerrajeria">Cerrajería</option>
+                                    <option value="Carpinteria">Carpintería</option>
+                                    <option value="Electricista">Electricista</option>
+                                </select>
                             </div>
                         </div>
                         <div className="mb-3 px-6">
@@ -91,7 +102,7 @@ const ModalEditarOferta = ({idOferta, listarOfertas}) => {
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
-                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={()=>{setTimeout(()=>{setModalEditOf(false)}, 3000)}}>Actualizar</button>
+                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalEditOf(false) }, 3000) }}>Actualizar</button>
                                 <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalEditOf(!modalEditOf) }}>Cerrar</button>
                             </div>
                         </div>

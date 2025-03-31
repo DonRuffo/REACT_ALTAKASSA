@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import Inicio from "../paginas/Inicio";
+import InicioAdmin from "../paginas/InicioAdmin";
 
 
 const PrivateProveedor = ({ children }) => {
@@ -9,6 +10,8 @@ const PrivateProveedor = ({ children }) => {
         return children
     }else if(auth.rol ==='cliente'){
         return (<Inicio />)
+    }else if(auth.rol === 'administrador'){
+        return (<InicioAdmin />)
     }
 };
 

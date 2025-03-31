@@ -27,6 +27,7 @@ import ContratosProv from './paginas/ContratosProveedor'
 import NotFound from './paginas/NotFound'
 import Calendario from './componentes/Calendario'
 import Sugerencias from './paginas/Sugerencias'
+import RutasCliProv from './routes/RutasCli-Pro'
 function App() {
 
   return (
@@ -86,11 +87,15 @@ function App() {
                           <ContratosCliente />
                         </RutasCliente>
                       } />
-                      <Route path='sugerencias' element={<Sugerencias />}/>
+                      <Route path='sugerencias' element={
+                        <RutasCliProv>
+                          <Sugerencias />
+                        </RutasCliProv>
+                      } />
                       <Route path='configuracion' element={<Configuracion />} />
                       <Route path='no-encontrado' element={<PaginaNoPermitida />} />
                       <Route path='*' element={<NotFound />} />
-                      <Route path='pruebas' element={<Calendario/>}/>
+                      <Route path='pruebas' element={<Calendario />} />
                     </Route>
                   </Routes>
                 </ConfigAuth>

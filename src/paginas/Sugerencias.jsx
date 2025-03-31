@@ -7,7 +7,7 @@ const Sugerencias = () => {
             <section className="flex justify-center">
                 <div className="w-4/5 border-2 border-gray-300 rounded-lg">
                     <h1 className="text-center text-3xl font-semibold text-purple-600 mt-5">Sugerencias y comentarios</h1>
-                    <div className="flex justify-between mx-8 mt-5">
+                    <div className="flex justify-around mx-8 mt-5">
                         <div className="w-[500px]">
                             <p className="dark:text-white font-semibold text-xl">¡Cuéntanos cómo ha sido tu experiencia en el sistema y comparte tus sugerencias!</p>
                             <form className="mt-4 dark:text-white">
@@ -43,8 +43,8 @@ const Sugerencias = () => {
                                 </div>
                             </form>
                         </div>
-                        <div className="mb-3 bg-ye">
-                            <img src={imgSug} alt="Sugerencias" width={250} />
+                        <div className="mb-2">
+                            <img src={imgSug} alt="Sugerencias" width={325} />
                         </div>
                     </div>
                 </div>

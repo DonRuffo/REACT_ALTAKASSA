@@ -9,7 +9,6 @@ import { EyeOff, Eye } from 'lucide-react';
 import imgLocation from '../assets/LOCATION.png'
 import axios from "axios";
 
-
 const Configuracion = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
     const [ojoActivo2, setOjoActivo2] = useState(false)
@@ -149,6 +148,7 @@ const Configuracion = () => {
             })
         }
     }
+
     return (
         <>
             <div className="lg:hidden pb-2">
