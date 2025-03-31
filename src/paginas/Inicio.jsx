@@ -121,24 +121,27 @@ const Inicio = () => {
                 <div className={`${filtro ? '' : 'hidden'} flex justify-center gap-3 flex-wrap`}>
                     {ofertasFiltradas.length > 0 ? ofertasFiltradas.map((of, index) => (
                         <div key={of._id} className="border radial-gradientOfertas-bg h-[250px] w-[225px] rounded-lg shadow-lg shadow-blue-400">
-                            <h1 className="text-center pt-2 font-bold text-xl text-white pb-2 mb-2 border-b">
-                                Oferta N°{index + 1}
+                            <h1 className="text-center pt-2 font-bold text-xl text-white pb-2 mb-1">
+                                {of.proveedor.nombre} {of.proveedor.apellido}
                             </h1>
                             <h1 className="text-center text-lg mb-2">
-                                <span className="font-semibold">Prov: </span><b className="text-slate-300">{of.proveedor.nombre} {of.proveedor.apellido}</b>
+                                <span className="font-semibold text-7xl">Img </span>
                             </h1>
-                            <h1 className="text-center font-semibold text-yellow-500 text-lg mb-2">
+                            <h1 className="text-center font-bold text-yellow-500 text-xl mb-1">
                                 {of.servicio}
                             </h1>
-                            <p className="text-center font-semibold text-white">
-                                Precio/Día:{" "}
-                                <b className="text-xl ml-5 text-yellow-500">${of.precioPorDia}</b>
-                            </p>
-                            <p className="text-center font-semibold text-white">
-                                Precio/Hora:{" "}
-                                <b className="text-xl ml-5 text-yellow-500">${of.precioPorHora}</b>
-                            </p>
-                            <div className="flex justify-center mt-5">
+                            <div className="flex justify-center gap-x-4">
+                                <p className="text-center font-semibold text-white flex items-center">
+                                    $/Día:
+                                    <b className="text-xl ml-2 text-yellow-500">${of.precioPorDia}</b>
+                                </p>
+                                <p className="text-center font-semibold text-white flex items-center">
+                                    $/Hora:
+                                    <b className="text-xl ml-2 text-yellow-500">${of.precioPorHora}</b>
+                                </p>
+                            </div>
+
+                            <div className="flex justify-center mt-3">
                                 <button className="px-2 py-1 rounded-md bg-blue-700 text-white font-semibold hover:bg-blue-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
                             </div>
                             {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
