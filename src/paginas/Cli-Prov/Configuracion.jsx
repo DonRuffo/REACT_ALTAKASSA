@@ -13,10 +13,10 @@ const Configuracion = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
     const [ojoActivo2, setOjoActivo2] = useState(false)
 
-    const { auth } = useContext(AuthContext)
+    const { auth, setAuth } = useContext(AuthContext)
     const { modalContra, setModalContra, modalPerfil,
         setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi } = useContext(ConfigContext)
-    const { ActualizarPerfil, ActualizarContrasenia, dark, setDark, menu, handleMenu } = useContext(AuthContext)
+    const { ActualizarPerfil, ActualizarContrasenia, setDark, menu, handleMenu } = useContext(AuthContext)
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
     const accesoTema = () => { setModalTema(!modalTema) }
@@ -140,7 +140,17 @@ const Configuracion = () => {
                         }
                     }
                     const respuesta = await axios.post(url, { latitude, longitude }, options)
+                    const ubi = {
+                        ubicacion: {
+                            longitud: longitude,
+                            latitud: latitude
+                        }
+                    }
                     toast.success('Ubicación actualizada')
+                    setAuth({
+                        ...auth,
+                        ...ubi
+                    })
                 } catch (error) {
                     console.error('Error al actualizar la ubicación')
                     toast.error('Error al actualizar')

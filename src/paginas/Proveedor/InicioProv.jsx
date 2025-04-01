@@ -79,24 +79,8 @@ const InicioProve = () => {
 
     const creacionMapa = async() =>{
         try {
-            let url
-            const token = localStorage.getItem('token')
-            const rol = localStorage.getItem('rol')
-            if (rol === 'proveedor') {
-                url = `${import.meta.env.VITE_BACKEND_URL}/obtenerUbicacion-prov`
-            } else if (rol === 'cliente') {
-                url = `${import.meta.env.VITE_BACKEND_URL}/obtenerUbicacion-cli`
-            }
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-
-            const respuesta = await axios.get(url, options)
-            const latitud = respuesta.data.latitud
-            const longitud = respuesta.data.longitud
+            const latitud = auth.ubicacion.latitud
+            const longitud = auth.ubicacion.longitud
             if (mapRef.current) {
                 mapRef.current.setView([latitud, longitud], 15);
                 L.marker([latitud, longitud], { icon: iconMap }).addTo(mapRef.current)
