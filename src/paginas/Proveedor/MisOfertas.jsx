@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import ModalEditarOferta from "../componentes/modals/ModalEditarOferta";
-import OfertaContext from "../context/OfertasProvider";
-import iconoDelete from '../assets/Icono-Delete.png'
-import logoMenu from '../assets/category.png'
-import logoMenuAbierto from '../assets/hamburger.png'
+import ModalEditarOferta from "../../componentes/modals/ModalEditarOferta";
+import OfertaContext from "../../context/OfertasProvider";
+import iconoDelete from '../../assets/Icono-Delete.png'
+import logoMenu from '../../assets/category.png'
+import logoMenuAbierto from '../../assets/hamburger.png'
 import { ToastContainer, toast } from "react-toastify";
-import '../../CSS/fondos.css'
-import AuthContext from "../context/AuthProvider";
+import '../../../CSS/fondos.css'
+import AuthContext from "../../context/AuthProvider";
 
 const ListadoOfertas = () => {
     const { modalEditOf, setModalEditOf, oferta, ListarOfertas} = useContext(OfertaContext)
@@ -45,11 +45,11 @@ const ListadoOfertas = () => {
 
     return (
         <>
-            <div className="lg:hidden pb-2">
+            <div className="lg:hidden pb-2 mt-5">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
-            <h1 className="text-3xl text-center font-semibold text-purple-600 mb-5">Tus ofertas</h1>
+            <h1 className="text-3xl text-center font-semibold text-purple-600 mb-5 mt-5">Tus ofertas</h1>
             <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus ofertas creadas</h2>
             <div className="flex justify-center gap-3 flex-wrap">
                 {oferta.length !== 0 ? oferta.map((of, index) => (

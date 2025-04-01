@@ -81,7 +81,7 @@ const Login = () => {
                             <form onSubmit={HandleSubmit}>
                                 <div className="my-3">
                                     <label className="mb-2 block text-sm font-semibold text-blue-600">Correo electrónico</label>
-                                    <input type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Enter you email" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
+                                    <input type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Ingresa tu correo" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
                                 </div>
 
                                 <div className="mb-3">
@@ -109,7 +109,7 @@ const Login = () => {
                                 <hr className='dark:border dark:border-gray-900' />
                                 <div className='mt-1 md:mt-3 md:mb-1'>
                                     <p className='text-sm text-slate-500 mb-1 font-semibold'>Olvidaste tu contraseña: <Link className='hover:text-blue-800 hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
-                                    <p className='text-sm text-slate-500 font-semibold'>No tienes una cuenta: <Link className='hover:text-blue-800 hover:underline duration-300' to='/registro'>Registrate Aquí</Link></p>
+                                    <p className='text-sm text-slate-500 font-semibold'>No tienes una cuenta: <Link className='hover:text-blue-800 hover:underline duration-300' to='/registro'>Regístrate Aquí</Link></p>
                                 </div>
                             </form><br />
                             <div>

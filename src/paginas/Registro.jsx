@@ -47,10 +47,10 @@ const Registro = () => {
             setReloj(false)
         } catch (error) {
             console.log(error)
-            toast.error(error.response.data.msg)
             error.response.data.msg.forEach((mensaje) => {
                 toast.error(mensaje)
             })
+            setReloj(false)
         }
     }
     setTimeout(() => {
@@ -93,11 +93,11 @@ const Registro = () => {
                                 <div className="mb-3 grid grid-cols-2">
                                     <div className="mx-1">
                                         <label className="mb-2 block text-sm font-semibold dark: text-purple-600">Teléfono</label>
-                                        <input type="text" name='telefono' placeholder="Ingresa tu nombre" onChange={HandleChange} value={form.telefono || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                        <input type="text" name='telefono' placeholder="Ingresa tu teléfono" onChange={HandleChange} value={form.telefono || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                                     </div>
                                     <div className="mx-1">
                                         <label className="mb-2 block text-sm font-semibold dark: text-purple-600">Correo electrónico</label>
-                                        <input type="email" name='email' placeholder="Ingresa tu apellido" onChange={HandleChange} value={form.email || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                        <input type="email" name='email' placeholder="Ingresa tu correo" onChange={HandleChange} value={form.email || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                                     </div>
                                 </div>
                                 <div className="mb-3 mx-1">
@@ -108,7 +108,7 @@ const Registro = () => {
                                     </div>
                                 </div>
                                 <div className="text-sm rounded-md bg-red-200 py-1 px-2 dark:bg-gray-950 dark:text-gray-400">
-                                    <h1 className="font-semibold">Tomar en cuenta para contraseña:</h1>
+                                    <h1 className="font-semibold">Tomar en cuenta para la contraseña:</h1>
                                     <p>1. Al menos una Mayúscula 2. Al menos un número 3. Más de 10 caracteres</p>
                                 </div>
                                 <div className="my-7">

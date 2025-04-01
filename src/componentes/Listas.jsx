@@ -15,17 +15,13 @@ const ListasAnimadas = () => {
     },
     {
       title: "Cercanía de los proveedores",
-      content: "Solo se ofertan proveedores en un radio de 12 km de su domicilio.",
+      content: "Se ofertan principalmente a proveedores dentro de un radio de 12 km de su domicilio o ubicación actual.",
     },
     {
-      title: "Sistema para agendar citas",
+      title: "Sistema para contratar servicios",
       content:
-        "Disponible 24/7, pero los servicios solo pueden ser realizados entre las 06:00am y las 20:00pm, excepto en emergencias.",
-    },
-    {
-      title: "Llamadas emergentes",
-      content: "La oferta de proveedores para emergencias es mínima debido a la baja demanda.",
-    },
+        "Disponible 24/7 para contratar un servivio, pero solo pueden ser realizados entre las 06:00am y 19:00pm.",
+    }
   ];
 
   return (

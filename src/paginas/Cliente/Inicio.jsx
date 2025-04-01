@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logoInicio from '../assets/SVG_Construccion.svg'
-import logoMenu from '../assets/category.png'
-import logoMenuAbierto from '../assets/hamburger.png'
-import AuthContext from "../context/AuthProvider";
+import logoInicio from '../../assets/SVG_Construccion.svg'
+import logoMenu from '../../assets/category.png'
+import logoMenuAbierto from '../../assets/hamburger.png'
+import AuthContext from "../../context/AuthProvider";
 import axios from "axios";
-import '../../CSS/fondos.css'
-import OfertaContext from "../context/OfertasProvider";
-import ModalTrabajos from "../componentes/modals/ModalTrabajos";
+import '../../../CSS/fondos.css'
+import OfertaContext from "../../context/OfertasProvider";
+import ModalTrabajos from "../../componentes/modals/ModalTrabajos";
 
 const Inicio = () => {
     const { auth, menu, handleMenu } = useContext(AuthContext)
@@ -54,11 +54,11 @@ const Inicio = () => {
 
     return (//#BA05FF COLOR DEL SISTEMA
         <>
-            <div className="lg:hidden pb-2">
+            <div className="lg:hidden pb-2 mt-5">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
-            <section className="flex justify-center">
+            <section className="flex justify-center mt-5">
                 <div className="rounded-md shadow-lg w-4/5 bg-white dark:bg-transparent border border-gray-100">
                     <h1 className="text-3xl text-center text-purple-600 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}!</h1>
                     <h2 className="text-xl text-center dark:text-white pt-3 pb-5 px-3 md:px-0">¡Los trabajadores esperan por brindarte sus servicios!</h2>

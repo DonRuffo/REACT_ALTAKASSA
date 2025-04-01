@@ -9,25 +9,26 @@ import Confirmar from './paginas/Confirmar'
 import Restablecer from './paginas/Restablecer'
 import PrivateRoutes from './routes/PrivateRoutes'
 import { AuthProvider } from './context/AuthProvider'
-import Configuracion from './paginas/Configuracion'
+import Configuracion from './paginas/Cli-Prov/Configuracion'
 import { ConfigAuth } from './context/ConfigProvider'
-import InicioProve from './paginas/InicioProv'
+import InicioProve from './paginas/Proveedor/InicioProv'
 import PrivateProveedor from './routes/PrivateProveedor'
 import { OfertaProvider } from './context/OfertasProvider'
-import ListadoOfertas from './paginas/MisOfertas'
-import HistorialTrabajoCli from './paginas/HistorialTrabajosCli'
-import SolicitudProv from './paginas/SolicitudesProv'
+import ListadoOfertas from './paginas/Proveedor/MisOfertas'
+import HistorialTrabajoCli from './paginas/Cliente/HistorialTrabajosCli'
+import SolicitudProv from './paginas/Proveedor/SolicitudesProv'
 import PaginaNoPermitida from './paginas/PaginaNoPermitida'
 import RutasProveedor from './routes/RutasProveedor'
 import RutasCliente from './routes/RutasClientes'
 import Auth from './routes/Auth'
-import SolicitudesCli from './paginas/SolicitudesCliente'
-import ContratosCliente from './paginas/ContratosCliente'
-import ContratosProv from './paginas/ContratosProveedor'
+import SolicitudesCli from './paginas/Cliente/SolicitudesCliente'
+import ContratosCliente from './paginas/Cliente/ContratosCliente'
+import ContratosProv from './paginas/Proveedor/ContratosProveedor'
 import NotFound from './paginas/NotFound'
-import Calendario from './componentes/Calendario'
-import Sugerencias from './paginas/Sugerencias'
+import Sugerencias from './paginas/Cli-Prov/Sugerencias'
 import RutasCliProv from './routes/RutasCli-Pro'
+import InicioSuperAdmin from './paginas/superAdmin/InicioSuAdmin'
+import RegistroAdmin from './paginas/superAdmin/RegistroAdmin'
 function App() {
 
   return (
@@ -95,7 +96,7 @@ function App() {
                       <Route path='configuracion' element={<Configuracion />} />
                       <Route path='no-encontrado' element={<PaginaNoPermitida />} />
                       <Route path='*' element={<NotFound />} />
-                      <Route path='pruebas' element={<Calendario />} />
+                      <Route path='pruebas' element={<RegistroAdmin />} />
                     </Route>
                   </Routes>
                 </ConfigAuth>

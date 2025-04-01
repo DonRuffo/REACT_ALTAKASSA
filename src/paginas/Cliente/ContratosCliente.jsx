@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import '../../CSS/fondos.css'
-import OfertaContext from "../context/OfertasProvider";
-import AuthContext from "../context/AuthProvider";
-import logoMenu from '../assets/category.png'
-import logoMenuAbierto from '../assets/hamburger.png'
+import '../../../CSS/fondos.css'
+import OfertaContext from "../../context/OfertasProvider";
+import AuthContext from "../../context/AuthProvider";
+import logoMenu from '../../assets/category.png'
+import logoMenuAbierto from '../../assets/hamburger.png'
 
 const ContratosCliente = () => {
 
@@ -39,12 +39,12 @@ const ContratosCliente = () => {
     }
     return (
         <>
-            <div className="lg:hidden pb-2">
+            <div className="lg:hidden pb-2 mt-5">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <section>
-                <h1 className="text-center text-purple-600 font-semibold text-2xl my-2">Trabajos actuales</h1>
+                <h1 className="text-center text-purple-600 font-semibold text-2xl mt-5">Trabajos actuales</h1>
                 <p className="text-center font-semibold text-xl mb-5">Aquí podrás ver las solicitudes que han sido aceptadas o rechazadas por los proveedores</p>
                 <div className="flex flex-wrap gap-2 mb-5">
                     <label className="dark:text-white  has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-800 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-36 border-2 rounded-md px-2 py-1 flex justify-between items-center">

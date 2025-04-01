@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
-import logoInicioProv from '../assets/Motivacion.svg';
-import logoMenu from '../assets/category.png'
-import logoMenuAbierto from '../assets/hamburger.png'
-import OfertaContext from "../context/OfertasProvider";
-import ModalOferta from "../componentes/modals/ModalOferta";
-import LocationImg from '../assets/LOCATION.png'
-import SpinnerCarga from "../componentes/RuedaCarga";
+import AuthContext from "../../context/AuthProvider";
+import logoInicioProv from '../../assets/Motivacion.svg';
+import logoMenu from '../../assets/category.png'
+import logoMenuAbierto from '../../assets/hamburger.png'
+import OfertaContext from "../../context/OfertasProvider";
+import ModalOferta from "../../componentes/modals/ModalOferta";
+import LocationImg from '../../assets/LOCATION.png'
+import SpinnerCarga from "../../componentes/RuedaCarga";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import L from "leaflet";
@@ -113,11 +113,11 @@ const InicioProve = () => {
     return (
         <>
             <ToastContainer />
-            <div className="lg:hidden pb-2">
+            <div className="lg:hidden mb-3 mt-5">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
-            <section className="flex justify-center">
+            <section className="flex justify-center mt-5">
                 <div className="rounded-md shadow-lg w-4/5 bg-white dark:bg-transparent border border-gray-100">
                     <h1 className="text-3xl text-center text-purple-600 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}!</h1>
                     <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0 dark:text-white">Listo para un nuevo trabajo, el sistema te espera</h2>

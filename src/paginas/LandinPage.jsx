@@ -98,12 +98,12 @@ const LandingPage = () => {
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como cliente</h2>
                         <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-8">
                             <CardBeneficio Beneficio={"Transparencia"} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
-                            <CardBeneficio Beneficio={"Garantía"} logo={logoGarantia} texto={"Calidad de la mano de obra ¡¡100% garantizado!!. Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
-                            <CardBeneficio Beneficio={"Seguridad"} logo={logoSeguridad} texto={"¡¡Alta protección de información!!, desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
+                            <CardBeneficio Beneficio={"Garantía"} logo={logoGarantia} texto={"¡Calidad de la mano de obra 100% garantizado! Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
+                            <CardBeneficio Beneficio={"Seguridad"} logo={logoSeguridad} texto={"¡Alta protección de información! Desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
                         </div><br /><br /><br /><br />
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como proveedor</h2>
                         <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-8">
-                            <CardBeneficio Beneficio={"Comodidad"} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡¡nuevos clientes mucho más rápido que nunca!! desde la comodidad de tu hogar."} />
+                            <CardBeneficio Beneficio={"Comodidad"} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡nuevos clientes mucho más rápido! desde la comodidad de tu hogar o trabajo."} />
                             <CardBeneficio Beneficio={"Usabilidad"} logo={logoUsabilidad} texto={"Sistema óptimo y sencillo de manejar, con un entorno amigable y una clara interfaz para navegar correctamente y realizar acciones específicas."} />
                             <CardBeneficio Beneficio={"Fiabilidad"} logo={logoFiabilidad} texto={"El sistema mantiene credibilidad en sus funciones y prioriza un ambiente de trabajo armónico entre proveedor y cliente, tanto en la plataforma como al prestar el servicio."} />
                         </div><br /><br /><br /><br />
@@ -128,7 +128,7 @@ const LandingPage = () => {
                     <section>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
                             <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas como fugas, obstrucciones y contaminación del agua."} />
-                            <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas y creativas, y es fundamental tanto en la construcción como en el diseño de interiores, aportando funcionalidad y estética a los espacios."} />
+                            <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas-creativas, fundamental tanto en la construcción como en el diseño de interiores que aporta funcionalidad y estética a los espacios."} />
                         </div><br /><br />
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
                             <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas, tintes y revestimientos en interiores y exteriores de edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."} />
@@ -152,7 +152,7 @@ const LandingPage = () => {
                     </section>
                     <section id="QuienesSomos" className="flex flex-col items-center justify-center md:mb-20">
                         <div className="w-4/5 border-4 border-dotted border-sky-400 rounded-md shadow-lg dark:shadow-purple-700 dark:border-purple-600">
-                            <h1 className="text-4xl px-8 py-6 font-semibold text-sky-600 text-center dark:text-purple-700">¿Quienes somos?</h1><br />
+                            <h1 className="text-4xl px-8 py-6 font-semibold text-sky-600 text-center dark:text-purple-700">¿Quiénes somos?</h1><br />
                             <div className="flex flex-col items-center md:flex-row">
                                 <div className="w-3/5 md:w-2/5 flex justify-center max-h-[250px] pb-5 md:p-0">
                                     <img src={imgAstronauta} alt="Astronauta" width={250} height={250} />
@@ -168,13 +168,13 @@ const LandingPage = () => {
                                         propósito de llegar a todos
                                         los lugares del país para brindar una asistencia y mano de obra de calidad, con una
                                         accesibilidad sencilla para que todo
-                                        público goze de las funciones.
+                                        público goce de las funciones.
                                     </p>
-                                    <p className="text-justify mb-1 dark:text-white"><b className="text-blue-600 font-semibold dark:text-purple-600">Misión: </b>Otorgar servicios profesionales a residencias y empresas a comodidad y preferencia
-                                        de nuestros clientes
-                                        en relación a: tiempo, calidad de mano de obra, seguridad y garantía en la labor de nuestros
+                                    <p className="text-justify mb-1 dark:text-white"><b className="text-blue-600 font-semibold dark:text-purple-600">Misión: </b>Otorgar servicios profesionales a residencias y empresas a fin de priorizar
+                                        la comodidad de nuestros clientes
+                                        en relación a tiempo, calidad de mano de obra, seguridad y garantía en la labor de nuestros
                                         profesionales, atención y
-                                        asistencia virtual/presencial y flexibilidad en métodos de pago. </p><br /><br />
+                                        asistencia virtual/presencial con flexibilidad en métodos de pago. </p><br /><br />
                                 </div>
                             </div>
                         </div>

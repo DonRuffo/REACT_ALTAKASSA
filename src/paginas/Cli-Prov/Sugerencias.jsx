@@ -1,10 +1,18 @@
-import React from "react";
-import imgSug from '../assets/Suggestions.svg'
+import React, { useContext } from "react";
+import imgSug from '../../assets/Suggestions.svg'
+import logoMenu from '../../assets/category.png'
+import logoMenuAbierto from '../../assets/hamburger.png'
+import AuthContext from "../../context/AuthProvider";
 
 const Sugerencias = () => {
+    const {menu, handleMenu} = useContext(AuthContext)
     return (
         <>
-            <section className="flex justify-center">
+            <div className="lg:hidden pb-2 mt-5">
+                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
+                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
+            </div>
+            <section className="flex justify-center mt-5">
                 <div className="w-4/5 border-2 border-gray-300 rounded-lg">
                     <h1 className="text-center text-3xl font-semibold text-purple-600 mt-5">Sugerencias y comentarios</h1>
                     <div className="flex justify-around mx-8 mt-5">

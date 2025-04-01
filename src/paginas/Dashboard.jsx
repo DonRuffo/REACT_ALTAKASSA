@@ -151,7 +151,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <div className="flex-1 flex flex-col h-screen bg-white dark:bg-black">
-                        <div className='overflow-y-auto p-8'>
+                        <div className='overflow-y-auto px-8'>
                             <Outlet />
                         </div>
                     </div>

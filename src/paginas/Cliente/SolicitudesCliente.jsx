@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import '../../CSS/fondos.css'
-import OfertaContext from "../context/OfertasProvider";
-import ModalActualizar from "../componentes/modals/ModalActualizar";
-import logoMenu from '../assets/category.png'
-import logoMenuAbierto from '../assets/hamburger.png'
-import AuthContext from "../context/AuthProvider";
+import '../../../CSS/fondos.css'
+import OfertaContext from "../../context/OfertasProvider";
+import ModalActualizar from "../../componentes/modals/ModalActualizar";
+import logoMenu from '../../assets/category.png'
+import logoMenuAbierto from '../../assets/hamburger.png'
+import AuthContext from "../../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 
 const SolicitudesCli = () => {
@@ -45,12 +45,12 @@ const SolicitudesCli = () => {
     return (
         <>
 
-            <div className="lg:hidden pb-2">
+            <div className="lg:hidden pb-2 mt-5">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <section>
-                <h1 className="text-3xl text-center text-purple-600 font-semibold my-2">Solicitudes</h1>
+                <h1 className="text-3xl text-center text-purple-600 font-semibold mt-5">Solicitudes</h1>
                 <p className="text-xl text-center font-semibold mb-5 dark:text-white">Auí podrás visualizar tus solicitudes de trabajo</p>
                 <div className="flex justify-center gap-3 flex-wrap">
                     {trabajos.length !== 0 ? trabajos.some(tra => tra.status === "En espera") ? (

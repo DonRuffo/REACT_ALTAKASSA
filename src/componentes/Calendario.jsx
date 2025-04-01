@@ -175,7 +175,7 @@ return (
         <div className={dark ? 'dark' : ''}>
             {
                 meses2.map((mes) => (
-                    <div key={mes.id} className={`${conteo === mes.id ? "" : "hidden"} w-[165px] h-[150px] outline outline-1 outline-blue-100 dark:outline-gray-900 outline-offset-0 outline-offset-4 rounded-md shadow-lg dark:bg-transparent dark:shadow-none p-1`}>
+                    <div key={mes.id} className={`${conteo === mes.id ? "" : "hidden"} w-[165px] h-[150px] outline outline-1 outline-blue-100 dark:outline-gray-900 outline-offset-0 rounded-md shadow-lg dark:bg-transparent dark:shadow-none p-1`}>
                         <div className="flex justify-between pt-1 dark:text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" className='cursor-pointer hover:-translate-x-0.5 transition-all duration-300' onClick={() => izquierda()}>
                                 <path d="M14 19l-7-7 7-7v14z" />

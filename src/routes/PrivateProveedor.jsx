@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
-import Inicio from "../paginas/Inicio";
-import InicioAdmin from "../paginas/InicioAdmin";
+import Inicio from "../paginas/Cliente/Inicio";
+import InicioAdmin from "../paginas/admin/InicioAdmin";
 
 
 const PrivateProveedor = ({ children }) => {

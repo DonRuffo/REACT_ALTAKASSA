@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import '../../CSS/fondos.css'
-import OfertaContext from "../context/OfertasProvider";
-import logoMenu from '../assets/category.png'
-import logoMenuAbierto from '../assets/hamburger.png'
-import AuthContext from "../context/AuthProvider";
+import '../../../CSS/fondos.css'
+import OfertaContext from "../../context/OfertasProvider";
+import logoMenu from '../../assets/category.png'
+import logoMenuAbierto from '../../assets/hamburger.png'
+import AuthContext from "../../context/AuthProvider";
 
 const SolicitudProv = () => {
     const { trabajos, ObtenerTrabajos } = useContext(OfertaContext)
@@ -59,12 +59,12 @@ const SolicitudProv = () => {
 
     return (
         <>
-            <div className="lg:hidden pb-2">
+            <div className="lg:hidden pb-2 mt-5">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <ToastContainer />
-            <h1 className="text-center font-semibold text-3xl text-purple-600 mb-5">Solicitudes</h1>
+            <h1 className="text-center font-semibold text-3xl text-purple-600 mb-5 mt-5">Solicitudes</h1>
             <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus solicitudes de trabajo</h2>
             <section>
                 <div className="flex justify-center gap-3 flex-wrap">

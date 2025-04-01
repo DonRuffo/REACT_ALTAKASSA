@@ -11,7 +11,7 @@ const ListasAnimadasProv = () => {
   const items = [
     {
       title: "Tarifas para clientes",
-      content: "Las tarifas para los clientes varían según sus requerimientos, no es un precio fijo ni en general para todos los servicios.",
+      content: "Las tarifas para los clientes varían según el servicio requerido y su conveniencia, ajuste su tarifa adecuadamente para competir con otros proveedores.",
     },
     {
       title: "Inactividad",
@@ -24,7 +24,7 @@ const ListasAnimadasProv = () => {
     },
     {
       title: "Información",
-      content: "Para saber sobre cuál es el monto que gana o genera, inicie sesión o registrese.",
+      content: "Para conocer el monto que gana o genera, inicie sesión.",
     },
   ];
 

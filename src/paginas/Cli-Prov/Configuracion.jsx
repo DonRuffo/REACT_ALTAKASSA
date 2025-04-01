@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import OpcionConfig from "../componentes/opcionesConfiguracion";
-import ConfigContext from "../context/ConfigProvider";
-import logoMenu from '../assets/category.png'
-import logoMenuAbierto from '../assets/hamburger.png'
-import AuthContext, { useAuth } from "../context/AuthProvider";
+import OpcionConfig from "../../componentes/opcionesConfiguracion";
+import ConfigContext from "../../context/ConfigProvider";
+import logoMenu from '../../assets/category.png'
+import logoMenuAbierto from '../../assets/hamburger.png'
+import AuthContext, { useAuth } from "../../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import { EyeOff, Eye } from 'lucide-react';
-import imgLocation from '../assets/LOCATION.png'
+import imgLocation from '../../assets/LOCATION.png'
 import axios from "axios";
 
 const Configuracion = () => {
@@ -151,11 +151,11 @@ const Configuracion = () => {
 
     return (
         <>
-            <div className="lg:hidden pb-2">
+            <div className="lg:hidden pb-2 mt-5">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
-            <h1 className="text-3xl font-semibold text-sky-600 pb-5">Configuración</h1>
+            <h1 className="text-3xl font-semibold text-sky-600 pb-5 mt-5">Configuración</h1>
             <ToastContainer />
             <section className="flex flex-col md:flex-row justify-between">
                 <div className="w-full md:w-2/5 flex bg-white dark:bg-transparent dark:text-white rounded-xl shadow-lg md:max-h-[210px] border border-gray-100 mb-8 md:mb-0">
