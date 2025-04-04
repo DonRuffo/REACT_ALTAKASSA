@@ -26,9 +26,9 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
                                 <div className="text-justify dark:text-white">
                                     <div className="flex flex-col items-center gap-4 justify-center">
                                         <span className="text-sm text-slate-400 font-semibold">Selecciona un área</span>
-                                        <select name="selec" id="selec" className="my-1 ring-1 rounded-md ring-sky-400 dark:ring-purple-600 dark:bg-transparent max-w-[275px]" onChange={changeCaracteristicas}>
+                                        <select name="selec" id="selec" className="mb-1 ring-1 rounded-md ring-sky-400 dark:ring-purple-600 dark:bg-transparent max-w-[275px]" onChange={changeCaracteristicas}>
                                             {texto2.map((title) => (
-                                                <option value={title.titulo} className="bg-gray-950">{title.titulo}</option>
+                                                <option value={title.titulo} className="bg-white dark:bg-gray-950">{title.titulo}</option>
                                             ))}
                                         </select>
                                         {texto2.map((tra) => (
