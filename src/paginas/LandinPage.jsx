@@ -45,13 +45,340 @@ import AuthContext from "../context/AuthProvider";
 //#60E8FE color para iconos
 const LandingPage = () => {
 
-    const {darkMode, handleDarkPage} = useContext(AuthContext)
+    const { darkMode, handleDarkPage } = useContext(AuthContext)
     const [selectedOption, setSelectedOption] = useState('');
-
 
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
     };
+
+    const plomero = [{
+        titulo: 'Instalaciones',
+        caracteristicas: ['Tuberías de agua potable y desagüe.',
+            'Calentadores de agua (eléctricos o a gas).',
+            'Sanitarios (inodoros, lavamanos, bidés).',
+            'Grifos y mezcladoras.',
+            'Bombas de agua y presurizadores.',
+            'Sistemas de filtrado y purificación de agua.',
+            'Sistemas de riego para jardines.']
+    },
+    {
+        titulo: 'Reparaciones',
+        caracteristicas: ['Fugas de agua en tuberías.',
+            'Grifos que gotean.',
+            'Inodoros con fugas o que no descargan bien.',
+            'Calentadores de agua que no calientan correctamente.',
+            'Tuberías rotas o dañadas.',
+            'Bombas de agua que no funcionan.']
+    },
+    {
+        titulo: 'Destapado y mantenimiento',
+        caracteristicas: ['Destape de cañerías y desagües obstruidos.',
+            'Limpieza y mantenimiento de tuberías de agua y drenaje.',
+            'Destape de inodoros y lavamanos tapados.',
+            'Eliminación de sarro y acumulaciones en tuberías.']
+    },
+    {
+        titulo: 'Detección y Solución de Problemas',
+        caracteristicas: ['Detección de fugas de agua.',
+            'Diagnóstico de baja presión en tuberías.',
+            'Revisión de humedad y filtraciones en paredes o pisos.']
+    },
+    {
+        titulo: 'Gasfitería',
+        caracteristicas: ['Instalación y reparación de tuberías de gas.',
+            'Detección de fugas de gas.',
+            'Instalación y mantenimiento de calentadores de gas.']
+    }
+    ]
+    const limpieza = [{
+        titulo: 'Limpieza General',
+        caracteristicas: [
+            'Barrido y trapeado de pisos.',
+            'Aspirado de alfombras y tapetes.',
+            'Limpieza de polvo en muebles, mesas y repisas.',
+            'Limpieza de puertas y marcos de ventanas.',
+            'Sacudido y desinfección de superficies.'
+        ]
+    },
+    {
+        titulo: 'Limpieza de Habitaciones',
+        caracteristicas: [
+            'Cambio de sábanas y tendido de camas.',
+            'Limpieza y organización de closets y cajones.',
+            'Aspirado y limpieza de colchones.',
+            'Eliminación de telarañas en esquinas y techos.'
+        ]
+    },
+    {
+        titulo: 'Limpieza de Cocina',
+        caracteristicas: [
+            'Lavado de platos, vasos y utensilios.',
+            'Limpieza de estufa, horno y microondas.',
+            'Limpieza y desinfección de encimeras y fregadero.',
+            'Organización y limpieza de despensas y refrigerador.',
+            'Eliminación de grasa en superficies.'
+        ]
+    },
+    {
+        titulo: 'Limpieza de Baños',
+        caracteristicas: [
+            'Lavado y desinfección de inodoros, lavamanos y duchas.',
+            'Limpieza de espejos y superficies de vidrio.',
+            'Eliminación de sarro y moho en azulejos.',
+            'Reposición de papel higiénico y toallas.'
+        ]
+    },
+    {
+        titulo: 'Limpieza de Ventanas y Cortinas',
+        caracteristicas: [
+            'Limpieza de vidrios interiores y exteriores.',
+            'Retiro y lavado de cortinas o persianas.',
+            'Eliminación de manchas en ventanas.'
+        ]
+    },
+    {
+        titulo: 'Organización de Espacios',
+        caracteristicas: [
+            'Organización de salas y áreas comunes.',
+            'Organización de juguetes en habitaciones infantiles.',
+            'Reubicación de muebles ligeros para una mejor limpieza.'
+        ]
+    },
+    {
+        titulo: 'Limpieza de Espacios Exteriores ',
+        caracteristicas: [
+            'Barrido de patios y terrazas.',
+            'Limpieza de muebles de jardín.',
+            'Riego de plantas si es solicitado.'
+        ]
+    }
+    ]
+    const tecnico = [{
+        titulo: 'Reparación y Mantenimiento',
+        caracteristicas: [
+            'Diagnóstico de fallas en electrodomésticos.',
+            'Reparación de refrigeradores y neveras.',
+            'Reparación de lavadoras y secadoras.',
+            'Reparación de estufas y hornos eléctricos o de gas.',
+            'Reparación de microondas (magnetrón, fusibles, tablero de control).',
+            'Reparación de aires acondicionados y climatizadores.',
+            'Reparación de extractores de aire y campanas de cocina.',
+            'Reparación de licuadoras, batidoras y procesadores de alimentos.',
+            'Reparación de cafeteras y hervidores eléctricos.',
+            'Reparación de planchas de ropa y vaporizadores.',
+            'Reparación de aspiradoras y robots de limpieza.'
+        ]
+    },
+    {
+        titulo: 'Instalación de Electrodomésticos',
+        caracteristicas: [
+            'Instalación de refrigeradores y ajustes de temperatura.',
+            'Instalación de lavadoras y secadoras con conexión a agua y desagüe.',
+            'Instalación de estufas y hornos (eléctricos y de gas).',
+            'Instalación de lavavajillas con conexión de agua..',
+            'Instalación de aires acondicionados tipo split y de ventana.',
+            'Instalación de calentadores de agua eléctricos y de gas.',
+            'Instalación de campanas extractoras en cocinas.',
+            'Instalación de televisores en pared y configuración inicial.'
+        ]
+    },
+    {
+        titulo: 'Mantenimiento Preventivo',
+        caracteristicas: [
+            'Limpieza de filtros en refrigeradores y aires acondicionados.',
+            'Cambio de empaques y gomas en refrigeradores.',
+            'Lubricación de motores en electrodomésticos de alto uso.',
+            'Desincrustación de cal en cafeteras y calentadores de agua.',
+            'Revisión y ajuste de sensores de temperatura en electrodomésticos.'
+        ]
+    },
+    {
+        titulo: 'Electricidad en Electrodomésticos',
+        caracteristicas: [
+            'Cambio de cables y enchufes en equipos dañados.',
+            'Reparación de placas electrónicas y tarjetas de control.',
+            'Sustitución de fusibles y relés en electrodomésticos.',
+            'Solución de problemas de cortocircuitos en aparatos eléctricos.'
+        ]
+    },
+    {
+        titulo: 'Optimización y Eficiencia Energética',
+        caracteristicas: [
+            'Asesoría en el uso eficiente de electrodomésticos.',
+            'Instalación de temporizadores y reguladores de voltaje para electrodomésticos.'
+        ]
+    }
+    ]
+    const carpintero = [{
+        titulo: 'Fabricación Muebles a Medida',
+        caracteristicas: [
+            'Diseño y construcción de muebles personalizados.',
+            'Fabricación de closets empotrados y modulares.',
+            'Creación de muebles de cocina y baño a medida.',
+            'Fabricación de camas, literas y cabeceras personalizadas.',
+            'Construcción de estanterías y bibliotecas en madera.',
+            'Diseño y elaboración de puertas de madera.'
+        ]
+    },
+    {
+        titulo: 'Reparación y Restauración',
+        caracteristicas: [
+            'Restauración de muebles antiguos o dañados.',
+            'Reparación de mesas, sillas, y escritorios.',
+            'Cambio de bisagras, rieles y manijas en muebles.',
+            'Reemplazo de partes dañadas en puertas y ventanas de madera.',
+            'Reparación de madera agrietada o carcomida.',
+            'Lijado y repintado de muebles y estructuras de madera.'
+        ]
+    },
+    {
+        titulo: 'Instalación y Montaje',
+        caracteristicas: [
+            'Instalación de puertas de madera y ajustes en marcos.',
+            'Montaje de muebles de cocina y closets.',
+            'Instalación de pisos laminados o de madera.',
+            'Montaje de estanterías y repisas en paredes.',
+            ' Instalación de molduras y rodapiés.'
+        ]
+    },
+    {
+        titulo: 'Acabados y Tratamientos en Madera',
+        caracteristicas: [
+            'Barnizado y sellado de muebles y estructuras.',
+            'Aplicación de pinturas y lacas en madera.',
+            'Tratamientos contra humedad, termitas y hongos.',
+            'Pulido y encerado de muebles y pisos de madera.'
+        ]
+    },
+    {
+        titulo: 'Reparaciones en Estructuras de Madera',
+        caracteristicas: [
+            'Refuerzo y reparación de techos de madera.',
+            'Cambio o ajuste de vigas y columnas de madera.',
+            'Reparación de pérgolas y estructuras de jardín.'
+        ]
+    }
+    ]
+    const albañil = [{
+        titulo: 'Construcción General',
+        caracteristicas: [
+            'Levantamiento de muros con bloques, ladrillos o tabiques.',
+            'Colado de losas, pisos y techos de concreto.',
+            'Construcción de columnas, vigas y cimentaciones.',
+            'Elaboración de escaleras de concreto.',
+            'Colocación de techumbres y cubiertas.'
+        ]
+    },
+    {
+        titulo: 'Reparaciones y Mantenimiento',
+        caracteristicas: [
+            'Reparación de grietas en paredes y techos.',
+            'Reparación de muros dañados por humedad o filtraciones.',
+            'Refuerzo de estructuras debilitadas.',
+            'Sustitución de bloques o ladrillos deteriorados.',
+            'Relleno y nivelación de pisos o terrenos irregulares.'
+        ]
+    },
+    {
+        titulo: 'Obra Negra',
+        caracteristicas: [
+            'Trazo y nivelación de terreno para construcción.',
+            'Construcción de estructuras base de casas y edificaciones.',
+            'Instalación de castillos y cadenas de amarre.',
+            'Preparación e instalación de acero de refuerzo.'
+        ]
+    },
+    {
+        titulo: 'Obra Blanca y Acabados',
+        caracteristicas: [
+            'Revoque y aplanado de paredes interiores y exteriores.',
+            'Colocación de molduras, marcos y cornisas.',
+            'Aplicación de estuco o pasta texturizada.',
+            'Pulido de muros y techos para pintura.'
+        ]
+    },
+    {
+        titulo: "Colocación de Revestimientos",
+        caracteristicas: [
+            'Colocación de azulejos y cerámica en pisos y muros.',
+            'Instalación de porcelanato, mármol o granito.',
+            'Colocación de pisos de cemento pulido.',
+            'Instalación de zócalos y rodapiés.'
+        ]
+    },
+    {
+        titulo: "Trabajos con Plomería y Electricidad",
+        caracteristicas: [
+            'Canalización para instalaciones eléctricas o hidráulicas.',
+            'Paso de tuberías en muros o pisos.',
+            'Asistencia en colocación de registros y bajantes.'
+        ]
+    },
+    {
+        titulo: "Instalaciones Generales",
+        caracteristicas: [
+            'Instalación de marcos de puertas y ventanas.',
+            'Sellado de juntas con cemento o silicón.',
+            'Preparación para instalación de muebles fijos (lavamanos, inodoros, lavaplatos).'
+        ]
+    }
+    ]
+    const pintor = [{
+        titulo: 'Pintura de Interiores y Exteriores',
+        caracteristicas: [
+            'Aplicación de pintura en paredes y techos interiores.',
+            'Pintura de fachadas y exteriores de casas y edificios.',
+            'Pintura de habitaciones, salas, cocinas y baños.',
+            'Pintura de techos altos o con acabados especiales.'
+        ]
+    }, {
+        titulo: 'Preparación de Superficies',
+        caracteristicas: [
+            'Lijado de paredes y techos para una mejor adherencia.',
+            'Eliminación de pintura vieja o descascarada.',
+            'Reparación de grietas y agujeros en paredes antes de pintar.',
+            'Aplicación de selladores y fijadores en muros porosos.'
+        ]
+    },
+    {
+        titulo: 'Aplicación de Tipos de Pintura',
+        caracteristicas: [
+            'Aplicación de pintura acrílica, vinílica o esmalte.',
+            'Pintura con acabado mate, satinado o brillante.',
+            'Uso de pinturas lavables y resistentes a la humedad.',
+            'Aplicación de pintura antihongos y antimoho en zonas húmedas.',
+            'Pintura con esmalte sintético en puertas y ventanas.'
+        ]
+    },
+    {
+        titulo: 'Acabados Especiales',
+        caracteristicas: [
+            'Aplicación de efectos decorativos como esponjeado o degradado.',
+            'Texturizados en paredes con pasta o estuco.',
+            'Pintura con rodillo, brocha o pistola de aire según el acabado deseado.',
+            'Pintura epóxica para pisos de concreto en patios o cocheras.'
+        ]
+    },
+    {
+        titulo: 'Pintura de Elementos Adicionales',
+        caracteristicas: [
+            'Pintura de puertas y marcos de madera o metal.',
+            'Pintura de barandales, rejas y portones metálicos.',
+            'Pintura de muebles empotrados como closets y gabinetes.',
+            'Pintura de techos de lámina o estructuras metálicas.'
+        ]
+    },
+    {
+        titulo: 'Mantenimiento y Protección',
+        caracteristicas: [
+            'Impermeabilización de techos y azoteas.',
+            'Aplicación de barniz protector en madera.',
+            'Uso de selladores para prevenir filtraciones de agua.',
+            'Aplicación de recubrimientos térmicos y reflectantes.'
+        ]
+    }
+    ]
     return (
         <>
             <div className={darkMode ? "dark" : ""}>
@@ -71,7 +398,7 @@ const LandingPage = () => {
                             <option value="Servicios" className="text-sm">Servicios</option>
                             <option value="Contacto" className="text-sm">Contacto</option>
                         </select>
-                        <img src={logoDarkMode} alt="CambioTema" onClick={() => {handleDarkPage()}} width={40} height={40} className="cursor-pointer" />
+                        <img src={logoDarkMode} alt="CambioTema" onClick={() => { handleDarkPage() }} width={40} height={40} className="cursor-pointer" />
                         <ul className="flex items-center">
                             <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-purple-600 text-white rounded-xl hover:bg-purple-800 duration-300 text-center dark:shadow-md dark:shadow-gray-400">Login</Link></li>
                         </ul>
@@ -127,27 +454,16 @@ const LandingPage = () => {
                     </section><br /><br />
                     <section>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                            <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas como fugas, obstrucciones y contaminación del agua."} />
-                            <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas-creativas, fundamental tanto en la construcción como en el diseño de interiores que aporta funcionalidad y estética a los espacios."} />
+                            <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas como fugas, obstrucciones y contaminación del agua."} texto2={plomero} />
+                            <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas-creativas, fundamental tanto en la construcción como en el diseño de interiores que aporta funcionalidad y estética a los espacios."} texto2={carpintero} />
                         </div><br /><br />
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                            <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas, tintes y revestimientos en interiores y exteriores de edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."} />
-                            <CardServicios Servicio1={"Albañilería"} logo1={imgAlbanil} texto1={"Fundamental en la construcción de edificaciones e infraestructuras, combinando habilidades manuales con conocimiento en materiales, técnicas constructivas y normas de seguridad."} />
+                            <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas, tintes y revestimientos en interiores y exteriores de edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."} texto2={pintor} />
+                            <CardServicios Servicio1={"Albañilería"} logo1={imgAlbanil} texto1={"Fundamental en la construcción de edificaciones e infraestructuras, combinando habilidades manuales con conocimiento en materiales, técnicas constructivas y normas de seguridad."} texto2={albañil} />
                         </div><br /><br />
                         <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                            <CardServicios Servicio1={"Limpieza"} logo1={imgLimpieza} texto1={"Profesional especializado en la limpieza general del hogar. Mantener la casa libre de polvo e impurezas, tanto en losas y paredes como en muebles e inmuebles, es importante para la salud."} />
-                            <div className="w-4/5 md:w-1/3 h-[550px] md:h-[500px] rounded-xl border border-gray-200 dark:border-none shadow-xl shadow-sky-300 dark:shadow-purple-800">
-                                <h1 className="pt-8 text-2xl md:text-3xl text-slate-600 text-center font-semibold dark:text-white">Técnico-Electrodomésticos</h1>
-                                <div className="flex justify-center py-4">
-                                    <img src={imgElectro} alt="Tecnico" width={275} height={275} />
-                                </div>
-                                <p className="text-md dark:text-slate-400 px-5 md:px-10 text-center pt-4">Profesional especializado en la
-                                    instalación, mantenimiento y reparación de aparatos eléctricos utilizados en el
-                                    hogar, como lavadoras, refrigeradores, hornos, microondas y lavavajillas. </p><br />
-                                <div className="flex justify-center">
-                                    <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-sky-400 text-sky-400 font-semibold hover:bg-sky-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
-                                </div>
-                            </div>
+                            <CardServicios Servicio1={"Limpieza"} logo1={imgLimpieza} texto1={"Profesional especializado en la limpieza general del hogar. Mantener la casa libre de polvo e impurezas, tanto en losas y paredes como en muebles e inmuebles, es importante para la salud."} texto2={limpieza} />
+                            <CardServicios Servicio1={"Técnico-Electrodomésticos"} logo1={imgElectro} texto1={"Profesional especializado en la instalación, mantenimiento y reparación de aparatos eléctricos utilizados en el hogar, como lavadoras, refrigeradores, hornos, microondas y lavavajillas."} texto2={tecnico} />
                         </div><br /><br /><br /><br /><br />
                     </section>
                     <section id="QuienesSomos" className="flex flex-col items-center justify-center md:mb-20">
