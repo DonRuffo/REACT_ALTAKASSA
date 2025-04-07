@@ -3,7 +3,7 @@ import logoConfirm from '../assets/ConfirmarLOGO.svg'
 import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import DotPulseLoader from "../componentes/CargaConfirmar";
+import SkylineLoader from "../componentes/CargaConfirmar";
 
 const Confirmar = () => {
 
@@ -37,11 +37,11 @@ const Confirmar = () => {
 
     return (
         <>
-            <div className="bg-slate-100 h-screen">
+            <div className="bg-slate-100 h-screen flex flex-col justify-center items-center">
                 <ToastContainer />
                 <div className="flex flex-col items-center justify-center pt-20 h-screen md:h-auto">
-                    <div className="w-1/3 md:w-1/5 h-1/5">
-                        {carga && <DotPulseLoader />}
+                    <div className="w-1/3 md:w-1/5 h-1/5 flex justify-center">
+                        {carga && <SkylineLoader />}
                         <img src={logoConfirm} alt="Rocket" width={208} height={208} className={`${carga ? 'hidden' : ''}`} />
                     </div>
                     <h1 className={`${carga ? '' :'hidden'} text-4xl text-sky-600 pt-5 font-semibold`}>Validando cuenta...</h1>
