@@ -1,13 +1,14 @@
-import React, { useContext, useEffect } from "react";
-import logoConfirm from '../assets/ROCKET.png'
+import React, { useContext, useEffect, useState } from "react";
+import logoConfirm from '../assets/ConfirmarLOGO.svg'
 import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import DotPulseLoader from "../componentes/CargaConfirmar";
 
 const Confirmar = () => {
 
     const { token } = useParams()
-    
+    const [carga, setCarga] =useState(true)
 
     const verifyToken = async () => {
         let url
@@ -22,6 +23,7 @@ const Confirmar = () => {
             }
             console.log(url)
             const respuesta = await axios.get(url)
+            setCarga(false)
             toast.success(respuesta.data.msg)
         } catch (error) {
             console.log(error)
@@ -39,11 +41,13 @@ const Confirmar = () => {
                 <ToastContainer />
                 <div className="flex flex-col items-center justify-center pt-20 h-screen md:h-auto">
                     <div className="w-1/3 md:w-1/5 h-1/5">
-                        <img src={logoConfirm} alt="Rocket" width={250} height={250} />
+                        {carga && <DotPulseLoader />}
+                        <img src={logoConfirm} alt="Rocket" width={208} height={208} className={`${carga ? 'hidden' : ''}`} />
                     </div>
-                    <h1 className="text-3xl text-sky-600 pt-5 font-semibold">Gracias por Confirmar</h1>
-                    <p className="text-slate-600 text-xl pb-5">Ya puedes iniciar sesión</p>
-                    <Link className="p-2 bg-sky-600 text-white rounded-lg hover:bg-sky-800 duration-300" to='/login' replace>Iniciar Sesión</Link>
+                    <h1 className={`${carga ? '' :'hidden'} text-4xl text-sky-600 pt-5 font-semibold`}>Validando cuenta...</h1>
+                    <h1 className={`${carga ? 'hidden' :''} text-4xl text-sky-600 pt-5 font-semibold`}>Gracias por Confirmar</h1>
+                    <p className={`${carga ? 'hidden' : ''} text-slate-600 text-xl pb-5`}>Ya puedes iniciar sesión</p>
+                    <Link className={`${carga ? 'hidden' : ''} p-2 bg-sky-600 text-white rounded-lg hover:bg-sky-800 duration-300`} to='/login' replace>Iniciar Sesión</Link>
                 </div>
             </div>
         </>

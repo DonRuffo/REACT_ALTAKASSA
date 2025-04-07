@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoDarkMode from '../assets/moon.png';
 import logoAltaKassaNegro from '../assets/AK NEGRA.png';
 import logoAltaKassaBlanco from '../assets/AK BLANCA.png';
@@ -17,7 +17,7 @@ import imgCarpinteria from '../assets/Carpinteria.png'
 import imgLimpieza from '../assets/Limpieza.png'
 import imgPintor from '../assets/Pintor.png'
 import imgAlbanil from '../assets/Albañil.png'
-import imgLaptop from '../assets/LaptopArco.png';
+import imgAksin from '../assets/AK BLANCA_sintexto.png'
 import imgAstronauta from '../assets/astronauta.png'
 import logoAgendar from '../assets/Agendar-lista.png'
 import logoElegir from '../assets/Elegir-lista.png'
@@ -41,6 +41,7 @@ import ListasAnimadas from "../componentes/Listas";
 import ListasAnimadasProv from "../componentes/ListasProv";
 import imPerfilDinamica from '../assets/PERFIL_dinamica.jpg'
 import AuthContext from "../context/AuthProvider";
+import logoBG from '../assets/HojasOscuras-Pixels.jpg'
 //text-slate-400 - texto para cards
 //#60E8FE color para iconos
 const LandingPage = () => {
@@ -48,6 +49,7 @@ const LandingPage = () => {
     const { darkMode, handleDarkPage } = useContext(AuthContext)
     const [selectedOption, setSelectedOption] = useState('');
 
+    const navigate = useNavigate()
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
     };
@@ -383,8 +385,8 @@ const LandingPage = () => {
         <>
             <div className={darkMode ? "dark" : ""}>
                 <main className="bg-white dark:bg-gray-950">
-                    <nav className="px-10 py-7 mb-12 flex justify-between dark:bg-gray-950">
-                        <select className="w-1/3 mr-1 md:mr-0  border border-purple-600 rounded-xl py-2 md:w-40 text-center text-white  bg-purple-600 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 dark:shadow-md dark:shadow-gray-400 hover:bg-purple-800 duration-300"
+                    <nav className="px-10 py-5 flex justify-between bg-gray-950">
+                        <select className="w-1/3 mr-1 md:mr-0 rounded-xl py-2 md:w-40 text-center text-purple-700 font-semibold bg-transparent outline focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 hover:brightness-110 duration-300"
                             onChange={(e) => {
                                 const targetId = e.target.value
                                 const targetElement = document.getElementById(targetId)
@@ -393,33 +395,57 @@ const LandingPage = () => {
                                 }
                             }}
                         >
-                            <option value="Menu" className="text-sm">Menu</option>
-                            <option value="QuienesSomos" className="text-sm">Quienes Somos</option>
-                            <option value="Servicios" className="text-sm">Servicios</option>
-                            <option value="Contacto" className="text-sm">Contacto</option>
+                            <option value="Menu" className="text-sm font-semibold bg-gray-950">Menu</option>
+                            <option value="QuienesSomos" className="text-sm font-semibold bg-gray-950">Quienes Somos</option>
+                            <option value="Servicios" className="text-sm font-semibold bg-gray-950">Servicios</option>
+                            <option value="Contacto" className="text-sm font-semibold bg-gray-950">Contacto</option>
                         </select>
                         <img src={logoDarkMode} alt="CambioTema" onClick={() => { handleDarkPage() }} width={40} height={40} className="cursor-pointer" />
                         <ul className="flex items-center">
-                            <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-purple-600 text-white rounded-xl hover:bg-purple-800 duration-300 text-center dark:shadow-md dark:shadow-gray-400">Login</Link></li>
+                            <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-transparent outline text-purple-700 font-semibold rounded-xl hover:brightness-110 transition-all duration-300 text-center">Login</Link></li>
                         </ul>
                     </nav>
-                    <section className="flex justify-center" id="Inicio">
-                        <div className="border-2 border-dashed border-sky-400 grid grid-cols-1 md:grid-cols-2 w-4/5 rounded-lg  shadow-lg dark:shadow-purple-700 dark:border-purple-700 duration-300">
-                            <div className="flex justify-center items-center">
-                                <img src={logoAltaKassaNegro} alt="LogoAltakassaNegro" className="dark:hidden" />
-                                <img src={logoAltaKassaBlanco} alt="LogoAltakassaBlanco" className="hidden dark:block" />
-                            </div>
-                            <div className="">
-                                <h1 className="block font-bold text-4xl text-center md:pt-20 dark:text-purple-800 duration-300">Conoce a AltaKassa</h1>
-                                <p className="block text-center px-8 pt-5 pb-0 text-xl text-slate-600 dark:text-slate-400 duration-300">Empresa de multiservicios como plomería, albañilería, carpintería, mantenimiento y demás.
-                                    Brinda facilidad, garantía y comodidad para adquirir un servicio doméstico o
-                                    empresarial, <b>cuando quiera y donde quiera.</b></p>
-                                <div className="flex justify-center">
-                                    <img src={imgLaptop} alt="Laptop" width={275} height={275} />
-                                </div>
-                            </div>
+                    <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px]"
+                        id="Inicio" style={{ backgroundImage: `url(${logoBG})` }}>
+                        <div className="flex flex-col items-center">
+                            <img src={imgAksin} alt="logoAlta" width={110} height={110} className="" />
+                            <h1 className="text-center text-6xl text-white font-bold">Bienvenido a AltaKassa</h1>
+                            <p className="text-white font-semibold mt-2 text-lg">Ofrecer o buscar un servicio nunca había sido más sencillo</p>
+                        </div><br /><br />
+                        <div className="flex justify-center gap-x-4">
+                            <button type="button" onClick={()=>navigate('/registro')} className="group px-5 py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
+                                Registarse
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 48 48"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                    className="w-8 h-8 group-hover:scale-110 transition-all duration-300"
+                                >
+                                    <rect x="10" y="8" width="12" height="32" rx="2" ry="2" stroke="currentColor" />
+                                    <path d="M22 10 L34 14 L34 34 L22 38 Z" stroke="currentColor" strokeLinejoin="round" />
+                                    <path d="M38 24h-10" strokeLinecap="round" />
+                                    <path d="M30 20l-4 4 4 4" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
+                            <button type="button" className="group px-5 py-3 rounded-3xl bg-gradient-to-r from-slate-100 via-emerald-200 to-emerald-500 text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
+                                Continuar leyendo
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="w-7 h-7 group-hover:translate-y-1 transition-all duration-300">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6 9l6 6 6-6"
+                                    />
+                                </svg>
+                            </button>
                         </div>
-                    </section><br /><br /><br /><br /><br />
+                    </section><br /><br /><br /><br />
+                    <section>
+                        <div className="flex flex-col items-center">
+                            <h1 className="text-center text-4xl dark:text-white font-semibold">¿Qué es AltaKassa?</h1>
+                        </div>
+                    </section>
                     <section>
                         <h1 className="text-4xl md:text-5xl font-semibold text-center text-sky-600 duration-300 pb-10">Beneficios para ti</h1>
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como cliente</h2>

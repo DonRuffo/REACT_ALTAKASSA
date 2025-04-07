@@ -8,7 +8,7 @@ import AuthContext, { useAuth } from "../context/AuthProvider";
 const Dashboard = () => {
     const navigate = useNavigate()
     const { auth } = useAuth()
-    const { dark, menu, sideBar, handleMenu } = useContext(AuthContext)
+    const { dark, menu, sideBar, handleMenu} = useContext(AuthContext)
 
     return (
         <>
@@ -77,7 +77,7 @@ const Dashboard = () => {
                                     <img src={logoAyuda} alt="Ayuda" width={26} height={26} /><p className=" px-2">Ayuda</p>
                                 </Link>
 
-                                <Link to='/dashboard/sugerencias' onClick={() => { handleMenu() }} className={`group/Sugerencias py-2 px-3 rounded hover:bg-gray-800 duration-100 flex  gap-1 focus:bg-gray-800`}>
+                                <Link to='/dashboard/sugerencias' onClick={() => { handleMenu() }} className={`${auth.rol === 'administrador' ? 'hidden' : ''} group/Sugerencias py-2 px-3 rounded hover:bg-gray-800 duration-100 flex  gap-1 focus:bg-gray-800`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 150 150" fill="none" stroke="currentColor" strokeWidth="5" className="group-focus/Sugerencias:text-yellow-700 group-focus/Sugerencias:drop-shadow-[0_5px_10px_rgba(255,255,0,0.5)] transition duration-150 ease-in-out">
 
                                         <circle cx="75" cy="50" r="25" fill="currentColor" stroke="none" />
@@ -97,10 +97,33 @@ const Dashboard = () => {
                                 </Link>
 
                                 <Link to='/dashboard/ver-clientes' onClick={() => { handleMenu() }} className={`${auth.rol === 'administrador' ? 'block' : 'hidden'} group/Sugerencias py-2 px-3 rounded hover:bg-gray-800 duration-100 flex  gap-1 focus:bg-gray-800`}>
-                                    <p className="px-2">Clientes</p>
 
+                                    <svg
+                                        width="24" height="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M5.121 17.804A9 9 0 0112 15c2.25 0 4.29.83 5.879 2.204M15 10a3 3 0 11-6 0 3 3 0 016 0z"
+                                        />
+                                    </svg>
+                                    <p className="px-2">Clientes</p>
                                 </Link>
+
                                 <Link to='/dashboard/ver-proveedores' onClick={() => { handleMenu() }} className={`${auth.rol === 'administrador' ? 'block' : 'hidden'} group/Sugerencias py-2 px-3 rounded hover:bg-gray-800 duration-100 flex  gap-1 focus:bg-gray-800`}>
+                                    <svg
+                                        width="24" height="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                    >
+                                        <path d="M12 2C10.343 2 9 3.343 9 5v1H6a1 1 0 00-1 1v2h14V7a1 1 0 00-1-1h-3V5c0-1.657-1.343-3-3-3zM4 11v3a8 8 0 0016 0v-3H4z" />
+                                    </svg>
                                     <p className="px-2">Proveedores</p>
 
                                 </Link>
@@ -141,7 +164,7 @@ const Dashboard = () => {
                         <div className="border-t pt-2">
                             <div className="flex justify-center">
                                 <div className="flex justify-center h-[85px] w-[85px] rounded-full overflow-hidden">
-                                    <img src="" alt="" className="w-full h-full object-cover ring-2 ring-white" />
+                                    <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
                             <div className="flex justify-around items-center pt-2">
