@@ -135,7 +135,7 @@ const InicioProve = () => {
             <section className="flex justify-center">
                 <motion.div layout className="w-4/5 flex justify-center gap-5 flex-wrap transition-all duration-300"
                     transition={{ duration: 0.3, ease: "easeInOut" }}>
-                    {!foto && <Cloudinary />}
+                    {foto === false && <Cloudinary />}
                     <motion.div layout id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 ${foto ? '' : 'brightness-75 cursor-not-allowed pointer-events-none outline-0'} h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={LocationImg} alt="localization" width={100} height={100} className={`${carga ? 'hidden' : 'block'}`} />
                         {carga && <SpinnerCarga />}
@@ -144,7 +144,7 @@ const InicioProve = () => {
                     </motion.div>
                     <motion.div layout className={`outline outline-emerald-700 ${ubi === false || revelar ? 'cursor-not-allowed pointer-events-none brightness-75 outline-0' : ''} flex flex-col dark:bg-gray-900 bg-gray-100  h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={logoOferta} alt="logoOferta" width={100} height={100} />
-                        <h1 className={`font-semibold text-center`}>Ingresa una nueva oferta</h1>
+                        <h1 className={`font-semibold text-center dark:text-white`}>Ingresa una nueva oferta</h1>
                         <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={handleModalOf}>Ingresar</button>
                     </motion.div>
                     <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[300px] w-[225px] md:h-[260px] md:w-[350px] rounded-md transition-all duration-300`}></motion.div>
@@ -162,7 +162,7 @@ const InicioProve = () => {
                         </svg>
                     </button>
                 </div>
-            </section>
+            </section><br />
             {modalOf && (<ModalOferta ListarOfertas={ListarOfertas} />)}
         </>
     )

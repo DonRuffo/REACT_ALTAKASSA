@@ -127,6 +127,34 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    const FotoPerfil = async(token, rol) =>{
+        try {
+            let url
+            if(rol === 'cliente'){
+                url = `${import.meta.env.VITE_BACKEND_URL}/ver-foto-cliente`
+            }else if(rol === 'proveedor'){
+                url = `${import.meta.env.VITE_BACKEND_URL}/ver-foto-proveedor`
+            }else if(rol === 'administrador'){
+                url = `${import.meta.env.VITE_BACKEND_URL}/ver-foto-admin`
+            }
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options)
+            if(respuesta.data.msg === 'Si'){
+                setFoto(true)
+            }else if(respuesta.data.msg === 'No'){
+                setFoto(false)
+            }
+        } catch (error) {
+            console.log('Error al verificar foto', error.message)
+        }
+    }
+
     //ejecución de funciones
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -137,6 +165,7 @@ const AuthProvider = ({ children }) => {
         Perfil(token, rol)
         Ubicacion(token, rol)
         ubiCliente(token, rol)
+        FotoPerfil(token, rol)
     }, [])
 
     useEffect(() => {
@@ -249,6 +278,7 @@ const AuthProvider = ({ children }) => {
                 setUbi,
                 Ubicacion,
                 ubiCliente,
+                FotoPerfil,
                 imgPerfil,
                 setImgPerfil,
                 foto,
