@@ -62,7 +62,7 @@ const Cloudinary = () => {
     }
     return (
         <motion.div layout className="flex flex-col justify-center items-center outline outline-emerald-700 h-[260px] w-[200px] shadow-lg bg-gray-100 dark:bg-gray-900 rounded-lg">
-            <img src={logoFoto} alt="fotoPerfil" width={100} height={100} />
+            <img src={logoFoto} alt="fotoPerfil" width={125} height={125} />
             <p className="text-center font-semibold dark:text-white">Sube una foto de perfil</p>
             <label htmlFor="imagen" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">Subir Foto</label>
             <input id="imagen" type='file' accept="image/*" placeholder="Subir" onChange={(e)=>SubidaImage(e)} className="rounded-lg hidden" />

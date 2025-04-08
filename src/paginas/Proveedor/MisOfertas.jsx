@@ -8,11 +8,13 @@ import logoMenuAbierto from '../../assets/hamburger.png'
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
 import AuthContext from "../../context/AuthProvider";
+import imgOferta from '../../assets/Pensando.svg'
+import { Link } from "react-router-dom";
 
 const ListadoOfertas = () => {
-    const { modalEditOf, setModalEditOf, oferta, ListarOfertas} = useContext(OfertaContext)
+    const { modalEditOf, setModalEditOf, oferta, ListarOfertas } = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
-    const {menu, handleMenu} = useContext(AuthContext)
+    const { menu, handleMenu } = useContext(AuthContext)
 
     const EliminarOferta = async (id, indx) => {
         try {
@@ -49,7 +51,7 @@ const ListadoOfertas = () => {
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
-            <h1 className="text-3xl text-center font-semibold text-purple-600 mb-5 mt-5">Tus ofertas</h1>
+            <h1 className="text-3xl text-center font-semibold text-purple-600 mb-3 mt-5">Tus ofertas</h1>
             <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus ofertas creadas</h2>
             <div className="flex justify-center gap-3 flex-wrap">
                 {oferta.length !== 0 ? oferta.map((of, index) => (
@@ -79,8 +81,27 @@ const ListadoOfertas = () => {
                         )}
                     </div>
                 )) : (
-                    <div className="w-[300px] h-[225px] bg-gray-300 flex justify-center items-center border-2 border-dashed border-gray-600 rounded-lg px-4">
-                        <h1 className="text-2xl text-center text-gray-500">Aún no has creado ninguna oferta</h1>
+                    <div className="w-[200px] h-[260px] mb-5 bg-gray-100 shadow-lg dark:shadow-slate-800 dark:bg-gray-900 flex flex-col justify-center items-center rounded-lg px-4">
+                        <img src={imgOferta} alt="sinOferta" width={125} height={100} />
+                        <h1 className="text-lg text-center dark:text-white font-semibold">Aún no has creado ninguna oferta</h1>
+                        <Link to='/dashboard' className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="group-hover:scale-110 transition-all duration-300"
+                            >
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                            Crear
+                        </Link>
                     </div>
                 )}
             </div>

@@ -168,7 +168,7 @@ const Configuracion = () => {
             <h1 className="text-3xl font-semibold text-sky-600 pb-5 mt-5">Configuración</h1>
             <ToastContainer />
             <section className="flex flex-col md:flex-row justify-between">
-                <div className="w-full md:w-2/5 flex bg-white dark:bg-transparent dark:text-white rounded-xl shadow-lg md:max-h-[210px] border border-gray-100 mb-8 md:mb-0">
+                <div className="w-full md:w-2/5  flex bg-gray-100 dark:bg-gray-900 dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg md:max-h-[210px] mb-8 md:mb-5">
                     <ul className="w-full p-2">
                         <OpcionConfig titulo={"Cambiar contraseña"} logo={
                             (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -200,7 +200,7 @@ const Configuracion = () => {
                         )} clic={accesoTema} />
                     </ul>
                 </div>
-                <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-white rounded-xl shadow-xl h-auto border border-purple-400 p-5 dark:bg-transparent`}>
+                <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-gray-100 rounded-xl shadow-lg h-auto outline outline-purple-100 p-5 dark:bg-gray-900 mb-5`}>
                     <h1 className="text-2xl text-center text-purple-600 font-semibold pb-5">Cambio de contraseña</h1>
                     <div className="border px-3 py-2 mb-3 bg-slate-200 rounded-lg dark:bg-transparent dark:text-white">
                         <h1 className="font-bold">Tener en cuenta:</h1>
@@ -228,16 +228,16 @@ const Configuracion = () => {
                                 </div>
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button type="submit" className="px-5 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300 font-semibold">Cambiar</button>
-                                <button type="button" className="px-6 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-800 duration-300 font-semibold" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
+                                <button type="submit" className="px-5 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold">Cambiar</button>
+                                <button type="button" className="px-6 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-white rounded-xl shadow-xl h-auto border border-green-400 dark:bg-transparent`}>
+                <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg h-auto outline outline-emerald-100 dark:bg-gray-900 mb-5`}>
                     <div className="w-full p-2 flex flex-col items-center">
                         <h1 className="font-semibold text-green-600 text-2xl pt-3">Actualizar perfil</h1>
-                        <span className="font-semibold text-sm text-slate-500 text-center">Cambia los campos que requieras y presiona actualiza</span>
+                        <span className="font-semibold text-sm text-slate-500 dark:text-slate-300 text-center">Cambia los campos que requieras y presiona actualiza</span>
                     </div>
                     <div className="w-full p-6 flex flex-col">
                         <form onSubmit={handleSubmitPerfil}>
@@ -258,22 +258,22 @@ const Configuracion = () => {
                                 <input type="text" name="telefono" id="telefono" value={formPerfil.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button type="submit" className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 font-semibold">Actualizar</button>
-                                <button type="button" className="px-6 py-2 rounded-lg bg-green-600 text-white hover:bg-green-800 duration-300 font-semibold" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
+                                <button type="submit" className="px-4 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold">Actualizar</button>
+                                <button type="button" className="px-6 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
                             </div>
                         </form>
 
                     </div>
                 </div>
-                <div className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-white rounded-xl shadow-xl border dark:bg-transparent dark:text-white `}>
-                    <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
+                <div className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-indigo-100 dark:bg-gray-900 dark:text-white  mb-5`}>
+                    <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:dark:bg-gray-950 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1021 12.79z" fill="currentColor" />
                             </svg>
                             Tema Oscuro
                         </div>
-                        <input type="radio" name="tema" id="Oscuro" value="Oscuro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800 checked:shadow-md checked:shadow-indigo-400" />
+                        <input type="radio" name="tema" id="Oscuro" value="Oscuro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800" />
                     </label>
                     <label htmlFor="Claro" className="cursor-pointer flex justify-between px-4 py-2 mx-2 mb-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
@@ -283,16 +283,16 @@ const Configuracion = () => {
                             </svg>
                             Tema Claro
                         </div>
-                        <input type="radio" name="tema" id="Claro" value="Claro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800 checked:shadow-md checked:shadow-indigo-400" />
+                        <input type="radio" name="tema" id="Claro" value="Claro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800" />
                     </label>
                 </div>
-                <div className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-white rounded-xl shadow-xl border border-red-500 dark:bg-transparent dark:text-white `}>
+                <div className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-red-100 dark:bg-gray-900 dark:text-white  mb-5`}>
                     <div className="flex flex-col items-center">
                         <h1 className="font-semibold text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
-                        <span className="font-semibold text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>
-                        <div className="cursor-pointer flex flex-col justify-center items-center border-dashed border-2 border-gray-400 bg-transparent rounded-lg w-[100px] h-[110px] mt-3 mb-2 lg:mb-0" onClick={actualizarUbi}>
-                            <img src={imgLocation} alt="actualizarUbi" width={30} height={30} />
-                            <p className="font-semibold text-sm text-slate-300 text-center">¡Clic para actualizar!</p>
+                        <span className="font-semibold text-slate-500 dark:text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>
+                        <div className="cursor-pointer flex flex-col justify-center items-center border-dashed border-2 border-gray-400 bg-transparent rounded-lg w-[100px] h-[110px] mt-3 mb-2 lg:mb-0 hover:bg-gray-300 dark:hover:bg-gray-950 transition-all duration-300" onClick={actualizarUbi}>
+                            <img src={imgLocation} alt="actualizarUbi" width={60} height={60} />
+                            <p className="font-semibold text-sm text-slate-500 dark:text-slate-300 text-center">¡Clic para actualizar!</p>
                         </div>
                     </div>
                 </div>

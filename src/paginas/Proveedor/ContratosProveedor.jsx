@@ -5,6 +5,7 @@ import OfertaContext from "../../context/OfertasProvider";
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
 import AuthContext from "../../context/AuthProvider";
+import imgSinTrabajo from '../../assets/Tiempo.svg'
 
 const ContratosProv = () => {
     const { trabajos } = useContext(OfertaContext)
@@ -21,7 +22,7 @@ const ContratosProv = () => {
                 <div className="flex justify-center flex-wrap gap-3">
                     {trabajos.length !== 0 && trabajos.some((tra) => tra.status === "Agendado") ? trabajos.map((tra) => (
                         tra.status === "Agendado" && (
-                            <div key={tra._id} className="w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-purple-400">
+                            <div key={tra._id} className="w-[300px] lg:w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-purple-400">
                                 <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                 <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                 <div className="flex justify-around mt-2">
@@ -43,8 +44,9 @@ const ContratosProv = () => {
                             </div>
                         )
                     )) : (
-                        <div className="w-[300px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
-                            <p className="text-lg text-gray-700 font-semibold">No hay trabajos agendados</p>
+                        <div className="w-[300px] lg:w-[330px] h-[285px] mb-5 shadow-lg dark:shadow-slate-800 bg-gray-100 dark:bg-gray-900 rounded-lg flex flex-col justify-center items-center">
+                            <img src={imgSinTrabajo} alt="SinTrabajos" width={150} height={150} />
+                            <p className="text-lg dark:text-white font-semibold text-center">No se han agendado trabajos todavía</p>
                         </div>
                     )}
                 </div>

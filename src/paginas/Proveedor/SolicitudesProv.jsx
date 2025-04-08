@@ -6,6 +6,7 @@ import OfertaContext from "../../context/OfertasProvider";
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
 import AuthContext from "../../context/AuthProvider";
+import imgSoli from '../../assets/Descansando.svg'
 
 const SolicitudProv = () => {
     const { trabajos, ObtenerTrabajos } = useContext(OfertaContext)
@@ -64,7 +65,7 @@ const SolicitudProv = () => {
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <ToastContainer />
-            <h1 className="text-center font-semibold text-3xl text-purple-600 mb-5 mt-5">Solicitudes</h1>
+            <h1 className="text-center font-semibold text-3xl text-purple-600 mb-3 mt-5">Solicitudes</h1>
             <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus solicitudes de trabajo</h2>
             <section>
                 <div className="flex justify-center gap-3 flex-wrap">
@@ -94,8 +95,10 @@ const SolicitudProv = () => {
                             )
                         )
                         )) : (
-                        <div className="w-[300px] lg:w-[330px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
-                            <p className="text-lg text-gray-700 font-semibold">No hay solicitudes recientes</p>
+                        <div className="w-[300px] lg:w-[330px] h-[285px] mb-5 shadow-lg dark:shadow-slate-800 bg-gray-100 rounded-lg dark:bg-gray-900 flex flex-col justify-center items-center">
+                            <img src={imgSoli} alt="SinSolicitudes" width={150} height={150}/>
+                            <p className="text-lg dark:text-white font-semibold text-center">Aún no tienes solicitudes de servicio</p>
+                            <p className="text-lg dark:text-white font-semibold text-center">¡Pronto las tendrás!</p>
                         </div>
                     )}
                 </div>

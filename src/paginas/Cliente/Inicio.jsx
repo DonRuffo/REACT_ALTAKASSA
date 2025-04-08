@@ -8,9 +8,13 @@ import axios from "axios";
 import '../../../CSS/fondos.css'
 import OfertaContext from "../../context/OfertasProvider";
 import ModalTrabajos from "../../componentes/modals/ModalTrabajos";
+import Cloudinary from "../../componentes/Cloudinary";
+import { motion } from "framer-motion";
+import LocationImg from '../../assets/Mapa.svg'
+
 
 const Inicio = () => {
-    const { auth, menu, handleMenu } = useContext(AuthContext)
+    const { auth, menu, handleMenu, foto, setFoto, ubi } = useContext(AuthContext)
     const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor } = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
@@ -59,15 +63,39 @@ const Inicio = () => {
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <section className="flex justify-center mt-5">
-                <div className="rounded-md shadow-lg w-4/5 bg-white dark:bg-transparent border border-gray-100">
-                    <h1 className="text-3xl text-center text-purple-600 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}!</h1>
+                <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-transparent border border-gray-100">
+                    <h1 className="text-3xl text-center text-purple-600 font-semibold pt-4 px-3 md:px-0">¡Bienvenido {auth.nombre}!</h1>
                     <h2 className="text-xl text-center dark:text-white pt-3 pb-5 px-3 md:px-0">¡Los trabajadores esperan por brindarte sus servicios!</h2>
                     <div className="flex justify-center pb-4">
-                        <img src={logoInicio} alt="Constructor" width={115} height={115} className='rounded-full border-2 border-black-600' />
+                        <img src={logoInicio} alt="Constructor" width={125} height={125} className='rounded-full' />
                     </div>
                 </div>
             </section>
-            <section className="flex justify-center">
+            <section className={`${foto ? 'hidden' : ''} my-5 flex flex-col justify-center items-center`}>
+                <h1 className="text-center text-xl mb-3">Antes de comenzar, debes seguir estos pasos: </h1>
+                <div className="flex justify-center mb-3">
+                    <div className="w-10 h-10 rounded-full border flex items-center justify-center bg-emerald-500">
+                        <p className="font-semibold text-lg">1</p>
+                    </div>
+                    <div className={`flex items-center justify-center`}>
+                        <div className={`${foto || ubi ? 'bg-emerald-500' : ''} border-t border-b w-28 h-3`}></div>
+                    </div>
+                    <div className={`${foto || ubi ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
+                        <p className="font-semibold text-lg">2</p>
+                    </div>
+                </div>
+                <motion.div className="flex justify-center gap-x-5"
+                    layout transition={{ duration: 300, ease: 'easeInOut' }}>
+                    {foto === false && <Cloudinary />}
+                    <motion.div layout id="localitation" className={`flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
+                        <img src={LocationImg} alt="localization" width={125} height={125} />
+                        <h1 className="font-semibold text-center dark:text-white">Concede el permiso de ubicación</h1>
+                        <button type="button" className={`${ubi ? 'hidden' : ''} px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`}>Permitir</button>
+                        <p className={`${ubi ? '' :'hidden'} px-3 py-1 rounded-2xl bg-emerald-200 text-emerald-800 font-semibold mt-3`}>Concedido</p>
+                    </motion.div>
+                </motion.div>
+            </section>
+            <section className={`${foto ? '' : 'hidden'} flex justify-center`}>
                 <div className="w-5/6 ">
                     <h1 className="font-semibold text-2xl mb-3 dark:text-white mt-3">Categorías</h1>
                     <div className="flex flex-wrap justify-around mb-2 gap-1">
@@ -86,7 +114,7 @@ const Inicio = () => {
                     </div><hr className="border-2 dark:border-gray-900" />
                 </div>
             </section>
-            <section className="mt-5">
+            <section className={`${foto ? '' : 'hidden'} mt-5`}>
                 <h1 id="aqui" className="font-semibold text-2xl mb-5 dark:text-white">{valor ? valor : 'Principales Ofertas'}</h1>
                 <div className={`${filtro ? 'hidden' : ''} flex justify-center gap-3 flex-wrap`}>
                     {oferta.map((of, index) => (

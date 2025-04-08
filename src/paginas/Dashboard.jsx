@@ -17,7 +17,7 @@ const Dashboard = () => {
                             <div className="flex justify-center">
                                 <img src={logoAlta} alt="AltaKassa Logo" width={100} height={100} />
                             </div><hr />
-                            <nav className="py-2 h-[350px]">
+                            <nav className="py-2 min-h-[300px] max-h-[310px]">
                                 <Link to='/dashboard' onClick={() => { handleMenu() }} className="group/inicio block py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 focus:bg-emerald-800">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-focus/inicio:text-purple-700 group-focus/inicio:drop-shadow-[0_5px_10px_rgba(0,0,255,0.5)] transition duration-150 ease-in-out">
                                         <path d="M3 10L12 3l9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -149,23 +149,25 @@ const Dashboard = () => {
                                     </svg>
                                     <p className="px-2">Configuración</p>
                                 </Link>
-                                <button className="px-5 py-2 mt-4 ml-11 bg-sky-950 text-white rounded-md hover:bg-black duration-300"
+                                <div className="flex justify-center">
+                                   <button className="px-5 py-2 mt-2 bg-gray-950 text-white rounded-md hover:bg-black duration-300"
                                     onClick={() => {
                                         localStorage.removeItem('token')
                                         localStorage.removeItem('rol')
                                         navigate('/login')
-                                    }}>Cerrar Sesión</button>
+                                    }}>Cerrar Sesión</button> 
+                                </div>
                             </nav>
                         </div>
-                        <div className="border-t pt-2">
+                        <div className="border-t pt-3">
                             <div className="flex justify-center">
                                 <div className="flex justify-center h-[85px] w-[85px] rounded-full overflow-hidden">
                                     <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
-                            <div className="flex justify-around items-center pt-2">
+                            <div className="flex justify-center gap-x-3 items-center pt-2">
                                 <h1 className="font-semibold text-center text-md">Usuario - {auth.nombre} {auth.apellido}</h1>
-                                <div className="bg-green-600 w-3 h-3 rounded-full"></div>
+                                <div className="bg-green-600 w-3 h-3 rounded-full brightness-150"></div>
                             </div>
                             <div className="flex justify-center">
                                 <span className="text-sm text-center font-semibold text-orange-500">{auth.rol}</span>
