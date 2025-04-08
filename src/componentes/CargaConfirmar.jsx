@@ -1,35 +1,29 @@
+// DotPulseLoader.jsx
 import { motion } from "framer-motion";
 
-const buildings = [
-  { height: "h-24", delay: 0 },
-  { height: "h-32", delay: 0.2 },
-  { height: "h-40", delay: 0.4 },
-  { height: "h-28", delay: 0.6 },
-  { height: "h-36", delay: 0.8 },
-  { height: "h-20", delay: 1 },
-];
+const DotPulseLoader = () => {
+  const bounceTransition = {
+    y: {
+      duration: 0.6,
+      repeat: Infinity,
+      repeatType: "reverse",
+      ease: "easeInOut",
+    },
+  };
 
-export default function SkylineLoader() {
   return (
-    <div className="flex items-end justify-center h-screen bg-gray-900">
-      <div className="flex gap-3">
-        {buildings.map((b, i) => (
-          <motion.div
-            key={i}
-            className={`w-10 ${b.height} bg-gray-700 rounded-t-md relative overflow-hidden`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: b.delay, duration: 0.5 }}
-          >
-            <motion.div
-              className="absolute bottom-0 w-full h-0 bg-yellow-400"
-              initial={{ height: "0%" }}
-              animate={{ height: "100%" }}
-              transition={{ delay: b.delay + 0.2, duration: 0.6 }}
-            />
-          </motion.div>
-        ))}
-      </div>
+    <div className="flex items-center justify-center gap-2 h-10">
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={i}
+          className="w-3 h-3 rounded-full bg-blue-500"
+          transition={bounceTransition}
+          animate={{ y: ["0%", "-60%"] }}
+          style={{ animationDelay: `${i * 0.2}s` }}
+        />
+      ))}
     </div>
   );
-}
+};
+
+export default DotPulseLoader;
