@@ -1,8 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import logoHistorial from '../assets/Historial-icon.png'
-import logoNovedades from '../assets/Novedades-icon.png'
-import logoAyuda from '../assets/Ayuda-icon.png'
 import logoAlta from '../assets/AK BLANCA.png'
 import AuthContext, { useAuth } from "../context/AuthProvider";
 const Dashboard = () => {
@@ -14,7 +11,7 @@ const Dashboard = () => {
         <>
             <div className={dark ? "dark" : ""}>
                 <div className="flex h-screen">
-                    <div ref={sideBar} className={`flex flex-col justify-between fixed inset-y-0 left-0 w-64 bg-sky-900 dark:bg-gray-950 text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
+                    <div ref={sideBar} className={`flex flex-col justify-between fixed inset-y-0 left-0 w-64 bg-emerald-900 dark:bg-gray-950 text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
                         <div id="nav">
                             <h1 className="text-2xl text-white text-center font-bold">AltaKassa</h1>
                             <div className="flex justify-center">
@@ -41,7 +38,6 @@ const Dashboard = () => {
                                         <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" strokeWidth="2" />
                                         <path d="M14 2v6h6M9 13l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
-
                                     <p className=" px-2">Solicitudes</p>
                                 </Link>
                                 <Link to='/dashboard/solicitudes/cliente' onClick={() => { handleMenu() }} className={`${auth.rol === 'cliente' ? 'block' : 'hidden'} group/SoliCli py-2 px-3 rounded hover:bg-gray-800 duration-100 flex gap-1 focus:bg-gray-800`}>
@@ -74,7 +70,7 @@ const Dashboard = () => {
                                 </Link>
 
                                 <Link to='/dashboard/novedades' onClick={() => { handleMenu() }} className="hidden py-2 px-3 rounded hover:bg-gray-800 duration-100 gap-1 focus:bg-gray-800">
-                                    <img src={logoAyuda} alt="Ayuda" width={26} height={26} /><p className=" px-2">Ayuda</p>
+                                    <img src='' alt="Ayuda" width={26} height={26} /><p className=" px-2">Ayuda</p>
                                 </Link>
 
                                 <Link to='/dashboard/sugerencias' onClick={() => { handleMenu() }} className={`${auth.rol === 'administrador' ? 'hidden' : ''} group/Sugerencias py-2 px-3 rounded hover:bg-gray-800 duration-100 flex  gap-1 focus:bg-gray-800`}>

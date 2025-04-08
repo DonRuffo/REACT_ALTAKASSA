@@ -18,6 +18,8 @@ const AuthProvider = ({ children }) => {
     const [darkMode, setDarkMode] = useState(false)
     const [ubi, setUbi] = useState(false)
     const [imgPerfil, setImgPerfil] = useState('')
+    const [foto, setFoto] = useState(false)
+
 
     //Funcion para mostrar y ocultar la barra lateral
     const handleMenu = () => {
@@ -104,7 +106,7 @@ const AuthProvider = ({ children }) => {
 
     // funcion para guardar la ubicacion del usuario cliente
     const ubiCliente = async (token, rol) => {
-        if(rol !== "cliente") return
+        if (rol !== "cliente") return
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position) => {
@@ -248,7 +250,9 @@ const AuthProvider = ({ children }) => {
                 Ubicacion,
                 ubiCliente,
                 imgPerfil,
-                setImgPerfil
+                setImgPerfil,
+                foto,
+                setFoto
             }
         }>
             {children}

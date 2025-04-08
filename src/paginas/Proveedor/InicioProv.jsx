@@ -6,7 +6,7 @@ import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
 import OfertaContext from "../../context/OfertasProvider";
 import ModalOferta from "../../componentes/modals/ModalOferta";
-import LocationImg from '../../assets/LOCATION.png'
+import LocationImg from '../../assets/Mapa.svg'
 import SpinnerCarga from "../../componentes/RuedaCarga";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,10 +15,12 @@ import "leaflet/dist/leaflet.css";
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { motion } from "framer-motion";
+import Cloudinary from "../../componentes/Cloudinary";
+import logoOferta from '../../assets/Oferta.svg'
 
 
 const InicioProve = () => {
-    const { auth, menu, handleMenu, ubi, setUbi } = useContext(AuthContext)
+    const { auth, menu, handleMenu, ubi, setUbi, foto } = useContext(AuthContext)
     const { modalOf, handleModalOf, ListarOfertas } = useContext(OfertaContext)
     const [carga, setCarga] = useState(false)
     const [revelar, setRevelar] = useState(false)
@@ -77,7 +79,7 @@ const InicioProve = () => {
         }
     }, [revelar]);
 
-    const creacionMapa = async() =>{
+    const creacionMapa = async () => {
         try {
             const latitud = auth.ubicacion.latitud
             const longitud = auth.ubicacion.longitud
@@ -104,29 +106,53 @@ const InicioProve = () => {
             <section className="flex justify-center mt-5">
                 <div className="rounded-md shadow-lg w-4/5 bg-white dark:bg-transparent border border-gray-100">
                     <h1 className="text-3xl text-center text-purple-600 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}!</h1>
-                    <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0 dark:text-white">Listo para un nuevo trabajo, el sistema te espera</h2>
+                    <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0 dark:text-white">El sistema espera por ti</h2>
                     <div className="flex justify-center pb-5">
-                        <img src={logoInicioProv} alt="Proveedor" width={130} height={130} className='rounded-full border-2 border-black-600' />
+                        <img src={logoInicioProv} alt="Proveedor" width={125} height={130} className='rounded-full border-2 border-black-600' />
                     </div>
                 </div>
             </section><br />
+            <section className="mb-3">
+                <h1 className="text-center font-semibold text-lg dark:text-white">Antes de ingresar ofertas, sigue estos pasos:</h1><br />
+                <div className="flex justify-center">
+                    <div className="w-10 h-10 rounded-full border flex items-center justify-center bg-emerald-500">
+                        <p className="font-semibold text-lg">1</p>
+                    </div>
+                    <div className={`flex items-center justify-center`}>
+                        <div className={`${foto ? 'bg-emerald-500' : ''} border-t border-b w-28 h-3`}></div>
+                    </div>
+                    <div className={`${foto ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
+                        <p className="font-semibold text-lg">2</p>
+                    </div>
+                    <div className={`flex items-center justify-center`}>
+                        <div className={`${ubi ? 'bg-emerald-500' : ''} border-t border-b w-28 h-3`}></div>
+                    </div>
+                    <div className={`${ubi ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
+                        <p className="font-semibold text-lg">3</p>
+                    </div>
+                </div>
+            </section>
             <section className="flex justify-center">
                 <motion.div layout className="w-4/5 flex justify-center gap-5 flex-wrap transition-all duration-300"
                     transition={{ duration: 0.3, ease: "easeInOut" }}>
-                    <motion.div layout id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col border-4 border-gray-600 border-dashed bg-transparent h-[260px] w-[200px] rounded-lg cursor-pointer items-center justify-center shadow-lg`} onClick={() =>{setCarga(true); guardarUbi()}}>
-                        <img src={LocationImg} alt="localization" width={90} height={90} className={`${carga ? 'hidden' : 'block'}`} />
+                    {!foto && <Cloudinary />}
+                    <motion.div layout id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 ${foto ? '' : 'brightness-75 cursor-not-allowed pointer-events-none outline-0'} h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
+                        <img src={LocationImg} alt="localization" width={100} height={100} className={`${carga ? 'hidden' : 'block'}`} />
                         {carga && <SpinnerCarga />}
-                        <h1 className="font-semibold text-lg text-center dark:text-slate-300 text-slate-600">Ingresa tu ubicación primero</h1>
+                        <h1 className="font-semibold text-center dark:text-white">Ingresa tu ubicación</h1>
+                        <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={() => { setCarga(true); guardarUbi() }}>Ingresar</button>
                     </motion.div>
-                    <motion.div layout className={`${ubi === false || revelar ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'} flex border-4 ${ubi === false || revelar ? 'dark:border-gray-900 dark:bg-gray-800' : 'dark:border-gray-600 dark:bg-gray-300 bg-gray-400'} border-dashed h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`} onClick={handleModalOf}>
-                        <h1 className={`font-semibold text-lg text-center ${ubi === false || revelar ? 'text-slate-300 dark:text-slate-600' : 'text-slate-600 dark:text-slate-700'}`}>Ingresa una nueva oferta</h1>
+                    <motion.div layout className={`outline outline-emerald-700 ${ubi === false || revelar ? 'cursor-not-allowed pointer-events-none brightness-75 outline-0' : ''} flex flex-col dark:bg-gray-900 bg-gray-100  h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
+                        <img src={logoOferta} alt="logoOferta" width={100} height={100} />
+                        <h1 className={`font-semibold text-center`}>Ingresa una nueva oferta</h1>
+                        <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={handleModalOf}>Ingresar</button>
                     </motion.div>
                     <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[300px] w-[225px] md:h-[260px] md:w-[350px] rounded-md transition-all duration-300`}></motion.div>
                 </motion.div>
-            </section>
-            <section>
+            </section><br />
+            <section className={ubi ? '' : 'hidden'}>
                 <div className="flex justify-center lg:justify-end">
-                    <button type="button" className="group flex justify-around font-semibold px-4 py-1 dark:text-white bg-transparent border-2 border-purple-700 rounded-xl hover:bg-purple-700 duration-300" onClick={() => {setRevelar(!revelar); creacionMapa()}}>
+                    <button type="button" className="group flex justify-around font-semibold px-4 py-1 dark:text-white bg-transparent border-2 border-purple-700 rounded-xl hover:bg-purple-700 duration-300" onClick={() => { setRevelar(!revelar); creacionMapa() }}>
                         <p className={`${revelar ? 'hidden' : 'block'}`}>Ver Ubicación</p>
                         <p className={`${revelar ? 'block' : 'hidden'}`}>Cerrar</p>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white text-red-700 duration-300">

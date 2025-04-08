@@ -6,7 +6,7 @@ import logoMenuAbierto from '../../assets/hamburger.png'
 import AuthContext, { useAuth } from "../../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import { EyeOff, Eye } from 'lucide-react';
-import imgLocation from '../../assets/LOCATION.png'
+import imgLocation from '../../assets/Mapa.svg'
 import axios from "axios";
 
 const Configuracion = () => {
