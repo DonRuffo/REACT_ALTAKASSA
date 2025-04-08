@@ -40,7 +40,7 @@ const Confirmar = () => {
             <div className="bg-slate-100 h-screen flex flex-col justify-center items-center">
                 <ToastContainer />
                 <div className="flex flex-col items-center justify-center pt-20 h-screen md:h-auto">
-                    <div className="w-1/3 md:w-1/5 h-1/5 flex justify-center">
+                    <div className="flex justify-center">
                         {carga && <DotPulseLoader />}
                         <img src={logoConfirm} alt="Rocket" width={208} height={208} className={`${carga ? 'hidden' : ''}`} />
                     </div>
