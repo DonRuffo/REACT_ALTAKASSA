@@ -405,7 +405,7 @@ const LandingPage = () => {
                             <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-transparent outline text-purple-700 font-semibold rounded-xl hover:brightness-110 transition-all duration-300 text-center">Login</Link></li>
                         </ul>
                     </nav>
-                    <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px]"
+                    <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px] xl:h-[785px]"
                         id="Inicio" style={{ backgroundImage: `url(${logoBG})` }}>
                         <div className="flex flex-col items-center">
                             <img src={imgAksin} alt="logoAlta" width={110} height={110} className="" />
@@ -413,7 +413,7 @@ const LandingPage = () => {
                             <p className="text-white font-semibold mt-2 text-lg">Ofrecer o buscar un servicio nunca había sido más sencillo</p>
                         </div><br /><br />
                         <div className="flex justify-center gap-x-4">
-                            <button type="button" onClick={()=>navigate('/registro')} className="group px-5 py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
+                            <button type="button" onClick={() => navigate('/registro')} className="group px-5 py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
                                 Registarse
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -506,17 +506,12 @@ const LandingPage = () => {
                                         solución a ciertos
                                         problemas de su hogar.
                                     </p>
-                                    <p className="text-justify mb-3 dark:text-white"><b className="text-orange-600 font-semibold dark:text-yellow-600">Visión: </b>Alta-Kassa llegó para innovar el sistema de servicios a domicilio, con el
-                                        propósito de llegar a todos
-                                        los lugares del país para brindar una asistencia y mano de obra de calidad, con una
-                                        accesibilidad sencilla para que todo
-                                        público goce de las funciones.
+                                    <p className="text-justify mb-3 dark:text-white"><b className="text-orange-600 font-semibold dark:text-yellow-600">Visión: </b>En Alta-Kassa Multiservicios aspiramos a revolucionar la forma en que se brindan los servicios
+                                        a domicilio en Ecuador, llevando soluciones profesionales, accesibles y de calidad a cada rincón del país. Queremos ser el puente que conecta a las personas con el talento que necesitan, de forma rápida, segura y sencilla.
                                     </p>
-                                    <p className="text-justify mb-1 dark:text-white"><b className="text-blue-600 font-semibold dark:text-purple-600">Misión: </b>Otorgar servicios profesionales a residencias y empresas a fin de priorizar
-                                        la comodidad de nuestros clientes
-                                        en relación a tiempo, calidad de mano de obra, seguridad y garantía en la labor de nuestros
-                                        profesionales, atención y
-                                        asistencia virtual/presencial con flexibilidad en métodos de pago. </p><br /><br />
+                                    <p className="text-justify mb-1 dark:text-white"><b className="text-blue-600 font-semibold dark:text-purple-600">Misión: </b>Ofrecer servicios profesionales de alta calidad a hogares y empresas,
+                                        priorizando la comodidad, seguridad y confianza de nuestros clientes. En Alta-Kassa garantizamos una experiencia eficiente y flexible, con atención personalizada, métodos de pago accesibles y soporte
+                                        tanto virtual como presencial. </p><br /><br />
                                 </div>
                             </div>
                         </div>
