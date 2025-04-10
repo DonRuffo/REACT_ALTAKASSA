@@ -11,20 +11,32 @@ import ModalTrabajos from "../../componentes/modals/ModalTrabajos";
 import Cloudinary from "../../componentes/Cloudinary";
 import { motion } from "framer-motion";
 import LocationImg from '../../assets/Mapa.svg'
+import SpinnerCargaModal from "../../componentes/RuedaCargaModal";
 
 
 const Inicio = () => {
-    const { auth, menu, handleMenu, foto, setFoto, ubi } = useContext(AuthContext)
+    const { auth, menu, handleMenu, foto, ubi, setUbi, ubiCliente } = useContext(AuthContext)
     const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor } = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
     const [ofertasFiltradas, setOfertasFiltradas] = useState([])
+    const [carga, setCarga] = useState(false)
 
     const handleModalTra = (id) => {
         setOfertaSeleccionada(id);
     };
 
+    const permitirUbi = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            const rol = localStorage.getItem('rol')
+            await ubiCliente(token, rol)
+            setCarga(false)
+        } catch (error) {
+            console.log('Error al dar ubicación', error.message)
+        }
+    }
     const proveedorSeleccionado = (idProv) => {
         setIdProveedor(idProv)
     }
@@ -90,8 +102,9 @@ const Inicio = () => {
                     <motion.div layout id="localitation" className={`flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={LocationImg} alt="localization" width={125} height={125} />
                         <h1 className="font-semibold text-center dark:text-white">Concede el permiso de ubicación</h1>
-                        <button type="button" className={`${ubi ? 'hidden' : ''} px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`}>Permitir</button>
-                        <p className={`${ubi ? '' :'hidden'} px-3 py-1 rounded-2xl bg-emerald-200 text-emerald-800 font-semibold mt-3`}>Concedido</p>
+                        <button type="button" className={`${ubi || carga ? 'hidden' : ''} px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`} onClick={() => { permitirUbi(); setUbi(true); setCarga(true) }}>Permitir</button>
+                        {carga && <SpinnerCargaModal />}
+                        <p className={`${ubi ? '' : 'hidden'} px-3 py-1 rounded-2xl bg-emerald-200 text-emerald-800 font-semibold mt-3`}>Concedido</p>
                     </motion.div>
                 </motion.div>
             </section>

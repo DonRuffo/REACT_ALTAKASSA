@@ -34,8 +34,9 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem('ldPag', "Oscuro")
         }
     }
-    const sideBar = useRef(null)
+
     //Funcion para mostrar y ocultar la barra lateral
+    const sideBar = useRef(null)
     useEffect(() => {
         function handleClickOutside(event) {
             if (sideBar.current && !sideBar.current.contains(event.target)) {
@@ -75,32 +76,24 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    //Función para verificar existencia de la foto de perfil
+    const verificarFoto = () => {
+        const fotitoOk = auth.f_perfil
+        if (fotitoOk === null) {
+            setFoto(false)
+        } else {
+            setFoto(true)
+        }
+    }
+
     //funcion para verificar si el usuario ya guardo su ubicación
-    const Ubicacion = async (token, rol) => {
-
-        try {
-            let url
-            if (rol === 'proveedor') {
-                url = `${import.meta.env.VITE_BACKEND_URL}/ubicacion-prov`
-            } else if (rol === 'cliente') {
-                url = `${import.meta.env.VITE_BACKEND_URL}/ubicacion-cli`
-            }
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-
-            const respuesta = await axios.get(url, options)
-            const verify = respuesta.data.msg
-            if (verify === "Si") {
-                setUbi(true)
-            } else if (verify === 'No') {
-                setUbi(false)
-            }
-        } catch (error) {
-            console.log(error);
+    const verificarUbicacion = () =>{
+        const ubiLatitud = auth.ubicacion.latitud
+        const ubiLongitud = auth.ubicacion.longitud
+        if(ubiLatitud === null || ubiLongitud === null){
+            setUbi(false)
+        } else {
+            setUbi(true)
         }
     }
 
@@ -120,38 +113,19 @@ const AuthProvider = ({ children }) => {
                         }
                     }
                     const repuesta = await axios.post(url, { latitude, longitude }, options)
+                    setUbi(true)
                 } catch (error) {
                     console.log(error)
                 }
-            })
-        }
-    }
-
-    const FotoPerfil = async(token, rol) =>{
-        try {
-            let url
-            if(rol === 'cliente'){
-                url = `${import.meta.env.VITE_BACKEND_URL}/ver-foto-cliente`
-            }else if(rol === 'proveedor'){
-                url = `${import.meta.env.VITE_BACKEND_URL}/ver-foto-proveedor`
-            }else if(rol === 'administrador'){
-                url = `${import.meta.env.VITE_BACKEND_URL}/ver-foto-admin`
-            }
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
+            },
+                (error) => {
+                    console.log('Error al obtener la ubicación:', error.message);
+                    setUbi(false);
                 }
-            }
-
-            const respuesta = await axios.get(url, options)
-            if(respuesta.data.msg === 'Si'){
-                setFoto(true)
-            }else if(respuesta.data.msg === 'No'){
-                setFoto(false)
-            }
-        } catch (error) {
-            console.log('Error al verificar foto', error.message)
+            )
+        } else {
+            console.log('La geolocalización no está soportada por este navegador.')
+            setUbi(false)
         }
     }
 
@@ -163,10 +137,15 @@ const AuthProvider = ({ children }) => {
         if (!rol || !token) return
 
         Perfil(token, rol)
-        Ubicacion(token, rol)
         ubiCliente(token, rol)
-        FotoPerfil(token, rol)
     }, [])
+
+    useEffect(() => {
+        if (auth && auth.f_perfil !== undefined) {
+            verificarFoto()
+            verificarUbicacion()
+        }
+    }, [auth])
 
     useEffect(() => {
         const tema = localStorage.getItem('tema')
@@ -276,9 +255,9 @@ const AuthProvider = ({ children }) => {
                 handleDarkPage,
                 ubi,
                 setUbi,
-                Ubicacion,
+                verificarUbicacion,
                 ubiCliente,
-                FotoPerfil,
+                verificarFoto,
                 imgPerfil,
                 setImgPerfil,
                 foto,
