@@ -42,6 +42,7 @@ import ListasAnimadasProv from "../componentes/ListasProv";
 import imPerfilDinamica from '../assets/PERFIL_dinamica.jpg'
 import AuthContext from "../context/AuthProvider";
 import logoBG from '../assets/HojasOscuras-Pixels.jpg'
+import imgDesc from '../assets/Descriptivo.svg'
 //text-slate-400 - texto para cards
 //#60E8FE color para iconos
 const LandingPage = () => {
@@ -385,7 +386,7 @@ const LandingPage = () => {
         <>
             <div className={darkMode ? "dark" : ""}>
                 <main className="bg-white dark:bg-gray-950">
-                    <nav className="px-10 py-5 flex justify-between bg-gray-950">
+                    <nav className="px-10 py-5 flex justify-between dark:bg-gray-950">
                         <select className="w-1/3 mr-1 md:mr-0 rounded-xl py-2 md:w-40 text-center text-purple-700 font-semibold bg-transparent outline focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 hover:brightness-110 duration-300"
                             onChange={(e) => {
                                 const targetId = e.target.value
@@ -407,13 +408,13 @@ const LandingPage = () => {
                     </nav>
                     <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px] xl:h-[785px]"
                         id="Inicio" style={{ backgroundImage: `url(${logoBG})` }}>
-                        <div className="flex flex-col items-center">
+                        <div className="flex flex-col items-center px-2">
                             <img src={imgAksin} alt="logoAlta" width={110} height={110} className="" />
                             <h1 className="text-center text-6xl text-white font-bold">Bienvenido a AltaKassa</h1>
-                            <p className="text-white font-semibold mt-2 text-lg">Ofrecer o buscar un servicio nunca había sido más sencillo</p>
+                            <p className="text-white font-semibold mt-2 text-lg text-center">Ofrecer o buscar un servicio nunca había sido más sencillo</p>
                         </div><br /><br />
-                        <div className="flex justify-center gap-x-4">
-                            <button type="button" onClick={() => navigate('/registro')} className="group px-5 py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
+                        <div className="flex justify-center gap-x-2 lg:gap-x-4 px-4">
+                            <button type="button" onClick={() => navigate('/registro')} className="group px-5 py-1 lg:py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
                                 Registarse
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -429,7 +430,7 @@ const LandingPage = () => {
                                     <path d="M30 20l-4 4 4 4" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </button>
-                            <button type="button" className="group px-5 py-3 rounded-3xl bg-gradient-to-r from-slate-100 via-emerald-200 to-emerald-500 text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
+                            <button type="button" className="group px-5 py-1 lg:py-3 rounded-3xl bg-gradient-to-r from-slate-100 via-emerald-200 to-emerald-500 text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
                                 Continuar leyendo
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="w-7 h-7 group-hover:translate-y-1 transition-all duration-300">
                                     <path
@@ -440,14 +441,30 @@ const LandingPage = () => {
                                 </svg>
                             </button>
                         </div>
-                    </section><br /><br /><br /><br />
-                    <section>
-                        <div className="flex flex-col items-center">
-                            <h1 className="text-center text-4xl dark:text-white font-semibold">¿Qué es AltaKassa?</h1>
-                        </div>
                     </section>
+                    <section className="pt-24 dark:bg-gray-950">
+                        <div className="flex flex-col items-center bg-emerald-50 dark:bg-emerald-950">
+                            <div className="w-5/6 lg:w-4/6 py-10">
+                                <h1 className="text-center text-4xl lg:text-5xl font-semibold text-emerald-600 dark:text-emerald-500 duration-300 mb-2">¿Qué es AltaKassa?</h1>
+                                <div className="flex">
+                                    <div className="w-3/5 flex flex-col justify-center">
+                                        <h1 className="text-left text-2xl font-bold mb-3 dark:text-white">Fácil para ti. Justo para ellos. Perfecto para todos</h1>
+                                        <p className="text-justify lg:text-lg dark:text-white">
+                                            AltaKassa Multiservicios es una plataforma que conecta a personas que necesitan servicios a domicilio
+                                            —como plomería, limpieza, cerrajería, entre otros— con técnicos y especialistas capacitados.
+                                            Nuestro objetivo es facilitar una experiencia rápida, práctica y segura, generando confianza y comodidad
+                                            tanto para los clientes como para los proveedores de servicios.
+                                        </p>
+                                    </div>
+                                    <div className="w-2/5 flex justify-center items-center">
+                                        <img src={imgDesc} alt="Floreciendo" width={350} height={250} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section><br /><br /><br />
                     <section>
-                        <h1 className="text-4xl md:text-5xl font-semibold text-center text-sky-600 duration-300 pb-10">Beneficios para ti</h1>
+                        <h1 className="text-4xl md:text-5xl font-semibold text-center text-emerald-600 dark:text-emerald-500 duration-300 pb-10">Beneficios para ti</h1>
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como cliente</h2>
                         <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-8">
                             <CardBeneficio Beneficio={"Transparencia"} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
@@ -463,7 +480,7 @@ const LandingPage = () => {
                     </section>
                     <section className="flex flex-col items-center justify-center" id="Servicios">
                         <div className="w-4/5">
-                            <h1 className="text-left text-5xl pl-5 font-semibold text-sky-600">Servicios</h1>
+                            <h1 className="text-left text-5xl pl-5 font-semibold text-cyan-600">Servicios</h1>
                         </div>
                         <div className="w-4/5">
                             <div className="flex flex-col md:flex-row items-center md:gap-10">

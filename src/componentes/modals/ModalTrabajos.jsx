@@ -290,25 +290,25 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                     <tbody className="text-center font-semibold">
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Servicio</td>
-                                            <td className="text-yellow-700">{carga && <SpinnerCargaModal />}{form.servicio}</td>
+                                            <td className="text-yellow-700">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{form.servicio}</td>
                                         </tr>
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Proveedor</td>
-                                            <td className="text-yellow-700">{carga && <SpinnerCargaModal />}{form.proveedor.nombre} {form.proveedor.apellido}</td>
+                                            <td className="text-yellow-700">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{form.proveedor.nombre} {form.proveedor.apellido}</td>
                                         </tr>
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Precio/Dia</td>
-                                            <td className="text-green-700">{carga && <SpinnerCargaModal />}{(`${form.precioPorDia ? '$' : ''}`)+form.precioPorDia}</td>
+                                            <td className="text-green-700">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{(`${form.precioPorDia ? '$' : ''}`)+form.precioPorDia}</td>
                                         </tr>
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Precio/Hora</td>
-                                            <td className="text-green-700">{carga && <SpinnerCargaModal />}{(`${form.precioPorHora ? '$' : ''}`)+form.precioPorHora}</td>
+                                            <td className="text-green-700">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{(`${form.precioPorHora ? '$' : ''}`)+form.precioPorHora}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <h1 className="font-semibold ml-3 dark:text-white">Descripción</h1>
-                            <p className="mx-3 dark:text-white">{carga && <SpinnerCargaModal />}{form.descripcion}</p>
+                            <p className="mx-3 dark:text-white">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{form.descripcion}</p>
                         </div>
                         <div className={`${calendario === false ? "hidden" : ""} transition ease-in-out duration-300`}>
                             <h1 className="text-xl text-center font-semibold mt-2 dark:text-white">Disponibilidad en fechas</h1>

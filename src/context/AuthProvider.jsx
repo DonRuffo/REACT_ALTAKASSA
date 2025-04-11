@@ -119,8 +119,7 @@ const AuthProvider = ({ children }) => {
                 }
             },
                 (error) => {
-                    console.log('Error al obtener la ubicación:', error.message);
-                    setUbi(false);
+                    setUbi(false)
                 }
             )
         } else {
@@ -141,7 +140,7 @@ const AuthProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        if (auth && auth.f_perfil !== undefined) {
+        if (auth && auth.f_perfil !== undefined && auth.ubicacion.latitud !== undefined && auth.ubicacion.longitud !== undefined ) {
             verificarFoto()
             verificarUbicacion()
         }

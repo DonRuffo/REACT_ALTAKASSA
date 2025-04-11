@@ -20,7 +20,7 @@ import logoOferta from '../../assets/Oferta.svg'
 
 
 const InicioProve = () => {
-    const { auth, menu, handleMenu, ubi, setUbi, foto } = useContext(AuthContext)
+    const { auth, setAuth, menu, handleMenu, ubi, setUbi, foto } = useContext(AuthContext)
     const { modalOf, handleModalOf, ListarOfertas } = useContext(OfertaContext)
     const [carga, setCarga] = useState(false)
     const [revelar, setRevelar] = useState(false)
@@ -49,9 +49,19 @@ const InicioProve = () => {
                         }
                     }
                     const respuesta = await axios.post(url, { latitude, longitude }, options)
+                    const ubiNueva = {
+                        ubicacion: {
+                            longitud: longitude,
+                            latitud: latitude
+                        }
+                    }
                     toast.success(respuesta.data.msg)
                     setUbi(true)
                     setCarga(false)
+                    setAuth({
+                        ...auth,
+                        ...ubiNueva
+                    })
                 } catch (error) {
                     console.log(error)
                     toast.error(error.response?.data?.msg || "Error al guardar la ubicación")
@@ -116,19 +126,19 @@ const InicioProve = () => {
                 <h1 className="text-center font-semibold text-lg dark:text-white">Antes de ingresar ofertas, sigue estos pasos:</h1><br />
                 <div className="flex justify-center">
                     <div className="w-10 h-10 rounded-full border flex items-center justify-center bg-emerald-500">
-                        <p className="font-semibold text-lg">1</p>
+                        <p className="font-semibold text-lg dark:text-white">1</p>
                     </div>
                     <div className={`flex items-center justify-center`}>
                         <div className={`${foto ? 'bg-emerald-500' : ''} border-t border-b w-28 h-3`}></div>
                     </div>
                     <div className={`${foto ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
-                        <p className="font-semibold text-lg">2</p>
+                        <p className="font-semibold text-lg dark:text-white">2</p>
                     </div>
                     <div className={`flex items-center justify-center`}>
                         <div className={`${ubi ? 'bg-emerald-500' : ''} border-t border-b w-28 h-3`}></div>
                     </div>
                     <div className={`${ubi ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
-                        <p className="font-semibold text-lg">3</p>
+                        <p className="font-semibold text-lg dark:text-white">3</p>
                     </div>
                 </div>
             </section>
@@ -136,13 +146,13 @@ const InicioProve = () => {
                 <motion.div layout className="w-4/5 flex justify-center gap-5 flex-wrap transition-all duration-300"
                     transition={{ duration: 0.3, ease: "easeInOut" }}>
                     {foto === false && <Cloudinary />}
-                    <motion.div layout id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 ${foto ? '' : 'brightness-75 cursor-not-allowed pointer-events-none outline-0'} h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
+                    <motion.div layout id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 ${foto ? '' : 'brightness-50 cursor-not-allowed pointer-events-none outline-0'} h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={LocationImg} alt="localization" width={125} height={125} className={`${carga ? 'hidden' : 'block'}`} />
                         {carga && <SpinnerCarga />}
                         <h1 className="font-semibold text-center dark:text-white">Ingresa tu ubicación</h1>
                         <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={() => { setCarga(true); guardarUbi() }}>Ingresar</button>
                     </motion.div>
-                    <motion.div layout className={`outline outline-emerald-700 ${ubi === false || revelar ? 'cursor-not-allowed pointer-events-none brightness-75 outline-0' : ''} flex flex-col dark:bg-gray-900 bg-gray-100  h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
+                    <motion.div layout className={`outline outline-emerald-700 ${ubi === false || foto === false || revelar ? 'cursor-not-allowed pointer-events-none brightness-50 outline-0' : ''} flex flex-col dark:bg-gray-900 bg-gray-100  h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={logoOferta} alt="logoOferta" width={125} height={125} />
                         <h1 className={`font-semibold text-center dark:text-white`}>Crea una nueva oferta</h1>
                         <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={handleModalOf}>Ingresar</button>

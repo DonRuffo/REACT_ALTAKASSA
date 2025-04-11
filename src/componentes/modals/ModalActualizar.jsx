@@ -232,25 +232,25 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
                                     <tbody className="text-center font-semibold">
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Servicio</td>
-                                            <td className="text-yellow-600">{carga && <SpinnerCargaModal />}{formOferta.servicio}</td>
+                                            <td className="text-yellow-600">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{formOferta.servicio}</td>
                                         </tr>
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Proveedor</td>
-                                            <td className="text-yellow-600">{carga && <SpinnerCargaModal />}{formOferta.proveedor.nombre} {formOferta.proveedor.apellido}</td>
+                                            <td className="text-yellow-600">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{formOferta.proveedor.nombre} {formOferta.proveedor.apellido}</td>
                                         </tr>
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Precio/Dia</td>
-                                            <td className="text-green-600">{carga && <SpinnerCargaModal />}{(`${formOferta.precioPorDia ? '$' : ''}`)+formOferta.precioPorDia}</td>
+                                            <td className="text-green-600">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{(`${formOferta.precioPorDia ? '$' : ''}`)+formOferta.precioPorDia}</td>
                                         </tr>
                                         <tr className="border-b dark:border-white">
                                             <td className="dark:text-white">Precio/Hora</td>
-                                            <td className="text-green-600">{carga && <SpinnerCargaModal />}{(`${formOferta.precioPorHora ? '$' : ''}`)+formOferta.precioPorHora}</td>
+                                            <td className="text-green-600">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{(`${formOferta.precioPorHora ? '$' : ''}`)+formOferta.precioPorHora}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <h1 className="font-semibold ml-5 dark:text-white">Descripción</h1>
-                            <p className="ml-5 dark:text-white">{carga && <SpinnerCargaModal />}{formOferta.descripcion}</p>
+                            <p className="ml-5 dark:text-white">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{formOferta.descripcion}</p>
                         </div>
                     </div>
                 </div>

@@ -13,14 +13,14 @@ const Sugerencias = () => {
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <section className="flex justify-center mt-5 ">
-                <div className="w-4/5 mb-5 outline outline-emerald-700 rounded-lg bg-gray-100 dark:bg-gray-900 shadow-lg dark:shadow-slate-800">
+                <div className="w-full lg:w-4/5 mb-5 outline outline-emerald-700 rounded-lg bg-gray-100 dark:bg-gray-900 shadow-lg dark:shadow-slate-800">
                     <h1 className="text-center text-3xl font-semibold text-purple-600 mt-5">Sugerencias y comentarios</h1>
-                    <div className="flex justify-around mx-8 mt-5">
-                        <div className="w-[500px]">
-                            <p className="dark:text-white font-semibold text-xl">¡Cuéntanos cómo ha sido tu experiencia en el sistema y comparte tus sugerencias!</p>
+                    <div className="flex justify-around flex-wrap lg:mx-8 mt-5">
+                        <div className="px-3 lg:w-[500px]">
+                            <p className="dark:text-white font-semibold text-xl text-center lg:text-left">¡Cuéntanos cómo ha sido tu experiencia en el sistema y comparte tus sugerencias!</p>
                             <form className="mt-4 dark:text-white">
                                 <h1 className="font-semibold dark:text-slate-300 mb-1">Experiencia:</h1>
-                                <div className="flex">
+                                <div className="flex flex-wrap">
                                     <div className="mb-3 mr-2">
                                         <label htmlFor="buena" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-green-600 has-[input:checked]:text-green-600 duration-300">
                                             Buena
@@ -33,7 +33,7 @@ const Sugerencias = () => {
                                             <input type="radio" name="sug" id="regular" value='regular' className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-purple-600 duration-300" />
                                         </label>
                                     </div>
-                                    <div className="mb-3 mr-2">
+                                    <div className="mb-3">
                                         <label htmlFor="mala" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-red-600 has-[input:checked]:text-red-600 duration-300">
                                             Mala
                                             <input type="radio" name="sug" id="mala" value='mala' className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-red-600 duration-300" />
@@ -42,9 +42,9 @@ const Sugerencias = () => {
                                 </div>
                                 <div className="flex flex-col mb-5">
                                     <label htmlFor="comentario" className="font-semibold mb-1">Comentario:</label>
-                                    <textarea name="comentario" id="comentario" className="px-2 border-2 dark:border-white dark:focus:border-purple-600 dark:bg-transparent rounded-md focus:outline-none focus:border-purple-600"></textarea>
+                                    <textarea name="comentario" id="comentario" className="px-2 border-2 min-h-10 max-h-24 dark:border-white dark:focus:border-purple-600 dark:bg-transparent rounded-md focus:outline-none focus:border-purple-600"></textarea>
                                 </div>
-                                <div className="mb-5">
+                                <div className="mb-5 flex justify-center lg:justify-start">
                                     <button className="px-4 py-2 text-purple-700 font-semibold rounded-md bg-purple-200 hover:bg-purple-300 duration-300">
                                         Enviar
                                     </button>

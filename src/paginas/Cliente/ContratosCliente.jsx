@@ -46,8 +46,8 @@ const ContratosCliente = () => {
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <section>
-                <h1 className="text-center text-purple-600 font-semibold text-2xl mt-5">Trabajos actuales</h1>
-                <p className="text-center font-semibold text-xl mb-5">Aquí podrás ver las solicitudes que han sido aceptadas o rechazadas por los proveedores</p>
+                <h1 className="text-center text-purple-600 font-semibold text-3xl mt-5">Trabajos actuales</h1>
+                <p className="text-center font-semibold text-xl mb-5 dark:text-white">Aquí podrás ver las solicitudes que han sido aceptadas o rechazadas por los proveedores</p>
                 <div className="flex flex-wrap gap-2 mb-5">
                     <label className="dark:text-white  has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-800 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-36 border-2 rounded-md px-2 py-1 flex justify-between items-center">
                         Todas

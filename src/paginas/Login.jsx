@@ -10,7 +10,7 @@ import { EyeOff, Eye } from 'lucide-react';
 import RelojDeArena from '../componentes/RelojArena';
 
 const Login = () => {
-    const { Perfil, darkMode, verificarUbicacion, ubiCliente, verificarFoto } = useContext(AuthContext)
+    const { Perfil, darkMode, verificarUbicacion, ubiCliente, verificarFoto, auth } = useContext(AuthContext)
     const { ObtenerTrabajos, ListarOfertas } = useContext(OfertaContext)
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)
@@ -50,13 +50,21 @@ const Login = () => {
             await Perfil(respuesta.data.token, respuesta.data.rol)
             await ubiCliente(respuesta.data.token, respuesta.data.rol)
             await ObtenerTrabajos(respuesta.data.rol, respuesta.data.token)
-            await verificarUbicacion()
-            await verificarFoto()
             navigate('/dashboard')
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
             setCarga(false)
+        }
+    }
+
+    const verificaciones = async (e) => {
+        e.preventDefault()
+        try {
+            await verificarUbicacion()
+            await verificarFoto()
+        } catch (error) {
+            console.log('Validacion sin éxito', error.message)
         }
     }
 
@@ -79,7 +87,11 @@ const Login = () => {
                         <div className='w-5/6 md:w-4/6'>
                             <h1 className='text-blue-600 font-bold text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
                             <hr className='dark:border dark:border-gray-900' />
-                            <form onSubmit={HandleSubmit}>
+                            <form onSubmit={(e) => {
+                                HandleSubmit(e); setTimeout(() => {
+                                    verificaciones(e)
+                                }, 500)
+                            }}>
                                 <div className="my-3">
                                     <label className="mb-2 block text-sm font-semibold text-blue-600">Correo electrónico</label>
                                     <input type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Ingresa tu correo" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
@@ -89,7 +101,7 @@ const Login = () => {
                                     <label className="mb-2 block text-sm font-semibold text-blue-600">Contraseña</label>
                                     <div className='flex gap-2 relative'>
                                         <input type={ojoActivo ? "text" : "password"} name='contrasenia' onChange={HandleChange} value={form.contrasenia || ""} placeholder="********************" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
-                                        <button type='button' onClick={()=>setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo === false ? <Eye size={20}/> : <EyeOff size={20}/> }</button>
+                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                     </div>
                                 </div>
 
@@ -104,7 +116,7 @@ const Login = () => {
 
 
                                 <div className="my-7 flex justify-center">
-                                    <button type='submit' onClick={()=>setCarga(true)} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white`}>Ingresar</button>
+                                    <button type='submit' onClick={() => setCarga(true)} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white`}>Ingresar</button>
                                     {carga && (<RelojDeArena />)}
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />
