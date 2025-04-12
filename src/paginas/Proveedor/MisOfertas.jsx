@@ -55,23 +55,23 @@ const ListadoOfertas = () => {
             <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus ofertas creadas</h2>
             <div className="flex justify-center gap-3 flex-wrap">
                 {oferta.length !== 0 ? oferta.map((of, index) => (
-                    <div key={of._id} className="border radial-gradientOfertas-bg h-[250px] w-[200px] rounded-lg shadow-lg shadow-blue-400">
+                    <div key={of._id} className="radial-gradientOfertas-bg h-[250px] w-[200px] rounded-lg shadow-lg shadow-purple-400 mb-5">
                         <h1 className="text-center pt-2 font-bold text-xl text-white pb-2 mb-2 border-b">
                             Oferta N°{index + 1}
                         </h1>
-                        <h1 className="text-center font-semibold text-yellow-400 text-lg mb-2">
+                        <h1 className="text-center font-bold text-yellow-400 text-xl mb-2">
                             {of.servicio}
                         </h1>
                         <p className="text-center font-semibold text-white">
-                            Precio/Día:{" "}
-                            <b className="text-xl ml-5 text-yellow-500">${of.precioPorDia}</b>
+                            <b className="text-xl mr-1 text-yellow-500">${of.precioPorDia}</b>
+                            <span>el día</span>
                         </p>
                         <p className="text-center font-semibold text-white">
-                            Precio/Hora:{" "}
-                            <b className="text-xl ml-5 text-yellow-500">${of.precioPorHora}</b>
+                            <b className="text-xl mr-1 text-yellow-500">${of.precioPorHora}</b>
+                            <span>la hora</span>
                         </p>
                         <div className="flex justify-around mt-10">
-                            <button className="px-3 py-1 bg-blue-800 rounded-md text-white font-semibold hover:bg-blue-900 duration-300 hover:scale-110" onClick={() => { handleModalEditOf(of._id); setModalEditOf(!modalEditOf) }}>
+                            <button className="px-3 py-1 bg-purple-800 rounded-md text-white font-semibold hover:bg-purple-900 duration-300 hover:scale-110" onClick={() => { handleModalEditOf(of._id); setModalEditOf(!modalEditOf) }}>
                                 Editar
                             </button>
                             <button className="px-2 py-1 rounded-md bg-gray-800 hover:bg-black hover:scale-110 duration-300" onClick={() => { handleModalEditOf(of._id); EliminarOferta(of._id, index + 1) }}><img src={iconoDelete} alt="iconoDelete" /></button>

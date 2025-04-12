@@ -10,7 +10,7 @@ const ModalOferta = ({ListarOfertas}) => {
     const [formOf, setFormOf] = useState({
         precioPorDia: "",
         precioPorHora: "",
-        servicio: "",
+        servicio: "Limpieza",
         descripcion: ""
     })
 
@@ -84,7 +84,7 @@ const ModalOferta = ({ListarOfertas}) => {
                         </div>
                         <div className="mb-3 px-6">
                             <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white">Descripción: </label>
-                            <textarea name="descripcion" id="descripcion" onChange={handleChange} value={formOf.descripcion || ""} className="dark:bg-gray-900 dark:text-slate-200 p-2 w-full rounded-md bg-white border border-gray-600 focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700"></textarea>
+                            <textarea name="descripcion" id="descripcion" onChange={handleChange} value={formOf.descripcion || ""} className="overflow-hidden min-h-12 max-h-20 dark:bg-gray-900 dark:text-slate-200 p-2 w-full rounded-md bg-white border border-gray-600 focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700"></textarea>
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
