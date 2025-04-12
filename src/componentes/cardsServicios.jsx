@@ -14,7 +14,7 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
             <div className="flex justify-center py-4">
                 <img src={logo1} alt={Servicio1} width={200} height={200} />
             </div>
-            <p className="text-md text-slate-600 font-semibold dark:text-slate-400 px-5 md:px-10 text-center">{texto1}</p><br />
+            <p className="text-md text-slate-600 font-semibold dark:text-slate-300 px-5 md:px-10 text-center">{texto1}</p><br />
             <div className="flex justify-center gap-x-2 lg:gap-x-3">
                 <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
                 <button type="button" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black" onClick={() => setAbrir(!abrir)}>Trabajos</button>

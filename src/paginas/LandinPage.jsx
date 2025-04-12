@@ -41,7 +41,7 @@ import ListasAnimadas from "../componentes/Listas";
 import ListasAnimadasProv from "../componentes/ListasProv";
 import imPerfilDinamica from '../assets/PERFIL_dinamica.jpg'
 import AuthContext from "../context/AuthProvider";
-import logoBG from '../assets/HojasOscuras-Pixels.jpg'
+import logoBG from '../assets/FondoPage.jpg'
 import imgDesc from '../assets/Descriptivo.svg'
 //text-slate-400 - texto para cards
 //#60E8FE color para iconos
@@ -407,14 +407,14 @@ const LandingPage = () => {
                         </ul>
                     </nav>
                     <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px] xl:h-[785px]"
-                        id="Inicio" style={{ backgroundImage: `url(${logoBG})` }}>
+                        id="Inicio" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),url(${logoBG})`}}>
                         <div className="flex flex-col items-center px-2">
                             <img src={imgAksin} alt="logoAlta" width={110} height={110} className="" />
-                            <h1 className="text-center text-6xl text-white font-bold">Bienvenido a AltaKassa</h1>
+                            <h1 className="text-white text-center text-5xl md:text-6xl font-bold">Bienvenido a AltaKassa</h1>
                             <p className="text-white font-semibold mt-2 text-lg text-center">Ofrecer o buscar un servicio nunca había sido más sencillo</p>
                         </div><br /><br />
                         <div className="flex justify-center gap-x-2 lg:gap-x-4 px-4">
-                            <button type="button" onClick={() => navigate('/registro')} className="group px-5 py-1 lg:py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
+                            <button type="button" onClick={() => navigate('/registro')} className="group px-5 py-1 md:py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
                                 Registarse
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -430,7 +430,7 @@ const LandingPage = () => {
                                     <path d="M30 20l-4 4 4 4" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </button>
-                            <button type="button" className="group px-5 py-1 lg:py-3 rounded-3xl bg-gradient-to-r from-slate-100 via-emerald-200 to-emerald-500 text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
+                            <button type="button" className="group px-5 py-1 md:py-3 rounded-3xl bg-gradient-to-r from-slate-100 via-emerald-200 to-emerald-500 text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
                                 Continuar leyendo
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="w-7 h-7 group-hover:translate-y-1 transition-all duration-300">
                                     <path
@@ -446,9 +446,9 @@ const LandingPage = () => {
                         <div className="flex flex-col items-center bg-emerald-50 dark:bg-emerald-950">
                             <div className="w-5/6 lg:w-4/6 py-10">
                                 <h1 className="text-center text-4xl lg:text-5xl font-semibold text-emerald-600 dark:text-emerald-500 duration-300 mb-2">¿Qué es AltaKassa?</h1>
-                                <div className="flex">
-                                    <div className="w-3/5 flex flex-col justify-center">
-                                        <h1 className="text-left text-2xl font-bold mb-3 dark:text-white">Fácil para ti. Justo para ellos. Perfecto para todos</h1>
+                                <div className="md:flex">
+                                    <div className="w-full md:w-3/5 flex flex-col justify-center mt-8 md:mt-0">
+                                        <h1 className="text-left text-2xl font-bold mb-5 dark:text-white">Fácil para ti. Justo para ellos. Perfecto para todos</h1>
                                         <p className="text-justify lg:text-lg dark:text-white">
                                             AltaKassa Multiservicios es una plataforma que conecta a personas que necesitan servicios a domicilio
                                             —como plomería, limpieza, cerrajería, entre otros— con técnicos y especialistas capacitados.
@@ -456,7 +456,7 @@ const LandingPage = () => {
                                             tanto para los clientes como para los proveedores de servicios.
                                         </p>
                                     </div>
-                                    <div className="w-2/5 flex justify-center items-center">
+                                    <div className="w-full md:w-2/5 flex justify-center items-center">
                                         <img src={imgDesc} alt="Floreciendo" width={350} height={250} />
                                     </div>
                                 </div>
@@ -480,11 +480,11 @@ const LandingPage = () => {
                     </section>
                     <section className="flex flex-col items-center justify-center" id="Servicios">
                         <div className="w-4/5">
-                            <h1 className="text-left text-5xl pl-5 font-semibold text-cyan-600">Servicios</h1>
+                            <h1 className="text-left text-5xl md:pl-5 font-semibold text-cyan-600">Servicios</h1>
                         </div>
                         <div className="w-4/5">
                             <div className="flex flex-col md:flex-row items-center md:gap-10">
-                                <h2 className="w-full md:w-3/5 p-4 md:py-2 md:px-5 text-md text-slate-600 dark:text-slate-400">La empresa se especializa en ofrecer soluciones integrales a domicilio a través
+                                <h2 className="w-full md:w-3/5 mt-5 md:py-2 md:px-5 text-md text-justify text-slate-600 dark:text-slate-300">La empresa se especializa en ofrecer soluciones integrales a domicilio a través
                                     de seis tipos de servicios diseñados para satisfacer las necesidades más
                                     comunes del hogar y el negocio. Cada servicio es brindado por técnicos capacitados,
                                     garantizando calidad, eficiencia y confianza en cada proyecto. Los servicios presentados

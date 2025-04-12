@@ -9,7 +9,7 @@ const CardBeneficio = ({Beneficio, logo, texto,}) => {
             <div className="flex justify-center">
                 <img src={logo} alt={Beneficio} width={200} height={200} />
             </div>
-            <p className="text-md dark:text-slate-400 text-center pt-3 px-4">{texto}</p>
+            <p className="text-md dark:text-slate-300 font-semibold text-center pt-3 px-4">{texto}</p>
         </div>
 
     )
