@@ -150,7 +150,7 @@ const Dashboard = () => {
                                     <p className="px-2">Configuración</p>
                                 </Link>
                                 <div className="flex justify-center">
-                                   <button className="px-5 py-2 mt-2 bg-gray-950 text-white rounded-md hover:bg-black duration-300"
+                                   <button className="px-5 py-2 mt-2 bg-gray-950 dark:bg-emerald-700 text-white rounded-md hover:bg-gray-700 dark:hover:bg-emerald-800 duration-300"
                                     onClick={() => {
                                         localStorage.removeItem('token')
                                         localStorage.removeItem('rol')
