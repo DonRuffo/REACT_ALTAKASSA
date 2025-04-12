@@ -114,7 +114,7 @@ const InicioProve = () => {
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <section className="flex justify-center mt-5">
-                <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-transparent border border-gray-100">
+                <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-transparent border border-gray-100 transition-all duration-300">
                     <h1 className="text-3xl text-center text-purple-600 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}!</h1>
                     <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0 dark:text-white">El sistema espera por ti</h2>
                     <div className="flex justify-center pb-5">
@@ -124,18 +124,18 @@ const InicioProve = () => {
             </section><br />
             <section className="mb-3">
                 <h1 className="text-center font-semibold text-lg dark:text-white">Antes de ingresar ofertas, sigue estos pasos:</h1><br />
-                <div className="flex justify-center">
+                <div className="flex justify-center transition-all duration-300">
                     <div className="w-10 h-10 rounded-full border flex items-center justify-center bg-emerald-500">
                         <p className="font-semibold text-lg dark:text-white">1</p>
                     </div>
                     <div className={`flex items-center justify-center`}>
-                        <div className={`${foto ? 'bg-emerald-500' : ''} border-t border-b w-28 h-3`}></div>
+                        <div className={`${foto ? 'bg-emerald-500' : ''} border-t border-b w-16 md:w-28 h-3 transition-all duration-300`}></div>
                     </div>
                     <div className={`${foto ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
                         <p className="font-semibold text-lg dark:text-white">2</p>
                     </div>
                     <div className={`flex items-center justify-center`}>
-                        <div className={`${ubi ? 'bg-emerald-500' : ''} border-t border-b w-28 h-3`}></div>
+                        <div className={`${ubi ? 'bg-emerald-500' : ''} border-t border-b w-16 md:w-28 h-3 transition-all duration-300`}></div>
                     </div>
                     <div className={`${ubi ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
                         <p className="font-semibold text-lg dark:text-white">3</p>
