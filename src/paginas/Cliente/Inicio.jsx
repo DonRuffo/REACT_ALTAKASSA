@@ -139,14 +139,14 @@ const Inicio = () => {
                                     <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
-                            <div className="ml-3 md:ml-0 flex flex-col justify-center">
+                            <div className="ml-2 md:ml-0 flex flex-col justify-center">
                                 <h1 className="md:text-center font-bold text-lg md:text-xl text-white pb-0.5 md:pb-3">
                                     {of.proveedor.nombre} {of.proveedor.apellido}
                                 </h1>
                                 <h1 className="md:text-center font-bold text-yellow-400 text-md md:text-xl md:mb-1">
                                     {of.servicio}
                                 </h1>
-                                <div className="flex justify-center gap-x-4">
+                                <div className="flex justify-center gap-x-3">
                                     <p className="md:text-center font-semibold text-white flex items-center">
                                         <b className="text-md md:text-xl mr-1 text-yellow-500">${of.precioPorDia}</b>
                                         el día
@@ -160,6 +160,15 @@ const Inicio = () => {
                                     <button className="px-2 py-1 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
                                 </div>
                                 {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
+                            </div>
+                            <div className="flex items-center ml-1.5 md:hidden">
+                                <button type="button" className="px-2 py-2 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300">
+                                    <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="32" cy="32" r="30" fill="none" stroke="white" strokeWidth="6" />
+
+                                        <path d="M20 34 L28 42 L44 26" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
                     ))}
@@ -172,14 +181,14 @@ const Inicio = () => {
                                     <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
-                            <div className="ml-3 md:ml-0 flex flex-col justify-center">
+                            <div className="ml-2 md:ml-0 flex flex-col justify-center">
                                 <h1 className="md:text-center font-bold text-lg md:text-xl text-white pb-0.5 md:pb-3">
                                     {of.proveedor.nombre} {of.proveedor.apellido}
                                 </h1>
                                 <h1 className="md:text-center font-bold text-yellow-400 text-md md:text-xl md:mb-1">
                                     {of.servicio}
                                 </h1>
-                                <div className="flex justify-center gap-x-4">
+                                <div className="flex justify-center gap-x-3">
                                     <p className="md:text-center font-semibold text-white flex items-center">
                                         <b className="text-md md:text-xl mr-1 text-yellow-500">${of.precioPorDia}</b>
                                         el día
@@ -190,9 +199,18 @@ const Inicio = () => {
                                     </p>
                                 </div>
                                 <div className="md:flex justify-center mt-3 hidden">
-                                    <button className="px-2 py-1 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
+                                    <button type="button" className="px-2 py-1 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
                                 </div>
                                 {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
+                            </div>
+                            <div className="flex items-center ml-1.5 md:hidden">
+                                <button type="button" className="px-2 py-2 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>
+                                    <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="32" cy="32" r="30" fill="none" stroke="white" strokeWidth="6" />
+
+                                        <path d="M20 34 L28 42 L44 26" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
                     )) : (

@@ -57,6 +57,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
 
     const handleCalendarioChange = () => {
         setCalendario(!calendario)
+        setMapa(false)
     }
 
     const handleRadioChange = (event) => {
@@ -81,7 +82,8 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
         proveedor: {
             nombre: "",
             apellido: "",
-            email: ""
+            email: "",
+            f_perfil: ""
         },
         precioPorDia: "",
         precioPorHora: "",
@@ -189,6 +191,11 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
     }, [idOferta]);
 
     //creacion del mapa
+
+    const creacionMapa = () => {
+
+    }
+
     useEffect(() => {
         if (mapa) {
             if (mapRef.current) {
@@ -196,7 +203,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                 mapRef.current = null
             }
             if (!mapRef.current && containerRef.current) {
-                mapRef.current = L.map(containerRef).setView([0, 0], 2)
+                mapRef.current = L.map(containerRef.current).setView([0, 0], 2)
                 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
                     attribution: "© OpenStreetMap contributors",
                 }).addTo(mapRef.current);
@@ -238,7 +245,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                     </div>
 
                                     <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 ml-11 md:ml-5 rounded-lg hover:scale-110 duration-300" onClick={() => { handleCalendarioChange() }}>{calendario ? 'Info' : 'Fechas'}</button>
-                                    <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 rounded-lg hover:scale-110 duration-300">
+                                    <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 rounded-lg hover:scale-110 duration-300" onClick={() => {setMapa(!mapa) }}>
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white text-red-700 duration-300">
                                             <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
                                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -277,47 +284,34 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                 </div>
                             </form>
                         </div>
-                        <div className={`${calendario === true ? "hidden" : ""} transition ease-in-out duration-300`}>
+                        <div className={`${calendario === false && mapa === false ? "" : "hidden"} transition ease-in-out duration-300`}>
                             <h1 className="text-xl font-semibold text-center my-2 dark:text-white">Información</h1>
-                            <div className="flex justify-center">
-                                <table className="table-auto border-collapse border border-gray-300 w-full mb-3">
-                                    <thead className="bg-gray-300">
-                                        <tr>
-                                            <th>Campo</th>
-                                            <th>Valor</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-center font-semibold">
-                                        <tr className="border-b dark:border-white">
-                                            <td className="dark:text-white">Servicio</td>
-                                            <td className="text-yellow-700">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{form.servicio}</td>
-                                        </tr>
-                                        <tr className="border-b dark:border-white">
-                                            <td className="dark:text-white">Proveedor</td>
-                                            <td className="text-yellow-700">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{form.proveedor.nombre} {form.proveedor.apellido}</td>
-                                        </tr>
-                                        <tr className="border-b dark:border-white">
-                                            <td className="dark:text-white">Precio/Dia</td>
-                                            <td className="text-green-700">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{(`${form.precioPorDia ? '$' : ''}`)+form.precioPorDia}</td>
-                                        </tr>
-                                        <tr className="border-b dark:border-white">
-                                            <td className="dark:text-white">Precio/Hora</td>
-                                            <td className="text-green-700">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{(`${form.precioPorHora ? '$' : ''}`)+form.precioPorHora}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div className="flex justify-center mb-2">
+                                <div className="flex justify-center bg-gray-100 w-[280px] py-2 rounded-xl shadow-md">
+                                    <div className="flex flex-col justify-center ">
+                                        <h1 className="font-semibold text-lg">{form.proveedor.nombre} {form.proveedor.apellido}</h1>
+                                        <p>{form.servicio}</p>
+                                        <p><span className="text-yellow-600 font-semibold">{(`${form.precioPorDia ? '$' : ''}`) + form.precioPorDia}</span> el día - <span className="text-yellow-600 font-semibold">{(`${form.precioPorHora ? '$' : ''}`) + form.precioPorHora}</span> la hora</p>
+                                    </div>
+                                    <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block">
+                                        <img src={form.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover" />
+                                    </div>
+                                </div>
                             </div>
                             <h1 className="font-semibold ml-3 dark:text-white">Descripción</h1>
                             <p className="mx-3 dark:text-white">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{form.descripcion}</p>
                         </div>
-                        <div className={`${calendario === false ? "hidden" : ""} transition ease-in-out duration-300`}>
-                            <h1 className="text-xl text-center font-semibold mt-2 dark:text-white">Disponibilidad en fechas</h1>
+                        <div className={`${calendario === true && mapa === false ? "" : "hidden"} transition ease-in-out duration-300`}>
+                            <h1 className="text-xl text-center font-semibold mt-2 dark:text-white">Disponibilidad</h1>
                             <div className="flex justify-center mt-3">
                                 <Calendario />
                             </div>
                             <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-600">rojo</b> están agendados</p>
                         </div>
-                        <div ref={containerRef} className={`${mapa ? '' : 'hidden'} rounded-md h-[150px] w-[175px]`}></div>
+                        <div className={`${mapa ? '' : 'hidden'} w-full flex flex-col items-center`}>
+                            <h1 className="text-xl text-center font-semibold mt-2 dark:text-white mb-1">Ubicación</h1>
+                            <div ref={containerRef} className={`rounded-md h-5/6 w-11/12 border`}></div>
+                        </div>
                     </div>
                 </div>
             </div>
