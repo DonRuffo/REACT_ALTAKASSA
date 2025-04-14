@@ -113,7 +113,17 @@ const AuthProvider = ({ children }) => {
                         }
                     }
                     const repuesta = await axios.post(url, { latitude, longitude }, options)
+                    const nuevaUbi = {
+                        ubicacion:{
+                            longitud:longitude,
+                            latitud:latitude
+                        }
+                    }
                     setUbi(true)
+                    setAuth({
+                        ...auth,
+                        ...nuevaUbi
+                    })
                 } catch (error) {
                     console.log(error)
                 }
