@@ -216,7 +216,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
             const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
 
             const marcadorProveedor = L.marker([latitudProv, longitudProv], { icon: iconMap }).bindPopup(form.proveedor.nombre)
-            
+
             marcadorCliente.addTo(mapRef.current).openPopup()
             marcadorProveedor.addTo(mapRef.current).openPopup()
 
@@ -225,7 +225,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                 [latitudProv, longitudProv]
             ])
 
-            mapRef.current.fitBounds(bounds, {padding:[50,50]})
+            mapRef.current.fitBounds(bounds, { padding: [50, 50] })
 
         }
     }
@@ -261,13 +261,13 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                     <div className="flex justify-around flex-wrap gap-2 lg:gap-0">
                                         <div className="flex items-center gap-2">
                                             <label htmlFor="precioPorDia" className=" dark:text-white px-3 py-1 has-[input:checked]:text-indigo-800 has-[input:checked]:dark:text-purple-600 has-[input:checked]:border-indigo-800 has-[input:checked]:dark:border-purple-600 rounded-md text-md text-slate-600 font-semibold flex justify-between items-center gap-3 border">
-                                                Precio/Dia:
+                                                Precio/Dia
                                                 <input type="radio" id="precioPorDia" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorDia" checked={formTrabajo.tipo === "precioPorDia"} className="appearance-none border w-4 h-4 rounded-full border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400 dark:checked:purple-indigo-600 dark:checked:shadow-purple-400" />
                                             </label>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <label htmlFor="precioPorHora" className="dark:text-white px-3 py-1 has-[input:checked]:text-indigo-800 has-[input:checked]:border-indigo-800 rounded-md text-md text-slate-600 font-semibold flex justify-between items-center gap-3 border">
-                                                Precio/Hora:
+                                                Precio/Hora
                                                 <input type="radio" id="precioPorHora" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorHora" checked={formTrabajo.tipo === "precioPorHora"} className="appearance-none border w-4 h-4 rounded-full border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400" />
                                             </label>
                                         </div>
@@ -278,7 +278,6 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                         <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white mb-1">Fecha: </label>
                                         <input type="date" name="fecha" onChange={(e) => { handleChange(e); compararFechas(e) }} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
                                     </div>
-
                                     <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 ml-11 md:ml-5 rounded-lg hover:scale-110 duration-300" onClick={() => { handleCalendarioChange() }}>{calendario ? 'Info' : 'Fechas'}</button>
                                     <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 rounded-lg hover:scale-110 duration-300" onClick={() => { setMapa(!mapa); creacionMapa() }}>
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white text-red-700 duration-300">
@@ -320,21 +319,26 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                             </form>
                         </div>
                         <div className={`${calendario === false && mapa === false ? "" : "hidden"} transition ease-in-out duration-300`}>
-                            <h1 className="text-xl font-semibold text-center my-2 dark:text-white">Información</h1>
-                            <div className="flex justify-center mb-2">
-                                <div className="flex justify-center bg-gray-100 w-[280px] py-2 rounded-xl shadow-md">
-                                    <div className="flex flex-col justify-center ">
-                                        <h1 className="font-semibold text-lg">{form.proveedor.nombre} {form.proveedor.apellido}</h1>
-                                        <p>{form.servicio}</p>
-                                        <p><span className="text-yellow-600 font-semibold">{(`${form.precioPorDia ? '$' : ''}`) + form.precioPorDia}</span> el día - <span className="text-yellow-600 font-semibold">{(`${form.precioPorHora ? '$' : ''}`) + form.precioPorHora}</span> la hora</p>
-                                    </div>
-                                    <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block">
-                                        <img src={form.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover" />
+                            <div>
+                                <h1 className="text-xl font-semibold text-center my-2 dark:text-white">Información</h1>
+                                <div className="flex justify-center mb-2">
+                                    <div className="flex justify-center bg-gray-100 dark:bg-gray-900 w-[280px] py-2 rounded-xl shadow-md">
+                                        <div className="flex flex-col justify-center ">
+                                            <h1 className="font-semibold text-lg dark:text-white">{form.proveedor.nombre} {form.proveedor.apellido}</h1>
+                                            <p className="dark:text-white">{form.servicio}</p>
+                                            <p className="dark:text-white"><span className="text-yellow-600 font-semibold">{(`${form.precioPorDia ? '$' : ''}`) + form.precioPorDia}</span> el día - <span className="text-yellow-600 font-semibold">{(`${form.precioPorHora ? '$' : ''}`) + form.precioPorHora}</span> la hora</p>
+                                        </div>
+                                        <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block">
+                                            <img src={form.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover" />
+                                        </div>
                                     </div>
                                 </div>
+                                <h1 className="font-semibold ml-3 dark:text-white">Descripción</h1>
+                                <p className="mx-3 dark:text-white">{form.descripcion}</p>
                             </div>
-                            <h1 className="font-semibold ml-3 dark:text-white">Descripción</h1>
-                            <p className="mx-3 dark:text-white">{carga && <SpinnerCargaModal w={4} h={4} HH={4} />}{form.descripcion}</p>
+                            <div className={`${carga ? '' : 'hidden'} flex items-center justify-center pt-24`}>
+                                <SpinnerCargaModal w={14} h={14} HH={20} />
+                            </div>
                         </div>
                         <div className={`${calendario === true && mapa === false ? "" : "hidden"} transition ease-in-out duration-300`}>
                             <h1 className="text-xl text-center font-semibold mt-2 dark:text-white">Disponibilidad</h1>

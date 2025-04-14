@@ -29,7 +29,7 @@
 }
 
 .radial-gradientAceptados-bg {
-    background: radial-gradient(circle, #eefbe6, #4caf50, #20572b);
+    background: radial-gradient(circle, #e0f7fa, #80cbc4, #00796b);
     background-size: 150% 150%;
     animation: pulseGradient 4s ease-in-out infinite;
 }

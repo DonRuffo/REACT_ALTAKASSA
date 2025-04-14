@@ -73,7 +73,7 @@ const SolicitudProv = () => {
                         trabajos.some(tra => tra.status === "En espera") ? (
                         trabajos.map((tra) => (
                             tra.status === "En espera" && (
-                                <div key={tra._id} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500">
+                                <div key={tra._id} className="w-[330px] h-[285px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-blue-500 mb-5">
                                     <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold">{tra.servicio}</h1>
                                     <p className="text-center text-xl mt-1">Cliente: <span className="text-white">{tra.cliente.nombre} {tra.cliente.apellido}</span></p>
                                     <div className="flex justify-around mt-2">

@@ -22,7 +22,7 @@ const ContratosProv = () => {
                 <div className="flex justify-center flex-wrap gap-3">
                     {trabajos.length !== 0 && trabajos.some((tra) => tra.status === "Agendado") ? trabajos.map((tra) => (
                         tra.status === "Agendado" && (
-                            <div key={tra._id} className="w-[300px] lg:w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-purple-400">
+                            <div key={tra._id} className="w-[300px] lg:w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg dark:shadow-slate-600 mb-5">
                                 <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                 <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                 <div className="flex justify-around mt-2">

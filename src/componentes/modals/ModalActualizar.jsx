@@ -1,13 +1,33 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import OfertaContext from "../../context/OfertasProvider";
 import { ToastContainer, toast } from "react-toastify";
 import SpinnerCargaModal from "../RuedaCargaModal";
+import Calendario from "../Calendario";
+import AuthContext from "../../context/AuthProvider";
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import L from 'leaflet';
 
-const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
+
+const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
+    const { auth } = useContext(AuthContext)
     const [selectedOption, setSelectedOption] = useState('');
     const { modalTraActual, setModalTraActual } = useContext(OfertaContext)
     const [carga, setCarga] = useState(true)
+    const [calendario, setCalendario] = useState(false)
+    const mapRef = useRef(null)
+    const containerRef = useRef(null)
+    const [mapa, setMapa] = useState(false)
+
+    //edicion de los marcadores del mapa
+    const iconMap = L.icon({
+        iconUrl: markerIcon,
+        shadowUrl: markerShadow,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41]
+    })
+
     const [formTrabajo, setFormTrabajo] = useState({
         fecha: "",
         servicio: "",
@@ -32,7 +52,7 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
         try {
             const token = localStorage.getItem('token')
             const url = `${import.meta.env.VITE_BACKEND_URL}/verTrabajo/${idTrabajo}`
-            const options = {   
+            const options = {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
@@ -41,12 +61,12 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
             const respuesta = await axios.get(url, options)
             setFormTrabajo({
                 ...formTrabajo,
-                fecha:new Date(respuesta.data.fecha).toISOString().split('T')[0],
-                servicio:respuesta.data.servicio,
-                tipo:respuesta.data.tipo,
-                precioTotal:respuesta.data.precioTotal,
-                desde:respuesta.data.desde,
-                hasta:respuesta.data.hasta
+                fecha: new Date(respuesta.data.fecha).toISOString().split('T')[0],
+                servicio: respuesta.data.servicio,
+                tipo: respuesta.data.tipo,
+                precioTotal: respuesta.data.precioTotal,
+                desde: respuesta.data.desde,
+                hasta: respuesta.data.hasta
             })
         } catch (error) {
             console.log(error);
@@ -93,20 +113,31 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
     }
     const calcularPrecioPorHoras = (trabajo) => {
         if (!trabajo.desde || !trabajo.hasta) return 0
-    
+
         const formato = "2024-01-01";
         const desdeTime = new Date(`${formato}T${trabajo.desde}:00`)
         const hastaTime = new Date(`${formato}T${trabajo.hasta}:00`)
-    
+
         if (isNaN(desdeTime) || isNaN(hastaTime)) return 0
-    
+
         const diferenciaMs = hastaTime - desdeTime;
         const diferenciaHoras = diferenciaMs / (1000 * 60 * 60);
-    
-        const tarifaPorHora = parseFloat(formOferta.precioPorHora) || 0; 
+
+        const tarifaPorHora = parseFloat(formOferta.precioPorHora) || 0;
         return diferenciaHoras * tarifaPorHora;
     };
-    
+
+    const compararFechas = (e) => {
+        const fechaElegida = new Date(e.target.value)
+        const fechaHoy = new Date()
+        fechaHoy.setHours(0, 0, 0, 0)
+
+        if (fechaElegida < fechaHoy) {
+            alert("No puedes seleccionar una fecha pasada")
+            e.target.value = formTrabajo.fecha
+        }
+    }
+
 
     const handleChange = (e) => {
         setFormTrabajo(prev => {
@@ -136,13 +167,17 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
             };
         });
     };
-    
+    const handleCalendarioChange = () => {
+        setCalendario(!calendario)
+        setMapa(false)
+    }
+
     useEffect(() => {
         ObtenerOferta().then(() => {
             ObtenerTrabajo();
         });
     }, []);
-    
+
     useEffect(() => {
         if (formTrabajo.tipo === "precioPorHora") {
             setFormTrabajo(prev => ({
@@ -156,6 +191,46 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
             }));
         }
     }, [formTrabajo.desde, formTrabajo.hasta, formTrabajo.tipo]);
+
+    //creacion del mapa
+    const creacionMapa = () => {
+        const latitudCli = auth.ubicacion.latitud
+        const longitudCli = auth.ubicacion.longitud
+        const latitudProv = formOferta.proveedor.ubicacion.latitud
+        const longitudProv = formOferta.proveedor.ubicacion.longitud
+        if (mapRef.current) {
+            const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
+
+            const marcadorProveedor = L.marker([latitudProv, longitudProv], { icon: iconMap }).bindPopup(formOferta.proveedor.nombre)
+
+            marcadorCliente.addTo(mapRef.current).openPopup()
+            marcadorProveedor.addTo(mapRef.current).openPopup()
+
+            const bounds = L.latLngBounds([
+                [latitudCli, longitudCli],
+                [latitudProv, longitudProv]
+            ])
+
+            mapRef.current.fitBounds(bounds, { padding: [50, 50] })
+
+        }
+    }
+
+    useEffect(() => {
+        if (mapa) {
+            if (mapRef.current) {
+                mapRef.current.remove()
+                mapRef.current = null
+            }
+            if (!mapRef.current && containerRef.current) {
+                mapRef.current = L.map(containerRef.current).setView([0, 0], 2)
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution: "© OpenStreetMap contributors",
+                }).addTo(mapRef.current);
+            }
+            creacionMapa()
+        }
+    }, [mapa])
 
     return (
         <>
@@ -172,21 +247,31 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
                                     <div className="flex justify-around flex-wrap gap-2 lg:gap-0">
                                         <div className="flex items-center gap-2">
                                             <label htmlFor="precioPorDia" className=" dark:text-white px-3 py-1 has-[input:checked]:text-indigo-800 has-[input:checked]:dark:text-purple-600 has-[input:checked]:border-indigo-800 has-[input:checked]:dark:border-purple-600 rounded-md text-md text-slate-600 font-semibold flex justify-between items-center gap-3 border">
-                                                Precio/Dia:
+                                                Precio/Dia
                                                 <input type="radio" id="precioPorDia" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorDia" checked={formTrabajo.tipo === "precioPorDia"} className="appearance-none border w-4 h-4 rounded-full border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400 dark:checked:border-purple-600 dark:checked:shadow-purple-400" />
                                             </label>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <label htmlFor="precioPorHora" className=" dark:text-white px-3 py-1 has-[input:checked]:text-indigo-800 has-[input:checked]:dark:text-purple-600 has-[input:checked]:border-indigo-800 has-[input:checked]:dark:border-purple-600 rounded-md text-md text-slate-600 font-semibold flex justify-between items-center gap-3 border">
-                                                Precio/Hora:
+                                                Precio/Hora
                                                 <input type="radio" id="precioPorHora" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorHora" checked={formTrabajo.tipo === "precioPorHora"} className="appearance-none border w-4 h-4 rounded-full border-gray-600 checked:border-4 checked:border-indigo-800 checked:shadow-sm checked:shadow-indigo-400 dark:checked:border-purple-600 dark:checked:shadow-purple-400" />
                                             </label>
                                         </div>
                                     </div>
                                 </div><hr />
-                                <div className="mb-3 px-4">
-                                    <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white">Fecha: </label>
-                                    <input type="date" name="fecha" onChange={handleChange} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
+                                <div className="mb-3 px-2 lg:px-6 flex gap-2 flex-wrap items-center">
+                                    <div>
+                                        <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white">Fecha: </label>
+                                        <input type="date" name="fecha" onChange={(e) => { handleChange(e); compararFechas(e) }} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
+                                    </div>
+                                    <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 ml-11 md:ml-5 rounded-lg hover:scale-110 duration-300" onClick={() => { handleCalendarioChange() }}>{calendario ? 'Info' : 'Fechas'}</button>
+                                    <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 rounded-lg hover:scale-110 duration-300" onClick={() => { setMapa(!mapa); creacionMapa() }}>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white text-red-700 duration-300">
+                                            <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
+                                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            <circle cx="12" cy="9" r="3" strokeWidth="2" stroke="currentColor" />
+                                        </svg>
+                                    </button>
                                 </div><hr />
                                 {selectedOption === 'precioPorHora' && (
                                     <>
@@ -219,38 +304,38 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar}) => {
                                 </div>
                             </form>
                         </div>
-                        <div>
-                            <h1 className="text-xl font-semibold text-center my-2 dark:text-white">Información</h1>
-                            <div className="flex justify-center">
-                                <table className="table-auto border-collapse border border-gray-300 w-full mb-3">
-                                    <thead className="bg-gray-300">
-                                        <tr>
-                                            <th>Campo</th>
-                                            <th>Valor</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-center font-semibold">
-                                        <tr className="border-b dark:border-white">
-                                            <td className="dark:text-white">Servicio</td>
-                                            <td className="text-yellow-600">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{formOferta.servicio}</td>
-                                        </tr>
-                                        <tr className="border-b dark:border-white">
-                                            <td className="dark:text-white">Proveedor</td>
-                                            <td className="text-yellow-600">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{formOferta.proveedor.nombre} {formOferta.proveedor.apellido}</td>
-                                        </tr>
-                                        <tr className="border-b dark:border-white">
-                                            <td className="dark:text-white">Precio/Dia</td>
-                                            <td className="text-green-600">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{(`${formOferta.precioPorDia ? '$' : ''}`)+formOferta.precioPorDia}</td>
-                                        </tr>
-                                        <tr className="border-b dark:border-white">
-                                            <td className="dark:text-white">Precio/Hora</td>
-                                            <td className="text-green-600">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{(`${formOferta.precioPorHora ? '$' : ''}`)+formOferta.precioPorHora}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div className={`${calendario === false && mapa === false ? "" : "hidden"} transition ease-in-out duration-300`}>
+                            <div className={`${carga ? 'hidden' : ''}`}>
+                                <h1 className="text-xl font-semibold text-center my-2 dark:text-white">Información</h1>
+                                <div className="flex justify-center mb-2">
+                                    <div className="flex justify-center bg-gray-100 dark:bg-gray-900 w-[280px] py-2 rounded-xl shadow-md">
+                                        <div className="flex flex-col justify-center ">
+                                            <h1 className="font-semibold text-lg dark:text-white">{formOferta.proveedor.nombre} {formOferta.proveedor.apellido}</h1>
+                                            <p className="dark:text-white">{formOferta.servicio}</p>
+                                            <p className="dark:text-white"><span className="text-yellow-600 font-semibold">{(`${formOferta.precioPorDia ? '$' : ''}`) + formOferta.precioPorDia}</span> el día - <span className="text-yellow-600 font-semibold">{(`${formOferta.precioPorHora ? '$' : ''}`) + formOferta.precioPorHora}</span> la hora</p>
+                                        </div>
+                                        <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block">
+                                            <img src={formOferta.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 className="font-semibold ml-3 dark:text-white">Descripción</h1>
+                                <p className="mx-3 dark:text-white">{formOferta.descripcion}</p>
                             </div>
-                            <h1 className="font-semibold ml-5 dark:text-white">Descripción</h1>
-                            <p className="ml-5 dark:text-white">{carga && <SpinnerCargaModal w={4} h={4} HH={4}/>}{formOferta.descripcion}</p>
+                            <div className={`${carga ? '' : 'hidden'} flex items-center justify-center pt-24`}>
+                                <SpinnerCargaModal w={14} h={14} HH={20} />
+                            </div>
+                        </div>
+                        <div className={`${calendario === true && mapa === false ? "" : "hidden"} transition ease-in-out duration-300`}>
+                            <h1 className="text-xl text-center font-semibold mt-2 dark:text-white">Disponibilidad</h1>
+                            <div className="flex justify-center mt-3">
+                                <Calendario />
+                            </div>
+                            <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-600">rojo</b> están agendados</p>
+                        </div>
+                        <div className={`${mapa ? '' : 'hidden'} w-full flex flex-col items-center`}>
+                            <h1 className="text-xl text-center font-semibold mt-2 dark:text-white mb-1">Ubicación</h1>
+                            <div ref={containerRef} className={`rounded-md h-5/6 w-11/12 border`}></div>
                         </div>
                     </div>
                 </div>

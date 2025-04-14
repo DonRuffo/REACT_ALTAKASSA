@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import OfertaContext from "../../context/OfertasProvider";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import SpinnerCargaModal from "../RuedaCargaModal";
 
 const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
+
+    const [carga , setCarga] = useState(true)
 
     const [form, setForm] = useState({
         precioPorDia: "",
@@ -24,6 +27,7 @@ const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
             }
             const respuesta = await axios.get(url, options)
             setForm(respuesta.data)
+            setCarga(false)
         } catch (error) {
             console.log(error)
         }
@@ -71,18 +75,20 @@ const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
                             <div className="flex justify-around flex-wrap gap-2">
                                 <div className="flex gap-2 items-center">
                                     <label htmlFor="precioPorDia" className="text-md font-semibold dark:text-white">Precio/Dia:</label>
-                                    <input type="text" id="precioPorDia" name="precioPorDia" onChange={handleChancheOfertas} value={form.precioPorDia || ""} className="dark:bg-gray-900 dark:text-slate-200 w-20 py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700" />
+                                    <input type="text" id="precioPorDia" name="precioPorDia" onChange={handleChancheOfertas} value={form.precioPorDia || ""} className={`${carga ? 'hidden' : ''} dark:bg-gray-900 dark:text-slate-200 w-20 py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700`} />
+                                    {carga && <SpinnerCargaModal w={8} h={8} HH={8}/>}
                                 </div>
                                 <div className="flex gap-2 items-center">
                                     <label htmlFor="precioPorHora" className="text-md font-semibold dark:text-white">Precio/Hora:</label>
-                                    <input type="text" id="precioPorHora" name="precioPorHora" onChange={handleChancheOfertas} value={form.precioPorHora || ""} className="dark:bg-gray-900 dark:text-slate-200 w-20 py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700" />
+                                    <input type="text" id="precioPorHora" name="precioPorHora" onChange={handleChancheOfertas} value={form.precioPorHora || ""} className={`${carga ? 'hidden' : ''} dark:bg-gray-900 dark:text-slate-200 w-20 py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700`} />
+                                    {carga && <SpinnerCargaModal w={8} h={8} HH={8}/>}
                                 </div>
                             </div>
                         </div>
                         <div className="mb-3">
                             <div className="flex justify-center items-center gap-2 px-6">
                                 <label htmlFor="servicio" className="text-md font-semibold dark:text-white">Servicio:</label>
-                                <select name="servicio" id="servicio" className="dark:bg-gray-900 dark:text-slate-200 w-full py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700">
+                                <select name="servicio" id="servicio" className={`${carga ? 'hidden' : ''} dark:bg-gray-900 dark:text-slate-200 w-full py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700`}>
                                     <option value="Limpieza">Limpieza</option>
                                     <option value="Chofer">Chófer</option>
                                     <option value="Niñero/a">Niñero/a</option>
@@ -94,11 +100,13 @@ const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
                                     <option value="Carpinteria">Carpintería</option>
                                     <option value="Electricista">Electricista</option>
                                 </select>
+                                {carga && <SpinnerCargaModal w={8} h={8} HH={8}/>}
                             </div>
                         </div>
                         <div className="mb-3 px-6">
                             <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white">Descripción: </label>
-                            <textarea name="descripcion" id="descripcion" onChange={handleChancheOfertas} value={form.descripcion || ""} className="dark:bg-gray-900 dark:text-slate-200 p-2 w-full rounded-md bg-white border border-gray-600 focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700"></textarea>
+                            <textarea name="descripcion" id="descripcion" onChange={handleChancheOfertas} value={form.descripcion || ""} className={`${carga ? 'hidden' : ''} dark:bg-gray-900 dark:text-slate-200 p-2 w-full rounded-md bg-white border border-gray-600 focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700`}></textarea>
+                            {carga && <SpinnerCargaModal w={8} h={8} HH={8}/>}
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">

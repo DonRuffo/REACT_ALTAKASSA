@@ -10,6 +10,7 @@ import '../../../CSS/fondos.css'
 import AuthContext from "../../context/AuthProvider";
 import imgOferta from '../../assets/Pensando.svg'
 import { Link } from "react-router-dom";
+import SvgServicio from "../../componentes/Svgs/SvgLimpieza";
 
 const ListadoOfertas = () => {
     const { modalEditOf, setModalEditOf, oferta, ListarOfertas } = useContext(OfertaContext)
@@ -59,9 +60,12 @@ const ListadoOfertas = () => {
                         <h1 className="text-center pt-2 font-bold text-xl text-white pb-2 mb-2 border-b">
                             Oferta N°{index + 1}
                         </h1>
-                        <h1 className="text-center font-bold text-yellow-400 text-xl mb-2">
+                        <h1 className="text-center font-bold text-yellow-400 text-xl">
                             {of.servicio}
                         </h1>
+                        <p className="text-center flex justify-center">
+                            {<SvgServicio servicio={of.servicio} />}
+                        </p>
                         <p className="text-center font-semibold text-white">
                             <b className="text-xl mr-1 text-yellow-500">${of.precioPorDia}</b>
                             <span>el día</span>
@@ -70,7 +74,7 @@ const ListadoOfertas = () => {
                             <b className="text-xl mr-1 text-yellow-500">${of.precioPorHora}</b>
                             <span>la hora</span>
                         </p>
-                        <div className="flex justify-around mt-10">
+                        <div className="flex justify-around mt-3">
                             <button className="px-3 py-1 bg-purple-800 rounded-md text-white font-semibold hover:bg-purple-900 duration-300 hover:scale-110" onClick={() => { handleModalEditOf(of._id); setModalEditOf(!modalEditOf) }}>
                                 Editar
                             </button>

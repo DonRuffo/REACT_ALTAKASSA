@@ -12,7 +12,7 @@ const ContratosCliente = () => {
 
     const { trabajos, setTrabajos } = useContext(OfertaContext)
     const { menu, handleMenu } = useContext(AuthContext)
-    const [selectedOption, setSelectedOption] = useState('')
+    const [selectedOption, setSelectedOption] = useState('Todas')
 
     const handleRadioChange = (e) => {
         const tipo = e.target.value
@@ -49,17 +49,17 @@ const ContratosCliente = () => {
                 <h1 className="text-center text-purple-600 font-semibold text-3xl mt-5">Trabajos actuales</h1>
                 <p className="text-center font-semibold text-xl mb-5 dark:text-white">Aquí podrás ver las solicitudes que han sido aceptadas o rechazadas por los proveedores</p>
                 <div className="flex flex-wrap gap-2 mb-5">
-                    <label className="dark:text-white  has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-800 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-36 border-2 rounded-md px-2 py-1 flex justify-between items-center">
+                    <label className="dark:text-white  font-semibold has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-36 border-2 rounded-md px-2 py-1 flex justify-between items-center">
                         Todas
-                        <input type="radio" name="tipo" value="Todas" onChange={handleRadioChange} className="appearance-none w-4 h-4 border rounded-full checked:border-4 checked:border-purple-800 checked:shadow-sm checked:shadow-purple-400" />
+                        <input type="radio" name="tipo" value="Todas" onChange={handleRadioChange} className="appearance-none w-4 h-4 border rounded-full checked:border-4 checked:border-purple-600" />
                     </label>
-                    <label className="dark:text-white has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-800 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent w-36 border-2 rounded-md px-2 py-1 flex justify-between items-center">
+                    <label className="dark:text-white font-semibold has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent w-36 border-2 rounded-md px-2 py-1 flex justify-between items-center">
                         Aceptadas
-                        <input type="radio" name="tipo" value="Aceptadas" onChange={handleRadioChange} className="appearance-none w-4 h-4 border rounded-full checked:border-4 checked:border-purple-800 checked:shadow-sm checked:shadow-purple-400" />
+                        <input type="radio" name="tipo" value="Aceptadas" onChange={handleRadioChange} className="appearance-none w-4 h-4 border rounded-full checked:border-4 checked:border-purple-600" />
                     </label>
-                    <label className="dark:text-white has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-800 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent w-36 border-2 rounded-md px-2 py-1 flex justify-between items-center">
+                    <label className="dark:text-white font-semibold has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent w-36 border-2 rounded-md px-2 py-1 flex justify-between items-center">
                         Rechazadas
-                        <input type="radio" name="tipo" value="Rechazadas" onChange={handleRadioChange} className="appearance-none w-4 h-4 border rounded-full checked:border-4 checked:border-purple-800 checked:shadow-sm checked:shadow-purple-400" />
+                        <input type="radio" name="tipo" value="Rechazadas" onChange={handleRadioChange} className="appearance-none w-4 h-4 border rounded-full checked:border-4 checked:border-purple-600" />
                     </label>
                 </div>
                 <div className="flex justify-center flex-wrap gap-3">
@@ -67,7 +67,7 @@ const ContratosCliente = () => {
                         trabajos.some(tra => tra.status !== "En espera") ? (
                             trabajos.map((tra) => (
                                 (tra.status === "Rechazado" && (selectedOption === "Rechazadas" || selectedOption === "Todas") && (
-                                    <div key={tra._id} className="w-[300px] lg:w-[330px] h-[285px] radial-gradientRechazados-bg rounded-lg shadow-lg shadow-purple-400">
+                                    <div key={tra._id} className="w-[300px] lg:w-[330px] h-[285px] radial-gradientRechazados-bg rounded-lg shadow-lg dark:shadow-slate-500 mb">
                                         <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                         <div className="flex justify-around mt-2">
@@ -89,7 +89,7 @@ const ContratosCliente = () => {
                                     </div>
                                 ))
                                 || (tra.status === "Agendado" && (selectedOption === "Aceptadas" || selectedOption === "Todas") && (
-                                    <div key={tra._id} className="w-[300px] lg:w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg shadow-green-400">
+                                    <div key={tra._id} className="w-[300px] lg:w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg dark:shadow-slate-500 mb-5">
                                         <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                         <div className="flex justify-around mt-2">
