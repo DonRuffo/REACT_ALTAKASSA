@@ -192,7 +192,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    {modalPerfil && <ModalFotoPerfil />}
+                    {modalPerfil && <ModalFotoPerfil url={auth.f_perfil}/>}
                     <div className="flex-1 flex flex-col h-screen bg-white dark:bg-black">
                         
                         <div className='overflow-y-auto px-8'>

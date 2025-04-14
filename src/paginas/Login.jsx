@@ -47,8 +47,9 @@ const Login = () => {
             localStorage.setItem('rol', respuesta.data.rol)
             localStorage.removeItem('usuario')
             await ListarOfertas(respuesta.data.rol, respuesta.data.token)
-            await Perfil(respuesta.data.token, respuesta.data.rol)
-            await ubiCliente(respuesta.data.token, respuesta.data.rol)
+            await Perfil(respuesta.data.token, respuesta.data.rol).then(
+                await ubiCliente(respuesta.data.token, respuesta.data.rol)
+            )
             await ObtenerTrabajos(respuesta.data.rol, respuesta.data.token)
             navigate('/dashboard')
         } catch (error) {
@@ -58,22 +59,22 @@ const Login = () => {
         }
     }
 
-    const verificaciones = async (e) => {
-        e.preventDefault()
+    /**const verificaciones = () => {
         try {
-            await verificarUbicacion()
-            await verificarFoto()
+            verificarUbicacion()
+            verificarFoto()
+            console.log('Validacion exitosa')
         } catch (error) {
             console.log('Validacion sin éxito', error.message)
         }
-    }
+    }**/
 
     setTimeout(() => {
         const tiempo = document.getElementById('Formulario')
         if (tiempo) {
             tiempo.scrollIntoView({ behavior: "smooth" })
         }
-    }, 1200)
+    }, 2000)
     return (
         <>
             <ToastContainer />
@@ -88,9 +89,7 @@ const Login = () => {
                             <h1 className='text-blue-600 font-bold text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
                             <hr className='dark:border dark:border-gray-900' />
                             <form onSubmit={(e) => {
-                                HandleSubmit(e); setTimeout(() => {
-                                    verificaciones(e)
-                                }, 500)
+                                HandleSubmit(e)
                             }}>
                                 <div className="my-3">
                                     <label className="mb-2 block text-sm font-semibold text-blue-600">Correo electrónico</label>

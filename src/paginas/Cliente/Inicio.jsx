@@ -13,11 +13,12 @@ import { motion } from "framer-motion";
 import LocationImg from '../../assets/Mapa.svg'
 import SpinnerCargaModal from "../../componentes/RuedaCargaModal";
 import { ToastContainer } from "react-toastify";
+import ModalFotoProvs from "../../componentes/modals/ModalFotoProvs";
 
 
 const Inicio = () => {
     const { auth, menu, handleMenu, foto, ubi, setUbi, ubiCliente } = useContext(AuthContext)
-    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor } = useContext(OfertaContext)
+    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs } = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
@@ -135,10 +136,11 @@ const Inicio = () => {
                     {oferta.map((of, index) => (
                         <div key={of._id} className="flex md:block radial-gradientOfertas-bg h-[90px] w-full md:h-[250px] md:w-[225px] rounded-lg shadow-lg shadow-purple-400 mb-5">
                             <div className="flex justify-center mt-2 ml-2 md:ml-0">
-                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden">
+                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={()=>setModalProvs(!modalProvs)}>
                                     <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
+                            {modalProvs && <ModalFotoProvs url={of.proveedor.f_perfil}/>}
                             <div className="ml-2 md:ml-0 flex flex-col justify-center">
                                 <h1 className="md:text-center font-bold text-lg md:text-xl text-white pb-0.5 md:pb-3">
                                     {of.proveedor.nombre} {of.proveedor.apellido}
@@ -157,7 +159,7 @@ const Inicio = () => {
                                     </p>
                                 </div>
                                 <div className="md:flex justify-center mt-3 hidden">
-                                    <button className="px-2 py-1 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
+                                    <button type="button" className="px-2 py-1 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
                                 </div>
                                 {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
                             </div>
@@ -177,7 +179,7 @@ const Inicio = () => {
                     {ofertasFiltradas.length > 0 ? ofertasFiltradas.map((of, index) => (
                         <div key={of._id} className="flex md:block radial-gradientOfertas-bg h-[90px] w-full md:h-[250px] md:w-[225px] rounded-lg shadow-lg shadow-purple-400 mb-5">
                             <div className="flex justify-center mt-2 ml-2 md:ml-0">
-                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden">
+                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={()=>setModalPerfil(!modalPerfil)}>
                                     <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>

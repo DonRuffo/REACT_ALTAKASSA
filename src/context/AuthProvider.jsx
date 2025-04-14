@@ -120,10 +120,10 @@ const AuthProvider = ({ children }) => {
                         }
                     }
                     setUbi(true)
-                    setAuth({
+                    setAuth(
                         ...auth,
                         ...nuevaUbi
-                    })
+                    )
                 } catch (error) {
                     console.log(error)
                 }
@@ -145,14 +145,16 @@ const AuthProvider = ({ children }) => {
 
         if (!rol || !token) return
 
-        Perfil(token, rol)
-        ubiCliente(token, rol)
+        Perfil(token, rol).then(
+            ubiCliente(token, rol)
+        )
     }, [])
 
     useEffect(() => {
         if (auth && auth.f_perfil !== undefined && auth.ubicacion.latitud !== undefined && auth.ubicacion.longitud !== undefined ) {
             verificarFoto()
             verificarUbicacion()
+            console.log('Validacion exitosa desde AuthProvider')
         }
     }, [auth])
 

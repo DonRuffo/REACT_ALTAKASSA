@@ -9,9 +9,10 @@ import SpinnerCargaModal from "../RuedaCargaModal";
 import AuthContext from "../../context/AuthProvider";
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import ModalFotoPerfil from "./ModalFotoPerfil";
 
 const ModalTrabajos = ({ idOferta, trabajos }) => {
-    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor } = useContext(OfertaContext)
+    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil } = useContext(OfertaContext)
     const { auth } = useContext(AuthContext)
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
@@ -319,7 +320,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                             </form>
                         </div>
                         <div className={`${calendario === false && mapa === false ? "" : "hidden"} transition ease-in-out duration-300`}>
-                            <div>
+                            <div className={`${carga ? 'hidden' : ''}`}>
                                 <h1 className="text-xl font-semibold text-center my-2 dark:text-white">Información</h1>
                                 <div className="flex justify-center mb-2">
                                     <div className="flex justify-center bg-gray-100 dark:bg-gray-900 w-[280px] py-2 rounded-xl shadow-md">
@@ -328,9 +329,10 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                             <p className="dark:text-white">{form.servicio}</p>
                                             <p className="dark:text-white"><span className="text-yellow-600 font-semibold">{(`${form.precioPorDia ? '$' : ''}`) + form.precioPorDia}</span> el día - <span className="text-yellow-600 font-semibold">{(`${form.precioPorHora ? '$' : ''}`) + form.precioPorHora}</span> la hora</p>
                                         </div>
-                                        <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block">
-                                            <img src={form.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover" />
+                                        <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block cursor-pointer" onClick={()=>setModalPerfil(!modalPerfil)}>
+                                            <img src={form.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover"/>
                                         </div>
+                                        {modalPerfil && <ModalFotoPerfil url={form.proveedor.f_perfil}/>}
                                     </div>
                                 </div>
                                 <h1 className="font-semibold ml-3 dark:text-white">Descripción</h1>
