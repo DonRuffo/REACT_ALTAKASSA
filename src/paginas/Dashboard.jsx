@@ -2,10 +2,13 @@ import React, { useContext, useRef, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import logoAlta from '../assets/AK BLANCA.png'
 import AuthContext, { useAuth } from "../context/AuthProvider";
+import OfertaContext from "../context/OfertasProvider";
+import ModalFotoPerfil from "../componentes/modals/ModalFotoPerfil";
 const Dashboard = () => {
     const navigate = useNavigate()
     const { auth } = useAuth()
-    const { dark, menu, sideBar, handleMenu} = useContext(AuthContext)
+    const { dark, menu, sideBar, handleMenu } = useContext(AuthContext)
+    const { modalPerfil, setModalPerfil } = useContext(OfertaContext)
 
     return (
         <>
@@ -26,6 +29,7 @@ const Dashboard = () => {
                                     </svg>
                                     <p className=" px-2">Inicio</p>
                                 </Link>
+
                                 <Link to='/dashboard/ofertas' onClick={() => { handleMenu() }} className={`${auth.rol === 'proveedor' ? 'block' : 'hidden'} group/Ofertas py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 focus:bg-emerald-800`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-focus/Ofertas:text-red-700 group-focus/Ofertas:drop-shadow-[0_5px_10px_rgba(255,0,0,0.5)] transition duration-150 ease-in-out">
                                         <path d="M3 9V3h6l9 9-6 6-9-9z" stroke="currentColor" strokeWidth="2" />
@@ -33,6 +37,7 @@ const Dashboard = () => {
                                     </svg>
                                     <p className=" px-2">Tus Ofertas</p>
                                 </Link>
+
                                 <Link to='/dashboard/solicitudes/proveedor' onClick={() => { handleMenu() }} className={`${auth.rol === 'proveedor' ? 'block' : 'hidden'} group/SoliProv py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 focus:bg-emerald-800`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-focus/SoliProv:text-green-700 group-focus/SoliProv:drop-shadow-[0_5px_10px_rgba(0,128,0,0.5)] transition duration-150 ease-in-out" >
                                         <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" strokeWidth="2" />
@@ -40,6 +45,7 @@ const Dashboard = () => {
                                     </svg>
                                     <p className=" px-2">Solicitudes</p>
                                 </Link>
+
                                 <Link to='/dashboard/solicitudes/cliente' onClick={() => { handleMenu() }} className={`${auth.rol === 'cliente' ? 'block' : 'hidden'} group/SoliCli py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 focus:bg-emerald-800`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-focus/SoliCli:text-green-700 group-focus/SoliCli:drop-shadow-[0_5px_10px_rgba(0,128,0,0.5)] transition duration-150 ease-in-out">
                                         <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" strokeWidth="2" />
@@ -48,18 +54,21 @@ const Dashboard = () => {
 
                                     <p className=" px-2">Solicitudes</p>
                                 </Link>
+
                                 <Link to='/dashboard/contratos/cliente' onClick={() => { handleMenu() }} className={`${auth.rol === 'cliente' ? 'block' : 'hidden'} group/TraCli py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 focus:bg-emerald-800`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-focus/TraCli:text-sky-700 group-focus/TraCli:drop-shadow-[0_5px_10px_rgba(135,206,235,0.5)] transition duration-150 ease-in-out">
                                         <path d="M14.85 6.34a4.5 4.5 0 11-5.19 5.19L3 18l3 3 6.47-6.66a4.5 4.5 0 115.19-5.19l2.41-2.41a1 1 0 00-1.41-1.41l-2.41 2.41z" stroke="currentColor" strokeWidth="2" />
                                     </svg>
                                     <p className=" px-2">Trabajos</p>
                                 </Link>
+
                                 <Link to='/dashboard/contratos/proveedor' onClick={() => { handleMenu() }} className={`${auth.rol === 'proveedor' ? 'block' : 'hidden'} group/TraProv py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 focus:bg-emerald-800`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-focus/TraProv:text-sky-700 group-focus/TraProv:drop-shadow-[0_5px_10px_rgba(135,206,235,0.5)] transition duration-150 ease-in-out">
                                         <path d="M14.85 6.34a4.5 4.5 0 11-5.19 5.19L3 18l3 3 6.47-6.66a4.5 4.5 0 115.19-5.19l2.41-2.41a1 1 0 00-1.41-1.41l-2.41 2.41z" stroke="currentColor" strokeWidth="2" />
                                     </svg>
                                     <p className=" px-2">Trabajos</p>
                                 </Link>
+
                                 <Link to='/dashboard/historial' onClick={() => { handleMenu() }} className={`${auth.rol === 'cliente' ? 'block' : 'hidden'} group/Historial py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 focus:bg-emerald-800`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-focus/Historial:text-orange-700 group-focus/Historial:drop-shadow-[0_5px_10px_rgba(255,165,0,0.5)] transition duration-100 ease-in-out w-6 h-6 text-white">
                                         <path d="M3 12a9 9 0 1 1 9 9" />
@@ -123,6 +132,7 @@ const Dashboard = () => {
                                     <p className="px-2">Proveedores</p>
 
                                 </Link>
+
                                 <Link to='/dashboard/ver-sugerencias' onClick={() => { handleMenu() }} className={`${auth.rol === 'administrador' ? 'block' : 'hidden'} group/Sugerencias py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex  gap-1 focus:bg-emerald-800`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 150 150" fill="none" stroke="currentColor" strokeWidth="5" className="group-focus/Sugerencias:text-yellow-700 group-focus/Sugerencias:drop-shadow-[0_5px_10px_rgba(255,255,0,0.5)] transition duration-150 ease-in-out">
 
@@ -149,19 +159,20 @@ const Dashboard = () => {
                                     </svg>
                                     <p className="px-2">Configuración</p>
                                 </Link>
+
                                 <div className="flex justify-center">
-                                   <button className="px-5 py-2 mt-2 bg-gray-950 dark:bg-emerald-700 text-white rounded-md hover:bg-gray-700 dark:hover:bg-emerald-800 duration-300"
-                                    onClick={() => {
-                                        localStorage.removeItem('token')
-                                        localStorage.removeItem('rol')
-                                        navigate('/login')
-                                    }}>Cerrar Sesión</button> 
+                                    <button className="px-5 py-2 mt-2 bg-gray-950 dark:bg-emerald-700 text-white rounded-md hover:bg-gray-700 dark:hover:bg-emerald-800 duration-300"
+                                        onClick={() => {
+                                            localStorage.removeItem('token')
+                                            localStorage.removeItem('rol')
+                                            navigate('/login')
+                                        }}>Cerrar Sesión</button>
                                 </div>
                             </nav>
                         </div>
                         <div className="border-t pt-3">
                             <div className="flex justify-center">
-                                <div className="flex justify-center h-[85px] w-[85px] rounded-full overflow-hidden">
+                                <div className="flex justify-center h-[85px] w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
                                     <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
@@ -174,7 +185,9 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
+                    {modalPerfil && <ModalFotoPerfil />}
                     <div className="flex-1 flex flex-col h-screen bg-white dark:bg-black">
+                        
                         <div className='overflow-y-auto px-8'>
                             <Outlet />
                         </div>

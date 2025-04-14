@@ -5,14 +5,26 @@ const OfertaContext = createContext()
 
 const OfertaProvider = ({ children }) => {
 
+    //modales
     const [modalOf, setModalOf] = useState(false)
     const [modalEditOf, setModalEditOf] = useState(false)
     const [modalTra, setModalTra] = useState(false)
     const [modalTraActual, setModalTraActual] = useState(false)
+    const [modalPerfil, setModalPerfil] = useState(false)
+
+    //obtener trabajos del usuario
     const [trabajos, setTrabajos] = useState([])
+
+    //obtener ofertas del usuairo
     const [oferta, setOferta] = useState([])
+
+    //ayuda a obtener una oferta en especifico del proveedor
     const [idProveedor, setIdProveedor] = useState('')
+
+    //trabajos del Proveedor
     const [traProveedor, setTraProveedor] = useState([])
+
+    //fechas del calendario
     const [fechas, setFechas] = useState([])
 
     const ListarOfertas = async (rol, token) => {
@@ -118,7 +130,9 @@ const OfertaProvider = ({ children }) => {
             fechas,
             setFechas,
             traProveedor,
-            setTraProveedor
+            setTraProveedor,
+            setModalPerfil,
+            modalPerfil
         }}>
             {children}
         </OfertaContext.Provider>

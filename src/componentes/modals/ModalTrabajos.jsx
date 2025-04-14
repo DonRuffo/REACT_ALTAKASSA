@@ -6,15 +6,27 @@ import { ToastContainer, toast } from "react-toastify";
 import Calendario from "../Calendario";
 import L from 'leaflet';
 import SpinnerCargaModal from "../RuedaCargaModal";
+import AuthContext from "../../context/AuthProvider";
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
 const ModalTrabajos = ({ idOferta, trabajos }) => {
-    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, fechas, setTraProveedor, traProveedor } = useContext(OfertaContext)
+    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor } = useContext(OfertaContext)
+    const { auth } = useContext(AuthContext)
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
     const mapRef = useRef(null)
     const containerRef = useRef(null)
     const [mapa, setMapa] = useState(false)
     const [carga, setCarga] = useState(true)
+
+    //edicion del marcador para el mapa
+    const iconMap = L.icon({
+        iconUrl: markerIcon,
+        shadowUrl: markerShadow,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41]
+    })
 
     const TrabajosAgendados = async () => {
         try {
@@ -83,7 +95,11 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
             nombre: "",
             apellido: "",
             email: "",
-            f_perfil: ""
+            f_perfil: "",
+            ubicacion: {
+                latitud: "",
+                longitud: ""
+            }
         },
         precioPorDia: "",
         precioPorHora: "",
@@ -191,9 +207,27 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
     }, [idOferta]);
 
     //creacion del mapa
-
     const creacionMapa = () => {
+        const latitudCli = auth.ubicacion.latitud
+        const longitudCli = auth.ubicacion.longitud
+        const latitudProv = form.proveedor.ubicacion.latitud
+        const longitudProv = form.proveedor.ubicacion.longitud
+        if (mapRef.current) {
+            const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
 
+            const marcadorProveedor = L.marker([latitudProv, longitudProv], { icon: iconMap }).bindPopup(form.proveedor.nombre)
+            
+            marcadorCliente.addTo(mapRef.current).openPopup()
+            marcadorProveedor.addTo(mapRef.current).openPopup()
+
+            const bounds = L.latLngBounds([
+                [latitudCli, longitudCli],
+                [latitudProv, longitudProv]
+            ])
+
+            mapRef.current.fitBounds(bounds, {padding:[50,50]})
+
+        }
     }
 
     useEffect(() => {
@@ -208,6 +242,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                     attribution: "© OpenStreetMap contributors",
                 }).addTo(mapRef.current);
             }
+            creacionMapa()
         }
     }, [mapa])
 
@@ -245,7 +280,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                     </div>
 
                                     <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 ml-11 md:ml-5 rounded-lg hover:scale-110 duration-300" onClick={() => { handleCalendarioChange() }}>{calendario ? 'Info' : 'Fechas'}</button>
-                                    <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 rounded-lg hover:scale-110 duration-300" onClick={() => {setMapa(!mapa) }}>
+                                    <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 rounded-lg hover:scale-110 duration-300" onClick={() => { setMapa(!mapa); creacionMapa() }}>
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white text-red-700 duration-300">
                                             <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
                                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

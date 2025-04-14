@@ -162,7 +162,7 @@ const Inicio = () => {
                                 {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
                             </div>
                             <div className="flex items-center ml-1.5 md:hidden">
-                                <button type="button" className="px-2 py-2 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300">
+                                <button type="button" className="px-2 py-2 rounded-md bg-purple-700 text-white font-semibold" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>
                                     <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="32" cy="32" r="30" fill="none" stroke="white" strokeWidth="6" />
 
@@ -204,7 +204,7 @@ const Inicio = () => {
                                 {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
                             </div>
                             <div className="flex items-center ml-1.5 md:hidden">
-                                <button type="button" className="px-2 py-2 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>
+                                <button type="button" className="px-2 py-2 rounded-md bg-purple-700 text-white font-semibold" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>
                                     <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="32" cy="32" r="30" fill="none" stroke="white" strokeWidth="6" />
 
