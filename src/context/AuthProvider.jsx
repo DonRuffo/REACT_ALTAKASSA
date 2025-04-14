@@ -87,10 +87,10 @@ const AuthProvider = ({ children }) => {
     }
 
     //funcion para verificar si el usuario ya guardo su ubicación
-    const verificarUbicacion = () =>{
+    const verificarUbicacion = () => {
         const ubiLatitud = auth.ubicacion.latitud
         const ubiLongitud = auth.ubicacion.longitud
-        if(ubiLatitud === null || ubiLongitud === null){
+        if (ubiLatitud === null || ubiLongitud === null) {
             setUbi(false)
         } else {
             setUbi(true)
@@ -114,16 +114,17 @@ const AuthProvider = ({ children }) => {
                     }
                     const repuesta = await axios.post(url, { latitude, longitude }, options)
                     const nuevaUbi = {
-                        ubicacion:{
-                            longitud:longitude,
-                            latitud:latitude
+                        ubicacion: {
+                            longitud: longitude,
+                            latitud: latitude
                         }
                     }
                     setUbi(true)
-                    setAuth(
+                    setAuth({
                         ...auth,
                         ...nuevaUbi
-                    )
+                    })
+                    console.log('Ubicacion actual guardada')
                 } catch (error) {
                     console.log(error)
                 }
@@ -151,7 +152,7 @@ const AuthProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        if (auth && auth.f_perfil !== undefined && auth.ubicacion.latitud !== undefined && auth.ubicacion.longitud !== undefined ) {
+        if (auth && auth.f_perfil !== undefined && auth.ubicacion.latitud !== undefined && auth.ubicacion.longitud !== undefined) {
             verificarFoto()
             verificarUbicacion()
             console.log('Validacion exitosa desde AuthProvider')
