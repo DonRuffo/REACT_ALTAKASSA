@@ -17,7 +17,7 @@ import ModalFotoProvs from "../../componentes/modals/ModalFotoProvs";
 
 
 const Inicio = () => {
-    const { auth, setAuth,menu, handleMenu, foto, ubi, setUbi, ubiCliente } = useContext(AuthContext)
+    const { auth, setAuth, menu, handleMenu, foto, ubi, setUbi, ubiCliente } = useContext(AuthContext)
     const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs } = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
@@ -70,27 +70,35 @@ const Inicio = () => {
         }
     }, [valor, oferta])
 
-    useEffect(()=>{
-            if(navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(pos =>{
-                    const {latitude, longitude} = pos.coords
-                    const posActual = {
-                        ubicacion:{
-                            latitud:latitude,
-                            longitud:longitude
-                        }
-                    }
-                    setAuth({
-                        ...auth,
-                        ...posActual
-                    })
-                }, 
-                (error)=>{
-                    setUbi(false)
+    const obtenerUbi = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiCliente`
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
                 }
-            )
             }
-        },[])
+            const respuesta = await axios.get(urlCli, options)
+            const ubiActual = {
+                ubicacion:{
+                    latitud:respuesta.data.ubiActual.latitud,
+                    longitud:respuesta.data.ubiActual.longitud
+                }
+            }
+            setAuth({
+                ...auth,
+                ...ubiActual
+            })
+        } catch (error) {
+            console.log('Error, no se obtiene la ubicacion')
+        }
+    }
+
+    useEffect(() => {
+        obtenerUbi()
+    }, [])
 
     return (//#BA05FF COLOR DEL SISTEMA
         <>
@@ -158,11 +166,11 @@ const Inicio = () => {
                     {oferta.map((of, index) => (
                         <div key={of._id} className="flex md:block radial-gradientOfertas-bg h-[90px] w-full md:h-[250px] md:w-[225px] rounded-lg shadow-lg shadow-purple-400 mb-5">
                             <div className="flex justify-center mt-2 ml-2 md:ml-0">
-                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={()=>setModalProvs(!modalProvs)}>
+                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={() => setModalProvs(!modalProvs)}>
                                     <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
-                            {modalProvs && <ModalFotoProvs url={of.proveedor.f_perfil}/>}
+                            {modalProvs && <ModalFotoProvs url={of.proveedor.f_perfil} />}
                             <div className="ml-2 md:ml-0 flex flex-col justify-center">
                                 <h1 className="md:text-center font-bold text-lg md:text-xl text-white pb-0.5 md:pb-3">
                                     {of.proveedor.nombre} {of.proveedor.apellido}
@@ -201,7 +209,7 @@ const Inicio = () => {
                     {ofertasFiltradas.length > 0 ? ofertasFiltradas.map((of, index) => (
                         <div key={of._id} className="flex md:block radial-gradientOfertas-bg h-[90px] w-full md:h-[250px] md:w-[225px] rounded-lg shadow-lg shadow-purple-400 mb-5">
                             <div className="flex justify-center mt-2 ml-2 md:ml-0">
-                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={()=>setModalPerfil(!modalPerfil)}>
+                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={() => setModalPerfil(!modalPerfil)}>
                                     <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>

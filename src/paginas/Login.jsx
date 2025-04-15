@@ -65,7 +65,7 @@ const Login = () => {
         if (tiempo) {
             tiempo.scrollIntoView({ behavior: "smooth" })
         }
-    }, 2000)
+    }, 1400)
     return (
         <>
             <ToastContainer />
