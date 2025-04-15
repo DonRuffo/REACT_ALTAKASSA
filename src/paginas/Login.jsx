@@ -10,7 +10,7 @@ import { EyeOff, Eye } from 'lucide-react';
 import RelojDeArena from '../componentes/RelojArena';
 
 const Login = () => {
-    const { Perfil, darkMode, verificarUbicacion, ubiCliente, verificarFoto, auth } = useContext(AuthContext)
+    const { Perfil, darkMode, verificarUbicacion, ubiCliente, verificarFoto, ubi } = useContext(AuthContext)
     const { ObtenerTrabajos, ListarOfertas } = useContext(OfertaContext)
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)

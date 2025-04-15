@@ -119,12 +119,6 @@ const AuthProvider = ({ children }) => {
                             latitud: latitude
                         }
                     }
-                    setUbi(true)
-                    setAuth({
-                        ...auth,
-                        ...nuevaUbi
-                    })
-                    console.log('Ubicacion actual guardada')
                 } catch (error) {
                     console.log(error)
                 }
@@ -149,6 +143,7 @@ const AuthProvider = ({ children }) => {
         Perfil(token, rol).then(
             ubiCliente(token, rol)
         )
+        console.log(ubi)
     }, [])
 
     useEffect(() => {
