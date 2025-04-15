@@ -13,7 +13,7 @@ import ModalFotoPerfil from "./ModalFotoPerfil";
 
 const ModalTrabajos = ({ idOferta, trabajos }) => {
     const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil } = useContext(OfertaContext)
-    const { setUbi } = useContext(AuthContext)
+    const { auth, setUbi, setAuth } = useContext(AuthContext)
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
     const mapRef = useRef(null)
@@ -209,33 +209,26 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
 
     //creacion del mapa
     const creacionMapa = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((pos) => {
-                const { latitude, longitude } = pos.coords
-                const latitudCli = latitude
-                const longitudCli = longitude
-                const latitudProv = form.proveedor.ubicacion.latitud
-                const longitudProv = form.proveedor.ubicacion.longitud
-                if (mapRef.current) {
-                    const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
+        
+        const latitudCli = auth.ubicacion.latitud
+        const longitudCli = auth.ubicacion.longitud
+        const latitudProv = form.proveedor.ubicacion.latitud
+        const longitudProv = form.proveedor.ubicacion.longitud
+        if (mapRef.current) {
+            const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
 
-                    const marcadorProveedor = L.marker([latitudProv, longitudProv], { icon: iconMap }).bindPopup(form.proveedor.nombre)
+            const marcadorProveedor = L.marker([latitudProv, longitudProv], { icon: iconMap }).bindPopup(form.proveedor.nombre)
 
-                    marcadorCliente.addTo(mapRef.current).openPopup()
-                    marcadorProveedor.addTo(mapRef.current).openPopup()
+            marcadorCliente.addTo(mapRef.current).openPopup()
+            marcadorProveedor.addTo(mapRef.current).openPopup()
 
-                    const bounds = L.latLngBounds([
-                        [latitudCli, longitudCli],
-                        [latitudProv, longitudProv]
-                    ])
+            const bounds = L.latLngBounds([
+                [latitudCli, longitudCli],
+                [latitudProv, longitudProv]
+            ])
 
-                    mapRef.current.fitBounds(bounds, { padding: [50, 50] })
-                }
-            },
-                (error) => {
-                    setUbi(false)
-                }
-            )
+            mapRef.current.fitBounds(bounds, { padding: [50, 50] })
+
         }
     }
 
@@ -254,6 +247,27 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
             creacionMapa()
         }
     }, [mapa])
+    useEffect(()=>{
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(pos =>{
+                const {latitude, longitude} = pos.coords
+                const posActual = {
+                    ubicacion:{
+                        latitud:latitude,
+                        longitud:longitude
+                    }
+                }
+                setAuth({
+                    ...auth,
+                    ...posActual
+                })
+            }, 
+            (error)=>{
+                setUbi(false)
+            }
+        )
+        }
+    },[])
 
     return (
         <>
@@ -337,10 +351,10 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                             <p className="dark:text-white">{form.servicio}</p>
                                             <p className="dark:text-white"><span className="text-yellow-600 font-semibold">{(`${form.precioPorDia ? '$' : ''}`) + form.precioPorDia}</span> el día - <span className="text-yellow-600 font-semibold">{(`${form.precioPorHora ? '$' : ''}`) + form.precioPorHora}</span> la hora</p>
                                         </div>
-                                        <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block cursor-pointer" onClick={() => setModalPerfil(!modalPerfil)}>
-                                            <img src={form.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover" />
+                                        <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block cursor-pointer" onClick={()=>setModalPerfil(!modalPerfil)}>
+                                            <img src={form.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover"/>
                                         </div>
-                                        {modalPerfil && <ModalFotoPerfil url={form.proveedor.f_perfil} />}
+                                        {modalPerfil && <ModalFotoPerfil url={form.proveedor.f_perfil}/>}
                                     </div>
                                 </div>
                                 <h1 className="font-semibold ml-3 dark:text-white">Descripción</h1>
