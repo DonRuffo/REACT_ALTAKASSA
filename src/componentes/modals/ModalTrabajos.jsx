@@ -13,7 +13,7 @@ import ModalFotoPerfil from "./ModalFotoPerfil";
 
 const ModalTrabajos = ({ idOferta, trabajos }) => {
     const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil } = useContext(OfertaContext)
-    const { auth, setUbi, setAuth } = useContext(AuthContext)
+    const { auth } = useContext(AuthContext)
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
     const mapRef = useRef(null)
@@ -247,27 +247,6 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
             creacionMapa()
         }
     }, [mapa])
-    useEffect(()=>{
-        if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(pos =>{
-                const {latitude, longitude} = pos.coords
-                const posActual = {
-                    ubicacion:{
-                        latitud:latitude,
-                        longitud:longitude
-                    }
-                }
-                setAuth({
-                    ...auth,
-                    ...posActual
-                })
-            }, 
-            (error)=>{
-                setUbi(false)
-            }
-        )
-        }
-    },[])
 
     return (
         <>

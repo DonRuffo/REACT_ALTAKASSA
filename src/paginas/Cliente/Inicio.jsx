@@ -17,7 +17,7 @@ import ModalFotoProvs from "../../componentes/modals/ModalFotoProvs";
 
 
 const Inicio = () => {
-    const { auth, menu, handleMenu, foto, ubi, setUbi, ubiCliente } = useContext(AuthContext)
+    const { auth, setAuth,menu, handleMenu, foto, ubi, setUbi, ubiCliente } = useContext(AuthContext)
     const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs } = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
@@ -69,6 +69,28 @@ const Inicio = () => {
             setOfertasFiltradas([])
         }
     }, [valor, oferta])
+
+    useEffect(()=>{
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(pos =>{
+                    const {latitude, longitude} = pos.coords
+                    const posActual = {
+                        ubicacion:{
+                            latitud:latitude,
+                            longitud:longitude
+                        }
+                    }
+                    setAuth({
+                        ...auth,
+                        ...posActual
+                    })
+                }, 
+                (error)=>{
+                    setUbi(false)
+                }
+            )
+            }
+        },[])
 
     return (//#BA05FF COLOR DEL SISTEMA
         <>
