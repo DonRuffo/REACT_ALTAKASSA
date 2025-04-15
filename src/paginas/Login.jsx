@@ -47,10 +47,11 @@ const Login = () => {
             localStorage.setItem('rol', respuesta.data.rol)
             localStorage.removeItem('usuario')
             await ListarOfertas(respuesta.data.rol, respuesta.data.token)
-            await Perfil(respuesta.data.token, respuesta.data.rol).then(
-                await ubiCliente(respuesta.data.token, respuesta.data.rol)
-            )
+            await Perfil(respuesta.data.token, respuesta.data.rol)
+            await ubiCliente(respuesta.data.token, respuesta.data.rol)
             await ObtenerTrabajos(respuesta.data.rol, respuesta.data.token)
+            await verificarFoto(respuesta.data.token, respuesta.data.rol)
+            await verificarUbicacion(respuesta.data.token, respuesta.data.rol)
             navigate('/dashboard')
         } catch (error) {
             console.log(error)
@@ -58,16 +59,6 @@ const Login = () => {
             setCarga(false)
         }
     }
-
-    /**const verificaciones = () => {
-        try {
-            verificarUbicacion()
-            verificarFoto()
-            console.log('Validacion exitosa')
-        } catch (error) {
-            console.log('Validacion sin éxito', error.message)
-        }
-    }**/
 
     setTimeout(() => {
         const tiempo = document.getElementById('Formulario')

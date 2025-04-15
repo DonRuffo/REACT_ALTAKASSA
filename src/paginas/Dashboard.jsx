@@ -9,13 +9,12 @@ const Dashboard = () => {
     const { auth } = useAuth()
     const { dark, menu, sideBar, handleMenu } = useContext(AuthContext)
     const { modalPerfil, setModalPerfil } = useContext(OfertaContext)
-    const [opcionActiva, setOpcionActiva] = useState('')
+    const [opcionActiva, setOpcionActiva] = useState('inicio')
 
     const asignarValor = (e) =>{
         const id = e.currentTarget.id
         setOpcionActiva(id)
     }
-
 
     return (
         <>

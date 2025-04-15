@@ -77,23 +77,61 @@ const AuthProvider = ({ children }) => {
     }
 
     //Función para verificar existencia de la foto de perfil
-    const verificarFoto = () => {
-        const fotitoOk = auth.f_perfil
-        if (fotitoOk === null) {
-            setFoto(false)
-        } else {
-            setFoto(true)
+    const verificarFoto = async (token, rol) => {
+        if (rol === 'administrador') return
+        try {
+            let url
+            if (rol === 'cliente') {
+                url = `${import.meta.env.VITE_BACKEND_URL}/verFotoCli`
+            } else if (rol === 'proveedor') {
+                url = `${import.meta.env.VITE_BACKEND_URL}/verFotoProv`
+            }
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options)
+            const mensajeJ = respuesta.data.msg
+            if (mensajeJ === 'No') {
+                setFoto(false)
+            } else if (mensajeJ === 'Si') {
+                setFoto(true)
+            }
+        } catch (error) {
+            console.log('Error al intentar validar la foto de perfil')
         }
     }
 
     //funcion para verificar si el usuario ya guardo su ubicación
-    const verificarUbicacion = () => {
-        const ubiLatitud = auth.ubicacion.latitud
-        const ubiLongitud = auth.ubicacion.longitud
-        if (ubiLatitud === null || ubiLongitud === null) {
-            setUbi(false)
-        } else {
-            setUbi(true)
+    const verificarUbicacion = async (token, rol) => {
+        if (rol === 'administrador') return
+
+        try {
+            let url
+            if (rol === 'cliente') {
+                url = `${import.meta.env.VITE_BACKEND_URL}/verUbicacionCli`
+            } else if (rol === 'proveedor') {
+                url = `${import.meta.env.VITE_BACKEND_URL}/verUbicacionProv`
+            }
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options)
+            const mensajeJ = respuesta.data.msg
+            if (mensajeJ === 'No') {
+                setUbi(false)
+            } else if (mensajeJ === 'Si') {
+                setUbi(true)
+            }
+        } catch (error) {
+            console.log('Error al intentar validar la ubicacion', error.message)
         }
     }
 
@@ -113,12 +151,6 @@ const AuthProvider = ({ children }) => {
                         }
                     }
                     const repuesta = await axios.post(url, { latitude, longitude }, options)
-                    const nuevaUbi = {
-                        ubicacion: {
-                            longitud: longitude,
-                            latitud: latitude
-                        }
-                    }
                 } catch (error) {
                     console.log(error)
                 }
@@ -140,19 +172,11 @@ const AuthProvider = ({ children }) => {
 
         if (!rol || !token) return
 
-        Perfil(token, rol).then(
-            ubiCliente(token, rol)
-        )
-        console.log(ubi)
+        Perfil(token, rol)
+        ubiCliente(token, rol)
+        verificarFoto(token, rol)
+        verificarUbicacion(token, rol)
     }, [])
-
-    useEffect(() => {
-        if (auth && auth.f_perfil !== undefined && auth.ubicacion.latitud !== undefined && auth.ubicacion.longitud !== undefined) {
-            verificarFoto()
-            verificarUbicacion()
-            console.log('Validacion exitosa desde AuthProvider')
-        }
-    }, [auth])
 
     useEffect(() => {
         const tema = localStorage.getItem('tema')
