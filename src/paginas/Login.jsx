@@ -48,7 +48,6 @@ const Login = () => {
             localStorage.removeItem('usuario')
             await ListarOfertas(respuesta.data.rol, respuesta.data.token)
             await Perfil(respuesta.data.token, respuesta.data.rol)
-            await ubiCliente(respuesta.data.token, respuesta.data.rol)
             await ObtenerTrabajos(respuesta.data.rol, respuesta.data.token)
             await verificarFoto(respuesta.data.token, respuesta.data.rol)
             await verificarUbicacion(respuesta.data.token, respuesta.data.rol)

@@ -70,34 +70,10 @@ const Inicio = () => {
         }
     }, [valor, oferta])
 
-    const obtenerUbi = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiCliente`
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-            const respuesta = await axios.get(urlCli, options)
-            const ubiActual = {
-                ubicacion:{
-                    latitud:respuesta.data.ubiActual.latitud,
-                    longitud:respuesta.data.ubiActual.longitud
-                }
-            }
-            setAuth({
-                ...auth,
-                ...ubiActual
-            })
-        } catch (error) {
-            console.log('Error, no se obtiene la ubicacion')
-        }
-    }
-
     useEffect(() => {
-        obtenerUbi()
+        const token = localStorage.getItem('token')
+        const rol = localStorage.getItem('rol')
+        ubiCliente(token, rol)
     }, [])
 
     return (//#BA05FF COLOR DEL SISTEMA

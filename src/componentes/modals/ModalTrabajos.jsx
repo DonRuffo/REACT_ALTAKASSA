@@ -202,14 +202,43 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
         }
 
     }
+    const obtenerUbi = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiCliente`
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.get(urlCli, options)
+            const ubiActual = {
+                ubicacion: {
+                    latitud: respuesta.data.ubiActual.latitud,
+                    longitud: respuesta.data.ubiActual.longitud
+                }
+            }
+            setAuth({
+                ...auth,
+                ...ubiActual
+            })
+        } catch (error) {
+            console.log('Error, no se obtiene la ubicacion')
+        }
+    }
 
     useEffect(() => {
         if (idOferta) ObtenerOferta();
     }, [idOferta]);
 
+    useEffect(() => {
+        obtenerUbi
+    }, [])
+
     //creacion del mapa
     const creacionMapa = () => {
-        
+
         const latitudCli = auth.ubicacion.latitud
         const longitudCli = auth.ubicacion.longitud
         const latitudProv = form.proveedor.ubicacion.latitud
@@ -330,10 +359,10 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                                             <p className="dark:text-white">{form.servicio}</p>
                                             <p className="dark:text-white"><span className="text-yellow-600 font-semibold">{(`${form.precioPorDia ? '$' : ''}`) + form.precioPorDia}</span> el día - <span className="text-yellow-600 font-semibold">{(`${form.precioPorHora ? '$' : ''}`) + form.precioPorHora}</span> la hora</p>
                                         </div>
-                                        <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block cursor-pointer" onClick={()=>setModalPerfil(!modalPerfil)}>
-                                            <img src={form.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover"/>
+                                        <div className="w-[75px] h-[75px] rounded-full overflow-hidden hidden md:block cursor-pointer" onClick={() => setModalPerfil(!modalPerfil)}>
+                                            <img src={form.proveedor.f_perfil} alt="imgProv2" className="w-full h-full object-cover" />
                                         </div>
-                                        {modalPerfil && <ModalFotoPerfil url={form.proveedor.f_perfil}/>}
+                                        {modalPerfil && <ModalFotoPerfil url={form.proveedor.f_perfil} />}
                                     </div>
                                 </div>
                                 <h1 className="font-semibold ml-3 dark:text-white">Descripción</h1>
