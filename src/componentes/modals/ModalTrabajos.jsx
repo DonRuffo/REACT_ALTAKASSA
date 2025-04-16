@@ -208,7 +208,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
                     longitud: respuesta.data.ubiActual.longitud
                 }
             }
-            setAuth({
+            setAuth({      
                 ...auth,
                 ...ubiActual
             })
