@@ -60,31 +60,6 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
             console.log(error);
         }
     }
-    const obtenerUbi = async () => {
-            try {
-                const token = localStorage.getItem('token')
-                const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiCliente`
-                const options = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-                const respuesta = await axios.get(urlCli, options)
-                const ubiActual = {
-                    ubicacion: {
-                        latitud: respuesta.data.ubiActual.latitud,
-                        longitud: respuesta.data.ubiActual.longitud
-                    }
-                }
-                setAuth({
-                    ...auth,
-                    ...ubiActual
-                })
-            } catch (error) {
-                console.log('Error, no se obtiene la ubicacion')
-            }
-        }
     const ObtenerOferta = async () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/verOferta/${idOferta}`
@@ -189,7 +164,6 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
         ObtenerOferta().then(() => {
             ObtenerTrabajo();
         });
-        obtenerUbi()
     }, []);
 
     useEffect(() => {

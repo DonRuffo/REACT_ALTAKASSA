@@ -45,7 +45,7 @@ const MapaCliProv = ({ form }) => {
     }
 
     useEffect(() => {
-        if (mapaCliProv && auth.ubicacion) {
+        if (mapaCliProv) {
             if (mapRef.current) {
                 mapRef.current.remove()
                 mapRef.current = null
@@ -58,7 +58,7 @@ const MapaCliProv = ({ form }) => {
             }
             creacionMapa()
         }
-    }, [mapaCliProv, auth])
+    }, [mapaCliProv])
     return (
         <>
             <h1 className="text-xl text-center font-semibold mt-2 dark:text-white mb-1">Ubicación</h1>

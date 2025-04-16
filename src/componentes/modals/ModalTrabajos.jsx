@@ -16,7 +16,6 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
     const [calendario, setCalendario] = useState(false)
     const [carga, setCarga] = useState(true)
     const { mapaCliProv, setMapaCliProv } = useContext(OfertaContext)
-    const [datosAct, setDatosAct] = useState(null)
 
     const TrabajosAgendados = async () => {
         try {
@@ -191,44 +190,14 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
         }
 
     }
-    const obtenerUbi = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiCliente`
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-            const respuesta = await axios.get(urlCli, options)
-            const ubiActual = {
-                ubicacion: {
-                    latitud: respuesta.data.ubiActual.latitud,
-                    longitud: respuesta.data.ubiActual.longitud
-                }
-            }
-            setAuth({      
-                ...auth,
-                ...ubiActual
-            })
-        } catch (error) {
-            console.log('Error, no se obtiene la ubicacion')
-        }
-    }
 
     useEffect(() => {
         if (idOferta) ObtenerOferta();
     }, [idOferta]);
 
-    useEffect(() => {
-        obtenerUbi()
-    }, [])
+    
 
-    useEffect(()=>{
-        setDatosAct(auth)
-    }, [auth])
-    return (
+      return (
         <>
             <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
                 <ToastContainer />
