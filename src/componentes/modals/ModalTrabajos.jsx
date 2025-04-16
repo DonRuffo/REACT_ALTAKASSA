@@ -16,7 +16,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
     const [calendario, setCalendario] = useState(false)
     const [carga, setCarga] = useState(true)
     const { mapaCliProv, setMapaCliProv } = useContext(OfertaContext)
-    
+    const [datosAct, setDatosAct] = useState(null)
 
     const TrabajosAgendados = async () => {
         try {
@@ -225,6 +225,9 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
         obtenerUbi()
     }, [])
 
+    useEffect(()=>{
+        setDatosAct(auth)
+    }, [auth])
     return (
         <>
             <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
