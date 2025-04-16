@@ -7,9 +7,8 @@ import ModalFotoPerfil from "../componentes/modals/ModalFotoPerfil";
 const Dashboard = () => {
     const navigate = useNavigate()
     const { auth } = useAuth()
-    const { dark, menu, sideBar, handleMenu } = useContext(AuthContext)
+    const { dark, menu, sideBar, handleMenu, opcionActiva, setOpcionActiva } = useContext(AuthContext)
     const { modalPerfil, setModalPerfil } = useContext(OfertaContext)
-    const [opcionActiva, setOpcionActiva] = useState('inicio')
 
     const asignarValor = (e) =>{
         const id = e.currentTarget.id

@@ -67,7 +67,7 @@ const ContratosCliente = () => {
                         trabajos.some(tra => tra.status !== "En espera") ? (
                             trabajos.map((tra) => (
                                 (tra.status === "Rechazado" && (selectedOption === "Rechazadas" || selectedOption === "Todas") && (
-                                    <div key={tra._id} className="w-[300px] lg:w-[330px] h-[285px] radial-gradientRechazados-bg rounded-lg shadow-lg dark:shadow-slate-500 mb">
+                                    <div key={tra._id} className="w-[295px] lg:w-[310px] h-[285px] radial-gradientRechazados-bg rounded-lg shadow-lg dark:shadow-slate-500 mb">
                                         <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                         <div className="flex justify-around mt-2">
@@ -89,7 +89,7 @@ const ContratosCliente = () => {
                                     </div>
                                 ))
                                 || (tra.status === "Agendado" && (selectedOption === "Aceptadas" || selectedOption === "Todas") && (
-                                    <div key={tra._id} className="w-[300px] lg:w-[330px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg dark:shadow-slate-500 mb-5">
+                                    <div key={tra._id} className="w-[295px] lg:w-[310px] h-[285px] radial-gradientAceptados-bg rounded-lg shadow-lg dark:shadow-slate-500 mb-5">
                                         <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <p className="text-center text-xl mt-1 font-semibold">Proveedor: <span className="text-white">{tra.proveedor.nombre} {tra.proveedor.apellido}</span></p>
                                         <div className="flex justify-around mt-2">
@@ -113,12 +113,12 @@ const ContratosCliente = () => {
                             )
                             )
                         ) : (
-                            <div className="w-[300px] lg:w-[330px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
+                            <div className="w-[295px] lg:w-[310px] h-[285px] bg-gray-400 rounded-lg border-2 border-dashed flex justify-center items-center">
                                 <p className="text-lg text-gray-700 font-semibold">Todos los trabajos están en espera</p>
                             </div>
                         )
                     ) : (
-                        <div className="w-[300px] lg:w-[330px] h-[285px] mb-5 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg flex flex-col justify-center items-center">
+                        <div className="w-[295px] lg:w-[310px] h-[285px] mb-5 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg flex flex-col justify-center items-center">
                             <img src={imgSinTrabajo} alt="SinTrabajos" width={150} height={150} />
                             <p className="text-lg text-gray-700 dark:text-white font-semibold text-center">Todavía no has solicitado ningún trabajo</p>
                             <Link to='/dashboard' className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">

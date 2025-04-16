@@ -15,7 +15,7 @@ import SvgServicio from "../../componentes/Svgs/SvgLimpieza";
 const ListadoOfertas = () => {
     const { modalEditOf, setModalEditOf, oferta, ListarOfertas } = useContext(OfertaContext)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
-    const { menu, handleMenu } = useContext(AuthContext)
+    const { menu, handleMenu, setOpcionActiva } = useContext(AuthContext)
 
     const EliminarOferta = async (id, indx) => {
         try {
@@ -88,7 +88,7 @@ const ListadoOfertas = () => {
                     <div className="w-[200px] h-[260px] mb-5 bg-gray-100 shadow-lg dark:shadow-slate-800 dark:bg-gray-900 flex flex-col justify-center items-center rounded-lg px-4">
                         <img src={imgOferta} alt="sinOferta" width={125} height={100} />
                         <h1 className="text-lg text-center dark:text-white font-semibold">Aún no has creado ninguna oferta</h1>
-                        <Link to='/dashboard' className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">
+                        <Link to='/dashboard' onClick={()=>setOpcionActiva('inicio')} className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"

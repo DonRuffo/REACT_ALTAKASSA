@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
     const [ubi, setUbi] = useState(false)
     const [imgPerfil, setImgPerfil] = useState('')
     const [foto, setFoto] = useState(false)
-
+    const [opcionActiva, setOpcionActiva] = useState('inicio')
 
     //Funcion para mostrar y ocultar la barra lateral
     const handleMenu = () => {
@@ -292,7 +292,9 @@ const AuthProvider = ({ children }) => {
                 imgPerfil,
                 setImgPerfil,
                 foto,
-                setFoto
+                setFoto,
+                opcionActiva,
+                setOpcionActiva
             }
         }>
             {children}

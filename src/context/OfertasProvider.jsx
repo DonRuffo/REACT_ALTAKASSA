@@ -12,6 +12,7 @@ const OfertaProvider = ({ children }) => {
     const [modalTraActual, setModalTraActual] = useState(false)
     const [modalPerfil, setModalPerfil] = useState(false)
     const [modalProvs, setModalProvs] = useState(false)
+    const [mapaCliProv , setMapaCliProv] = useState(false)
 
     //obtener trabajos del usuario
     const [trabajos, setTrabajos] = useState([])
@@ -135,7 +136,9 @@ const OfertaProvider = ({ children }) => {
             setModalPerfil,
             modalPerfil,
             modalProvs,
-            setModalProvs
+            setModalProvs,
+            mapaCliProv,
+            setMapaCliProv
         }}>
             {children}
         </OfertaContext.Provider>

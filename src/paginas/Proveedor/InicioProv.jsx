@@ -158,21 +158,19 @@ const InicioProve = () => {
                         <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={handleModalOf}>Ingresar</button>
                     </motion.div>
                     <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[300px] w-[225px] md:h-[260px] md:w-[350px] rounded-md transition-all duration-300`}></motion.div>
+                    <motion.div layout className={`${ubi ? '' : 'hidden'} h-[260px] w-[100px] flex flex-col justify-center items-center transition-all duration-300`}>
+                        <div className="outline outline-red-700 p-3 rounded-lg cursor-pointer" onClick={() => { setRevelar(!revelar); creacionMapa() }}>
+                            <svg width="65" height="65" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white text-red-700 duration-300">
+                                <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
+                                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <circle cx="12" cy="9" r="3" strokeWidth="2" stroke="currentColor" />
+                            </svg>
+                            <p className={`${revelar ? 'hidden' : ''} dark:text-white font-semibold text-center`}>Ver</p>
+                            <p className={`${revelar ? '' : 'hidden'} dark:text-white font-semibold text-center`}>Ocultar</p>
+                        </div>
+                    </motion.div>
                 </motion.div>
-            </section><br />
-            <section className={ubi ? '' : 'hidden'}>
-                <div className="flex justify-center lg:justify-end">
-                    <button type="button" className="group flex justify-around font-semibold px-4 py-1 dark:text-white bg-transparent border-2 border-purple-700 rounded-xl hover:bg-purple-700 duration-300" onClick={() => { setRevelar(!revelar); creacionMapa() }}>
-                        <p className={`${revelar ? 'hidden' : 'block'}`}>Ver Ubicación</p>
-                        <p className={`${revelar ? 'block' : 'hidden'}`}>Cerrar</p>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white text-red-700 duration-300">
-                            <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
-                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            <circle cx="12" cy="9" r="3" strokeWidth="2" stroke="currentColor" />
-                        </svg>
-                    </button>
-                </div>
-            </section><br />
+            </section><br /><br />
             {modalOf && (<ModalOferta ListarOfertas={ListarOfertas} />)}
         </>
     )

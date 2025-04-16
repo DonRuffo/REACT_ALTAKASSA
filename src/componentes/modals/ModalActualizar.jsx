@@ -1,33 +1,21 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState} from "react";
 import OfertaContext from "../../context/OfertasProvider";
 import { ToastContainer, toast } from "react-toastify";
 import SpinnerCargaModal from "../RuedaCargaModal";
 import Calendario from "../Calendario";
+import MapaCliProv from "../MapaClient-Prov";
 import AuthContext from "../../context/AuthProvider";
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-import L from 'leaflet';
 
 
 const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
-    const { auth } = useContext(AuthContext)
+    const {auth} = useContext(AuthContext)
     const [selectedOption, setSelectedOption] = useState('');
-    const { modalTraActual, setModalTraActual } = useContext(OfertaContext)
+    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv } = useContext(OfertaContext)
     const [carga, setCarga] = useState(true)
     const [calendario, setCalendario] = useState(false)
-    const mapRef = useRef(null)
-    const containerRef = useRef(null)
-    const [mapa, setMapa] = useState(false)
-
-    //edicion de los marcadores del mapa
-    const iconMap = L.icon({
-        iconUrl: markerIcon,
-        shadowUrl: markerShadow,
-        iconSize: [25, 41],
-        iconAnchor: [12, 41]
-    })
-
+    
+    
     const [formTrabajo, setFormTrabajo] = useState({
         fecha: "",
         servicio: "",
@@ -72,6 +60,31 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
             console.log(error);
         }
     }
+    const obtenerUbi = async () => {
+            try {
+                const token = localStorage.getItem('token')
+                const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiCliente`
+                const options = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                const respuesta = await axios.get(urlCli, options)
+                const ubiActual = {
+                    ubicacion: {
+                        latitud: respuesta.data.ubiActual.latitud,
+                        longitud: respuesta.data.ubiActual.longitud
+                    }
+                }
+                setAuth({
+                    ...auth,
+                    ...ubiActual
+                })
+            } catch (error) {
+                console.log('Error, no se obtiene la ubicacion')
+            }
+        }
     const ObtenerOferta = async () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/verOferta/${idOferta}`
@@ -169,13 +182,14 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
     };
     const handleCalendarioChange = () => {
         setCalendario(!calendario)
-        setMapa(false)
+        setMapaCliProv(false)
     }
 
     useEffect(() => {
         ObtenerOferta().then(() => {
             ObtenerTrabajo();
         });
+        obtenerUbi()
     }, []);
 
     useEffect(() => {
@@ -192,45 +206,6 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
         }
     }, [formTrabajo.desde, formTrabajo.hasta, formTrabajo.tipo]);
 
-    //creacion del mapa
-    const creacionMapa = () => {
-        const latitudCli = auth.ubicacion.latitud
-        const longitudCli = auth.ubicacion.longitud
-        const latitudProv = formOferta.proveedor.ubicacion.latitud
-        const longitudProv = formOferta.proveedor.ubicacion.longitud
-        if (mapRef.current) {
-            const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
-
-            const marcadorProveedor = L.marker([latitudProv, longitudProv], { icon: iconMap }).bindPopup(formOferta.proveedor.nombre)
-
-            marcadorCliente.addTo(mapRef.current).openPopup()
-            marcadorProveedor.addTo(mapRef.current).openPopup()
-
-            const bounds = L.latLngBounds([
-                [latitudCli, longitudCli],
-                [latitudProv, longitudProv]
-            ])
-
-            mapRef.current.fitBounds(bounds, { padding: [50, 50] })
-
-        }
-    }
-
-    useEffect(() => {
-        if (mapa) {
-            if (mapRef.current) {
-                mapRef.current.remove()
-                mapRef.current = null
-            }
-            if (!mapRef.current && containerRef.current) {
-                mapRef.current = L.map(containerRef.current).setView([0, 0], 2)
-                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                    attribution: "© OpenStreetMap contributors",
-                }).addTo(mapRef.current);
-            }
-            creacionMapa()
-        }
-    }, [mapa])
 
     return (
         <>
@@ -265,7 +240,7 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
                                         <input type="date" name="fecha" onChange={(e) => { handleChange(e); compararFechas(e) }} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
                                     </div>
                                     <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 ml-11 md:ml-5 rounded-lg hover:scale-110 duration-300" onClick={() => { handleCalendarioChange() }}>{calendario ? 'Info' : 'Fechas'}</button>
-                                    <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 rounded-lg hover:scale-110 duration-300" onClick={() => { setMapa(!mapa); creacionMapa() }}>
+                                    <button type="button" className="bg-transparent ring-2 ring-green-600 dark:text-white text-sm px-2 py-1 mt-3 rounded-lg hover:scale-110 duration-300" onClick={() => { setMapaCliProv(!mapaCliProv) }}>
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white text-red-700 duration-300">
                                             <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
                                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -299,12 +274,12 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
                                 <div className="mb-3 mt-7">
                                     <div className="flex justify-around flex-wrap gap-2 lg:gap-0 md:pb-2">
                                         <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalTraActual(false) }, 3000) }}>Actualizar</button>
-                                        <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalTraActual(!modalTraActual) }}>Cerrar</button>
+                                        <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalTraActual(!modalTraActual); setMapaCliProv(false) }}>Cerrar</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div className={`${calendario === false && mapa === false ? "" : "hidden"} transition ease-in-out duration-300`}>
+                        <div className={`${calendario === false && mapaCliProv === false ? "" : "hidden"} transition ease-in-out duration-300`}>
                             <div className={`${carga ? 'hidden' : ''}`}>
                                 <h1 className="text-xl font-semibold text-center my-2 dark:text-white">Información</h1>
                                 <div className="flex justify-center mb-2">
@@ -326,16 +301,15 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
                                 <SpinnerCargaModal w={14} h={14} HH={20} />
                             </div>
                         </div>
-                        <div className={`${calendario === true && mapa === false ? "" : "hidden"} transition ease-in-out duration-300`}>
+                        <div className={`${calendario === true && mapaCliProv === false ? "" : "hidden"} transition ease-in-out duration-300`}>
                             <h1 className="text-xl text-center font-semibold mt-2 dark:text-white">Disponibilidad</h1>
                             <div className="flex justify-center mt-3">
                                 <Calendario />
                             </div>
                             <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-600">rojo</b> están agendados</p>
                         </div>
-                        <div className={`${mapa ? '' : 'hidden'} w-full flex flex-col items-center`}>
-                            <h1 className="text-xl text-center font-semibold mt-2 dark:text-white mb-1">Ubicación</h1>
-                            <div ref={containerRef} className={`rounded-md h-5/6 w-11/12 border`}></div>
+                        <div className={`${mapaCliProv ? '' : 'hidden'} w-full flex flex-col items-center`}>
+                            {mapaCliProv && <MapaCliProv form={formOferta}/>}
                         </div>
                     </div>
                 </div>
