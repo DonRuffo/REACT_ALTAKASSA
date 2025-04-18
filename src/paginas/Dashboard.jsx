@@ -11,13 +11,13 @@ const Dashboard = () => {
     const { modalPerfil, setModalPerfil } = OfertaStore()
 
     const tipo = localStorage.getItem('tipo')
-
+    const tipoM = tipo.charAt(0).toUpperCase() + tipo.slice(1)
     const asignarValor = (e) => {
         const id = e.currentTarget.id
         setOpcionActiva(id)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setsideBar(sideBar.current)
     }, [])
     useEffect(() => {
@@ -206,7 +206,18 @@ const Dashboard = () => {
                     </div>
                     {modalPerfil && <ModalFotoPerfil url={auth.f_perfil} />}
                     <div className="flex-1 flex flex-col h-screen bg-white dark:bg-black">
+                        <div className="border-b h-16 flex justify-between items-center px-4 ">
+                            <button className="font-semibold bg-gray-100 rounded-md py-2 px-3 mr-8 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear">
+                                {tipoM}
+                            </button>
+                            <div className="flex items-center gap-x-4">
+                                <h1 className="font-semibold dark:text-white">{auth.nombre} {auth.apellido}</h1>
+                                <div className="border flex justify-center h-[48px] w-[48px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
+                                    <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
+                                </div>
+                            </div>
 
+                        </div>
                         <div className='overflow-y-auto px-8'>
                             <Outlet />
                         </div>
