@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
-import AuthContext from "../../context/AuthProvider";
+import AuthStoreContext from "../../store/AuthStore";
 
 const InicioAdmin = () => {
-    const { auth, menu, handleMenu } = useContext(AuthContext)
+    const { auth, menu, handleMenu } = AuthStoreContext()
 
     return (
         <>

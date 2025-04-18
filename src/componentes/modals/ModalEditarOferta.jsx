@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import OfertaContext from "../../context/OfertasProvider";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import SpinnerCargaModal from "../RuedaCargaModal";
+import OfertaStore from "../../store/OfertaStore";
+import { shallow } from 'zustand/shallow'
+
 
 const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
 
@@ -14,7 +16,7 @@ const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
         servicio: "",
         descripcion: ""
     })
-    const { setModalEditOf, modalEditOf } = useContext(OfertaContext)
+    const { setModalEditOf, modalEditOf } = OfertaStore()
     const ObtenerOferta = async () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/verOferta/${idOferta}`

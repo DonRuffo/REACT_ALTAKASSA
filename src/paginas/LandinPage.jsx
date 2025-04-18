@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import logoDarkMode from '../assets/moon.png';
@@ -40,14 +40,15 @@ import CardServicios from "../componentes/cardsServicios";
 import ListasAnimadas from "../componentes/Listas";
 import ListasAnimadasProv from "../componentes/ListasProv";
 import imPerfilDinamica from '../assets/PERFIL_dinamica.jpg'
-import AuthContext from "../context/AuthProvider";
 import logoBG from '../assets/FondoPage.jpg'
 import imgDesc from '../assets/Descriptivo.svg'
+import AuthStoreContext from "../store/AuthStore";
+import { shallow } from "zustand/shallow";
 //text-slate-400 - texto para cards
 //#60E8FE color para iconos
 const LandingPage = () => {
 
-    const { darkMode, handleDarkPage } = useContext(AuthContext)
+    const { darkMode, handleDarkPage } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('');
 
     const navigate = useNavigate()

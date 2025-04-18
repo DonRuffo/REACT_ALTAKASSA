@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import AuthContext from "../context/AuthProvider";
-import OfertaContext from "../context/OfertasProvider";
-import axios from "axios";
+import React, { useState } from "react";
+
+import AuthStoreContext from "../store/AuthStore";
+import OfertaStore from "../store/OfertaStore";
 
 const Calendario = () => {
-    const { dark } = useContext(AuthContext)
-    const { fechas } = useContext(OfertaContext)
+    const { dark } = AuthStoreContext()
+    const { fechas } = OfertaStore()
 
     const meses2 = [
         {

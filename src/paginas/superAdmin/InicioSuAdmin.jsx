@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import logoOscuro from '../../assets/AK NEGRA.png'
 import logoClaro from '../../assets/AK BLANCA.png'
-import AuthContext from "../../context/AuthProvider";
 import coliseo from '../../assets/Coliseo.svg'
+import AuthStoreContext from "../../store/AuthStore";
 
 const InicioSuperAdmin = () => {
-    const { dark } = useContext(AuthContext)
+    const { dark } = AuthStoreContext()
     return (
         <>
             <div className={dark ? 'dark' : ''}>

@@ -1,17 +1,17 @@
-import React, { useContext, useState, } from 'react'
+import React, { useState, } from 'react'
 import logoNegroAK from '../assets/AK NEGRA.png'
 import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AuthContext from '../context/AuthProvider';
-import OfertaContext from '../context/OfertasProvider';
 import { EyeOff, Eye } from 'lucide-react';
 import RelojDeArena from '../componentes/RelojArena';
+import AuthStoreContext from '../store/AuthStore';
+import OfertaStore from '../store/OfertaStore';
 
 const Login = () => {
-    const { Perfil, darkMode, verificarUbicacion, ubiCliente, verificarFoto } = useContext(AuthContext)
-    const { ObtenerTrabajos, ListarOfertas } = useContext(OfertaContext)
+    const { Perfil, darkMode, verificarUbicacionActual, ubiCliente, verificarFoto } = AuthStoreContext()
+    const { ObtenerTrabajos, ListarOfertas } = OfertaStore()
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)
     const navigate = useNavigate()
@@ -29,29 +29,20 @@ const Login = () => {
 
     const HandleSubmit = async (e) => {
         e.preventDefault()
-        const perfil = document.getElementById('perfil').value
-        let url
         try {
-            if (perfil === 'Proveedor') {
-                url = `${import.meta.env.VITE_BACKEND_URL}/loginProveedor`
-
-            } else if (perfil === 'Cliente') {
-                url = `${import.meta.env.VITE_BACKEND_URL}/loginCliente`
-
-            } else if (perfil === 'Administrador') {
-                url = `${import.meta.env.VITE_BACKEND_URL}/login`
-
-            }
+            const url = `${import.meta.env.VITE_BACKEND_URL}/loginUser`
+            
             const respuesta = await axios.post(url, form)
             localStorage.setItem('token', respuesta.data.token)
             localStorage.setItem('rol', respuesta.data.rol)
+            localStorage.setItem('tipo', 'cliente')
             localStorage.removeItem('usuario')
-            await ListarOfertas(respuesta.data.rol, respuesta.data.token)
+            await ListarOfertas( respuesta.data.token, respuesta.data.rol,'cliente')
             await Perfil(respuesta.data.token, respuesta.data.rol)
-            await ObtenerTrabajos(respuesta.data.rol, respuesta.data.token)
-            await ubiCliente(respuesta.data.token, respuesta.data.rol)
+            await ObtenerTrabajos( respuesta.data.token, respuesta.data.rol, 'cliente')
+            await ubiCliente(respuesta.data.token, respuesta.data.rol, 'cliente')
             await verificarFoto(respuesta.data.token, respuesta.data.rol)
-            await verificarUbicacion(respuesta.data.token, respuesta.data.rol)
+            await verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente')
             navigate('/dashboard')
         } catch (error) {
             console.log(error)
@@ -65,7 +56,7 @@ const Login = () => {
         if (tiempo) {
             tiempo.scrollIntoView({ behavior: "smooth" })
         }
-    }, 1400)
+    }, 1000)
     return (
         <>
             <ToastContainer />
@@ -77,31 +68,22 @@ const Login = () => {
                     </div>
                     <div id='Formulario' className="bg-white dark:bg-black flex items-center justify-center h-screen">
                         <div className='w-5/6 md:w-4/6'>
-                            <h1 className='text-blue-600 font-bold text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
+                            <h1 className='text-xl text-blue-500 font-bold text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
                             <hr className='dark:border dark:border-gray-900' />
                             <form onSubmit={(e) => {
                                 HandleSubmit(e)
                             }}>
                                 <div className="my-3">
-                                    <label className="mb-2 block text-sm font-semibold text-blue-600">Correo electrónico</label>
+                                    <label className="mb-2 block text-md font-semibold text-blue-500">Correo electrónico</label>
                                     <input type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Ingresa tu correo" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
                                 </div>
 
                                 <div className="mb-3">
-                                    <label className="mb-2 block text-sm font-semibold text-blue-600">Contraseña</label>
+                                    <label className="mb-2 block text-md font-semibold text-blue-500">Contraseña</label>
                                     <div className='flex gap-2 relative'>
                                         <input type={ojoActivo ? "text" : "password"} name='contrasenia' onChange={HandleChange} value={form.contrasenia || ""} placeholder="********************" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
                                         <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                     </div>
-                                </div>
-
-                                <div className='mb-3'>
-                                    <label className='mb-2 block text-sm font-semibold text-blue-600'>Perfil</label>
-                                    <select name="perfil" id="perfil" className='block py-1 px-1 w-full dark:bg-transparent dark:text-white font-semibold rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 text-gray-500'>
-                                        <option className='hover:bg-blue-700 dark:text-slate-700' value="Proveedor">Proveedor</option>
-                                        <option value="Cliente" className='hover:bg-blue-700 dark:text-slate-700'>Cliente</option>
-                                        <option value="Administrador" className='hover:bg-blue-700 dark:text-slate-700'>Administrador</option>
-                                    </select>
                                 </div>
 
 
@@ -111,8 +93,8 @@ const Login = () => {
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />
                                 <div className='mt-1 md:mt-3 md:mb-1'>
-                                    <p className='text-sm text-slate-500 mb-1 font-semibold'>Olvidaste tu contraseña: <Link className='hover:text-blue-800 hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
-                                    <p className='text-sm text-slate-500 font-semibold'>No tienes una cuenta: <Link className='hover:text-blue-800 hover:underline duration-300' to='/registro'>Regístrate Aquí</Link></p>
+                                    <p className='text-sm text-slate-500 dark:text-slate-300 mb-1 font-semibold'>Olvidaste tu contraseña: <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
+                                    <p className='text-sm text-slate-500 dark:text-slate-300 font-semibold'>No tienes una cuenta: <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/registro'>Regístrate Aquí</Link></p>
                                 </div>
                             </form><br />
                             <div>

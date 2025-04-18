@@ -1,15 +1,14 @@
-import axios from "axios";
-import React, { useContext } from "react";
+import React from "react";
 import '../../../CSS/fondos.css'
-import OfertaContext from "../../context/OfertasProvider";
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
-import AuthContext from "../../context/AuthProvider";
 import imgSinTrabajo from '../../assets/Tiempo.svg'
+import OfertaStore from "../../store/OfertaStore";
+import AuthStoreContext from "../../store/AuthStore";
 
 const ContratosProv = () => {
-    const { trabajos } = useContext(OfertaContext)
-    const { menu, handleMenu } = useContext(AuthContext)
+    const { trabajos } = OfertaStore()
+    const { menu, handleMenu } = AuthStoreContext()
     return (
         <>
             <div className="lg:hidden pb-2 mt-5">

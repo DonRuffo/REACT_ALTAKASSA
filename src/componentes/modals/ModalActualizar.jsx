@@ -1,17 +1,17 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState} from "react";
-import OfertaContext from "../../context/OfertasProvider";
+import React, { useEffect, useState} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import SpinnerCargaModal from "../RuedaCargaModal";
 import Calendario from "../Calendario";
 import MapaCliProv from "../MapaClient-Prov";
-import AuthContext from "../../context/AuthProvider";
+import AuthStoreContext from "../../store/AuthStore";
+import OfertaStore from "../../store/OfertaStore";
 
 
 const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
-    const {auth} = useContext(AuthContext)
+    const {auth} = AuthStoreContext((state)=>({}))
     const [selectedOption, setSelectedOption] = useState('');
-    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv } = useContext(OfertaContext)
+    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv } = OfertaStore()
     const [carga, setCarga] = useState(true)
     const [calendario, setCalendario] = useState(false)
     

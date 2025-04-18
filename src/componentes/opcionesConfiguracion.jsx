@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import ConfigContext from "../context/ConfigProvider";
-import { useAuth } from "../context/AuthProvider";
 
 const OpcionConfig = ({titulo, logo, clic}) => {
-    const { auth } = useAuth()
     
     return (
         <li className={`group/list w-full rounded-xl hover:bg-gray-300 dark:hover:bg-gray-700 duration-100`}>

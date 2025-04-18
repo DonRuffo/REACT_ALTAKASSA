@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
-import AuthContext from "../../context/AuthProvider";
+import React, { useState } from "react";
 import { EyeOff, Eye } from 'lucide-react';
 import RelojDeArena from "../../componentes/RelojArena";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import AuthStoreContext from "../../store/AuthStore";
 
 
 const RegistroAdmin = () => {
-    const { dark } = useContext(AuthContext)
+    const { dark } = AuthStoreContext()
     const [ojo, setOjo] = useState(false)
     const [reloj, setReloj] = useState(false)
     const [form, setForm] = useState({

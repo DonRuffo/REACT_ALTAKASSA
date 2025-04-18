@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
-import OfertaContext from "../../context/OfertasProvider";
+import React from "react";
+import OfertaStore from "../../store/OfertaStore";
 
 const ModalFotoPerfil = ({url}) => {
-    const { setModalPerfil, modalPerfil } = useContext(OfertaContext)
+    const { setModalPerfil, modalPerfil } = OfertaStore()
     return (
         <>
             <div className="fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center overflow-auto">

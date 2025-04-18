@@ -1,17 +1,17 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import '../../../CSS/fondos.css'
-import OfertaContext from "../../context/OfertasProvider";
-import AuthContext from "../../context/AuthProvider";
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
 import imgSinTrabajo from '../../assets/Tiempo.svg'
 import { Link } from "react-router-dom";
+import AuthStoreContext from "../../store/AuthStore";
+import OfertaStore from "../../store/OfertaStore";
 
 const ContratosCliente = () => {
 
-    const { trabajos, setTrabajos } = useContext(OfertaContext)
-    const { menu, handleMenu } = useContext(AuthContext)
+    const { trabajos, ObtenerTrabajos } = OfertaStore()
+    const { menu, handleMenu } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('Todas')
 
     const handleRadioChange = (e) => {
@@ -24,6 +24,9 @@ const ContratosCliente = () => {
         if (confirmar) {
             try {
                 const token = localStorage.getItem('token')
+                const rol = localStorage.getItem('rol')
+                const tipo = localStorage.getItem('tipo')
+
                 const url = `${import.meta.env.VITE_BACKEND_URL}/eliminarTrabajo/${id}`
                 const options = {
                     headers: {
@@ -32,7 +35,7 @@ const ContratosCliente = () => {
                     }
                 }
                 const respuesta = await axios.delete(url, options)
-                ObtenerTrabajos()
+                await ObtenerTrabajos(token, rol, tipo)
             } catch (error) {
                 console.log(error);
 

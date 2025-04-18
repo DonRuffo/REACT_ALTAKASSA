@@ -1,19 +1,33 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import logoAlta from '../assets/AK BLANCA.png'
-import AuthContext, { useAuth } from "../context/AuthProvider";
-import OfertaContext from "../context/OfertasProvider";
 import ModalFotoPerfil from "../componentes/modals/ModalFotoPerfil";
+import AuthStoreContext from "../store/AuthStore";
+import OfertaStore from "../store/OfertaStore";
 const Dashboard = () => {
+    const sideBar = useRef(null)
     const navigate = useNavigate()
-    const { auth } = useAuth()
-    const { dark, menu, sideBar, handleMenu, opcionActiva, setOpcionActiva } = useContext(AuthContext)
-    const { modalPerfil, setModalPerfil } = useContext(OfertaContext)
+    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva } = AuthStoreContext()
+    const { modalPerfil, setModalPerfil } = OfertaStore()
 
-    const asignarValor = (e) =>{
+    const tipo = localStorage.getItem('tipo')
+
+    const asignarValor = (e) => {
         const id = e.currentTarget.id
         setOpcionActiva(id)
     }
+
+    useEffect(()=>{
+        setsideBar(sideBar.current)
+    }, [])
+    useEffect(() => {
+        if (menu) {
+            document.addEventListener('mousedown', handleClickOutside)
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [menu])
 
     return (
         <>
@@ -35,7 +49,7 @@ const Dashboard = () => {
                                     <p className=" px-2">Inicio</p>
                                 </Link>
 
-                                <Link to='/dashboard/ofertas' id="ofertas" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${auth.rol === 'proveedor' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'ofertas' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/ofertas' id="ofertas" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'proveedor' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'ofertas' ? 'bg-emerald-800' : ''}`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${opcionActiva === 'ofertas' ? 'text-red-700 drop-shadow-[0_5px_10px_rgba(255,0,0,0.5)] transition duration-150 ease-in-out' : ''}`}>
                                         <path d="M3 9V3h6l9 9-6 6-9-9z" stroke="currentColor" strokeWidth="2" />
                                         <circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" />
@@ -43,7 +57,7 @@ const Dashboard = () => {
                                     <p className=" px-2">Tus Ofertas</p>
                                 </Link>
 
-                                <Link to='/dashboard/solicitudes/proveedor' id="SoliProv" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${auth.rol === 'proveedor' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'SoliProv' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/solicitudes/proveedor' id="SoliProv" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'proveedor' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'SoliProv' ? 'bg-emerald-800' : ''}`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${opcionActiva === 'SoliProv' ? 'text-green-700 drop-shadow-[0_5px_10px_rgba(0,128,0,0.5)] transition duration-150 ease-in-out' : ''} `} >
                                         <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" strokeWidth="2" />
                                         <path d="M14 2v6h6M9 13l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -51,7 +65,7 @@ const Dashboard = () => {
                                     <p className=" px-2">Solicitudes</p>
                                 </Link>
 
-                                <Link to='/dashboard/solicitudes/cliente' id="SoliCli" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${auth.rol === 'cliente' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'SoliCli' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/solicitudes/cliente' id="SoliCli" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'cliente' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'SoliCli' ? 'bg-emerald-800' : ''}`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${opcionActiva === 'SoliCli' ? 'text-green-700 drop-shadow-[0_5px_10px_rgba(0,128,0,0.5)] transition duration-150 ease-in-out' : ''} `}>
                                         <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" strokeWidth="2" />
                                         <path d="M14 2v6h6M9 13l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -60,21 +74,21 @@ const Dashboard = () => {
                                     <p className=" px-2">Solicitudes</p>
                                 </Link>
 
-                                <Link to='/dashboard/contratos/cliente' id="ContraCli" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${auth.rol === 'cliente' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'ContraCli' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/contratos/cliente' id="ContraCli" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'cliente' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'ContraCli' ? 'bg-emerald-800' : ''}`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${opcionActiva === 'ContraCli' ? 'text-sky-700 drop-shadow-[0_5px_10px_rgba(135,206,235,0.5)] transition duration-150 ease-in-out' : ''}`}>
                                         <path d="M14.85 6.34a4.5 4.5 0 11-5.19 5.19L3 18l3 3 6.47-6.66a4.5 4.5 0 115.19-5.19l2.41-2.41a1 1 0 00-1.41-1.41l-2.41 2.41z" stroke="currentColor" strokeWidth="2" />
                                     </svg>
                                     <p className=" px-2">Trabajos</p>
                                 </Link>
 
-                                <Link to='/dashboard/contratos/proveedor' id="ContraProv" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${auth.rol === 'proveedor' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'ContraProv' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/contratos/proveedor' id="ContraProv" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'proveedor' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'ContraProv' ? 'bg-emerald-800' : ''}`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${opcionActiva === 'ContraProv' ? 'text-sky-700 drop-shadow-[0_5px_10px_rgba(135,206,235,0.5)] transition duration-150 ease-in-out' : ''}`}>
                                         <path d="M14.85 6.34a4.5 4.5 0 11-5.19 5.19L3 18l3 3 6.47-6.66a4.5 4.5 0 115.19-5.19l2.41-2.41a1 1 0 00-1.41-1.41l-2.41 2.41z" stroke="currentColor" strokeWidth="2" />
                                     </svg>
                                     <p className=" px-2">Trabajos</p>
                                 </Link>
 
-                                <Link to='/dashboard/historial' id="Historial" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${auth.rol === 'cliente' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'Historial' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/historial' id="Historial" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'cliente' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'Historial' ? 'bg-emerald-800' : ''}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${opcionActiva === 'Historial' ? 'text-orange-700 drop-shadow-[0_5px_10px_rgba(255,165,0,0.5)] transition duration-100 ease-in-out' : ''} w-6 h-6`}>
                                         <path d="M3 12a9 9 0 1 1 9 9" />
                                         <polyline points="3 12 6 15 9 12" />
@@ -157,7 +171,7 @@ const Dashboard = () => {
                                     <p className="px-2">Ver sugerencias</p>
                                 </Link>
 
-                                <Link to='/dashboard/configuracion' id="Config" onClick={(e) => { handleMenu(); asignarValor(e) }} className= {`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'Config' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/configuracion' id="Config" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'Config' ? 'bg-emerald-800' : ''}`}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${opcionActiva === 'Config' ? 'text-gray-500 drop-shadow-[0_5px_10px_rgba(150,150,150,0.5)] transition duration-150' : ''}`}>
                                         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" strokeWidth="2" />
                                         <path d="M19.4 12a7.4 7.4 0 00-.1-1l2.1-1.8a1 1 0 00-.3-1.7l-2.6-.9a7.7 7.7 0 00-.9-.9l-.9-2.6a1 1 0 00-1.7-.3L13 4.7a7.4 7.4 0 00-2 0L9.1 2.1a1 1 0 00-1.7.3l-.9 2.6c-.3.3-.6.6-.9.9l-2.6.9a1 1 0 00-.3 1.7l2.1 1.8a7.4 7.4 0 000 2l-2.1 1.8a1 1 0 00.3 1.7l2.6.9c.3.3.6.6.9.9l.9 2.6a1 1 0 001.7.3l1.8-2.1a7.4 7.4 0 002 0l1.8 2.1a1 1 0 001.7-.3l.9-2.6c.3-.3.6-.6.9-.9l2.6-.9a1 1 0 00.3-1.7l-2.1-1.8a7.4 7.4 0 00.1-1z" stroke="currentColor" strokeWidth="2" />
@@ -190,9 +204,9 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    {modalPerfil && <ModalFotoPerfil url={auth.f_perfil}/>}
+                    {modalPerfil && <ModalFotoPerfil url={auth.f_perfil} />}
                     <div className="flex-1 flex flex-col h-screen bg-white dark:bg-black">
-                        
+
                         <div className='overflow-y-auto px-8'>
                             <Outlet />
                         </div>

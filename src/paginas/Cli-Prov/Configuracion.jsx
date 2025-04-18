@@ -1,27 +1,23 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import OpcionConfig from "../../componentes/opcionesConfiguracion";
-import ConfigContext from "../../context/ConfigProvider";
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
-import AuthContext, { useAuth } from "../../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import { EyeOff, Eye } from 'lucide-react';
 import imgLocation from '../../assets/Mapa.svg'
 import axios from "axios";
+import AuthStoreContext from "../../store/AuthStore";
 
 const Configuracion = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
     const [ojoActivo2, setOjoActivo2] = useState(false)
 
-    const { auth, setAuth } = useContext(AuthContext)
-    const { modalContra, setModalContra, modalPerfil,
-        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi } = useContext(ConfigContext)
-    const { ActualizarPerfil, ActualizarContrasenia, setDark, menu, handleMenu } = useContext(AuthContext)
+    const { auth, setAuth , ActualizarPerfil, ActualizarContrasenia, setDark, menu, handleMenu, modalContra, setModalContra, modalPerfil,
+        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi} = AuthStoreContext()
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
     const accesoTema = () => { setModalTema(!modalTema) }
     const accesoUbi = () => { setModalUbi(!modalUbi) }
-    const localizacion = useRef(null)
     const [formPerfil, setFormPerfil] = useState({
         nombre: auth.nombre || "",
         apellido: auth.apellido || "",
@@ -61,7 +57,6 @@ const Configuracion = () => {
         e.preventDefault()
         try {
             const respuesta = await ActualizarPerfil(formPerfil)
-            console.log(respuesta)
         } catch (error) {
             console.log(error)
         }
@@ -121,18 +116,17 @@ const Configuracion = () => {
 
     //funcion para actualizar la ubicación
     const actualizarUbi = () => {
+        const tipo = localStorage.getItem('tipo')
+        const rol = localStorage.getItem('rol')
+        if(tipo === 'cliente' || rol === 'administrador') return
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position) => {
                 const { latitude, longitude } = position.coords
                 try {
-                    let url
+                    
                     const token = localStorage.getItem('token')
-                    const rol = localStorage.getItem('rol')
-                    if (rol === 'cliente') {
-                        url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-cli`
-                    } else if (rol === 'proveedor') {
-                        url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-prov`
-                    }
+                    const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-trabajo`
+                    
                     const options = {
                         headers: {
                             'Content-Type': 'application/json',

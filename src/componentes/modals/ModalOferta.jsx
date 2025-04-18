@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import AuthContext from "../../context/AuthProvider";
+import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import OfertaContext from "../../context/OfertasProvider";
+import OfertaStore from "../../store/OfertaStore";
 
 const ModalOferta = ({ListarOfertas}) => {
 
-    const { modalOf, setModalOf } = useContext(OfertaContext)
+    const { modalOf, setModalOf } = OfertaStore()
     const [formOf, setFormOf] = useState({
         precioPorDia: "",
         precioPorHora: "",

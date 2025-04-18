@@ -1,21 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useState, useEffect } from "react";
-import OfertaContext from "../../context/OfertasProvider";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import Calendario from "../Calendario";
 import SpinnerCargaModal from "../RuedaCargaModal";
-import AuthContext from "../../context/AuthProvider";
 import ModalFotoPerfil from "./ModalFotoPerfil";
 import MapaCliProv from "../MapaClient-Prov";
+import OfertaStore from "../../store/OfertaStore";
 
 const ModalTrabajos = ({ idOferta, trabajos }) => {
-    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil } = useContext(OfertaContext)
-    const { auth } = useContext(AuthContext)
+    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil,mapaCliProv, setMapaCliProv  } = OfertaStore()
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
     const [carga, setCarga] = useState(true)
-    const { mapaCliProv, setMapaCliProv } = useContext(OfertaContext)
 
     const TrabajosAgendados = async () => {
         try {

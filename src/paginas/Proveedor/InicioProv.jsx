@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthProvider";
+import React, { useEffect, useRef, useState } from "react";
 import logoInicioProv from '../../assets/Motivacion.svg';
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
-import OfertaContext from "../../context/OfertasProvider";
 import ModalOferta from "../../componentes/modals/ModalOferta";
 import LocationImg from '../../assets/Mapa.svg'
 import SpinnerCarga from "../../componentes/RuedaCarga";
@@ -17,11 +14,13 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { motion } from "framer-motion";
 import Cloudinary from "../../componentes/Cloudinary";
 import logoOferta from '../../assets/Oferta.svg'
+import AuthStoreContext from "../../store/AuthStore";
+import OfertaStore from "../../store/OfertaStore";
 
 
 const InicioProve = () => {
-    const { auth, setAuth, menu, handleMenu, ubi, setUbi, foto } = useContext(AuthContext)
-    const { modalOf, handleModalOf, ListarOfertas } = useContext(OfertaContext)
+    const { auth, setAuth, menu, handleMenu, ubiTrabajo, setUbiTrabajo, foto } = AuthStoreContext()
+    const { modalOf, handleModalOf, ListarOfertas } = OfertaStore()
     const [carga, setCarga] = useState(false)
     const [revelar, setRevelar] = useState(false)
 
@@ -36,40 +35,52 @@ const InicioProve = () => {
     })
     //funcion para guardar ubicacion
     const guardarUbi = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(async (position) => {
-                const { latitude, longitude } = position.coords
-                try {
-                    const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-prov`
-                    const token = localStorage.getItem('token')
-                    const options = {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const { latitude, longitude } = position.coords
+                    try {
+                        const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-trabajo`
+                        const token = localStorage.getItem('token')
+                        const options = {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${token}`
+                            }
                         }
-                    }
-                    const respuesta = await axios.post(url, { latitude, longitude }, options)
-                    const ubiNueva = {
-                        ubicacion: {
-                            longitud: longitude,
-                            latitud: latitude
+                        const respuesta = await axios.post(url, { latitude, longitude }, options)
+                        const ubiNueva = {
+                            ubicacion: {
+                                longitud: longitude,
+                                latitud: latitude
+                            }
                         }
+                        toast.success(respuesta.data.msg)
+                        setUbiTrabajo(true)
+                        setCarga(false)
+                        setAuth({
+                            ...auth,
+                            ...ubiNueva
+                        })
+                        resolve()
+                    } catch (error) {
+                        console.log(error)
+                        toast.error(error.response?.data?.msg || "Error al guardar la ubicación")
+                        reject()
                     }
-                    toast.success(respuesta.data.msg)
-                    setUbi(true)
-                    setCarga(false)
-                    setAuth({
-                        ...auth,
-                        ...ubiNueva
-                    })
-                } catch (error) {
-                    console.log(error)
-                    toast.error(error.response?.data?.msg || "Error al guardar la ubicación")
-                }
-            });
-        } else {
-            alert("Tu navegador no soporta geolocalización.");
-        }
+                },
+                    (error) => {
+                        setUbiTrabajo(false)
+                        reject()
+                    }
+                );
+            } else {
+                console.log('La geolocalización no está soportada por este navegador.')
+                setUbiTrabajo(false)
+                resolve()
+            }
+        })
+
     }
 
     //Creacion del mapa
@@ -146,19 +157,19 @@ const InicioProve = () => {
                 <motion.div layout className="w-4/5 flex justify-center gap-5 flex-wrap transition-all duration-300"
                     transition={{ duration: 0.3, ease: "easeInOut" }}>
                     {foto === false && <Cloudinary />}
-                    <motion.div layout id="localitation" className={`${ubi ? 'hidden' : ''} flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 ${foto ? '' : 'brightness-50 cursor-not-allowed pointer-events-none outline-0'} h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
+                    <motion.div layout id="localitation" className={`${ubiTrabajo ? 'hidden' : ''} flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 ${foto ? '' : 'brightness-50 cursor-not-allowed pointer-events-none outline-0'} h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={LocationImg} alt="localization" width={125} height={125} className={`${carga ? 'hidden' : 'block'}`} />
                         {carga && <SpinnerCarga />}
                         <h1 className="font-semibold text-center dark:text-white">Ingresa tu ubicación</h1>
-                        <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={() => { setCarga(true); guardarUbi() }}>Ingresar</button>
+                        <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={async()  => { setCarga(true); await guardarUbi() }}>Ingresar</button>
                     </motion.div>
-                    <motion.div layout className={`outline outline-emerald-700 ${ubi === false || foto === false || revelar ? 'cursor-not-allowed pointer-events-none brightness-50 outline-0' : ''} flex flex-col dark:bg-gray-900 bg-gray-100  h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
+                    <motion.div layout className={`outline outline-emerald-700 ${ubiTrabajo === false || foto === false || revelar ? 'cursor-not-allowed pointer-events-none brightness-50 outline-0' : ''} flex flex-col dark:bg-gray-900 bg-gray-100  h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={logoOferta} alt="logoOferta" width={125} height={125} />
                         <h1 className={`font-semibold text-center dark:text-white`}>Crea una nueva oferta</h1>
                         <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={handleModalOf}>Ingresar</button>
                     </motion.div>
                     <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[300px] w-[225px] md:h-[260px] md:w-[350px] rounded-md transition-all duration-300`}></motion.div>
-                    <motion.div layout className={`${ubi ? '' : 'hidden'} h-[260px] w-[100px] flex flex-col justify-center items-center transition-all duration-300`}>
+                    <motion.div layout className={`${ubiTrabajo ? '' : 'hidden'} h-[260px] w-[100px] flex flex-col justify-center items-center transition-all duration-300`}>
                         <div className="outline outline-red-700 p-3 rounded-lg cursor-pointer" onClick={() => { setRevelar(!revelar); creacionMapa() }}>
                             <svg width="65" height="65" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white text-red-700 duration-300">
                                 <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"

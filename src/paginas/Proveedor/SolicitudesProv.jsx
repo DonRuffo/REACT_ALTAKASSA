@@ -1,16 +1,16 @@
 import axios from "axios";
-import React, { useContext } from "react";
+import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
-import OfertaContext from "../../context/OfertasProvider";
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
-import AuthContext from "../../context/AuthProvider";
 import imgSoli from '../../assets/Descansando.svg'
+import AuthStoreContext from "../../store/AuthStore";
+import OfertaStore from "../../store/OfertaStore";
 
 const SolicitudProv = () => {
-    const { trabajos, ObtenerTrabajos } = useContext(OfertaContext)
-    const { menu, handleMenu } = useContext(AuthContext)
+    const { trabajos, ObtenerTrabajos } = OfertaStore()
+    const { menu, handleMenu } = AuthStoreContext()
     const token = localStorage.getItem('token')
     const rol = localStorage.getItem('rol')
 

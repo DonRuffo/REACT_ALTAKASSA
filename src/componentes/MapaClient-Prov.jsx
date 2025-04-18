@@ -1,9 +1,11 @@
-import React, { useContext, useRef, useEffect } from "react";
-import OfertaContext from "../context/OfertasProvider";
-import AuthContext from "../context/AuthProvider";
+import React, { useRef, useEffect } from "react";
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
+import OfertaStore from "../store/OfertaStore";
+import AuthStoreContext from "../store/AuthStore";
+import { shallow } from 'zustand/shallow'
+
 
 
 const MapaCliProv = ({ form }) => {
@@ -18,8 +20,18 @@ const MapaCliProv = ({ form }) => {
 
     const mapRef = useRef(null)
     const containerRef = useRef(null)
-    const { mapaCliProv } = useContext(OfertaContext)
-    const { auth } = useContext(AuthContext)
+    const { mapaCliProv } = OfertaStore(
+        (state) => ({
+            mapaCliProv:state.mapaCliProv
+        }),
+        shallow
+    )   
+    const { auth } = AuthStoreContext(
+        (state) => ({
+            auth:state.auth
+        }),
+        shallow
+    )
     const creacionMapa = () => {
 
         const latitudCli = auth.ubicacion.latitud

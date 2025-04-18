@@ -1,34 +1,37 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import '../../../CSS/fondos.css'
-import OfertaContext from "../../context/OfertasProvider";
 import ModalActualizar from "../../componentes/modals/ModalActualizar";
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
-import AuthContext from "../../context/AuthProvider";
 import imgSinTrabajo from '../../assets/Tiempo.svg'
-import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import OfertaStore from "../../store/OfertaStore";
+import AuthStoreContext from "../../store/AuthStore";
+import { shallow } from "zustand/shallow";
 
 const SolicitudesCli = () => {
     const [trabajoSeleccionado, setTrabajoSeleccioando] = useState(null)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
-    const { modalTraActual, setModalTraActual, trabajos, ObtenerTrabajos } = useContext(OfertaContext)
-    const { menu, handleMenu } = useContext(AuthContext)
+    const { modalTraActual, setModalTraActual, trabajos, ObtenerTrabajos } = OfertaStore()
+    const { menu, handleMenu, setOpcionActiva} = AuthStoreContext()
 
     const seleccionarTrabajo = (id) => {
         setTrabajoSeleccioando(id)
     }
+    
 
     const seleccionarOferta = (id) => {
         setOfertaSeleccionada(id)
     }
 
     const EliminarTrabajo = async (id, indx) => {
-        const confirmar = confirm(`¿Estás seguro del eliminar el trabajo de ${indx}?`)
+        const confirmar = confirm(`¿Estás seguro del eliminar la solicitud de ${indx}?`)
         if (confirmar) {
             try {
                 const token = localStorage.getItem('token')
+                const rol = localStorage.getItem('rol')
+                const tipo = localStorage.getItem('tipo')
                 const url = `${import.meta.env.VITE_BACKEND_URL}/eliminarTrabajo/${id}`
                 const options = {
                     headers: {
@@ -37,7 +40,7 @@ const SolicitudesCli = () => {
                     }
                 }
                 const respuesta = await axios.delete(url, options)
-                ObtenerTrabajos()
+                await ObtenerTrabajos(token, rol, tipo)
             } catch (error) {
                 console.log(error);
             }
@@ -86,7 +89,7 @@ const SolicitudesCli = () => {
                         <div className="w-[295px] lg:w-[310px] h-[285px] mb-5 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg flex flex-col justify-center items-center">
                             <img src={imgSinTrabajo} alt="SinTrabajos" width={150} height={150} />
                             <p className="text-lg text-gray-700 dark:text-white font-semibold text-center">Todavía no has solicitado ningún trabajo</p>
-                            <Link to='/dashboard' className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">
+                            <Link to='/dashboard' className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={() => setOpcionActiva('inicio')}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="20"

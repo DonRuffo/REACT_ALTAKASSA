@@ -1,18 +1,19 @@
-import React, { useContext, useState } from "react";
-import AuthContext from "../context/AuthProvider";
+import React, { useState } from "react";
 import axios from "axios";
 import logoFoto from '../assets/TomarFoto.svg'
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import SpinnerCargaModal from "./RuedaCargaModal";
+import AuthStoreContext from "../store/AuthStore";
 
 const Cloudinary = () => {
-    const { auth, setAuth, setFoto} = useContext(AuthContext)
-    let preset_name
+    const { auth, setAuth, setFoto} = AuthStoreContext()
+    
 
     const [carga, setCarga] = useState(false)
     const SubidaImage = async (e) => {
-        let url_subida
+        const url_subida = `${import.meta.env.VITE_BACKEND_URL}/fotoUser`
+        const preset_name = 'pUsuario'
         const file = e.target.files
         if (!file || file.length === 0) {
             toast.error('No se seleccionó ninguna imagen');
@@ -25,16 +26,6 @@ const Cloudinary = () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
-            }
-            if (auth.rol === 'cliente') {
-                preset_name = 'pCliente'
-                url_subida = `${import.meta.env.VITE_BACKEND_URL}/fotoCliente`
-            } else if (auth.rol === 'proveedor') {
-                preset_name = 'pProveedor'
-                url_subida = `${import.meta.env.VITE_BACKEND_URL}/fotoProveedor`
-            } else if (auth.rol === 'administrador') {
-                preset_name = 'pAdministrador'
-                url_subida = `${import.meta.env.VITE_BACKEND_URL}/fotoAdmin`
             }
             
             const url = `${import.meta.env.VITE_BACKEND_URL}/firmaAK?preset=${preset_name}`

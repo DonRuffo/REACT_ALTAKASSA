@@ -24,17 +24,9 @@ const Restablecer = () => {
 
     const HandleSubmit = async (e) => {
         e.preventDefault()
-        let url
+        
         try {
-            const usuario = localStorage.getItem('userR')
-            if(usuario === 'proveedor'){
-                url = `${import.meta.env.VITE_BACKEND_URL}/restablecer-contrasenia-prov/${token}`
-            }else if(usuario === 'cliente'){
-                url = `${import.meta.env.VITE_BACKEND_URL}/restablecerPasswordCliente/${token}`
-            }else if(usuario === 'administrador'){
-                url = `${import.meta.env.VITE_BACKEND_URL}/restablecer-contrasenia/${token}`
-            }
-            
+            const url = `${import.meta.env.VITE_BACKEND_URL}/restablecerPassUser/${token}`            
             const respuesta = await axios.post(url, form)
             toast.success(respuesta.data.msg)
             setReloj(false)

@@ -14,14 +14,8 @@ const Confirmar = () => {
         let url
         const usuario = localStorage.getItem('usuario')
         try {
-            if(usuario === 'proveedor'){
-                url = `${import.meta.env.VITE_BACKEND_URL}/confirmarProveedor/${token}`
-            }else if(usuario === 'cliente'){
-                url = `${import.meta.env.VITE_BACKEND_URL}/confirmarCliente/${token}`
-            }else if(usuario === 'administrador'){
-                url = `${import.meta.env.VITE_BACKEND_URL}/confirmar/${token}`
-            }
-            console.log(url)
+            if(usuario === 'usuario') url = `${import.meta.env.VITE_BACKEND_URL}/confirmarUser/${token}`
+            if(usuario === 'administrador') url = `${import.meta.env.VITE_BACKEND_URL}/confirmar/${token}`
             const respuesta = await axios.get(url)
             setCarga(false)
             toast.success(respuesta.data.msg)

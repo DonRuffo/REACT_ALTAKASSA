@@ -1,22 +1,22 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import ModalEditarOferta from "../../componentes/modals/ModalEditarOferta";
-import OfertaContext from "../../context/OfertasProvider";
 import iconoDelete from '../../assets/Icono-Delete.png'
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
-import AuthContext from "../../context/AuthProvider";
 import imgOferta from '../../assets/Pensando.svg'
 import { Link } from "react-router-dom";
 import SvgServicio from "../../componentes/Svgs/SvgLimpieza";
+import OfertaStore from "../../store/OfertaStore";
+import AuthStoreContext from "../../store/AuthStore";
 
 const ListadoOfertas = () => {
-    const { modalEditOf, setModalEditOf, oferta, ListarOfertas } = useContext(OfertaContext)
-    const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
-    const { menu, handleMenu, setOpcionActiva } = useContext(AuthContext)
+    const { modalEditOf, setModalEditOf, oferta, ListarOfertas } = OfertaStore()
 
+    const { menu, handleMenu, setOpcionActiva } = AuthStoreContext()
+    const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
     const EliminarOferta = async (id, indx) => {
         try {
             const confirmar = confirm(`¿Estás seguro de eliminar la Oferta N°${indx}?`)
@@ -88,7 +88,7 @@ const ListadoOfertas = () => {
                     <div className="w-[200px] h-[260px] mb-5 bg-gray-100 shadow-lg dark:shadow-slate-800 dark:bg-gray-900 flex flex-col justify-center items-center rounded-lg px-4">
                         <img src={imgOferta} alt="sinOferta" width={125} height={100} />
                         <h1 className="text-lg text-center dark:text-white font-semibold">Aún no has creado ninguna oferta</h1>
-                        <Link to='/dashboard' onClick={()=>setOpcionActiva('inicio')} className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">
+                        <Link to='/dashboard' onClick={() => setOpcionActiva('inicio')} className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"

@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import imgSug from '../../assets/Suggestions.svg'
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
-import AuthContext from "../../context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import RelojDeArena from "../../componentes/RelojArena";
+import AuthStoreContext from "../../store/AuthStore";
 
 const Sugerencias = () => {
-    const {menu, handleMenu, auth} = useContext(AuthContext)
+    const {menu, handleMenu, auth} = AuthStoreContext()
     const [carga, setCarga] = useState(false)
     const [formSug, setFormSug] = useState({
         email:"",

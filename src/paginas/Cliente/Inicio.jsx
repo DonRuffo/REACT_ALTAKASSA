@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import logoInicio from '../../assets/SVG_Construccion.svg'
 import logoMenu from '../../assets/category.png'
 import logoMenuAbierto from '../../assets/hamburger.png'
-import AuthContext from "../../context/AuthProvider";
 import axios from "axios";
 import '../../../CSS/fondos.css'
-import OfertaContext from "../../context/OfertasProvider";
 import ModalTrabajos from "../../componentes/modals/ModalTrabajos";
 import Cloudinary from "../../componentes/Cloudinary";
 import { motion } from "framer-motion";
@@ -14,11 +12,13 @@ import LocationImg from '../../assets/Mapa.svg'
 import SpinnerCargaModal from "../../componentes/RuedaCargaModal";
 import { ToastContainer } from "react-toastify";
 import ModalFotoProvs from "../../componentes/modals/ModalFotoProvs";
+import AuthStoreContext from "../../store/AuthStore";
+import OfertaStore from "../../store/OfertaStore";
 
 
 const Inicio = () => {
-    const { auth, setAuth, menu, handleMenu, foto, ubi, setUbi } = useContext(AuthContext)
-    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs } = useContext(OfertaContext)
+    const { auth, setAuth, menu, handleMenu, foto, ubiActual, setUbiActual } = AuthStoreContext()
+    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
@@ -33,8 +33,10 @@ const Inicio = () => {
         try {
             const token = localStorage.getItem('token')
             const rol = localStorage.getItem('rol')
-            await ubiCliente(token, rol)
+            const tipo = localStorage.getItem('tipo')
+            await ubiCliente(token, rol, tipo)
             setCarga(false)
+            setUbiActual(true)
         } catch (error) {
             console.log('Error al dar ubicación', error.message)
         }
@@ -51,7 +53,7 @@ const Inicio = () => {
     const obtenerUbi = async () => {
         try {
             const token = localStorage.getItem('token')
-            const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiCliente`
+            const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiUser`
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,15 +62,12 @@ const Inicio = () => {
             }
             const respuesta = await axios.get(urlCli, options)
             const ubiActual = {
-                ubicacion: {
-                    latitud: respuesta.data.ubiActual.latitud,
-                    longitud: respuesta.data.ubiActual.longitud
+                ubicacionActual:{
+                    latitud: respuesta.data.ubicacionActual.latitud,
+                    longitud: respuesta.data.ubicacionActual.longitud
                 }
             }
-            setAuth({
-                ...auth,
-                ...ubiActual
-            })
+            setAuth(ubiActual)
         } catch (error) {
             console.log('Error, no se obtiene la ubicacion')
         }
@@ -116,16 +115,16 @@ const Inicio = () => {
                     </div>
                 </div>
             </section>
-            <section className={`${foto && ubi ? 'hidden' : ''} my-5 flex flex-col justify-center items-center`}>
+            <section className={`${foto && ubiActual ? 'hidden' : ''} my-5 flex flex-col justify-center items-center`}>
                 <h1 className="text-center text-xl mb-3 dark:text-white">Antes de comenzar, debes seguir estos pasos: </h1>
                 <div className="flex justify-center mb-3">
                     <div className="w-10 h-10 rounded-full border flex items-center justify-center bg-emerald-500">
                         <p className="font-semibold text-lg dark:text-white">1</p>
                     </div>
                     <div className={`flex items-center justify-center`}>
-                        <div className={`${foto || ubi ? 'bg-emerald-500' : ''} border-t border-b w-28 h-3`}></div>
+                        <div className={`${foto || ubiActual ? 'bg-emerald-500' : ''} border-t border-b w-28 h-3`}></div>
                     </div>
-                    <div className={`${foto || ubi ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
+                    <div className={`${foto || ubiActual ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
                         <p className="font-semibold text-lg dark:text-white">2</p>
                     </div>
                 </div>
@@ -135,13 +134,13 @@ const Inicio = () => {
                     <motion.div layout id="localitation" className={`flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={LocationImg} alt="localization" width={125} height={125} />
                         <h1 className="font-semibold text-center dark:text-white">Concede el permiso de ubicación</h1>
-                        <button type="button" className={`${ubi || carga ? 'hidden' : ''} px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`} onClick={() => { permitirUbi(); setUbi(true); setCarga(true) }}>Permitir</button>
+                        <button type="button" className={`${ubiActual || carga ? 'hidden' : ''} px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`} onClick={() => { permitirUbi(); setCarga(true) }}>Permitir</button>
                         {carga && <SpinnerCargaModal />}
-                        <p className={`${ubi ? '' : 'hidden'} px-3 py-1 rounded-2xl bg-emerald-200 text-emerald-800 font-semibold mt-3`}>Concedido</p>
+                        <p className={`${ubiActual ? '' : 'hidden'} px-3 py-1 rounded-2xl bg-emerald-200 text-emerald-800 font-semibold mt-3`}>Concedido</p>
                     </motion.div>
                 </motion.div>
             </section>
-            <section className={`${foto && ubi ? '' : 'hidden'} flex justify-center`}>
+            <section className={`${foto && ubiActual ? '' : 'hidden'} flex justify-center`}>
                 <div className="w-5/6 ">
                     <h1 className="font-semibold text-2xl mb-3 dark:text-white mt-3">Categorías</h1>
                     <div className="flex flex-wrap justify-around mb-2 gap-1">
@@ -160,10 +159,10 @@ const Inicio = () => {
                     </div><hr className="border-2 dark:border-gray-900" />
                 </div>
             </section>
-            <section className={`${foto && ubi ? '' : 'hidden'} mt-5`}>
+            <section className={`${foto && ubiActual ? '' : 'hidden'} mt-5`}>
                 <h1 id="aqui" className="font-semibold text-2xl mb-5 dark:text-white">{valor ? valor : 'Principales Ofertas'}</h1>
                 <div className={`${filtro ? 'hidden' : ''} flex justify-center gap-3 flex-wrap`}>
-                    {oferta.map((of, index) => (
+                    {oferta.length > 0 ? oferta.map((of, index) => (
                         <div key={of._id} className="flex md:block radial-gradientOfertas-bg h-[90px] w-full md:h-[250px] md:w-[225px] rounded-lg shadow-lg shadow-purple-400 mb-5">
                             <div className="flex justify-center mt-2 ml-2 md:ml-0">
                                 <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={() => setModalProvs(!modalProvs)}>
@@ -203,7 +202,11 @@ const Inicio = () => {
                                 </button>
                             </div>
                         </div>
-                    ))}
+                    )) : (
+                        <div className="flex justify-center items-center border-dashed border-2 bg-gray-400 h-[250px] w-[225px] rounded-lg shadow-lg shadow-blue-400">
+                            <h1 className="font-semibold text-gray-700 text-lg">No existen ofertas aún</h1>
+                        </div>
+                    )}
                 </div>
                 <div className={`${filtro ? '' : 'hidden'} flex justify-center gap-3 flex-wrap`}>
                     {ofertasFiltradas.length > 0 ? ofertasFiltradas.map((of, index) => (
