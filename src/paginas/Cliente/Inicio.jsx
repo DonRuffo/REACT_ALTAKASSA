@@ -14,11 +14,12 @@ import { ToastContainer } from "react-toastify";
 import ModalFotoProvs from "../../componentes/modals/ModalFotoProvs";
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
+import imgSinOfertas from '../../assets/Sinofertas.svg'
 
 
 const Inicio = () => {
     const { auth, setAuth, menu, handleMenu, foto, ubiActual, setUbiActual } = AuthStoreContext()
-    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
+    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs, modalPerfil, setModalPerfil } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
@@ -62,7 +63,7 @@ const Inicio = () => {
             }
             const respuesta = await axios.get(urlCli, options)
             const ubiActual = {
-                ubicacionActual:{
+                ubicacionActual: {
                     latitud: respuesta.data.ubicacionActual.latitud,
                     longitud: respuesta.data.ubicacionActual.longitud
                 }
@@ -101,13 +102,13 @@ const Inicio = () => {
 
     return (//#BA05FF COLOR DEL SISTEMA
         <>
-            <div className="lg:hidden pb-2 mt-5">
+            <div className="lg:hidden flex justify-between pb-2 mt-5">
                 <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
                 <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
             </div>
             <ToastContainer />
             <section className="flex justify-center mt-5">
-                <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-transparent border border-gray-100">
+                <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-gray-800 dark:shadow-slate-700">
                     <h1 className="text-3xl text-center text-purple-600 font-semibold pt-4 px-3 md:px-0">¡Bienvenido {auth.nombre}!</h1>
                     <h2 className="text-xl text-center dark:text-white pt-3 pb-5 px-3 md:px-0">¡Los trabajadores esperan por brindarte sus servicios!</h2>
                     <div className="flex justify-center pb-4">
@@ -203,8 +204,9 @@ const Inicio = () => {
                             </div>
                         </div>
                     )) : (
-                        <div className="flex justify-center items-center border-dashed border-2 bg-gray-400 h-[250px] w-[225px] rounded-lg shadow-lg shadow-blue-400">
-                            <h1 className="font-semibold text-gray-700 text-lg">No existen ofertas aún</h1>
+                        <div className="flex flex-col justify-center items-center  bg-gray-100 dark:bg-gray-800 h-[250px] w-[225px] rounded-lg shadow-lg dark:shadow-slate-700 mb-5">
+                            <img src={imgSinOfertas} alt="dreaming" width={125} height={125} />
+                            <h1 className="font-semibold dark:text-white text-lg">No existen ofertas aún</h1>
                         </div>
                     )}
                 </div>
@@ -212,7 +214,7 @@ const Inicio = () => {
                     {ofertasFiltradas.length > 0 ? ofertasFiltradas.map((of, index) => (
                         <div key={of._id} className="flex md:block radial-gradientOfertas-bg h-[90px] w-full md:h-[250px] md:w-[225px] rounded-lg shadow-lg shadow-purple-400 mb-5">
                             <div className="flex justify-center mt-2 ml-2 md:ml-0">
-                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={() => setModalPerfil(!modalPerfil)}>
+                                <div className="flex justify-center h-[75px] w-[75px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={() => () => setModalProvs(!modalProvs)}>
                                     <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
@@ -249,8 +251,9 @@ const Inicio = () => {
                             </div>
                         </div>
                     )) : (
-                        <div className="flex justify-center items-center border-dashed border-2 bg-gray-400 h-[250px] w-[225px] rounded-lg shadow-lg shadow-blue-400">
-                            <h1 className="font-semibold text-gray-700 text-lg">No existen ofertas aún</h1>
+                        <div className="flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-800 h-[250px] w-[225px] rounded-lg shadow-lg dark:shadow-slate-700 mb-5">
+                            <img src={imgSinOfertas} alt="dreaming" width={125} height={125} />
+                            <h1 className="font-semibold dark:text-white text-lg">No existen ofertas aún</h1>
                         </div>
                     )
                     }

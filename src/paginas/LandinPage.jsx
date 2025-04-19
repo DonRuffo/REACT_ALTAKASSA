@@ -395,7 +395,7 @@ const LandingPage = () => {
             <div className={darkMode ? "dark" : ""}>
                 <main className="bg-white dark:bg-gray-950">
                     <nav className="px-10 py-5 flex justify-between dark:bg-gray-950">
-                        <select className="w-1/3 mr-1 md:mr-0 rounded-xl py-2 md:w-40 text-center text-purple-700 font-semibold bg-transparent outline focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 hover:brightness-110 duration-300"
+                        <select className="w-1/3 mr-1 md:mr-0 rounded-xl py-2 md:w-40 text-center text-purple-500 font-semibold bg-transparent outline focus:outline-purple-600 hover:brightness-125 duration-300"
                             onChange={(e) => {
                                 const targetId = e.target.value
                                 const targetElement = document.getElementById(targetId)
@@ -404,14 +404,14 @@ const LandingPage = () => {
                                 }
                             }}
                         >
-                            <option value="Menu" className="text-sm font-semibold bg-gray-950">Menu</option>
-                            <option value="QuienesSomos" className="text-sm font-semibold bg-gray-950">Quienes Somos</option>
-                            <option value="Servicios" className="text-sm font-semibold bg-gray-950">Servicios</option>
-                            <option value="Contacto" className="text-sm font-semibold bg-gray-950">Contacto</option>
+                            <option value="Menu" className="text-sm font-semibold dark:bg-gray-950">Menu</option>
+                            <option value="QuienesSomos" className="text-sm font-semibold dark:bg-gray-950">Quienes Somos</option>
+                            <option value="Servicios" className="text-sm font-semibold dark:bg-gray-950">Servicios</option>
+                            <option value="Contacto" className="text-sm font-semibold dark:bg-gray-950">Contacto</option>
                         </select>
                         <img src={logoDarkMode} alt="CambioTema" onClick={() => { handleDarkPage() }} width={40} height={40} className="cursor-pointer" />
                         <ul className="flex items-center">
-                            <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-transparent outline text-purple-700 font-semibold rounded-xl hover:brightness-110 transition-all duration-300 text-center">Login</Link></li>
+                            <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-transparent outline text-purple-500 font-semibold rounded-xl hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
                         </ul>
                     </nav>
                     <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px] xl:h-[785px]"

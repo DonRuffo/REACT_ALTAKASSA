@@ -10,7 +10,7 @@ import AuthStoreContext from '../store/AuthStore';
 import OfertaStore from '../store/OfertaStore';
 
 const Login = () => {
-    const { Perfil, darkMode, verificarUbicacionActual, ubiCliente, verificarFoto } = AuthStoreContext()
+    const { Perfil, darkMode, verificarUbicacionActual, ubiCliente, verificarFoto, setTipo } = AuthStoreContext()
     const { ObtenerTrabajos, ListarOfertas } = OfertaStore()
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)
@@ -37,6 +37,8 @@ const Login = () => {
             localStorage.setItem('rol', respuesta.data.rol)
             localStorage.setItem('tipo', 'cliente')
             localStorage.removeItem('usuario')
+
+            setTipo('cliente')
             await ListarOfertas( respuesta.data.token, respuesta.data.rol,'cliente')
             await Perfil(respuesta.data.token, respuesta.data.rol)
             await ObtenerTrabajos( respuesta.data.token, respuesta.data.rol, 'cliente')

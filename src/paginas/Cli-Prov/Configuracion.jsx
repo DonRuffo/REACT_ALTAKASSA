@@ -141,10 +141,7 @@ const Configuracion = () => {
                         }
                     }
                     toast.success('Ubicación actualizada')
-                    setAuth({
-                        ...auth,
-                        ...ubi
-                    })
+                    setAuth(ubi)
                 } catch (error) {
                     console.error('Error al actualizar la ubicación')
                     toast.error('Error al actualizar')

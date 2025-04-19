@@ -11,11 +11,8 @@ const Confirmar = () => {
     const [carga, setCarga] =useState(true)
 
     const verifyToken = async () => {
-        let url
-        const usuario = localStorage.getItem('usuario')
         try {
-            if(usuario === 'usuario') url = `${import.meta.env.VITE_BACKEND_URL}/confirmarUser/${token}`
-            if(usuario === 'administrador') url = `${import.meta.env.VITE_BACKEND_URL}/confirmar/${token}`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/confirmarUser/${token}`
             const respuesta = await axios.get(url)
             setCarga(false)
             toast.success(respuesta.data.msg)

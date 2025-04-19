@@ -3,11 +3,11 @@ import axios from "axios";
 import logoFoto from '../assets/TomarFoto.svg'
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import SpinnerCargaModal from "./RuedaCargaModal";
 import AuthStoreContext from "../store/AuthStore";
+import SpinnerCarga from "./RuedaCarga";
 
 const Cloudinary = () => {
-    const { auth, setAuth, setFoto} = AuthStoreContext()
+    const { setAuth, setFoto} = AuthStoreContext()
     
 
     const [carga, setCarga] = useState(false)
@@ -44,23 +44,24 @@ const Cloudinary = () => {
                 secure_url:respuesta.data.secure_url
             }
             const subida = await axios.post(url_subida, formPerfil, options)
-            setAuth({
-                ...auth,
+            const fotito = {
                 f_perfil: respuesta.data.secure_url
-            })
+            }
+            setAuth(fotito)
             setFoto(true)
             toast.success('Foto subida con éxito')
         } catch (error) {
             console.error('error', error.message)
+            setCarga(false)
         }
     }
     return (
         <motion.div layout className="flex flex-col justify-center items-center outline outline-emerald-700 h-[260px] w-[200px] shadow-lg bg-gray-100 dark:bg-gray-900 rounded-lg">
-            <img src={logoFoto} alt="fotoPerfil" width={125} height={125} />
+            <img src={logoFoto} alt="fotoPerfil" className={`${carga ? 'hidden' : ''}`} width={125} height={125} />
+            {carga && <SpinnerCarga />}
             <p className="text-center font-semibold dark:text-white mb-3">Sube una foto de perfil</p>
-            <label htmlFor="imagen" className={`${carga ? 'hidden' : ''} px-3 py-1 rounded-2xl bg-emerald-700 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`}>Subir Foto</label>
-            <input id="imagen" type='file' accept="image/*" placeholder="Subir" onChange={(e)=>SubidaImage(e)} className="hidden" onClick={()=>setCarga(true)}/>
-            {carga && <SpinnerCargaModal w={6} h={6} HH={6}/>}
+            <label htmlFor="imagen" className={`px-3 py-1 rounded-2xl bg-emerald-700 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`}>Subir Foto</label>
+            <input id="imagen" type='file' accept="image/*" placeholder="Subir" onChange={(e)=>SubidaImage(e)} className="hidden" onClick={()=>setCarga(true)}/>  
         </motion.div>
     )
 }

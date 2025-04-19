@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import logoAlta from '../assets/AK BLANCA.png'
 import ModalFotoPerfil from "../componentes/modals/ModalFotoPerfil";
@@ -7,11 +7,27 @@ import OfertaStore from "../store/OfertaStore";
 const Dashboard = () => {
     const sideBar = useRef(null)
     const navigate = useNavigate()
-    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva } = AuthStoreContext()
+    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo } = AuthStoreContext()
     const { modalPerfil, setModalPerfil } = OfertaStore()
 
-    const tipo = localStorage.getItem('tipo')
+    const [rotar, setRotar] = useState(false)
+    const [cambio, setCambio] =useState()
+
     const tipoM = tipo.charAt(0).toUpperCase() + tipo.slice(1)
+    const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente' 
+    
+    const cambioDeTipo = () =>{
+        if(tipo === 'cliente'){
+            localStorage.setItem('tipo', 'proveedor')
+            setTipo('proveedor')
+        }else if(tipo === 'proveedor'){
+            localStorage.setItem('tipo', 'cliente')
+            setTipo('cliente')
+        }
+        navigate('/dashboard')
+        setOpcionActiva('inicio')
+    }
+
     const asignarValor = (e) => {
         const id = e.currentTarget.id
         setOpcionActiva(id)
@@ -37,7 +53,7 @@ const Dashboard = () => {
                         <div id="nav">
                             <h1 className="text-2xl text-white text-center font-bold">AltaKassa</h1>
                             <div className="flex justify-center">
-                                <img src={logoAlta} alt="AltaKassa Logo" width={100} height={100} />
+                                <img src={logoAlta} alt="AltaKassa Logo" width={155} height={155} />
                             </div><hr />
                             <nav className="py-2 min-h-[300px] max-h-[310px]">
                                 <Link to='/dashboard' id="inicio" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'inicio' ? 'bg-emerald-800' : ''}`}>
@@ -178,45 +194,47 @@ const Dashboard = () => {
                                     </svg>
                                     <p className="px-2">Configuración</p>
                                 </Link>
-
-                                <div className="flex justify-center">
-                                    <button className="px-5 py-2 mt-2 bg-gray-950 dark:bg-emerald-700 text-white rounded-md hover:bg-gray-700 dark:hover:bg-emerald-800 duration-300"
-                                        onClick={() => {
-                                            localStorage.removeItem('token')
-                                            localStorage.removeItem('rol')
-                                            navigate('/login')
-                                        }}>Cerrar Sesión</button>
-                                </div>
-                            </nav>
+                            </nav><hr />
                         </div>
-                        <div className="border-t pt-3">
-                            <div className="flex justify-center">
-                                <div className="flex justify-center h-[85px] w-[85px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
-                                    <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
-                                </div>
-                            </div>
-                            <div className="flex justify-center gap-x-3 items-center pt-2">
-                                <h1 className="font-semibold text-center text-md">Usuario - {auth.nombre} {auth.apellido}</h1>
-                                <div className="bg-green-600 w-3 h-3 rounded-full brightness-150"></div>
-                            </div>
-                            <div className="flex justify-center">
-                                <span className="text-sm text-center font-semibold text-orange-500">{auth.rol}</span>
-                            </div>
+                        <div className="flex justify-center">
+                            <button className="px-5 py-2 mb-5 bg-gray-950 dark:bg-emerald-700 text-white rounded-md hover:bg-gray-700 dark:hover:bg-emerald-800 duration-300"
+                                onClick={() => {
+                                    localStorage.removeItem('token')
+                                    localStorage.removeItem('rol')
+                                    localStorage.removeItem('tipo')
+                                    navigate('/login')
+                                }}>Cerrar Sesión</button>
                         </div>
                     </div>
                     {modalPerfil && <ModalFotoPerfil url={auth.f_perfil} />}
                     <div className="flex-1 flex flex-col h-screen bg-white dark:bg-black">
-                        <div className="border-b h-16 flex justify-between items-center px-4 ">
-                            <button className="font-semibold bg-gray-100 rounded-md py-2 px-3 mr-8 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear">
-                                {tipoM}
-                            </button>
+                        <div className="border-b dark:border-gray-700 h-16 hidden lg:flex justify-between items-center px-5">
+                            <div className="flex gap-x-2">
+                                <button className="flex items-center gap-x-1 font-semibold bg-gray-100 rounded-md py-2 px-3 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear" onClick={() => setRotar(!rotar)}>
+                                    {tipoM}
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
+                                        <path d="M4 20a8 8 0 0116 0" stroke="currentColor" strokeWidth="2" />
+                                    </svg>
+                                    <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className={`${rotar ? '-rotate-90' : ''} transition-all duration-300`}>
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M6 9l6 6 6-6"
+                                        />
+                                    </svg>
+                                </button>
+                                <button className={`${rotar ? '' : 'hidden'} flex items-center font-semibold bg-gray-100 rounded-md py-2 px-3 mr-8 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear`} onClick={cambioDeTipo}>
+                                    Cambiar a {tipoUsuario}
+                                </button>
+                            </div>
                             <div className="flex items-center gap-x-4">
+                                <div className="w-3 h-3 rounded-full bg-emerald-300"></div>
                                 <h1 className="font-semibold dark:text-white">{auth.nombre} {auth.apellido}</h1>
-                                <div className="border flex justify-center h-[48px] w-[48px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
+                                <div className="flex justify-center h-[44px] w-[44px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
                                     <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
-
                         </div>
                         <div className='overflow-y-auto px-8'>
                             <Outlet />

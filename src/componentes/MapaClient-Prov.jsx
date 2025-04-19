@@ -4,7 +4,6 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
 import OfertaStore from "../store/OfertaStore";
 import AuthStoreContext from "../store/AuthStore";
-import { shallow } from 'zustand/shallow'
 
 
 
@@ -20,22 +19,12 @@ const MapaCliProv = ({ form }) => {
 
     const mapRef = useRef(null)
     const containerRef = useRef(null)
-    const { mapaCliProv } = OfertaStore(
-        (state) => ({
-            mapaCliProv:state.mapaCliProv
-        }),
-        shallow
-    )   
-    const { auth } = AuthStoreContext(
-        (state) => ({
-            auth:state.auth
-        }),
-        shallow
-    )
+    const { mapaCliProv } = OfertaStore()     
+    const { auth } = AuthStoreContext()
     const creacionMapa = () => {
 
-        const latitudCli = auth.ubicacion.latitud
-        const longitudCli = auth.ubicacion.longitud
+        const latitudCli = auth.ubicacionActual.latitud
+        const longitudCli = auth.ubicacionActual.longitud
         const latitudProv = form.proveedor.ubicacion.latitud
         const longitudProv = form.proveedor.ubicacion.longitud
         if (mapRef.current) {

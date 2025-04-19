@@ -4,7 +4,7 @@ import OfertaStore from "../store/OfertaStore";
 import { shallow } from 'zustand/shallow'
 
 const AppInit = ({ children }) => {
-    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, dark, setDark, setDarkMode } = AuthStoreContext()
+    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, dark, setDark, setDarkMode, auth, tipo } = AuthStoreContext()
     const { ListarOfertas, ObtenerTrabajos, oferta, trabajos } = OfertaStore()
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -15,7 +15,7 @@ const AppInit = ({ children }) => {
         ubiCliente(token, rol)
         verificarFoto(token, rol)
         verificarUbicacionActual(token, rol, tipo)
-    }, [])
+    }, [auth, tipo])
 
     useEffect(() => {
         const tema = localStorage.getItem('tema')

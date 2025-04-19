@@ -50,7 +50,7 @@ const InicioProve = () => {
                         }
                         const respuesta = await axios.post(url, { latitude, longitude }, options)
                         const ubiNueva = {
-                            ubicacion: {
+                            ubicacionTrabajo: {
                                 longitud: longitude,
                                 latitud: latitude
                             }
@@ -58,10 +58,7 @@ const InicioProve = () => {
                         toast.success(respuesta.data.msg)
                         setUbiTrabajo(true)
                         setCarga(false)
-                        setAuth({
-                            ...auth,
-                            ...ubiNueva
-                        })
+                        setAuth(ubiNueva)
                         resolve()
                     } catch (error) {
                         console.log(error)
@@ -146,9 +143,9 @@ const InicioProve = () => {
                         <p className="font-semibold text-lg dark:text-white">2</p>
                     </div>
                     <div className={`flex items-center justify-center`}>
-                        <div className={`${ubi ? 'bg-emerald-500' : ''} border-t border-b w-16 md:w-28 h-3 transition-all duration-300`}></div>
+                        <div className={`${ubiTrabajo ? 'bg-emerald-500' : ''} border-t border-b w-16 md:w-28 h-3 transition-all duration-300`}></div>
                     </div>
-                    <div className={`${ubi ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
+                    <div className={`${ubiTrabajo ? 'bg-emerald-500' : ''} w-10 h-10 rounded-full border flex items-center justify-center`}>
                         <p className="font-semibold text-lg dark:text-white">3</p>
                     </div>
                 </div>
