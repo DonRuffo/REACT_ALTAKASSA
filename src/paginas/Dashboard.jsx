@@ -49,7 +49,7 @@ const Dashboard = () => {
         <>
             <div className={dark ? "dark" : ""}>
                 <div className="flex h-screen">
-                    <div ref={sideBar} className={`flex flex-col justify-between fixed inset-y-0 left-0 w-64 bg-emerald-900 dark:bg-emerald-950 text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
+                    <div ref={sideBar} className={`flex flex-col justify-between fixed z-50 inset-y-0 left-0 w-64 bg-emerald-900 dark:bg-emerald-950 text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
                         <div id="nav">
                             <h1 className="text-2xl text-white text-center font-bold">AltaKassa</h1>
                             <div className="flex justify-center">
@@ -229,7 +229,7 @@ const Dashboard = () => {
                                 </button>
                             </div>
                             <div className="flex items-center gap-x-4">
-                                <div className="w-3 h-3 rounded-full bg-emerald-300"></div>
+                                <div className="w-3 h-3 rounded-full bg-emerald-500 brightness-125"></div>
                                 <h1 className="font-semibold dark:text-white">{auth.nombre} {auth.apellido}</h1>
                                 <div className="flex justify-center h-[44px] w-[44px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
                                     <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />

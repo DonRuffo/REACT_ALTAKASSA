@@ -4,17 +4,19 @@ import OfertaStore from "../store/OfertaStore";
 import { shallow } from 'zustand/shallow'
 
 const AppInit = ({ children }) => {
-    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, dark, setDark, setDarkMode, auth, tipo } = AuthStoreContext()
+    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, dark, setDark, setDarkMode, auth, tipo, setTipo } = AuthStoreContext()
     const { ListarOfertas, ObtenerTrabajos, oferta, trabajos } = OfertaStore()
     useEffect(() => {
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
-        const tipo = localStorage.getItem('tipo')
+        const tipoUsuario = localStorage.getItem('tipo')
         if (!rol || !token) return
         Perfil(token, rol)
         ubiCliente(token, rol)
         verificarFoto(token, rol)
-        verificarUbicacionActual(token, rol, tipo)
+        verificarUbicacionActual(token, rol, tipoUsuario)
+        verificarUbicacionTrabajo(token, rol, tipoUsuario)
+        setTipo(tipoUsuario)
     }, [auth, tipo])
 
     useEffect(() => {

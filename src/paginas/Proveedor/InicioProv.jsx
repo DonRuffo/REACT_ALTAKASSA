@@ -63,6 +63,7 @@ const InicioProve = () => {
                     } catch (error) {
                         console.log(error)
                         toast.error(error.response?.data?.msg || "Error al guardar la ubicación")
+                        setCarga(false)
                         reject()
                     }
                 },
@@ -95,12 +96,12 @@ const InicioProve = () => {
                 creacionMapa()
             }
         }
-    }, [revelar]);
+    }, [revelar, ubiTrabajo]);
 
     const creacionMapa = async () => {
         try {
-            const latitud = auth.ubicacion.latitud
-            const longitud = auth.ubicacion.longitud
+            const latitud = auth.ubicacionTrabajo.latitud
+            const longitud = auth.ubicacionTrabajo.longitud
             if (mapRef.current) {
                 mapRef.current.setView([latitud, longitud], 15);
                 L.marker([latitud, longitud], { icon: iconMap }).addTo(mapRef.current)
@@ -154,10 +155,10 @@ const InicioProve = () => {
                 <motion.div layout className="w-4/5 flex justify-center gap-5 flex-wrap transition-all duration-300"
                     transition={{ duration: 0.3, ease: "easeInOut" }}>
                     {foto === false && <Cloudinary />}
-                    <motion.div layout id="localitation" className={`${ubiTrabajo ? 'hidden' : ''} flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 ${foto ? '' : 'brightness-50 cursor-not-allowed pointer-events-none outline-0'} h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
+                    <motion.div layout id="localitation" className={`${ubiTrabajo ? 'hidden' : ''} px-3 flex flex-col dark:bg-gray-900 bg-gray-100 outline outline-emerald-700 ${foto ? '' : 'brightness-50 cursor-not-allowed pointer-events-none outline-0'} h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={LocationImg} alt="localization" width={125} height={125} className={`${carga ? 'hidden' : 'block'}`} />
                         {carga && <SpinnerCarga />}
-                        <h1 className="font-semibold text-center dark:text-white">Ingresa tu ubicación</h1>
+                        <h1 className="font-semibold text-center dark:text-white">Ingresa la ubicación de tu trabajo</h1>
                         <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={async()  => { setCarga(true); await guardarUbi() }}>Ingresar</button>
                     </motion.div>
                     <motion.div layout className={`outline outline-emerald-700 ${ubiTrabajo === false || foto === false || revelar ? 'cursor-not-allowed pointer-events-none brightness-50 outline-0' : ''} flex flex-col dark:bg-gray-900 bg-gray-100  h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
@@ -165,8 +166,8 @@ const InicioProve = () => {
                         <h1 className={`font-semibold text-center dark:text-white`}>Crea una nueva oferta</h1>
                         <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={handleModalOf}>Ingresar</button>
                     </motion.div>
-                    <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} h-[300px] w-[225px] md:h-[260px] md:w-[350px] rounded-md transition-all duration-300`}></motion.div>
-                    <motion.div layout className={`${ubiTrabajo ? '' : 'hidden'} h-[260px] w-[100px] flex flex-col justify-center items-center transition-all duration-300`}>
+                    <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} relative z-0 h-[300px] w-[225px] md:h-[260px] md:w-[350px] rounded-md transition-all duration-300`}></motion.div>
+                    <motion.div layout className={`${ubiTrabajo ? '' : 'hidden'} h-[100px] lg:h-[260px] w-[100px] flex flex-col justify-center items-center transition-all duration-300`}>
                         <div className="outline outline-red-700 p-3 rounded-lg cursor-pointer" onClick={() => { setRevelar(!revelar); creacionMapa() }}>
                             <svg width="65" height="65" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white text-red-700 duration-300">
                                 <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"

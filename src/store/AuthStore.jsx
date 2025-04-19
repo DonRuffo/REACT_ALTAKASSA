@@ -117,10 +117,8 @@ const AuthStoreContext = create((set, get) => ({
                 }
             }
             const respuesta = await axios.get(url, options)
-            console.log(respuesta.data)
             if (respuesta.data.msg === 'No') set({ ubiTrabajo: false })
             if (respuesta.data.msg === 'Si') set({ ubiTrabajo: true })
-                console.log('exito en verificar la ubicacion')
         } catch (error) {
             console.log('Error al verificar la ubicacion de perfil')
         }

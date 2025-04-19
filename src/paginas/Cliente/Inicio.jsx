@@ -19,7 +19,7 @@ import imgSinOfertas from '../../assets/Sinofertas.svg'
 
 const Inicio = () => {
     const { auth, setAuth, menu, handleMenu, foto, ubiActual, setUbiActual } = AuthStoreContext()
-    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs, modalPerfil, setModalPerfil } = OfertaStore()
+    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
