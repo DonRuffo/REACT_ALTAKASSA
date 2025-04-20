@@ -2,15 +2,12 @@ import axios from "axios";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
-import logoMenu from '../../assets/category.png'
-import logoMenuAbierto from '../../assets/hamburger.png'
 import imgSoli from '../../assets/Descansando.svg'
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 
 const SolicitudProv = () => {
     const { trabajos, ObtenerTrabajos } = OfertaStore()
-    const { menu, handleMenu } = AuthStoreContext()
     const token = localStorage.getItem('token')
     const rol = localStorage.getItem('rol')
 
@@ -60,10 +57,6 @@ const SolicitudProv = () => {
 
     return (
         <>
-            <div className="lg:hidden pb-2 mt-5">
-                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
-                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
-            </div>
             <ToastContainer />
             <h1 className="text-center font-semibold text-3xl text-purple-600 mb-3 mt-5">Solicitudes</h1>
             <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus solicitudes de trabajo</h2>

@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import '../../../CSS/fondos.css'
-import logoMenu from '../../assets/category.png'
-import logoMenuAbierto from '../../assets/hamburger.png'
+
 import imgSinTrabajo from '../../assets/Tiempo.svg'
 import { Link } from "react-router-dom";
 import AuthStoreContext from "../../store/AuthStore";
@@ -11,7 +10,6 @@ import OfertaStore from "../../store/OfertaStore";
 const ContratosCliente = () => {
 
     const { trabajos, ObtenerTrabajos } = OfertaStore()
-    const { menu, handleMenu } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('Todas')
 
     const handleRadioChange = (e) => {
@@ -44,10 +42,6 @@ const ContratosCliente = () => {
     }
     return (
         <>
-            <div className="lg:hidden pb-2 mt-5">
-                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
-                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
-            </div>
             <section>
                 <h1 className="text-center text-purple-600 font-semibold text-3xl mt-5">Trabajos actuales</h1>
                 <p className="text-center font-semibold text-xl mb-5 dark:text-white">Aquí podrás ver las solicitudes que han sido aceptadas o rechazadas por los proveedores</p>

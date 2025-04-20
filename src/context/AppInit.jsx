@@ -4,8 +4,8 @@ import OfertaStore from "../store/OfertaStore";
 import { shallow } from 'zustand/shallow'
 
 const AppInit = ({ children }) => {
-    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, dark, setDark, setDarkMode, auth, tipo, setTipo } = AuthStoreContext()
-    const { ListarOfertas, ObtenerTrabajos, oferta, trabajos } = OfertaStore()
+    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, dark, setDark, setDarkMode, auth, setTipo } = AuthStoreContext()
+    const { ListarOfertas, ObtenerTrabajos, oferta, trabajos, MisOfertas, ofertaProvs } = OfertaStore()
     useEffect(() => {
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
@@ -17,7 +17,7 @@ const AppInit = ({ children }) => {
         verificarUbicacionActual(token, rol, tipoUsuario)
         verificarUbicacionTrabajo(token, rol, tipoUsuario)
         setTipo(tipoUsuario)
-    }, [auth, tipo])
+    }, [])
 
     useEffect(() => {
         const tema = localStorage.getItem('tema')
@@ -40,14 +40,16 @@ const AppInit = ({ children }) => {
     useEffect(() => {
         const rol = localStorage.getItem('rol')
         const token = localStorage.getItem('token')
-        const tipo = localStorage.getItem('tipo')
 
         if (rol && token) {
             if (oferta.length === 0) {
-                ListarOfertas(token, rol, tipo);
+                ListarOfertas(token, rol);
             }
             if (trabajos.length === 0) {
-                ObtenerTrabajos(token, rol, tipo);
+                ObtenerTrabajos(token, rol);
+            }
+            if (ofertaProvs.length === 0){
+                MisOfertas(token, rol)
             }
         }
     }, [])

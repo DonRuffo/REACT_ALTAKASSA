@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import logoInicioProv from '../../assets/Motivacion.svg';
-import logoMenu from '../../assets/category.png'
-import logoMenuAbierto from '../../assets/hamburger.png'
 import ModalOferta from "../../componentes/modals/ModalOferta";
 import LocationImg from '../../assets/Mapa.svg'
 import SpinnerCarga from "../../componentes/RuedaCarga";
@@ -19,8 +17,8 @@ import OfertaStore from "../../store/OfertaStore";
 
 
 const InicioProve = () => {
-    const { auth, setAuth, menu, handleMenu, ubiTrabajo, setUbiTrabajo, foto } = AuthStoreContext()
-    const { modalOf, handleModalOf, ListarOfertas } = OfertaStore()
+    const { auth, setAuth, menu, handleMenu, ubiTrabajo, setUbiTrabajo, foto, verificarUbicacionTrabajo } = AuthStoreContext()
+    const { modalOf, handleModalOf } = OfertaStore()
     const [carga, setCarga] = useState(false)
     const [revelar, setRevelar] = useState(false)
 
@@ -98,6 +96,14 @@ const InicioProve = () => {
         }
     }, [revelar, ubiTrabajo]);
 
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const rol = localStorage.getItem('rol')
+        const tipoUsuario = localStorage.getItem('tipo')
+        if (!rol || !token) return
+        verificarUbicacionTrabajo(token, rol, tipoUsuario)
+    }, [])
+
     const creacionMapa = async () => {
         try {
             const latitud = auth.ubicacionTrabajo.latitud
@@ -118,10 +124,6 @@ const InicioProve = () => {
     return (
         <>
             <ToastContainer />
-            <div className="lg:hidden mb-3 mt-5">
-                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
-                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
-            </div>
             <section className="flex justify-center mt-5">
                 <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-transparent border border-gray-100 transition-all duration-300">
                     <h1 className="text-3xl text-center text-purple-600 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}!</h1>
@@ -159,7 +161,7 @@ const InicioProve = () => {
                         <img src={LocationImg} alt="localization" width={125} height={125} className={`${carga ? 'hidden' : 'block'}`} />
                         {carga && <SpinnerCarga />}
                         <h1 className="font-semibold text-center dark:text-white">Ingresa la ubicación de tu trabajo</h1>
-                        <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={async()  => { setCarga(true); await guardarUbi() }}>Ingresar</button>
+                        <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={async () => { setCarga(true); await guardarUbi() }}>Ingresar</button>
                     </motion.div>
                     <motion.div layout className={`outline outline-emerald-700 ${ubiTrabajo === false || foto === false || revelar ? 'cursor-not-allowed pointer-events-none brightness-50 outline-0' : ''} flex flex-col dark:bg-gray-900 bg-gray-100  h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={logoOferta} alt="logoOferta" width={125} height={125} />
@@ -180,7 +182,7 @@ const InicioProve = () => {
                     </motion.div>
                 </motion.div>
             </section><br /><br />
-            {modalOf && (<ModalOferta ListarOfertas={ListarOfertas} />)}
+            {modalOf && (<ModalOferta />)}
         </>
     )
 }

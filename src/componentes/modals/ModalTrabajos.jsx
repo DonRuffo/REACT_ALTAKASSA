@@ -8,8 +8,8 @@ import ModalFotoPerfil from "./ModalFotoPerfil";
 import MapaCliProv from "../MapaClient-Prov";
 import OfertaStore from "../../store/OfertaStore";
 
-const ModalTrabajos = ({ idOferta, trabajos }) => {
-    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil,mapaCliProv, setMapaCliProv  } = OfertaStore()
+const ModalTrabajos = ({ idOferta }) => {
+    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil,mapaCliProv, setMapaCliProv, ObtenerTrabajos  } = OfertaStore()
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
     const [carga, setCarga] = useState(true)
@@ -177,7 +177,7 @@ const ModalTrabajos = ({ idOferta, trabajos }) => {
             }
             const respuesta = await axios.post(url, formTrabajo, options)
             toast.success(respuesta.data.msg)
-            trabajos(rol, token)
+            await ObtenerTrabajos(token, rol)
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)

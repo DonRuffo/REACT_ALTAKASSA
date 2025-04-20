@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import OpcionConfig from "../../componentes/opcionesConfiguracion";
-import logoMenu from '../../assets/category.png'
-import logoMenuAbierto from '../../assets/hamburger.png'
 import { ToastContainer, toast } from "react-toastify";
 import { EyeOff, Eye } from 'lucide-react';
 import imgLocation from '../../assets/Mapa.svg'
@@ -12,8 +10,8 @@ const Configuracion = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
     const [ojoActivo2, setOjoActivo2] = useState(false)
 
-    const { auth, setAuth , ActualizarPerfil, ActualizarContrasenia, setDark, menu, handleMenu, modalContra, setModalContra, modalPerfil,
-        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi} = AuthStoreContext()
+    const { auth, setAuth , ActualizarPerfil, ActualizarContrasenia, setDark, modalContra, setModalContra, modalPerfil,
+        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi, Perfil} = AuthStoreContext()
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
     const accesoTema = () => { setModalTema(!modalTema) }
@@ -135,13 +133,14 @@ const Configuracion = () => {
                     }
                     const respuesta = await axios.post(url, { latitude, longitude }, options)
                     const ubi = {
-                        ubicacion: {
+                        ubicacionTrabajo: {
                             longitud: longitude,
                             latitud: latitude
                         }
                     }
                     toast.success('Ubicación actualizada')
                     setAuth(ubi)
+                    await Perfil(token, rol, tipo)
                 } catch (error) {
                     console.error('Error al actualizar la ubicación')
                     toast.error('Error al actualizar')
@@ -152,10 +151,6 @@ const Configuracion = () => {
 
     return (
         <>
-            <div className="lg:hidden pb-2 mt-5">
-                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
-                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
-            </div>
             <h1 className="text-3xl font-semibold text-sky-600 pb-5 mt-5">Configuración</h1>
             <ToastContainer />
             <section className="flex flex-col md:flex-row justify-between">

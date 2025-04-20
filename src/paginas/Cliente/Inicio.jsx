@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoInicio from '../../assets/SVG_Construccion.svg'
-import logoMenu from '../../assets/category.png'
-import logoMenuAbierto from '../../assets/hamburger.png'
 import axios from "axios";
 import '../../../CSS/fondos.css'
 import ModalTrabajos from "../../componentes/modals/ModalTrabajos";
@@ -18,8 +16,8 @@ import imgSinOfertas from '../../assets/Sinofertas.svg'
 
 
 const Inicio = () => {
-    const { auth, setAuth, menu, handleMenu, foto, ubiActual, setUbiActual } = AuthStoreContext()
-    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
+    const { auth, setAuth, foto, ubiActual, setUbiActual, verificarUbicacionActual, Perfil } = AuthStoreContext()
+    const { modalTra, setModalTra, oferta, ObtenerTrabajos, setIdProveedor, modalProvs, setModalProvs, ListarOfertas } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
@@ -53,6 +51,8 @@ const Inicio = () => {
 
     const obtenerUbi = async () => {
         try {
+            const rol = localStorage.getItem('rol')
+            const tipoUsuario = localStorage.getItem('tipo')
             const token = localStorage.getItem('token')
             const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiUser`
             const options = {
@@ -69,6 +69,7 @@ const Inicio = () => {
                 }
             }
             setAuth(ubiActual)
+            await Perfil(token, rol, tipoUsuario)
         } catch (error) {
             console.log('Error, no se obtiene la ubicacion')
         }
@@ -100,12 +101,16 @@ const Inicio = () => {
         obtenerUbi()
     }, [])
 
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const rol = localStorage.getItem('rol')
+        const tipoUsuario = localStorage.getItem('tipo')
+        if (!rol || !token) return
+        verificarUbicacionActual(token, rol, tipoUsuario)
+        ListarOfertas(token, rol)
+    }, [])
     return (//#BA05FF COLOR DEL SISTEMA
         <>
-            <div className="lg:hidden flex justify-between pb-2 mt-5">
-                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
-                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
-            </div>
             <ToastContainer />
             <section className="flex justify-center mt-5">
                 <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-gray-800 dark:shadow-slate-700">
@@ -191,7 +196,7 @@ const Inicio = () => {
                                 <div className="md:flex justify-center mt-3 hidden">
                                     <button type="button" className="px-2 py-1 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
                                 </div>
-                                {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
+                                {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} />)}
                             </div>
                             <div className="flex items-center ml-1.5 md:hidden">
                                 <button type="button" className="px-2 py-2 rounded-md bg-purple-700 text-white font-semibold" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>
@@ -238,7 +243,7 @@ const Inicio = () => {
                                 <div className="md:flex justify-center mt-3 hidden">
                                     <button type="button" className="px-2 py-1 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 hover:scale-105 duration-300" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
                                 </div>
-                                {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} trabajos={ObtenerTrabajos} />)}
+                                {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} />)}
                             </div>
                             <div className="flex items-center ml-1.5 md:hidden">
                                 <button type="button" className="px-2 py-2 rounded-md bg-purple-700 text-white font-semibold" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>

@@ -2,8 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import ModalEditarOferta from "../../componentes/modals/ModalEditarOferta";
 import iconoDelete from '../../assets/Icono-Delete.png'
-import logoMenu from '../../assets/category.png'
-import logoMenuAbierto from '../../assets/hamburger.png'
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
 import imgOferta from '../../assets/Pensando.svg'
@@ -13,9 +11,9 @@ import OfertaStore from "../../store/OfertaStore";
 import AuthStoreContext from "../../store/AuthStore";
 
 const ListadoOfertas = () => {
-    const { modalEditOf, setModalEditOf, oferta, ListarOfertas } = OfertaStore()
+    const { modalEditOf, setModalEditOf, ofertaProvs, MisOfertas } = OfertaStore()
 
-    const { menu, handleMenu, setOpcionActiva } = AuthStoreContext()
+    const { setOpcionActiva } = AuthStoreContext()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
     const EliminarOferta = async (id, indx) => {
         try {
@@ -33,7 +31,7 @@ const ListadoOfertas = () => {
                 };
                 const respuesta = await axios.delete(url, options)
                 toast.success(respuesta.data.msg)
-                ListarOfertas(rol, token)
+                await MisOfertas(token, rol)
             }
         } catch (error) {
             console.log(error);
@@ -48,14 +46,11 @@ const ListadoOfertas = () => {
 
     return (
         <>
-            <div className="lg:hidden pb-2 mt-5">
-                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
-                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
-            </div>
+            <ToastContainer />
             <h1 className="text-3xl text-center font-semibold text-purple-600 mb-3 mt-5">Tus ofertas</h1>
             <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus ofertas creadas</h2>
             <div className="flex justify-center gap-3 flex-wrap">
-                {oferta.length !== 0 ? oferta.map((of, index) => (
+                {ofertaProvs.length !== 0 ? ofertaProvs.map((of, index) => (
                     <div key={of._id} className="radial-gradientOfertas-bg h-[250px] w-[200px] rounded-lg shadow-lg shadow-purple-400 mb-5">
                         <h1 className="text-center pt-2 font-bold text-xl text-white pb-2 mb-2 border-b">
                             Oferta N°{index + 1}
@@ -78,10 +73,10 @@ const ListadoOfertas = () => {
                             <button className="px-3 py-1 bg-purple-800 rounded-md text-white font-semibold hover:bg-purple-900 duration-300 hover:scale-110" onClick={() => { handleModalEditOf(of._id); setModalEditOf(!modalEditOf) }}>
                                 Editar
                             </button>
-                            <button className="px-2 py-1 rounded-md bg-gray-800 hover:bg-black hover:scale-110 duration-300" onClick={() => { handleModalEditOf(of._id); EliminarOferta(of._id, index + 1) }}><img src={iconoDelete} alt="iconoDelete" /></button>
+                            <button className="px-2 py-1 rounded-md bg-gray-800 hover:bg-black hover:scale-110 duration-300" onClick={async() => { handleModalEditOf(of._id); await EliminarOferta(of._id, index + 1) }}><img src={iconoDelete} alt="iconoDelete" /></button>
                         </div>
                         {ofertaSeleccionada === of._id && modalEditOf && (
-                            <ModalEditarOferta idOferta={of._id} listarOfertas={ListarOfertas} />
+                            <ModalEditarOferta idOferta={of._id} />
                         )}
                     </div>
                 )) : (

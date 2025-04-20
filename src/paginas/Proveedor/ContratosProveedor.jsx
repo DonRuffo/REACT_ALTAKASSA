@@ -1,20 +1,13 @@
 import React from "react";
 import '../../../CSS/fondos.css'
-import logoMenu from '../../assets/category.png'
-import logoMenuAbierto from '../../assets/hamburger.png'
 import imgSinTrabajo from '../../assets/Tiempo.svg'
 import OfertaStore from "../../store/OfertaStore";
 import AuthStoreContext from "../../store/AuthStore";
 
 const ContratosProv = () => {
     const { trabajos } = OfertaStore()
-    const { menu, handleMenu } = AuthStoreContext()
     return (
         <>
-            <div className="lg:hidden pb-2 mt-5">
-                <img src={logoMenu} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} />
-                <img src={logoMenuAbierto} alt="Menu" width={40} height={40} onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`} />
-            </div>
             <section>
                 <h1 className="text-center text-purple-600 font-semibold text-3xl mb-3 mt-5">Trabajos actuales</h1>
                 <h2 className="text-xl mb-5 text-center dark:text-white">Aquí podrás ver tus trabajos agendados</h2>

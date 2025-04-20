@@ -4,6 +4,7 @@ import logoAlta from '../assets/AK BLANCA.png'
 import ModalFotoPerfil from "../componentes/modals/ModalFotoPerfil";
 import AuthStoreContext from "../store/AuthStore";
 import OfertaStore from "../store/OfertaStore";
+import NavInfo from "../componentes/NavParaSmMd";
 const Dashboard = () => {
     const sideBar = useRef(null)
     const navigate = useNavigate()
@@ -11,7 +12,6 @@ const Dashboard = () => {
     const { modalPerfil, setModalPerfil } = OfertaStore()
 
     const [rotar, setRotar] = useState(false)
-    const [cambio, setCambio] =useState()
 
     const tipoM = tipo.charAt(0).toUpperCase() + tipo.slice(1)
     const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente' 
@@ -224,7 +224,7 @@ const Dashboard = () => {
                                         />
                                     </svg>
                                 </button>
-                                <button className={`${rotar ? '' : 'hidden'} flex items-center font-semibold bg-gray-100 rounded-md py-2 px-3 mr-8 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear`} onClick={cambioDeTipo}>
+                                <button className={`${rotar ? '' : 'hidden'} flex items-center font-semibold bg-gray-100 rounded-md py-2 px-3 mr-8 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear`} onClick={() =>{cambioDeTipo(); setRotar(!rotar)}}>
                                     Cambiar a {tipoUsuario}
                                 </button>
                             </div>
@@ -236,6 +236,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
+                        <NavInfo />
                         <div className='overflow-y-auto px-8'>
                             <Outlet />
                         </div>

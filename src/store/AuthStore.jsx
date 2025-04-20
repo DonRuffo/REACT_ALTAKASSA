@@ -82,6 +82,8 @@ const AuthStoreContext = create((set, get) => ({
             const respuesta = await axios.get(url, options)
             if (respuesta.data.msg === 'No') set({ foto: false })
             if (respuesta.data.msg === 'Si') set({ foto: true })
+                console.log('verificado la foto')
+
         } catch (error) {
             console.log('Error al verificar la foto de perfil')
         }
@@ -101,6 +103,8 @@ const AuthStoreContext = create((set, get) => ({
             const respuesta = await axios.get(url, options)
             if (respuesta.data.msg === 'No') set({ ubiActual: false })
             if (respuesta.data.msg === 'Si') set({ ubiActual: true })
+                console.log('verificado la ubi')
+
         } catch (error) {
             console.log('Error al verificar la ubicacion de perfil')
         }
@@ -119,6 +123,7 @@ const AuthStoreContext = create((set, get) => ({
             const respuesta = await axios.get(url, options)
             if (respuesta.data.msg === 'No') set({ ubiTrabajo: false })
             if (respuesta.data.msg === 'Si') set({ ubiTrabajo: true })
+                console.log('verificado la ubi')
         } catch (error) {
             console.log('Error al verificar la ubicacion de perfil')
         }

@@ -3,10 +3,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import SpinnerCargaModal from "../RuedaCargaModal";
 import OfertaStore from "../../store/OfertaStore";
-import { shallow } from 'zustand/shallow'
 
 
-const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
+const ModalEditarOferta = ({ idOferta }) => {
 
     const [carga , setCarga] = useState(true)
 
@@ -16,7 +15,7 @@ const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
         servicio: "",
         descripcion: ""
     })
-    const { setModalEditOf, modalEditOf } = OfertaStore()
+    const { setModalEditOf, modalEditOf, MisOfertas } = OfertaStore()
     const ObtenerOferta = async () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/verOferta/${idOferta}`
@@ -50,7 +49,7 @@ const ModalEditarOferta = ({ idOferta, listarOfertas }) => {
             }
             const respuesta = await axios.put(url, form, options)
             toast.success(respuesta.data.msg)
-            listarOfertas(rol, token)
+            await MisOfertas(token, rol)
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.msg)

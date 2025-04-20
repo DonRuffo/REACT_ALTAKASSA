@@ -7,8 +7,8 @@ import AuthStoreContext from "../store/AuthStore";
 import SpinnerCarga from "./RuedaCarga";
 
 const Cloudinary = () => {
-    const { setAuth, setFoto} = AuthStoreContext()
-    
+    const { setAuth, setFoto, Perfil } = AuthStoreContext()
+
 
     const [carga, setCarga] = useState(false)
     const SubidaImage = async (e) => {
@@ -20,6 +20,8 @@ const Cloudinary = () => {
             return;
         }
         try {
+            const rol = localStorage.getItem('rol')
+            const tipoUsuario = localStorage.getItem('tipo')
             const token = localStorage.getItem('token')
             const options = {
                 headers: {
@@ -27,7 +29,7 @@ const Cloudinary = () => {
                     Authorization: `Bearer ${token}`
                 }
             }
-            
+
             const url = `${import.meta.env.VITE_BACKEND_URL}/firmaAK?preset=${preset_name}`
             const datosFirma = await axios.get(url, options)
             const { timestamp, firmaCAK, apiKey, cloudName } = datosFirma.data
@@ -41,7 +43,7 @@ const Cloudinary = () => {
             const url_cloud = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
             const respuesta = await axios.post(url_cloud, formFile)
             const formPerfil = {
-                secure_url:respuesta.data.secure_url
+                secure_url: respuesta.data.secure_url
             }
             const subida = await axios.post(url_subida, formPerfil, options)
             const fotito = {
@@ -49,6 +51,7 @@ const Cloudinary = () => {
             }
             setAuth(fotito)
             setFoto(true)
+            await Perfil(token, rol, tipoUsuario)
             toast.success('Foto subida con éxito')
         } catch (error) {
             console.error('error', error.message)
@@ -61,7 +64,7 @@ const Cloudinary = () => {
             {carga && <SpinnerCarga />}
             <p className="text-center font-semibold dark:text-white mb-3">Sube una foto de perfil</p>
             <label htmlFor="imagen" className={`px-3 py-1 rounded-2xl bg-emerald-700 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`}>Subir Foto</label>
-            <input id="imagen" type='file' accept="image/*" placeholder="Subir" onChange={(e)=>SubidaImage(e)} className="hidden" onClick={()=>setCarga(true)}/>  
+            <input id="imagen" type='file' accept="image/*" placeholder="Subir" onChange={(e) => SubidaImage(e)} className="hidden" onClick={() => setCarga(true)} />
         </motion.div>
     )
 }

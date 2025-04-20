@@ -14,7 +14,9 @@ const OfertaStore = create((set, get) => ({
 
     //arrays
     trabajos: [],
+    trabajosProvs: [],
     oferta: [],
+    ofertaProvs: [],
     traProveedor: [],
     fechas: [],
 
@@ -24,6 +26,7 @@ const OfertaStore = create((set, get) => ({
     //seteadores de arrays y string
     setTrabajos: (tra) => set({ trabajos: tra }),
     setOferta: (of) => set({ oferta: of }),
+    setOfertaProvs: (of) => set({ ofertaProvs: of }),
     setTraProveedor: (traProv) => set({ traProveedor: traProv }),
     setFechas: (fec) => set({ fechas: fec }),
     setIdProveedor: (id) => set({ idProveedor: id }),
@@ -56,8 +59,8 @@ const OfertaStore = create((set, get) => ({
     },
 
     //funciones
-    ListarOfertas: async(token, rol, tipo) => {
-        if (rol === 'administrador' || tipo === 'proveedor') return
+    ListarOfertas: async (token, rol) => {
+        if (rol === 'administrador') return
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/listarOfertas`
             const options = {
@@ -67,18 +70,16 @@ const OfertaStore = create((set, get) => ({
                 }
             }
             const respuesta = await axios.get(url, options)
-            set({oferta:respuesta.data})
+            set({ oferta: respuesta.data })
         } catch (error) {
             console.log('Error al intentar obtener las ofertas', error.message)
         }
     },
-    ObtenerTrabajos:async (token, rol, tipo)=>{
+
+    MisOfertas: async (token, rol) => {
         if (rol === 'administrador') return
         try {
-            let url
-            if (tipo === "cliente") url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-cliente`
-            else if (tipo === "proveedor") url = `${import.meta.env.VITE_BACKEND_URL}/trabajos-proveedor`
-            
+            const url = `${import.meta.env.VITE_BACKEND_URL}/misOfertas`
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,9 +87,28 @@ const OfertaStore = create((set, get) => ({
                 }
             }
             const respuesta = await axios.get(url, options)
-            set({trabajos:respuesta.data})
+            set({ ofertaProvs: respuesta.data })
         } catch (error) {
-            console.log('Error al obtener los trabajos',error);
+            console.log('Error al intentar obtener las ofertas', error.message)
+        }
+    },
+    ObtenerTrabajos: async (token, rol) => {
+        if (rol === 'administrador') return
+        try {
+            const urlCli = `${import.meta.env.VITE_BACKEND_URL}/trabajos-cliente`
+            const urlProvs = `${import.meta.env.VITE_BACKEND_URL}/trabajos-proveedor`
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.get(urlCli, options)
+            const respuestaProvs = await axios.get(urlProvs, options)
+            set({ trabajos: respuesta.data })
+            set({ trabajosProvs: respuestaProvs.data })
+        } catch (error) {
+            console.log('Error al obtener los trabajos', error);
         }
     }
 
