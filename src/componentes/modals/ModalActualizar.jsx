@@ -185,7 +185,7 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
         <>
             <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="dark:bg-black fixed top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-white outline outline-1 outline-green-800 outline-offset-1">
+                <div className="dark:bg-black fixed top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-white outline  outline-green-800 outline-offset-1">
                     <h1 className="dark:bg-black border-b-2 border-green-700 bg-white rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-700">Solicitud de Trabajo</h1>
                     <div className="grid grid-cols-2">
                         <div className="border-r-2 border-black dark:border-white">

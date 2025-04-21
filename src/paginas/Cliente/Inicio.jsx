@@ -167,7 +167,7 @@ const Inicio = () => {
             </section>
             <section className={`${foto && ubiActual ? '' : 'hidden'} mt-5`}>
                 <h1 id="aqui" className="font-semibold text-2xl mb-5 dark:text-white">{valor ? valor : 'Principales Ofertas'}</h1>
-                <div className={`${filtro ? 'hidden' : ''} flex justify-center gap-3 flex-wrap`}>
+                <div className={`${filtro ? 'hidden' : ''} flex justify-center gap-x-3 flex-wrap`}>
                     {oferta.length > 0 ? oferta.map((of, index) => (
                         <div key={of._id} className="flex md:block radial-gradientOfertas-bg h-[90px] w-full md:h-[250px] md:w-[225px] rounded-lg shadow-lg shadow-purple-400 mb-5">
                             <div className="flex justify-center mt-2 ml-2 md:ml-0">

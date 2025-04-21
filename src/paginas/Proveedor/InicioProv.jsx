@@ -117,7 +117,7 @@ const InicioProve = () => {
         <>
             <ToastContainer />
             <section className="flex justify-center mt-5">
-                <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-transparent border border-gray-100 transition-all duration-300">
+                <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-gray-800 dark:shadow-slate-700 transition-all duration-300">
                     <h1 className="text-3xl text-center text-purple-600 font-semibold pt-4 px-3 md:px-0">¡Bienvenido de nuevo {auth.nombre}!</h1>
                     <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0 dark:text-white">El sistema espera por ti</h2>
                     <div className="flex justify-center pb-5">

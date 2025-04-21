@@ -49,11 +49,11 @@ const Dashboard = () => {
         <>
             <div className={dark ? "dark" : ""}>
                 <div className="flex h-screen">
-                    <div ref={sideBar} className={`flex flex-col justify-between fixed z-50 inset-y-0 left-0 w-64 bg-emerald-900 dark:bg-emerald-950 text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
+                    <div ref={sideBar} className={`flex flex-col justify-between fixed z-50 inset-y-0 left-0 w-52 bg-emerald-900 dark:bg-emerald-950 text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
                         <div id="nav">
                             <h1 className="text-2xl text-white text-center font-bold">AltaKassa</h1>
                             <div className="flex justify-center">
-                                <img src={logoAlta} alt="AltaKassa Logo" width={155} height={155} />
+                                <img src={logoAlta} alt="AltaKassa Logo" width={165} height={165} />
                             </div><hr />
                             <nav className="py-2 min-h-[300px] max-h-[310px]">
                                 <Link to='/dashboard' id="inicio" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'inicio' ? 'bg-emerald-800' : ''}`}>

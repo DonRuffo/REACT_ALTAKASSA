@@ -49,7 +49,7 @@ const ModalOferta = () => {
         <>  
             <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="dark:bg-black fixed dark:border-none outline outline-1 outline-green-800 outline-offset-1  top-1/4 left-[40px] right-[40px] md:left-[150px] md:right-[150px] min-w-60  lg:top-1/4 lg:left-[550px] lg:right-[300px] rounded-lg shadow-2xl bg-white">
+                <div className="dark:bg-black fixed dark:border-none outline outline-green-800 outline-offset-1  top-1/4 left-[40px] right-[40px] md:left-[150px] md:right-[150px] min-w-60  lg:top-1/4 lg:left-[550px] lg:right-[300px] rounded-lg shadow-2xl bg-white">
                     <h1 className="dark:bg-black border-b-2 border-green-700 bg-white rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-700">Nueva oferta</h1>
                     <form onSubmit={handleCreateOferta} className="mx-2">
                         <div className="my-3">
