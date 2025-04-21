@@ -52,7 +52,6 @@ const Inicio = () => {
     const obtenerUbi = async () => {
         try {
             const rol = localStorage.getItem('rol')
-            const tipoUsuario = localStorage.getItem('tipo')
             const token = localStorage.getItem('token')
             const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiUser`
             const options = {
@@ -64,12 +63,12 @@ const Inicio = () => {
             const respuesta = await axios.get(urlCli, options)
             const ubiActual = {
                 ubicacionActual: {
-                    latitud: respuesta.data.ubicacionActual.latitud,
-                    longitud: respuesta.data.ubicacionActual.longitud
+                    longitud: respuesta.data.ubiActual.longitud,
+                    latitud: respuesta.data.ubiActual.latitud
                 }
             }
             setAuth(ubiActual)
-            await Perfil(token, rol, tipoUsuario)
+            await Perfil(token, rol)
         } catch (error) {
             console.log('Error, no se obtiene la ubicacion')
         }
