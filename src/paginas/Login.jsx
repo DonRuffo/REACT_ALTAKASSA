@@ -10,8 +10,8 @@ import AuthStoreContext from '../store/AuthStore';
 import OfertaStore from '../store/OfertaStore';
 
 const Login = () => {
-    const { Perfil, darkMode, verificarUbicacionActual, ubiCliente, verificarFoto, setTipo } = AuthStoreContext()
-    const { ObtenerTrabajos, ListarOfertas } = OfertaStore()
+    const { Perfil, darkMode, verificarUbicacionActual, verificarUbicacionTrabajo, ubiCliente, verificarFoto, setTipo } = AuthStoreContext()
+    const { ObtenerTrabajos, ListarOfertas, MisOfertas } = OfertaStore()
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)
     const navigate = useNavigate()
@@ -39,12 +39,14 @@ const Login = () => {
             localStorage.removeItem('usuario')
 
             setTipo('cliente')
-            await ListarOfertas( respuesta.data.token, respuesta.data.rol,'cliente')
+            await ListarOfertas( respuesta.data.token, respuesta.data.rol)
+            await MisOfertas(respuesta.data.token, respuesta.data.rol)
             await Perfil(respuesta.data.token, respuesta.data.rol)
-            await ObtenerTrabajos( respuesta.data.token, respuesta.data.rol, 'cliente')
+            await ObtenerTrabajos( respuesta.data.token, respuesta.data.rol)
             await ubiCliente(respuesta.data.token, respuesta.data.rol, 'cliente')
             await verificarFoto(respuesta.data.token, respuesta.data.rol)
             await verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente')
+            await verificarUbicacionTrabajo(respuesta.data.token, respuesta.data.rol, 'proveedor')
             navigate('/dashboard')
         } catch (error) {
             console.log(error)

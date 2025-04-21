@@ -96,14 +96,6 @@ const InicioProve = () => {
         }
     }, [revelar, ubiTrabajo]);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        const rol = localStorage.getItem('rol')
-        const tipoUsuario = localStorage.getItem('tipo')
-        if (!rol || !token) return
-        verificarUbicacionTrabajo(token, rol, tipoUsuario)
-    }, [])
-
     const creacionMapa = async () => {
         try {
             const latitud = auth.ubicacionTrabajo.latitud

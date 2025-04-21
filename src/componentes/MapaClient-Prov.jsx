@@ -25,8 +25,8 @@ const MapaCliProv = ({ form }) => {
 
         const latitudCli = auth.ubicacionActual.latitud
         const longitudCli = auth.ubicacionActual.longitud
-        const latitudProv = form.proveedor.ubicacion.latitud
-        const longitudProv = form.proveedor.ubicacion.longitud
+        const latitudProv = form.proveedor.ubicacionTrabajo.latitud
+        const longitudProv = form.proveedor.ubicacionTrabajo.longitud
         if (mapRef.current) {
             const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
 

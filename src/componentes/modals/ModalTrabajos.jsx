@@ -9,7 +9,7 @@ import MapaCliProv from "../MapaClient-Prov";
 import OfertaStore from "../../store/OfertaStore";
 
 const ModalTrabajos = ({ idOferta }) => {
-    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil,mapaCliProv, setMapaCliProv, ObtenerTrabajos  } = OfertaStore()
+    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil, mapaCliProv, setMapaCliProv, ObtenerTrabajos } = OfertaStore()
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
     const [carga, setCarga] = useState(true)
@@ -39,8 +39,8 @@ const ModalTrabajos = ({ idOferta }) => {
     useEffect(() => {
         setFechas([]); // Primero limpiamos
         setTimeout(() => { // Esperamos un momento antes de agregar nuevas fechas
-            setFechas(() => {
-                const nuevasFechas = new Set();
+            const nuevasFechas = new Set();
+            if (traProveedor.lenght !== 0) {
                 traProveedor.forEach((tra) => {
                     if (tra.status === "Agendado") {
                         const partes = tra.fecha.split("T")[0].split("-");
@@ -48,9 +48,11 @@ const ModalTrabajos = ({ idOferta }) => {
                         nuevasFechas.add(nuevaFecha);
                     }
                 });
-                return Array.from(nuevasFechas);
-            });
-        }, 100);
+                const fechasAGuardar = Array.from(nuevasFechas);
+                setFechas(fechasAGuardar)
+            }
+
+        }, 200);
     }, [traProveedor]);
 
     const handleCalendarioChange = () => {
@@ -82,7 +84,7 @@ const ModalTrabajos = ({ idOferta }) => {
             apellido: "",
             email: "",
             f_perfil: "",
-            ubicacion: {
+            ubicacionTrabajo: {
                 latitud: "",
                 longitud: ""
             }
@@ -192,12 +194,11 @@ const ModalTrabajos = ({ idOferta }) => {
         if (idOferta) ObtenerOferta();
     }, [idOferta]);
 
-    
 
-      return (
+
+    return (
         <>
             <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
-                <ToastContainer />
                 <div className="dark:bg-black outline outline-1 outline-green-800 outline-offset-1 fixed top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-white">
                     <h1 className="dark:bg-black border-b-2 border-green-700 bg-white rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-700">Solicitud de Trabajo</h1>
                     <div className="grid grid-cols-2">
@@ -297,7 +298,7 @@ const ModalTrabajos = ({ idOferta }) => {
                             <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-600">rojo</b> están agendados</p>
                         </div>
                         <div className={`${mapaCliProv ? '' : 'hidden'} w-full flex flex-col items-center`}>
-                            {mapaCliProv && <MapaCliProv form={form}/>}
+                            {mapaCliProv && <MapaCliProv form={form} />}
                         </div>
                     </div>
                 </div>

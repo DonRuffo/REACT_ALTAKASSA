@@ -8,10 +8,10 @@ import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 
 
-const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
-    const {auth} = AuthStoreContext((state)=>({}))
+const ModalActualizar = ({ idTrabajo, idOferta }) => {
+    const {auth} = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('');
-    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv } = OfertaStore()
+    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv, ObtenerTrabajos } = OfertaStore()
     const [carga, setCarga] = useState(true)
     const [calendario, setCalendario] = useState(false)
     
@@ -93,7 +93,7 @@ const ModalActualizar = ({ idTrabajo, idOferta, actualizar }) => {
             }
             const respuesta = await axios.put(url, formTrabajo, options)
             toast.success(respuesta.data.msg)
-            actualizar(rol, token)
+            await ObtenerTrabajos(token, rol)
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.msg)
