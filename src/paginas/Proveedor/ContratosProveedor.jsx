@@ -17,11 +17,11 @@ const ContratosProv = () => {
                             <div key={tra._id} className="w-fit h-fit py-4 px-5 radial-gradientAceptados-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
                                 <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                 <div className="flex justify-center items-center gap-x-3 mt-2">
-                                    <div className="w-[65px] h-[65px] rounded-full overflow-hidden">
+                                    <div className="w-[65px] h-[65px] rounded-full overflow-hidden shrink-0">
                                         <img src={tra.cliente.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                     </div>
                                     <div className="-space-y-0.5">
-                                        <p className="text-xl font-semibold text-white">{tra.cliente.nombre}</p>
+                                        <p className="text-xl font-semibold text-white truncate w-28">{tra.cliente.nombre}</p>
                                         <p className="font-semibold text-teal-900">{tra.fecha.split('T')[0]}</p>
                                         <p className="font-semibold">{tra.desde} - {tra.hasta}</p>
                                     </div>
@@ -46,7 +46,7 @@ const ContratosProv = () => {
                             </div>
                         )
                     )) : (
-                        <div className="w-[250px] h-[265px] mb-5 shadow-lg dark:shadow-slate-800 bg-gray-100 dark:bg-gray-900 rounded-lg flex flex-col justify-center items-center">
+                        <div className="w-[250px] h-[265px] px-5 mb-5 shadow-lg dark:shadow-slate-800 bg-gray-100 dark:bg-gray-900 rounded-lg flex flex-col justify-center items-center">
                             <img src={imgSinTrabajo} alt="SinTrabajos" width={150} height={150} />
                             <p className="text-lg dark:text-white font-semibold text-center">No se han agendado trabajos todavía</p>
                         </div>

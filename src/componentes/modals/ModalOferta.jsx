@@ -49,8 +49,8 @@ const ModalOferta = () => {
         <>  
             <div className="fixed bg-black/80 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="dark:bg-black fixed dark:border-none outline-2 outline-emerald-800 top-1/4 left-[40px] right-[40px] md:left-[150px] md:right-[150px] min-w-60  lg:top-1/4 lg:left-[550px] lg:right-[300px] rounded-lg shadow-2xl bg-white">
-                    <h1 className="dark:bg-black border-b-2 border-emerald-700 bg-white rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-emerald-700">Nueva oferta</h1>
+                <div className="fixed dark:border-none outline-2 outline-emerald-700 dark:outline-emerald-500 top-1/4 left-[40px] right-[40px] md:left-[150px] md:right-[150px] min-w-60  lg:top-1/4 lg:left-[550px] lg:right-[300px] bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 rounded-lg shadow-2xl">
+                    <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-emerald-700 dark:text-emerald-500">Nueva oferta</h1>
                     <form onSubmit={handleCreateOferta} className="mx-2">
                         <div className="my-3">
                             <div className="flex justify-around flex-wrap gap-2">

@@ -20,7 +20,7 @@ const ModalFotoPerfil = ({ url }) => {
                     </svg>
                 </button>
                 <div className="w-auto h-auto">
-                    <img src={url} alt="vistaPerfil" className="rounded-lg max-h-[700px] object-contain" />
+                    <img src={url} alt="vistaPerfil" className="rounded-lg max-h-[700px] object-cover" />
                 </div>
             </div>
         </>

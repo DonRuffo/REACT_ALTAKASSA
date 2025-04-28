@@ -238,7 +238,7 @@ const ModalTrabajos = ({ idOferta }) => {
                                     <div className="flex justify-center items-center gap-x-2">
                                         <button type="button" className="bg-transparent dark:text-white text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { handleCalendarioChange() }}>
                                             {calendario ? <svg width="35" height="35" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="12" y="8" width="40" height="48" rx="4" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="2" />
+                                                <rect x="12" y="8" width="40" height="48" rx="4" fill="#E5E7EB" stroke="#9CA3AF" strokeWidth="2" />
 
                                                 <rect x="18" y="14" width="28" height="4" rx="1" fill="#4F46E5" />
 
@@ -247,14 +247,14 @@ const ModalTrabajos = ({ idOferta }) => {
                                                 <rect x="18" y="34" width="22" height="3" rx="1" fill="#A5B4FC" />
 
                                                 <circle cx="32" cy="48" r="6" fill="#10B981" />
-                                                <path d="M30 48l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M30 48l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg> : <svg width="35" height="35" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="8" y="12" width="48" height="44" rx="4" fill="#F3F4F6" stroke="#4B5563" stroke-width="2" />
+                                                <rect x="8" y="12" width="48" height="44" rx="4" fill="#F3F4F6" stroke="#4B5563" strokeWidth="2" />
 
                                                 <rect x="8" y="12" width="48" height="10" fill="#D1D5DB" />
 
-                                                <line x1="20" y1="8" x2="20" y2="16" stroke="#1F2937" stroke-width="3" />
-                                                <line x1="44" y1="8" x2="44" y2="16" stroke="#1F2937" stroke-width="3" />
+                                                <line x1="20" y1="8" x2="20" y2="16" stroke="#1F2937" strokeWidth="3" />
+                                                <line x1="44" y1="8" x2="44" y2="16" stroke="#1F2937" strokeWidth="3" />
 
                                                 <rect x="16" y="26" width="8" height="8" fill="#10B981" />
                                                 <rect x="28" y="26" width="8" height="8" fill="#10B981" />
@@ -309,7 +309,7 @@ const ModalTrabajos = ({ idOferta }) => {
                                 <h1 className="flex justify-center items-center text-xl font-semibold text-center my-2 gap-x-1 dark:text-white">
                                     Información
                                     <svg width="24" height="24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="12" y="8" width="40" height="48" rx="4" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="2" />
+                                        <rect x="12" y="8" width="40" height="48" rx="4" fill="#E5E7EB" stroke="#9CA3AF" strokeWidth="2" />
 
                                         <rect x="18" y="14" width="28" height="4" rx="1" fill="#4F46E5" />
 
@@ -318,7 +318,7 @@ const ModalTrabajos = ({ idOferta }) => {
                                         <rect x="18" y="34" width="22" height="3" rx="1" fill="#A5B4FC" />
 
                                         <circle cx="32" cy="48" r="6" fill="#10B981" />
-                                        <path d="M30 48l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M30 48l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                 </h1>
                                 <div className="flex justify-center mb-2">
@@ -345,12 +345,12 @@ const ModalTrabajos = ({ idOferta }) => {
                             <h1 className="flex justify-center items-center gap-x-1 text-xl text-center font-semibold mt-2 dark:text-white">
                                 Disponibilidad
                                 <svg width="24" height="24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="8" y="12" width="48" height="44" rx="4" fill="#F3F4F6" stroke="#4B5563" stroke-width="2" />
+                                    <rect x="8" y="12" width="48" height="44" rx="4" fill="#F3F4F6" stroke="#4B5563" strokeWidth="2" />
 
                                     <rect x="8" y="12" width="48" height="10" fill="#D1D5DB" />
 
-                                    <line x1="20" y1="8" x2="20" y2="16" stroke="#1F2937" stroke-width="3" />
-                                    <line x1="44" y1="8" x2="44" y2="16" stroke="#1F2937" stroke-width="3" />
+                                    <line x1="20" y1="8" x2="20" y2="16" stroke="#1F2937" strokeWidth="3" />
+                                    <line x1="44" y1="8" x2="44" y2="16" stroke="#1F2937" strokeWidth="3" />
 
                                     <rect x="16" y="26" width="8" height="8" fill="#10B981" />
                                     <rect x="28" y="26" width="8" height="8" fill="#10B981" />

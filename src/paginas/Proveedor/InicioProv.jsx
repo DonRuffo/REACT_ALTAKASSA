@@ -181,7 +181,7 @@ const InicioProve = () => {
                     <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} relative z-0 h-[300px] w-[225px] md:h-[260px] md:w-[350px] rounded-md transition-all duration-300`}></motion.div>
                     <motion.div id="botonUbi" layout className={`${ubiTrabajo ? '' : 'hidden'} h-[100px] lg:h-[260px] w-[100px] flex flex-col justify-center items-center transition-all duration-300`}>
                         <div className="p-3 rounded-lg" >
-                            <svg width="65" height="65" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white cursor-pointer text-red-700 duration-300" onClick={() => { setRevelar(!revelar); creacionMapa(); scrollMap() }}>
+                            <svg width="65" height="65" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 group-hover:text-white cursor-pointer text-red-700 duration-300" onClick={async() => { setRevelar(!revelar); await creacionMapa(); scrollMap() }}>
                                 <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
                                     stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 <circle cx="12" cy="9" r="3" strokeWidth="2" stroke="currentColor" />

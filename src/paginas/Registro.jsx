@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../../CSS/fondos.css'
 import logoNegroAK from '../assets/AK NEGRA.png';
 import axios from "axios";
@@ -35,25 +35,29 @@ const Registro = () => {
         e.preventDefault()
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/registroUser`
-            
+
             const respuesta = await axios.post(url, form)
             toast.success(respuesta.data.msg)
             localStorage.setItem('usuario', respuesta.data.rol)
             setReloj(false)
         } catch (error) {
-            console.log('No se ejecuta el endpoint',error)
+            console.log('No se ejecuta el endpoint', error)
             toast.error(error.response.data.msg)
-            
+
             setReloj(false)
         }
     }
 
-    setTimeout(() => {
-        const tiempo = document.getElementById('Formulario')
-        if (tiempo) {
-            tiempo.scrollIntoView({ behavior: "smooth" })
-        }
-    }, 1200)
+    useEffect(() => {
+        setTimeout(() => {
+            const tiempo = document.getElementById('Formulario')
+            if (tiempo) {
+                tiempo.scrollIntoView({ behavior: "smooth" })
+            }
+        }, 1000)
+    }, [])
+
+
     return (
         <>
             <ToastContainer />
@@ -103,7 +107,7 @@ const Registro = () => {
                                     <p>4. Más de 10 caracteres</p>
                                 </div>
                                 <div className="my-7 flex justify-center">
-                                    <button type="submit" className={`${reloj ? 'hidden' : ''} w-1/3 md:w-1/5 py-2 bg-purple-700 border border-purple-800 rounded-xl text-white text-semibold hover:bg-purple-900 duration-300 cursor-pointer`} onClick={()=>setReloj(true)}>Registrar</button>
+                                    <button type="submit" className={`${reloj ? 'hidden' : ''} w-1/3 md:w-1/5 py-2 bg-purple-700 border border-purple-800 rounded-xl text-white text-semibold hover:bg-purple-900 duration-300 cursor-pointer`} onClick={() => setReloj(true)}>Registrar</button>
                                     {reloj && <RelojDeArena />}
                                 </div> <hr className="dark:border dark:border-gray-900" />
                                 <div className="flex justify-end mt-2">

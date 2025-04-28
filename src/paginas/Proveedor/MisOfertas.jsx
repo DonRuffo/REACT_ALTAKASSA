@@ -54,7 +54,7 @@ const ListadoOfertas = () => {
                         <h1 className="text-center font-bold text-xl text-white pb-1.5 mb-1.5 border-b">
                             Oferta N°{index + 1}
                         </h1>
-                        <h1 className="text-center font-bold text-teal-200 text-xl">
+                        <h1 className="text-center font-bold text-teal-200 text-xl truncate w-28">
                             {of.servicio}
                         </h1>
                         <p className="text-center flex justify-center">

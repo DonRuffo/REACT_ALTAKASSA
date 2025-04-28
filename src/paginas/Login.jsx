@@ -1,4 +1,4 @@
-import React, { useState, } from 'react'
+import React, { useEffect, useState, } from 'react'
 import logoNegroAK from '../assets/AK NEGRA.png'
 import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
@@ -31,7 +31,7 @@ const Login = () => {
         e.preventDefault()
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/loginUser`
-            
+
             const respuesta = await axios.post(url, form)
             localStorage.setItem('token', respuesta.data.token)
             localStorage.setItem('rol', respuesta.data.rol)
@@ -39,10 +39,10 @@ const Login = () => {
             localStorage.removeItem('usuario')
 
             setTipo('cliente')
-            await ListarOfertas( respuesta.data.token, respuesta.data.rol)
+            await ListarOfertas(respuesta.data.token, respuesta.data.rol)
             await MisOfertas(respuesta.data.token, respuesta.data.rol)
             await Perfil(respuesta.data.token, respuesta.data.rol)
-            await ObtenerTrabajos( respuesta.data.token, respuesta.data.rol)
+            await ObtenerTrabajos(respuesta.data.token, respuesta.data.rol)
             await ubiCliente(respuesta.data.token, respuesta.data.rol, 'cliente')
             await verificarFoto(respuesta.data.token, respuesta.data.rol)
             await verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente')
@@ -55,12 +55,15 @@ const Login = () => {
         }
     }
 
-    setTimeout(() => {
-        const tiempo = document.getElementById('Formulario')
-        if (tiempo) {
-            tiempo.scrollIntoView({ behavior: "smooth" })
-        }
-    }, 1000)
+    useEffect(() => {
+        setTimeout(() => {
+            const tiempo = document.getElementById('Formulario')
+            if (tiempo) {
+                tiempo.scrollIntoView({ behavior: "smooth" })
+            }
+        }, 1000)
+    }, [])
+
     return (
         <>
             <ToastContainer />
@@ -74,9 +77,7 @@ const Login = () => {
                         <div className='w-5/6 md:w-4/6'>
                             <h1 className='text-xl text-blue-500 font-bold text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
                             <hr className='dark:border dark:border-gray-900' />
-                            <form onSubmit={(e) => {
-                                HandleSubmit(e)
-                            }}>
+                            <form onSubmit={HandleSubmit}>
                                 <div className="my-3">
                                     <label className="mb-2 block text-md font-semibold text-blue-500">Correo electrónico</label>
                                     <input type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Ingresa tu correo" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />

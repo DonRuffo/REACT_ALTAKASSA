@@ -73,7 +73,7 @@ const SolicitudesCli = () => {
                                     <p className="text-center">Total {tra.tipo === 'precioPorDia' ? 'por Día' : 'por Horas'}</p>
                                     <div className="flex justify-around mt-2 gap-x-4">
                                         <button className="px-3 py-2 bg-cyan-200 rounded-md text-cyan-700 font-semibold  hover:scale-105 duration-300 cursor-pointer" onClick={() => { seleccionarTrabajo(tra._id); seleccionarOferta(tra.oferta._id); setModalTraActual(!modalTraActual) }}>Actualizar</button>
-                                        <button type="button" className="px-3 py-2 bg-red-200 rounded-md text-red-700 font-semibold  hover:scale-105 duration-300 cursor-pointer" onClick={() => { EliminarTrabajo(tra._id, tra.servicio) }}>Eliminar</button>
+                                        <button type="button" className="px-3 py-2 bg-red-200 rounded-md text-red-700 font-semibold  hover:scale-105 duration-300 cursor-pointer" onClick={async() => { await EliminarTrabajo(tra._id, tra.servicio) }}>Eliminar</button>
                                     </div>
                                     {trabajoSeleccionado === tra._id && ofertaSeleccionada === tra.oferta._id && modalTraActual && (<ModalActualizar idTrabajo={tra._id} idOferta={tra.oferta._id} />)}
                                 </div>

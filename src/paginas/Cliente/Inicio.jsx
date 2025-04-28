@@ -142,7 +142,7 @@ const Inicio = () => {
                     <motion.div layout id="localitation" className={`flex flex-col dark:bg-gray-900 bg-gray-100 outline-2 outline-emerald-700 h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                         <img src={LocationImg} alt="localization" width={125} height={125} />
                         <h1 className="font-semibold text-center dark:text-white">Concede el permiso de ubicación</h1>
-                        <button type="button" className={`${ubiActual || carga ? 'hidden' : ''} px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`} onClick={() => { permitirUbi(); setCarga(true) }}>Permitir</button>
+                        <button type="button" className={`${ubiActual || carga ? 'hidden' : ''} px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`} onClick={async() => { await permitirUbi(); setCarga(true) }}>Permitir</button>
                         {carga && <SpinnerCargaModal />}
                         <p className={`${ubiActual ? '' : 'hidden'} px-3 py-1 rounded-2xl bg-emerald-200 text-emerald-800 font-semibold mt-3`}>Concedido</p>
                     </motion.div>

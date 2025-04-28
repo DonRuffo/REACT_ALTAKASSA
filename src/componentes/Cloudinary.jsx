@@ -67,7 +67,7 @@ const Cloudinary = () => {
             {carga && <SpinnerCarga />}
             <p className="text-center font-semibold dark:text-white mb-3">Sube una foto de perfil</p>
             <label htmlFor="imagen" className={`px-3 py-1 rounded-2xl bg-emerald-700 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`}>Subir Foto</label>
-            <input id="imagen" type='file' accept="image/*" placeholder="Subir" onChange={(e) => SubidaImage(e)} className="hidden" onClick={() => setCarga(true)} />
+            <input id="imagen" type='file' accept="image/*" placeholder="Subir" onChange={async(e) => await SubidaImage(e)} className="hidden" onClick={() => setCarga(true)} />
         </motion.div>
     )
 }
