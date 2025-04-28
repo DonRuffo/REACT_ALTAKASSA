@@ -14,8 +14,8 @@ const AppInit = ({ children }) => {
         Perfil(token, rol)
         ubiCliente(token, rol)
         verificarFoto(token, rol)
-        verificarUbicacionActual(token, rol, tipoUsuario)
-        verificarUbicacionTrabajo(token, rol, tipoUsuario)
+        verificarUbicacionActual(token, rol, 'cliente')
+        verificarUbicacionTrabajo(token, rol, 'proveedor')
         setTipo(tipoUsuario)
     }, [])
 

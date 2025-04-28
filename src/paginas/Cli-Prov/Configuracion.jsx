@@ -203,19 +203,19 @@ const Configuracion = () => {
                                 <label htmlFor="contrasenia" className="text-black font-semibold block mb-2 dark:text-white">Contraseña actual:</label>
                                 <div className="relative">
                                     <input type={ojoActivo ? "text" : "password"} name="contrasenia" id="contrasenia" onChange={handleChangeContrasenia} value={formContra.contrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
-                                    <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
+                                    <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="nuevaContrasenia" className="text-black font-semibold block mb-2 dark:text-white">Nueva contraseña:</label>
                                 <div className="relative">
                                     <input type={ojoActivo2 ? "text" : "password"} name="nuevaContrasenia" id="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
-                                    <button type='button' onClick={() => setOjoActivo2(!ojoActivo2)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo2 === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
+                                    <button type='button' onClick={() => setOjoActivo2(!ojoActivo2)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo2 === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                 </div>
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button type="submit" className="px-5 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold">Cambiar</button>
-                                <button type="button" className="px-6 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
+                                <button type="submit" className="px-5 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Cambiar</button>
+                                <button type="button" className="px-6 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
                             </div>
                         </form>
                     </div>
@@ -244,15 +244,15 @@ const Configuracion = () => {
                                 <input type="text" name="telefono" id="telefono" value={formPerfil.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button type="submit" className="px-4 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold">Actualizar</button>
-                                <button type="button" className="px-6 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
+                                <button type="submit" className="px-4 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Actualizar</button>
+                                <button type="button" className="px-6 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
                             </div>
                         </form>
 
                     </div>
                 </div>
                 <div className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-indigo-100 dark:bg-gray-900 dark:text-white  mb-5`}>
-                    <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:dark:bg-gray-950 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
+                    <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-100 has-[input:checked]:dark:bg-gray-950 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1021 12.79z" fill="currentColor" />
@@ -261,7 +261,7 @@ const Configuracion = () => {
                         </div>
                         <input type="radio" name="tema" id="Oscuro" value="Oscuro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800" />
                     </label>
-                    <label htmlFor="Claro" className="cursor-pointer flex justify-between px-4 py-2 mx-2 mb-2 items-center rounded-xl has-[input:checked]:text-purple-700 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
+                    <label htmlFor="Claro" className="cursor-pointer flex justify-between px-4 py-2 mx-2 mb-2 items-center rounded-xl has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-100 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="12" r="5" fill="currentColor" />

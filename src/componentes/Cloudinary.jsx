@@ -59,7 +59,10 @@ const Cloudinary = () => {
         }
     }
     return (
-        <motion.div layout className="flex flex-col justify-center items-center outline outline-emerald-700 h-[260px] w-[200px] shadow-lg bg-gray-100 dark:bg-gray-900 rounded-lg">
+        <motion.div layout className="relative flex flex-col justify-center items-center outline-2 outline-emerald-700 h-[260px] w-[200px] shadow-lg bg-gray-100 dark:bg-gray-900 rounded-lg">
+            <div className="absolute top-3 right-3 flex justify-center items-center rounded-full w-8 h-8 bg-emerald-300">
+                <p className="text-emerald-700 text-lg font-semibold">1</p>
+            </div>
             <img src={logoFoto} alt="fotoPerfil" className={`${carga ? 'hidden' : ''}`} width={125} height={125} />
             {carga && <SpinnerCarga />}
             <p className="text-center font-semibold dark:text-white mb-3">Sube una foto de perfil</p>

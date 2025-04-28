@@ -52,7 +52,7 @@ const Restablecer = () => {
                                 <input type="password" placeholder="*******" name="contrasenia" onChange={HandleChange} value={form.contrasenia || ""} className="p-1 w-full text-slate-800 rounded-md border border-slate-400 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700" />
                             </div>
                             <div className="my-3 flex justify-center">
-                                <button type="submit" className={`${reloj ? 'hidden' : ''} px-3 py-2 rounded-lg bg-orange-700 text-white hover:bg-orange-900 duration-300`} onClick={()=>setReloj(true)}>Enviar</button>
+                                <button type="submit" className={`${reloj ? 'hidden' : ''} px-3 py-2 rounded-lg bg-orange-700 text-white hover:bg-orange-900 duration-300 cursor-pointer`} onClick={()=>setReloj(true)}>Enviar</button>
                                 {reloj && <RelojDeArena />}
                             </div>
                         </form>

@@ -47,7 +47,7 @@ const Recuperar = () => {
                                     <input type="email" name="email" onChange={(e) => { setMail({ email: e.target.value }) }} className="block w-full  dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-orange-700 focus:outline-none focus:ring-1 focus:ring-orange-700 py-1 px-2 text-gray-500" placeholder="Ingresa tu correo" />
                                 </div>
                                 <div className="my-7 flex justify-center">
-                                    <button type="submit" className="w-1/4 py-2 border border-orange-400 rounded-lg bg-orange-500 text-white hover:bg-orange-700 duration-300" onClick={()=>setReloj(true)}> Enviar</button>
+                                    <button type="submit" className="w-1/4 py-2 border border-orange-400 rounded-lg bg-orange-500 text-white hover:bg-orange-700 duration-300 cursor-pointer" onClick={()=>setReloj(true)}> Enviar</button>
                                     {reloj && <RelojDeArena />}
                                 </div>
                             </form>

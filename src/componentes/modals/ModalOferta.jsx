@@ -47,10 +47,10 @@ const ModalOferta = () => {
     }
     return (
         <>  
-            <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
+            <div className="fixed bg-black/80 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="dark:bg-black fixed dark:border-none outline outline-green-800 outline-offset-1  top-1/4 left-[40px] right-[40px] md:left-[150px] md:right-[150px] min-w-60  lg:top-1/4 lg:left-[550px] lg:right-[300px] rounded-lg shadow-2xl bg-white">
-                    <h1 className="dark:bg-black border-b-2 border-green-700 bg-white rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-700">Nueva oferta</h1>
+                <div className="dark:bg-black fixed dark:border-none outline-2 outline-emerald-800 top-1/4 left-[40px] right-[40px] md:left-[150px] md:right-[150px] min-w-60  lg:top-1/4 lg:left-[550px] lg:right-[300px] rounded-lg shadow-2xl bg-white">
+                    <h1 className="dark:bg-black border-b-2 border-emerald-700 bg-white rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-emerald-700">Nueva oferta</h1>
                     <form onSubmit={handleCreateOferta} className="mx-2">
                         <div className="my-3">
                             <div className="flex justify-around flex-wrap gap-2">
@@ -67,16 +67,16 @@ const ModalOferta = () => {
                         <div className="mb-3">
                             <div className="flex justify-center gap-2 px-6 items-center">
                                 <label htmlFor="servicio" className="text-md font-semibold dark:text-white">Servicio:</label>
-                                <select name="servicio" id="servicio" className="dark:bg-gray-900 dark:text-slate-200 w-full py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700">
+                                <select name="servicio" id="servicio" className="dark:bg-gray-900 dark:text-slate-200 w-full py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700" onChange={handleChange}>
                                     <option value="Limpieza">Limpieza</option>
-                                    <option value="Chofer">Chófer</option>
-                                    <option value="Niñero/a">Niñero/a</option>
+                                    <option value="Chófer">Chófer</option>
+                                    <option value="Niñera">Niñera</option>
                                     <option value="Téc.Electrodomésticos">Téc.Electrodomésticos</option>
-                                    <option value="Plomeria">Plomería</option>
+                                    <option value="Plomería">Plomería</option>
                                     <option value="Pintor">Pintor</option>
                                     <option value="Albañilería">Albañilería</option>
-                                    <option value="Cerrajeria">Cerrajería</option>
-                                    <option value="Carpinteria">Carpintería</option>
+                                    <option value="Cerrajería">Cerrajería</option>
+                                    <option value="Carpintería">Carpintería</option>
                                     <option value="Electricista">Electricista</option>
                                 </select>
                             </div>
@@ -87,8 +87,8 @@ const ModalOferta = () => {
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
-                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalOf(false) }, 3000) }}>Crear</button>
-                                <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalOf(!modalOf) }}>Cerrar</button>
+                                <button type="submit" className="py-2 px-7 font-semibold text-emerald-700 bg-emerald-200 dark:text-emerald-200 dark:bg-emerald-900 rounded-lg hover:bg-green-800 duration-300 cursor-pointer" onClick={() => { setTimeout(() => { setModalOf(false) }, 3000) }}>Crear</button>
+                                <button type="button" className="py-2 px-6 font-semibold text-red-700 bg-red-200 dark:text-red-200 dark:bg-red-900 rounded-lg hover:bg-red-800 duration-300 cursor-pointer" onClick={() => { setModalOf(!modalOf) }}>Cerrar</button>
                             </div>
                         </div>
                     </form>

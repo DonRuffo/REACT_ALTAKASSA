@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import ModalEditarOferta from "../../componentes/modals/ModalEditarOferta";
-import iconoDelete from '../../assets/Icono-Delete.png'
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
 import imgOferta from '../../assets/Pensando.svg'
@@ -49,31 +48,45 @@ const ListadoOfertas = () => {
             <ToastContainer />
             <h1 className="text-3xl text-center font-semibold text-purple-600 mb-3 mt-5">Tus ofertas</h1>
             <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus ofertas creadas</h2>
-            <div className="flex justify-center gap-3 flex-wrap">
+            <div className="flex justify-center gap-x-3 flex-wrap">
                 {ofertaProvs.length !== 0 ? ofertaProvs.map((of, index) => (
-                    <div key={of._id} className="radial-gradientOfertas-bg h-[250px] w-[200px] rounded-lg shadow-lg shadow-purple-400 mb-5">
-                        <h1 className="text-center pt-2 font-bold text-xl text-white pb-2 mb-2 border-b">
+                    <div key={of._id} className="radial-gradientOfertas-bg h-fit w-fit px-8 py-3  rounded-lg shadow-lg shadow-purple-400 mb-5">
+                        <h1 className="text-center font-bold text-xl text-white pb-1.5 mb-1.5 border-b">
                             Oferta N°{index + 1}
                         </h1>
-                        <h1 className="text-center font-bold text-yellow-400 text-xl">
+                        <h1 className="text-center font-bold text-teal-200 text-xl">
                             {of.servicio}
                         </h1>
                         <p className="text-center flex justify-center">
                             {<SvgServicio servicio={of.servicio} />}
                         </p>
                         <p className="text-center font-semibold text-white">
-                            <b className="text-xl mr-1 text-yellow-500">${of.precioPorDia}</b>
+                            <b className="text-xl mr-1 text-teal-200">${of.precioPorDia}</b>
                             <span>el día</span>
                         </p>
                         <p className="text-center font-semibold text-white">
-                            <b className="text-xl mr-1 text-yellow-500">${of.precioPorHora}</b>
+                            <b className="text-xl mr-1 text-teal-200">${of.precioPorHora}</b>
                             <span>la hora</span>
                         </p>
-                        <div className="flex justify-around mt-3">
-                            <button className="px-3 py-1 bg-purple-800 rounded-md text-white font-semibold hover:bg-purple-900 duration-300 hover:scale-110" onClick={() => { handleModalEditOf(of._id); setModalEditOf(!modalEditOf) }}>
-                                Editar
+                        <div className="flex justify-between mt-4">
+                            <button className=" bg-transparent rounded-md text-gray-50 font-semibold  hover:scale-110 duration-300  cursor-pointer" onClick={() => { handleModalEditOf(of._id); setModalEditOf(!modalEditOf) }}>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="w-6 h-6">
+                                    <path d="M12 20h9" />
+                                    <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                                </svg>
                             </button>
-                            <button className="px-2 py-1 rounded-md bg-gray-800 hover:bg-black hover:scale-110 duration-300" onClick={async() => { handleModalEditOf(of._id); await EliminarOferta(of._id, index + 1) }}><img src={iconoDelete} alt="iconoDelete" /></button>
+                            <button className="rounded-md bg-transparent text-white hover:scale-110 duration-300 cursor-pointer" onClick={async () => { handleModalEditOf(of._id); await EliminarOferta(of._id, index + 1) }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                            </button>
                         </div>
                         {ofertaSeleccionada === of._id && modalEditOf && (
                             <ModalEditarOferta idOferta={of._id} />

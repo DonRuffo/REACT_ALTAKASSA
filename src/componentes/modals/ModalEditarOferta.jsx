@@ -67,9 +67,9 @@ const ModalEditarOferta = ({ idOferta }) => {
     }, [idOferta]);
     return (
         <>
-            <div className="fixed bg-black bg-opacity-70 inset-0 transition-all duration-300">
+            <div className="fixed bg-black/80 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="dark:bg-black dark:border-none outline outline-1 outline-green-800 outline-offset-1 fixed top-1/4 left-[60px] right-[60px] min-w-60 lg:top-1/4 lg:left-[550px] lg:right-[300px] rounded-lg shadow-2xl bg-white border-2 border-green-800">
+                <div className="dark:bg-black dark:border-none outline-2 outline-green-800 fixed top-1/4 left-[60px] right-[60px] min-w-60 lg:top-1/4 lg:left-[550px] lg:right-[300px] rounded-lg shadow-2xl bg-white border-2 border-green-800">
                     <h1 className="dark:bg-black border-b-2 border-green-700 bg-white rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-green-700">Editar oferta</h1>
                     <form onSubmit={handleSubmitOferta} className="mx-5">
                         <div className="my-3">
@@ -111,8 +111,8 @@ const ModalEditarOferta = ({ idOferta }) => {
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
-                                <button type="submit" className="py-2 px-7 text-white font-semibold bg-green-600 rounded-lg hover:bg-green-800 duration-300" onClick={() => { setTimeout(() => { setModalEditOf(false) }, 3000) }}>Actualizar</button>
-                                <button type="button" className="py-2 px-6 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-800 duration-300" onClick={() => { setModalEditOf(!modalEditOf) }}>Cerrar</button>
+                                <button type="submit" className="py-2 px-7 font-semibold text-emerald-700 bg-emerald-200 dark:text-emerald-200 dark:bg-emerald-900 hover:brightness-125 rounded-lg duration-300 cursor-pointer" onClick={() => { setTimeout(() => { setModalEditOf(false) }, 3000) }}>Actualizar</button>
+                                <button type="button" className="py-2 px-6 font-semibold text-red-700 bg-red-200 dark:text-red-200 dark:bg-red-900 hover:brightness-125 rounded-lg duration-300 cursor-pointer" onClick={() => { setModalEditOf(!modalEditOf) }}>Cerrar</button>
                             </div>
                         </div>
                     </form>

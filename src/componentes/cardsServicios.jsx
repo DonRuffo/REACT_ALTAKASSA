@@ -9,18 +9,19 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
         setValorTra(e.target.value)
     }
     return (
-        <div className="w-4/5 md:w-1/3 h-[550px] md:h-[500px] rounded-xl bg-gray-100 dark:border-none dark:bg-gray-900 shadow-lg shadow-cyan-300 dark:shadow-purple-800 hover:scale-105 duration-300">
-            <h1 className="pt-8 text-3xl text-slate-600 text-center font-semibold dark:text-white">{Servicio1}</h1>
+        <div className="py-5 relative w-4/5 md:w-1/3 h-fit rounded-xl bg-gray-100 dark:border-none dark:bg-gray-900 shadow-lg shadow-cyan-300 dark:shadow-purple-800 hover:scale-105 duration-300 ease-in-out">
+            <h1 className="text-3xl text-slate-600 text-center font-semibold dark:text-white">{Servicio1}</h1>
             <div className="flex justify-center py-4">
-                <img src={logo1} alt={Servicio1} width={200} height={200} />
+                <img src={logo1} alt={Servicio1} className="w-[100px] h-[100px] lg:w-[200px] lg:h-[200px]" />
             </div>
             <p className="text-md text-slate-600 font-semibold dark:text-slate-300 px-5 md:px-10 text-center">{texto1}</p><br />
             <div className="flex justify-center gap-x-2 lg:gap-x-3">
-                <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black">Contratar</Link>
-                <button type="button" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black" onClick={() => setAbrir(!abrir)}>Trabajos</button>
-                {abrir && (
-                    <div className="fixed inset-0 bg-white dark:bg-gray-950 bg-opacity-55 dark:bg-opacity-60 flex justify-center items-center">
-                        <div className="fixed flex flex-col justify-between inset-y-32 w-[300px] max-w-[300px] bg-white dark:bg-gray-950 rounded-md shadow-md shadow-cyan-300 dark:shadow-purple-500">
+                <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black cursor-pointer">Contratar</Link>
+                <button type="button" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black cursor-pointer" onClick={() => setAbrir(!abrir)}>Trabajos</button>
+            </div>
+            {abrir && (
+                    <div className="absolute top-0 left-0 w-full h-full rounded-xl bg-gray-300 dark:bg-gray-950 bg-opacity-65 dark:bg-opacity-60 flex justify-center items-center">
+                        <div className="flex flex-col justify-between max-h-96 w-[300px] max-w-[300px] bg-white dark:bg-gray-950 rounded-md shadow-md shadow-cyan-300 dark:shadow-purple-500">
                             <div className="px-3 overflow-y-auto">
                                 <h1 className="text-2xl font-bold pt-2 text-center dark:text-white">{Servicio1}</h1>
                                 <div className="text-justify dark:text-white">
@@ -49,13 +50,12 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex justify-center pb-2">
-                                <button className="px-2 py-1 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black" onClick={() => { setAbrir(false); setValorTra('') }}>Cerrar</button>
+                            <div className="flex justify-center py-3">
+                                <button className="px-2 py-1 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-800 dark:text-purple-800 hover:dark:bg-purple-800 hover:dark:text-black cursor-pointer" onClick={() => { setAbrir(false); setValorTra('') }}>Cerrar</button>
                             </div>
                         </div>
                     </div>
                 )}
-            </div>
         </div>
     )
 }

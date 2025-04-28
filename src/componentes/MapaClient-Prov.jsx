@@ -19,7 +19,7 @@ const MapaCliProv = ({ form }) => {
 
     const mapRef = useRef(null)
     const containerRef = useRef(null)
-    const { mapaCliProv } = OfertaStore()     
+    const { mapaCliProv } = OfertaStore()
     const { auth } = AuthStoreContext()
     const creacionMapa = () => {
 
@@ -62,7 +62,14 @@ const MapaCliProv = ({ form }) => {
     }, [mapaCliProv])
     return (
         <>
-            <h1 className="text-xl text-center font-semibold mt-2 dark:text-white mb-1">Ubicación</h1>
+            <h1 className="flex items-center gap-x-1 text-xl text-center font-semibold mt-2 dark:text-white mb-1">
+                Ubicación
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white text-red-700 duration-300">
+                    <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
+                        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="12" cy="9" r="3" strokeWidth="2" stroke="currentColor" />
+                </svg>
+            </h1>
             <div ref={containerRef} className={`rounded-md h-5/6 w-11/12 border`}></div>
         </>
     )

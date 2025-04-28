@@ -86,13 +86,13 @@ const Login = () => {
                                     <label className="mb-2 block text-md font-semibold text-blue-500">Contraseña</label>
                                     <div className='flex gap-2 relative'>
                                         <input type={ojoActivo ? "text" : "password"} name='contrasenia' onChange={HandleChange} value={form.contrasenia || ""} placeholder="********************" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
-                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
+                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                     </div>
                                 </div>
 
 
                                 <div className="my-7 flex justify-center">
-                                    <button type='submit' onClick={() => setCarga(true)} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white`}>Ingresar</button>
+                                    <button type='submit' onClick={() => setCarga(true)} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white cursor-pointer`}>Ingresar</button>
                                     {carga && (<RelojDeArena />)}
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />
@@ -102,7 +102,7 @@ const Login = () => {
                                 </div>
                             </form><br />
                             <div>
-                                <button type='button' className='group/inicio flex justify-around items-center px-3 py-1 rounded-lg bg-purple-700 text-white text-sm font-semibold hover:bg-purple-900 duration-300' onClick={() => { navigate("/") }}>
+                                <button type='button' className='group/inicio flex justify-around items-center px-3 py-1 rounded-lg bg-purple-700 text-white text-sm font-semibold hover:bg-purple-900 duration-300 cursor-pointer' onClick={() => { navigate("/") }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" className='group-hover/inicio:-translate-x-0.5 transition-all duration-300'>
                                         <path d="M14 19l-7-7 7-7v14z" />
                                     </svg>

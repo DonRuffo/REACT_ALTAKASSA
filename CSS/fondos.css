@@ -17,13 +17,13 @@
 }
 
 .radial-gradientOfertas-bg {
-    background: radial-gradient(circle, #065f46, #047857, #059669);
+    background: radial-gradient(circle, #7c3aed, #9333ea, #c084fc);
     background-size: 150% 150%;
     animation: pulseGradient 4s ease-in-out infinite;
 }
 
 .radial-gradientTrabajos-bg {
-    background: radial-gradient(circle, #065F46, #10B981, #6EE7B7);
+    background: radial-gradient(circle, #e0f7fa, #80cbc4, #00796b);
     background-size: 150% 150%;
     animation: pulseGradient 4s ease-in-out infinite;
 }
@@ -39,7 +39,15 @@
     background-size: 150% 150%;
     animation: pulseGradient 4s ease-in-out infinite;
 }
+.pulsoBotones{
+    animation: pulse 2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite; 
+}
 
+@keyframes pulse {
+    50% {
+      opacity: 0.7;
+    }
+  }
 
 @keyframes pulseGradient {
 

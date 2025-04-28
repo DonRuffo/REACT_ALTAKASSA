@@ -85,7 +85,7 @@ const Sugerencias = () => {
                                     <textarea name="comentario" id="comentario" value={formSug.comentario || ""} onChange={handleChange} className="px-2 border-2 min-h-10 max-h-24 dark:border-white dark:focus:border-purple-600 dark:bg-transparent rounded-md focus:outline-none focus:border-purple-600"></textarea>
                                 </div>
                                 <div className="mb-5 flex justify-center lg:justify-start">
-                                    <button type="submit" className={`${carga ? 'hidden' : ''} px-4 py-2 text-purple-700 font-semibold rounded-md bg-purple-200 hover:bg-purple-300 duration-300`} onClick={()=>setCarga(true)}>
+                                    <button type="submit" className={`${carga ? 'hidden' : ''} px-4 py-2 text-purple-700 font-semibold rounded-md bg-purple-200 hover:bg-purple-300 duration-300 cursor-pointer`} onClick={()=>setCarga(true)}>
                                         Enviar
                                     </button>
                                     {carga && <RelojDeArena />}

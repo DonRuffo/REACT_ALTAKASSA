@@ -73,8 +73,8 @@ const SolicitudProv = () => {
                         trabajosProvs.some(tra => tra.status === "En espera") ? (
                         trabajosProvs.map((tra) => (
                             tra.status === "En espera" && (
-                                <div key={tra._id} className="w-[250px] h-[265px] radial-gradientTrabajos-bg rounded-lg shadow-lg dark:shadow-slate-700 mb-5">
-                                    <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold">{tra.servicio}</h1>
+                                <div key={tra._id} className="w-[250px] h-[265px] radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
+                                    <h1 className="text-center text-2xl mt-2 pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                     <div className="flex justify-center items-center gap-x-3 mt-2">
                                         <div className="w-[65px] h-[65px] rounded-full overflow-hidden">
                                             <img src={tra.cliente.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
@@ -92,8 +92,8 @@ const SolicitudProv = () => {
                                     </div>
                                     <p className="text-center">Total {tra.tipo === 'precioPorDia' ? 'por Día' : 'por Horas'}</p>
                                     <div className="flex justify-around mt-3">
-                                        <button className="px-4 py-2 bg-blue-700 rounded-md text-white hover:bg-blue-900 hover:scale-105 duration-300" onClick={() => { AceptarSolicitud(tra._id, tra.servicio); setCarga(true) }}>{carga ? <SpinnerCargaModal w={4} h={4} HH={4}/> : 'Aceptar' }</button>
-                                        <button className="px-3 py-2 bg-red-700 rounded-md text-white hover:bg-red-900 hover:scale-105 duration-300" onClick={() => { RechazarSolicitud(tra._id, tra.servicio); setCarga(true) }} >{carga ? <SpinnerCargaModal w={4} h={4} HH={4}/> : 'Rechazar' }</button>
+                                        <button className="px-4 py-2 bg-cyan-200 rounded-md text-cyan-700 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={() => { AceptarSolicitud(tra._id, tra.servicio); setCarga(true) }}>{carga ? <SpinnerCargaModal w={4} h={4} HH={4}/> : 'Aceptar' }</button>
+                                        <button className="px-3 py-2 bg-red-200 rounded-md text-red-700 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={() => { RechazarSolicitud(tra._id, tra.servicio); setCarga(true) }} >{carga ? <SpinnerCargaModal w={4} h={4} HH={4}/> : 'Rechazar' }</button>
                                     </div>
                                 </div>
                             )

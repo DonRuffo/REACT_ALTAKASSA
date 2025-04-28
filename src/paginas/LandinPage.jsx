@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import logoDarkMode from '../assets/moon.png';
@@ -390,11 +390,24 @@ const LandingPage = () => {
             container.scrollIntoView({behavior:'smooth'})
         }
     }
+
+    const scrollInicio = () =>{
+        const container = document.getElementById('LandingPage')
+        if (container) {
+            container.scrollIntoView({behavior:'smooth'})
+        }
+    }
+
+    useEffect(()=>{
+        setTimeout(() => {
+            scrollInicio()
+        }, 500) 
+    }, [])
     return (
         <>
             <div className={darkMode ? "dark" : ""}>
                 <main className="bg-white dark:bg-gray-950">
-                    <nav className="px-10 py-5 flex justify-between dark:bg-gray-950">
+                    <nav className="px-10 py-5 flex justify-between dark:bg-gray-950" id="LandingPage">
                         <select className="w-1/3 mr-1 md:mr-0 rounded-xl py-2 md:w-40 text-center text-purple-500 font-semibold bg-transparent outline focus:outline-purple-600 hover:brightness-125 duration-300"
                             onChange={(e) => {
                                 const targetId = e.target.value
@@ -422,7 +435,7 @@ const LandingPage = () => {
                             <p className="text-white font-semibold mt-2 text-lg text-center">Ofrecer o buscar un servicio nunca había sido más sencillo</p>
                         </div><br /><br />
                         <div className="flex justify-center gap-x-2 lg:gap-x-4 px-4">
-                            <button type="button" onClick={() => navigate('/registro')} className="group px-5 py-1 md:py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300">
+                            <button type="button" onClick={() => navigate('/registro')} className="group px-5 py-1 md:py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white  lg:text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300 cursor-pointer">
                                 Registarse
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -438,7 +451,7 @@ const LandingPage = () => {
                                     <path d="M30 20l-4 4 4 4" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </button>
-                            <button type="button" className="group px-5 py-1 md:py-3 rounded-3xl bg-gradient-to-r from-slate-100 via-emerald-200 to-emerald-500 text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300" onClick={scrollLeer}>
+                            <button type="button" className="group px-5 py-1 md:py-3 rounded-3xl bg-gradient-to-r from-slate-100 via-emerald-200 to-emerald-500 lg:text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300 cursor-pointer" onClick={scrollLeer}>
                                 Continuar leyendo
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="w-7 h-7 group-hover:translate-y-1 transition-all duration-300">
                                     <path

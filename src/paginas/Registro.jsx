@@ -92,7 +92,7 @@ const Registro = () => {
                                     <label className="mb-2 block text-md font-semibold dark: text-purple-500">Contraseña</label>
                                     <div className="flex gap-2 relative">
                                         <input type={ojoActivo ? "text" : "password"} name='contrasenia' placeholder="*****" onChange={HandleChange} value={form.contrasenia || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
-                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
+                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                     </div>
                                 </div>
                                 <div className="text-sm rounded-md bg-red-200 py-1 px-2 dark:bg-gray-950 dark:text-slate-300">
@@ -103,7 +103,7 @@ const Registro = () => {
                                     <p>4. Más de 10 caracteres</p>
                                 </div>
                                 <div className="my-7 flex justify-center">
-                                    <button type="submit" className={`${reloj ? 'hidden' : ''} w-1/3 md:w-1/5 py-2 bg-purple-700 border border-purple-800 rounded-xl text-white text-semibold hover:bg-purple-900 duration-300`} onClick={()=>setReloj(true)}>Registrar</button>
+                                    <button type="submit" className={`${reloj ? 'hidden' : ''} w-1/3 md:w-1/5 py-2 bg-purple-700 border border-purple-800 rounded-xl text-white text-semibold hover:bg-purple-900 duration-300 cursor-pointer`} onClick={()=>setReloj(true)}>Registrar</button>
                                     {reloj && <RelojDeArena />}
                                 </div> <hr className="dark:border dark:border-gray-900" />
                                 <div className="flex justify-end mt-2">
