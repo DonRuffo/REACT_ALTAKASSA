@@ -4,13 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import logoDarkMode from '../assets/moon.png';
 import logoAltaKassaNegro from '../assets/AK NEGRA.png';
 import logoAltaKassaBlanco from '../assets/AK BLANCA.png';
-import logoComodidad from '../assets/Comodidad.png';
-import logoUsabilidad from '../assets/COHETE.png';
-import logoTransparencia from '../assets/Transparencia.png';
-import logoSeguridad from '../assets/Seguridad.png';
-import logoGarantia from '../assets/Garantía.png';
-import logoFiabilidad from '../assets/Fiabilidad.png'
-import imgTuerca from '../assets/Tuerca tornasol.png';
+import logoComodidad from '../assets/Comodidad.svg';
+import logoUsabilidad from '../assets/Usabilidad.svg';
+import logoTransparencia from '../assets/Transparencia.svg';
+import logoSeguridad from '../assets/Seguridad.svg';
+import logoGarantia from '../assets/Garantía.svg';
+import logoFiabilidad from '../assets/Fiabilidad.svg'
+import imgTuerca from '../assets/ServiciosSection.svg';
 import imgPlomeria from '../assets/Plomeria.png'
 import imgElectro from '../assets/Electrodomestico.png'
 import imgCarpinteria from '../assets/Carpinteria.png'
@@ -18,32 +18,29 @@ import imgLimpieza from '../assets/Limpieza.png'
 import imgPintor from '../assets/Pintor.png'
 import imgAlbanil from '../assets/Albañil.png'
 import imgAksin from '../assets/AK BLANCA_sintexto.png'
-import imgAstronauta from '../assets/astronauta.png'
-import logoAgendar from '../assets/Agendar-lista.png'
-import logoElegir from '../assets/Elegir-lista.png'
-import logoCancelar from '../assets/Cancelar-lista.png'
-import logoLlamadas from '../assets/Llamadas-lista.png'
-import logoCalificar from '../assets/Calificar-lista.png'
-import logoComunicar from '../assets/Comunicarse-lista.png'
-import logoPago from '../assets/Pago-lista.png'
-import logoCartera from '../assets/Cartera-lista.png'
-import logoRevisar from '../assets/Revisar-lista.png'
-import logoStars from '../assets/Stars-lista.png'
-import logoPrecio from '../assets/Price-lista.png'
-import logoPostergar from '../assets/Postergar-lista.png'
-import logoActualizar from '../assets/Actualizar-lista.png'
-import logoComunicarse from '../assets/Comunicarse2-lista.png'
+import imgSomos from '../assets/QuienesSomos.svg'
+import logoAgendar from '../assets/Agendar.svg'
+import logoElegir from '../assets/Diversidad.svg'
+import logoCancelar from '../assets/Cancelar1.svg'
+import logoSolicitudes from '../assets/Solicitudes.svg'
+import logoCalificar from '../assets/Calificar.svg'
+import logoComunicar from '../assets/Chatting.svg'
+import logoRevisar from '../assets/Ubicacion.svg'
+import logoStars from '../assets/Calificar2.svg'
+import logoPrecio from '../assets/Precios.svg'
+import logoPostergar from '../assets/Cancelar2.svg'
+import logoActualizar from '../assets/UbiTrabajo.svg'
+import logoComunicarse from '../assets/Mensajería.svg'
 import CardBeneficio from "../componentes/cardsBeneficios";
 import CardDinamica from "../componentes/cardsDinamica";
 import { useState } from "react";
 import CardServicios from "../componentes/cardsServicios";
 import ListasAnimadas from "../componentes/Listas";
 import ListasAnimadasProv from "../componentes/ListasProv";
-import imPerfilDinamica from '../assets/PERFIL_dinamica.jpg'
+import imPerfilDinamica from '../assets/Dinamica.svg'
 import logoBG from '../assets/FondoPage.jpg'
 import imgDesc from '../assets/Descriptivo.svg'
-import AuthStoreContext from "../store/AuthStore";
-import { shallow } from "zustand/shallow";
+import AuthStoreContext from "../store/AuthStore"
 //text-slate-400 - texto para cards
 //#60E8FE color para iconos
 const LandingPage = () => {
@@ -384,25 +381,25 @@ const LandingPage = () => {
     }
     ]
 
-    const scrollLeer = () =>{
+    const scrollLeer = () => {
         const container = document.getElementById('DescriptionSection')
         if (container) {
-            container.scrollIntoView({behavior:'smooth'})
+            container.scrollIntoView({ behavior: 'smooth' })
         }
     }
 
-    const scrollInicio = () =>{
+    const scrollInicio = () => {
         const container = document.getElementById('LandingPage')
         if (container) {
-            container.scrollIntoView({behavior:'smooth'})
+            container.scrollIntoView({ behavior: 'smooth' })
         }
     }
 
-    useEffect(()=>{
+    /*useEffect(() => {
         setTimeout(() => {
             scrollInicio()
-        }, 500) 
-    }, [])
+        }, 500)
+    }, [])*/
     return (
         <>
             <div className={darkMode ? "dark" : ""}>
@@ -428,7 +425,7 @@ const LandingPage = () => {
                         </ul>
                     </nav>
                     <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px] xl:h-[785px]"
-                        id="Inicio" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),url(${logoBG})`}}>
+                        id="Inicio" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),url(${logoBG})` }}>
                         <div className="flex flex-col items-center px-2">
                             <img src={imgAksin} alt="logoAlta" width={110} height={110} className="" />
                             <h1 className="text-white text-center text-5xl md:text-6xl font-bold">Bienvenido a AltaKassa</h1>
@@ -512,7 +509,7 @@ const LandingPage = () => {
                                     fueron priorizados debido a la alta demanda que hay en la vida cotidiana de los
                                     ciudadanos.
                                 </h2>
-                                <img src={imgTuerca} alt="Tuerca" width={250} height={250} />
+                                <img src={imgTuerca} alt="Tuerca" width={280} height={250} />
                             </div>
                         </div>
                     </section><br /><br />
@@ -530,12 +527,12 @@ const LandingPage = () => {
                             <CardServicios Servicio1={"Técnico-Electrodomésticos"} logo1={imgElectro} texto1={"Profesional especializado en la instalación, mantenimiento y reparación de aparatos eléctricos utilizados en el hogar, como lavadoras, refrigeradores, hornos, microondas y lavavajillas."} texto2={tecnico} />
                         </div><br /><br /><br /><br /><br />
                     </section>
-                    <section id="QuienesSomos" className="flex flex-col items-center justify-center md:mb-20">
-                        <div className="w-4/5 border-4 border-dotted border-sky-400 rounded-md shadow-lg dark:shadow-purple-700 dark:border-purple-600">
-                            <h1 className="text-4xl px-8 py-6 font-semibold text-sky-600 text-center dark:text-purple-700">¿Quiénes somos?</h1><br />
-                            <div className="flex flex-col items-center md:flex-row">
-                                <div className="w-3/5 md:w-2/5 flex justify-center max-h-[250px] pb-5 md:p-0">
-                                    <img src={imgAstronauta} alt="Astronauta" width={250} height={250} />
+                    <section id="QuienesSomos" className="flex flex-col items-center justify-center md:mb-20 bg-emerald-50 dark:bg-emerald-950">
+                        <div className="w-3/5 py-10">
+                            <h1 className="px-8 mb-2 font-semibold text-center text-4xl lg:text-5xl text-emerald-600 dark:text-emerald-500 duration-300">¿Quiénes somos?</h1><br />
+                            <div className="flex flex-col md:flex-row items-center lg:items-start">
+                                <div className="w-3/5 md:w-2/5 flex justify-center items-start max-h-[300px] pb-5 md:p-0">
+                                    <img src={imgSomos} alt="QuienesSomos" width={300} height={250} />
                                 </div>
                                 <div className="w-4/5 md:w-3/5 md:pr-5">
                                     <p className="text-justify mb-3 dark:text-white"><b>Alta-Kassa Multiservicios</b>, una empresa fundada el 29 de junio del 2024 por los cofundadores
@@ -544,54 +541,53 @@ const LandingPage = () => {
                                         solución a ciertos
                                         problemas de su hogar.
                                     </p>
-                                    <p className="text-justify mb-3 dark:text-white"><b className="text-orange-600 font-semibold dark:text-yellow-600">Visión: </b>En Alta-Kassa Multiservicios aspiramos a revolucionar la forma en que se brindan los servicios
+                                    <p className="text-justify mb-3 dark:text-white"><b className="text-amber-600 font-semibold">Visión: </b>En Alta-Kassa Multiservicios aspiramos a revolucionar la forma en que se brindan los servicios
                                         a domicilio en Ecuador, llevando soluciones profesionales, accesibles y de calidad a cada rincón del país. Queremos ser el puente que conecta a las personas con el talento que necesitan, de forma rápida, segura y sencilla.
                                     </p>
-                                    <p className="text-justify mb-1 dark:text-white"><b className="text-blue-600 font-semibold dark:text-purple-600">Misión: </b>Ofrecer servicios profesionales de alta calidad a hogares y empresas,
+                                    <p className="text-justify dark:text-white"><b className="text-cyan-600 font-semibold ">Misión: </b>Ofrecer servicios profesionales de alta calidad a hogares y empresas,
                                         priorizando la comodidad, seguridad y confianza de nuestros clientes. En Alta-Kassa garantizamos una experiencia eficiente y flexible, con atención personalizada, métodos de pago accesibles y soporte
                                         tanto virtual como presencial. </p><br /><br />
                                 </div>
                             </div>
                         </div>
-                    </section><br /><br /><br /><br /><br />
+                    </section><br /><br /><br /><br />
                     <section className="flex justify-center">
                         <div className="w-4/5">
-                            <h1 className="text-5xl text-center font-semibold text-sky-600 pb-4 dark:text-purple-700">Dinámica del sistema</h1>
+                            <h1 className="text-5xl text-center font-semibold text-sky-600 pb-4 dark:text-purple-500">Dinámica del sistema</h1>
                             <p className="text-center dark:text-white"><b>Importante: </b>Un cliente o proveedor deberá iniciar sesión o registrarse como primer requisito para ingresar
                                 al sistema de la empresa</p><br />
                             <div className="flex justify-center">
-                                <img src={imPerfilDinamica} alt="Perfil Dinamica" width={300} height={300} className="rounded-full shadow-md border-4 border-sky-700 dark:border-purple-700" />
+                                <img src={imPerfilDinamica} alt="Perfil Dinamica" width={325} height={300} />
                             </div><br /><br />
-                            <h1 className="text-4xl text-sky-600 font-semibold dark:text-purple-700 text-center">Navega por el perfil</h1><br />
+                            <h1 className="text-4xl text-sky-600 font-semibold dark:text-purple-500 text-center">¿Qúe puede hacer con cada perfil?</h1><br />
 
                             <div className="flex justify-center">
-                                <div className="w-1/2 border p-3 rounded-lg">
-                                    <label className="dark:has-[input:checked]:bg-transparent has-[input:checked]:bg-purple-100 has-[input:checked]:text-purple-800 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800 flex justify-between items-center p-5 rounded-lg mb-1 hover:bg-gray-100 font-semibold text-lg text-slate-600 dark:text-white  dark:hover:bg-transparent transition-all duration-200">
+                                <div className="w-full lg:w-1/2 bg-gray-100 dark:bg-gray-900 p-3 rounded-lg">
+                                    <label className="dark:has-[input:checked]:bg-transparent has-[input:checked]:bg-cyan-50 has-[input:checked]:text-cyan-500 has-[input:checked]:dark:text-purple-500 has-[input:checked]:ring-1 has-[input:checked]:ring-cyan-500 has-[input:checked]:dark:ring-purple-500 flex justify-between items-center p-5 rounded-lg mb-1 hover:bg-gray-100 font-semibold text-lg text-slate-600 dark:text-white  dark:hover:bg-transparent transition-all duration-200">
                                         Cliente
-                                        <input type="radio" name="opcion" onChange={handleRadioChange} value='cliente' checked={selectedOption === 'cliente'} className="peer appearance-none w-4 h-4 rounded-full border checked:border-purple-800 checked:border-4" />
+                                        <input type="radio" name="opcion" onChange={handleRadioChange} value='cliente' checked={selectedOption === 'cliente'} className="peer appearance-none w-4 h-4 rounded-full border checked:border-cyan-600 dark:checked:border-purple-600 checked:border-4" />
                                     </label>
-                                    <label className="dark:has-[input:checked]:bg-transparent has-[input:checked]:bg-purple-100 has-[input:checked]:text-purple-800 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800 flex justify-between items-center p-5 rounded-lg mb-1 hover:bg-gray-100 font-semibold text-lg text-slate-600 dark:text-white  dark:hover:bg-transparent transition-all duration-200">
+                                    <label className="dark:has-[input:checked]:bg-transparent has-[input:checked]:bg-cyan-50 has-[input:checked]:text-cyan-500 has-[input:checked]:dark:text-purple-500 has-[input:checked]:ring-1 has-[input:checked]:ring-cyan-500 has-[input:checked]:dark:ring-purple-500 flex justify-between items-center p-5 rounded-lg mb-1 hover:bg-gray-100 font-semibold text-lg text-slate-600 dark:text-white  dark:hover:bg-transparent transition-all duration-200">
                                         Proveedor
-                                        <input type="radio" name="opcion" onChange={handleRadioChange} value='proveedor' checked={selectedOption === 'proveedor'} className="peer appearance-none w-4 h-4 rounded-full border checked:border-purple-800 checked:border-4" />
+                                        <input type="radio" name="opcion" onChange={handleRadioChange} value='proveedor' checked={selectedOption === 'proveedor'} className="peer appearance-none w-4 h-4 rounded-full border checked:border-cyan-600 dark:checked:border-purple-600 checked:border-4" />
                                     </label>
                                 </div>
                             </div><br /><br />
                             {selectedOption === 'cliente' && (
                                 <div className={`animate-fade-in`}>
                                     <h1 className="text-3xl dark:text-white"><b>Cliente</b></h1><br />
-                                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                        <CardDinamica logo={logoAgendar} texto={"Agendar citas indicando la fecha y hora que más le conviene."} color={'sky'} colorDark={'purple'} />
-                                        <CardDinamica logo={logoElegir} texto={"Elegir el proveedor de su preferencia o en base a su calificación."} color={'sky'} colorDark={'purple'} />
-                                        <CardDinamica logo={logoCancelar} texto={"Cancelar una cita o postergarla."} color={'sky'} colorDark={'purple'} />
-                                        <CardDinamica logo={logoLlamadas} texto={"Llamadas emergentes fuera de los horarios de atención."} color={'sky'} colorDark={'purple'} />
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
+                                        <CardDinamica logo={logoAgendar} texto={"Agendar servicios indicando la fecha y hora que más le conviene."} />
+                                        <CardDinamica logo={logoElegir} texto={"Elegir el proveedor de su preferencia o en base a su calificación."} />
+                                        <CardDinamica logo={logoCancelar} texto={"Cancelar una cita o postergarla."}  />
+
                                     </div><br />
-                                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                        <CardDinamica logo={logoCalificar} texto={"Calificar al proveedor considerando actitudes, conductas y valores."} color={'sky'} colorDark={'purple'} />
-                                        <CardDinamica logo={logoComunicar} texto={"Comunicarse con el proveedor por mensajería o llamada telefónica."} color={'sky'} colorDark={'purple'} />
-                                        <CardDinamica logo={logoPago} texto={"Agregar un método de pago digital."} color={'sky'} colorDark={'purple'} />
-                                        <CardDinamica logo={logoCartera} texto={"Elegir su método de pago preferido, ya sea digital, con tarjeta o en efectivo."} color={'sky'} colorDark={'purple'} />
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
+                                        <CardDinamica logo={logoCalificar} texto={"Calificar al proveedor considerando actitudes, conductas y valores."}  />
+                                        <CardDinamica logo={logoSolicitudes} texto={"Gestionar sus solicitudes a fin de actualizar los requerimientos."} />
+                                        <CardDinamica logo={logoComunicar} texto={"Comunicarse con el proveedor por mensajería o llamada telefónica."}  />
                                     </div><br /><br /><br />
-                                    <h1 className="text-center text-3xl font-semibold mb-5 text-purple-600 dark:text-sky-600">Tener en cuenta</h1>
+                                    <h1 className="text-center text-3xl font-semibold mb-5 text-cyan-600 dark:text-purple-600">Tener en cuenta</h1>
                                     <div className="flex justify-center md:mb-10">
                                         <div className="w-5/6 md:w-1/2">
                                             <ListasAnimadas />
@@ -602,17 +598,17 @@ const LandingPage = () => {
                             {selectedOption === 'proveedor' && (
                                 <div className={`animate-fade-in`}>
                                     <h1 className="text-3xl dark:text-white"><b>Proveedor</b></h1><br />
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        <CardDinamica logo={logoRevisar} texto={"Revisar el perfil de su cliente y la ubicación para dar el servicio."} color={'green'} colorDark={'yellow'} />
-                                        <CardDinamica logo={logoStars} texto={"Calificar al cliente considerando valores como: trato, comportamiento y solvencia."} color={'green'} colorDark={'yellow'} />
-                                        <CardDinamica logo={logoPrecio} texto={"Ofrecer el precio por consulta o mano de obra a los clientes (considerando el estándar de mínimo y máximo)."} color={'green'} colorDark={'yellow'} />
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
+                                        <CardDinamica logo={logoRevisar} texto={"Revisar el perfil de su cliente y la ubicación para dar el servicio."} />
+                                        <CardDinamica logo={logoStars} texto={"Calificar al cliente considerando valores como: trato, comportamiento y solvencia."}  />
+                                        <CardDinamica logo={logoPrecio} texto={"Ofrecer el precio por consulta o mano de obra a los clientes (considerando el estándar de mínimo y máximo)."}/>
                                     </div><br />
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        <CardDinamica logo={logoPostergar} texto={"Cancelar o postergar una cita."} color={'green'} colorDark={'yellow'} />
-                                        <CardDinamica logo={logoActualizar} texto={"Actualizar su estado de disponibilidad."} color={'green'} colorDark={'yellow'} />
-                                        <CardDinamica logo={logoComunicarse} texto={"Comunicarse directamente con el cliente mediante el sistema de mensajería o llamada telefónica."} color={'green'} colorDark={'yellow'} />
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
+                                        <CardDinamica logo={logoPostergar} texto={"Cancelar o postergar una cita."}  />
+                                        <CardDinamica logo={logoActualizar} texto={"Agregar y actualizar la ubicación del lugar de trabajo cada que lo desee."}  />
+                                        <CardDinamica logo={logoComunicarse} texto={"Comunicarse directamente con el cliente mediante el sistema de mensajería o llamada telefónica."}  />
                                     </div><br /><br /><br />
-                                    <h1 className="text-center text-3xl font-semibold mb-5 text-purple-600 dark:text-sky-600">Tener en cuenta</h1>
+                                    <h1 className="text-center text-3xl font-semibold mb-5 text-cyan-600 dark:text-purple-600">Tener en cuenta</h1>
                                     <div className="flex justify-center">
                                         <div className="w-5/6 md:w-1/2">
                                             <ListasAnimadasProv />
