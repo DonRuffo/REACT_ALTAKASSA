@@ -481,20 +481,22 @@ const LandingPage = () => {
                             </div>
                         </div>
                     </section><br /><br /><br />
-                    <section>
+                    <section className="flex flex-col justify-center items-center">
                         <h1 className="text-4xl md:text-5xl font-semibold text-center text-emerald-600 dark:text-emerald-500 duration-300 pb-10">Beneficios para ti</h1>
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como cliente</h2>
-                        <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-8">
-                            <CardBeneficio Beneficio={"Transparencia"} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
-                            <CardBeneficio Beneficio={"Garantía"} logo={logoGarantia} texto={"¡Calidad de la mano de obra 100% garantizado! Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
-                            <CardBeneficio Beneficio={"Seguridad"} logo={logoSeguridad} texto={"¡Alta protección de información! Desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
-                        </div><br /><br /><br /><br />
-                        <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como proveedor</h2>
-                        <div className="flex flex-col items-center mx-0 md:flex-row md:flex-wrap justify-center gap-10 md:gap-8">
-                            <CardBeneficio Beneficio={"Comodidad"} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡nuevos clientes mucho más rápido! desde la comodidad de tu hogar o trabajo."} />
-                            <CardBeneficio Beneficio={"Usabilidad"} logo={logoUsabilidad} texto={"Sistema óptimo y sencillo de manejar, con un entorno amigable y una clara interfaz para navegar correctamente y realizar acciones específicas."} />
-                            <CardBeneficio Beneficio={"Fiabilidad"} logo={logoFiabilidad} texto={"El sistema mantiene credibilidad en sus funciones y prioriza un ambiente de trabajo armónico entre proveedor y cliente, tanto en la plataforma como al prestar el servicio."} />
-                        </div><br /><br /><br /><br />
+                        <div className="w-4/5 md:w-11/12 lg:w-4/5">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
+                                <CardBeneficio Beneficio={"Transparencia"} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
+                                <CardBeneficio Beneficio={"Garantía"} logo={logoGarantia} texto={"¡Calidad de la mano de obra 100% garantizado! Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
+                                <CardBeneficio Beneficio={"Seguridad"} logo={logoSeguridad} texto={"¡Alta protección de información! Desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
+                            </div><br /><br /><br /><br />
+                            <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como proveedor</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
+                                <CardBeneficio Beneficio={"Usabilidad"} logo={logoUsabilidad} texto={"Sistema óptimo y sencillo de manejar, con un entorno amigable y una clara interfaz para navegar desde cualquier dispositivo."} />
+                                <CardBeneficio Beneficio={"Comodidad"} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡nuevos clientes mucho más rápido! desde la comodidad de tu hogar o trabajo."} />
+                                <CardBeneficio Beneficio={"Fiabilidad"} logo={logoFiabilidad} texto={"El sistema mantiene credibilidad en sus funciones y prioriza un ambiente de trabajo armónico entre proveedor y cliente, tanto en la plataforma como al prestar el servicio."} />
+                            </div><br /><br /><br /><br />
+                        </div>
                     </section>
                     <section className="flex flex-col items-center justify-center" id="Servicios">
                         <div className="w-4/5">
@@ -513,28 +515,32 @@ const LandingPage = () => {
                             </div>
                         </div>
                     </section><br /><br />
-                    <section>
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                            <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas como fugas, obstrucciones y contaminación del agua."} texto2={plomero} />
-                            <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas-creativas, fundamental tanto en la construcción como en el diseño de interiores que aporta funcionalidad y estética a los espacios."} texto2={carpintero} />
-                        </div><br /><br />
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                            <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas, tintes y revestimientos en interiores y exteriores de edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."} texto2={pintor} />
-                            <CardServicios Servicio1={"Albañilería"} logo1={imgAlbanil} texto1={"Fundamental en la construcción de edificaciones e infraestructuras, combinando habilidades manuales con conocimiento en materiales, técnicas constructivas y normas de seguridad."} texto2={albañil} />
-                        </div><br /><br />
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-14">
-                            <CardServicios Servicio1={"Limpieza"} logo1={imgLimpieza} texto1={"Profesional especializado en la limpieza general del hogar. Mantener la casa libre de polvo e impurezas, tanto en losas y paredes como en muebles e inmuebles, es importante para la salud."} texto2={limpieza} />
-                            <CardServicios Servicio1={"Técnico-Electrodomésticos"} logo1={imgElectro} texto1={"Profesional especializado en la instalación, mantenimiento y reparación de aparatos eléctricos utilizados en el hogar, como lavadoras, refrigeradores, hornos, microondas y lavavajillas."} texto2={tecnico} />
-                        </div><br /><br /><br /><br /><br />
-                    </section>
+                    <section className="flex justify-center">
+                        <div className="w-4/5">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-12">
+                                <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas como fugas, obstrucciones y contaminación del agua."} texto2={plomero} />
+                                <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas-creativas, fundamental tanto en la construcción como en el diseño de interiores que aporta funcionalidad y estética a los espacios."} texto2={carpintero} />
+                            </div><br /><br />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-12">
+                                <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas, tintes y revestimientos en interiores y exteriores de edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."} texto2={pintor} />
+                                <CardServicios Servicio1={"Albañilería"} logo1={imgAlbanil} texto1={"Fundamental en la construcción de edificaciones e infraestructuras, combinando habilidades manuales con conocimiento en materiales, técnicas constructivas y normas de seguridad."} texto2={albañil} />
+                            </div><br /><br />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-12">
+                                <CardServicios Servicio1={"Limpieza"} logo1={imgLimpieza} texto1={"Profesional especializado en la limpieza general del hogar. Mantener la casa libre de polvo e impurezas, tanto en losas y paredes como en muebles e inmuebles, es importante para la salud."} texto2={limpieza} />
+                                <CardServicios Servicio1={"Técnico-Electrodomésticos"} logo1={imgElectro} texto1={"Profesional especializado en la instalación, mantenimiento y reparación de aparatos eléctricos utilizados en el hogar, como lavadoras, refrigeradores, hornos, microondas y lavavajillas."} texto2={tecnico} />
+                            </div>
+                        </div>
+                    </section><br /><br /><br /><br /><br />
                     <section id="QuienesSomos" className="flex flex-col items-center justify-center md:mb-20 bg-emerald-50 dark:bg-emerald-950">
-                        <div className="w-3/5 py-10">
-                            <h1 className="px-8 mb-2 font-semibold text-center text-4xl lg:text-5xl text-emerald-600 dark:text-emerald-500 duration-300">¿Quiénes somos?</h1><br />
-                            <div className="flex flex-col md:flex-row items-center lg:items-start">
-                                <div className="w-3/5 md:w-2/5 flex justify-center items-start max-h-[300px] pb-5 md:p-0">
+                        <div className="w-full md:w-4/5 py-10">
+                            <h1 className="px-8 md:mb-2 font-semibold text-center text-4xl lg:text-5xl text-emerald-600 dark:text-emerald-500 duration-300">¿Quiénes somos?</h1><br />
+                            <div className="flex flex-col md:flex-row items-center md:justify-center lg:items-start">
+                                <div className="w-3/5 flex md:hidden lg:flex justify-center items-start max-h-[300px] pb-5 md:p-0">
                                     <img src={imgSomos} alt="QuienesSomos" width={300} height={250} />
                                 </div>
-                                <div className="w-4/5 md:w-3/5 md:pr-5">
+                                <div className="w-4/5 md:full md:pr-5">
+                                    <img src={imgSomos} alt="QuienesSomos" width={175} height={150} className="float-left pr-1 hidden md:flex lg:hidden" />
+
                                     <p className="text-justify mb-3 dark:text-white"><b>Alta-Kassa Multiservicios</b>, una empresa fundada el 29 de junio del 2024 por los cofundadores
                                         Dennis Díaz y Martín Ayala,
                                         quienes vieron la necesidad de implementar un sistema en dónde la gente pueda encontrar una
@@ -579,13 +585,12 @@ const LandingPage = () => {
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
                                         <CardDinamica logo={logoAgendar} texto={"Agendar servicios indicando la fecha y hora que más le conviene."} />
                                         <CardDinamica logo={logoElegir} texto={"Elegir el proveedor de su preferencia o en base a su calificación."} />
-                                        <CardDinamica logo={logoCancelar} texto={"Cancelar una cita o postergarla."}  />
-
+                                        <CardDinamica logo={logoCancelar} texto={"Cancelar una cita o postergarla."} />
                                     </div><br />
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
-                                        <CardDinamica logo={logoCalificar} texto={"Calificar al proveedor considerando actitudes, conductas y valores."}  />
+                                        <CardDinamica logo={logoCalificar} texto={"Calificar al proveedor considerando actitudes, conductas y valores."} />
                                         <CardDinamica logo={logoSolicitudes} texto={"Gestionar sus solicitudes a fin de actualizar los requerimientos."} />
-                                        <CardDinamica logo={logoComunicar} texto={"Comunicarse con el proveedor por mensajería o llamada telefónica."}  />
+                                        <CardDinamica logo={logoComunicar} texto={"Comunicarse con el proveedor por mensajería o llamada telefónica."} />
                                     </div><br /><br /><br />
                                     <h1 className="text-center text-3xl font-semibold mb-5 text-cyan-600 dark:text-purple-600">Tener en cuenta</h1>
                                     <div className="flex justify-center md:mb-10">
@@ -600,13 +605,13 @@ const LandingPage = () => {
                                     <h1 className="text-3xl dark:text-white"><b>Proveedor</b></h1><br />
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
                                         <CardDinamica logo={logoRevisar} texto={"Revisar el perfil de su cliente y la ubicación para dar el servicio."} />
-                                        <CardDinamica logo={logoStars} texto={"Calificar al cliente considerando valores como: trato, comportamiento y solvencia."}  />
-                                        <CardDinamica logo={logoPrecio} texto={"Ofrecer el precio por consulta o mano de obra a los clientes (considerando el estándar de mínimo y máximo)."}/>
+                                        <CardDinamica logo={logoStars} texto={"Calificar al cliente considerando valores como: trato, comportamiento y solvencia."} />
+                                        <CardDinamica logo={logoPrecio} texto={"Ofrecer el precio por consulta o mano de obra a los clientes (considerando el estándar de mínimo y máximo)."} />
                                     </div><br />
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
-                                        <CardDinamica logo={logoPostergar} texto={"Cancelar o postergar una cita."}  />
-                                        <CardDinamica logo={logoActualizar} texto={"Agregar y actualizar la ubicación del lugar de trabajo cada que lo desee."}  />
-                                        <CardDinamica logo={logoComunicarse} texto={"Comunicarse directamente con el cliente mediante el sistema de mensajería o llamada telefónica."}  />
+                                        <CardDinamica logo={logoPostergar} texto={"Cancelar o postergar una cita."} />
+                                        <CardDinamica logo={logoActualizar} texto={"Agregar y actualizar la ubicación del lugar de trabajo cada que lo desee."} />
+                                        <CardDinamica logo={logoComunicarse} texto={"Comunicarse directamente con el cliente mediante el sistema de mensajería o llamada telefónica."} />
                                     </div><br /><br /><br />
                                     <h1 className="text-center text-3xl font-semibold mb-5 text-cyan-600 dark:text-purple-600">Tener en cuenta</h1>
                                     <div className="flex justify-center">

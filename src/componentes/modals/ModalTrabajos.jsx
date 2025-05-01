@@ -182,11 +182,11 @@ const ModalTrabajos = ({ idOferta }) => {
             toast.success(respuesta.data.msg)
             await ObtenerTrabajos(token, rol)
             setCargaTra(false)
-            setTimeout(()=>{
-                if(modalTra === true){
+            setTimeout(() => {
+                if (modalTra === true) {
                     setModalTra(false)
                 }
-            }, 2000)  
+            }, 2000)
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
@@ -229,50 +229,39 @@ const ModalTrabajos = ({ idOferta }) => {
                                             </label>
                                         </div>
                                     </div>
-                                </div> <hr className="border border-slate-500"/>
-                                <div className="mb-3 px-2 py-0.5 lg:px-6 flex flex-wrap justify-between gap-2 items-center">
+                                </div> <hr className="border border-slate-500" />
+                                <div className="mb-3 px-2 py-0.5 lg:px-6 flex flex-col md:flex-row flex-wrap justify-between gap-2 items-center">
                                     <div>
                                         <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white mb-1">Fecha: </label>
                                         <input type="date" name="fecha" onChange={(e) => { handleChange(e); compararFechas(e) }} value={formTrabajo.fecha || ""} className="dark:bg-gray-700 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
                                     </div>
-                                    <div className="flex justify-center items-center gap-x-2">
-                                        <button type="button" className="bg-transparent dark:text-white text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { handleCalendarioChange() }}>
-                                            {calendario ? <svg width="35" height="35" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="12" y="8" width="40" height="48" rx="4" fill="#E5E7EB" stroke="#9CA3AF" strokeWidth="2" />
+                                    <div className="flex justify-center items-center gap-x-3">
+                                        <button type="button" className="flex flex-col justify-center items-center bg-transparent dark:text-emerald-500 text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { handleCalendarioChange() }}>
+                                            {calendario ? <>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                                                </svg>
+                                                <span className="text-xs font-semibold">Información</span>
+                                            </>
+                                                :
+                                                <>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                                                    </svg>
+                                                    <span className="text-xs font-semibold">Disponibilidad</span>
+                                                </>
 
-                                                <rect x="18" y="14" width="28" height="4" rx="1" fill="#4F46E5" />
-
-                                                <rect x="18" y="22" width="28" height="3" rx="1" fill="#A5B4FC" />
-                                                <rect x="18" y="28" width="28" height="3" rx="1" fill="#A5B4FC" />
-                                                <rect x="18" y="34" width="22" height="3" rx="1" fill="#A5B4FC" />
-
-                                                <circle cx="32" cy="48" r="6" fill="#10B981" />
-                                                <path d="M30 48l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg> : <svg width="35" height="35" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="8" y="12" width="48" height="44" rx="4" fill="#F3F4F6" stroke="#4B5563" strokeWidth="2" />
-
-                                                <rect x="8" y="12" width="48" height="10" fill="#D1D5DB" />
-
-                                                <line x1="20" y1="8" x2="20" y2="16" stroke="#1F2937" strokeWidth="3" />
-                                                <line x1="44" y1="8" x2="44" y2="16" stroke="#1F2937" strokeWidth="3" />
-
-                                                <rect x="16" y="26" width="8" height="8" fill="#10B981" />
-                                                <rect x="28" y="26" width="8" height="8" fill="#10B981" />
-                                                <rect x="40" y="26" width="8" height="8" fill="#10B981" />
-                                                <rect x="16" y="38" width="8" height="8" fill="#10B981" />
-                                                <rect x="28" y="38" width="8" height="8" fill="#10B981" />
-                                                <rect x="40" y="38" width="8" height="8" fill="#10B981" />
-                                            </svg>}
+                                            }
                                         </button>
-                                        <button type="button" className="bg-transparent dark:text-white text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { setMapaCliProv(!mapaCliProv) }}>
-                                            <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white text-red-700 duration-300">
-                                                <path d="M12 22C12 22 4 14.58 4 9C4 5.13401 7.13401 2 11 2H13C16.866 2 20 5.13401 20 9C20 14.58 12 22 12 22Z"
-                                                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                <circle cx="12" cy="9" r="3" strokeWidth="2" stroke="currentColor" />
+                                        <button type="button" className="flex flex-col justify-center items-center bg-transparent dark:text-emerald-500 text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { setMapaCliProv(!mapaCliProv) }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                                             </svg>
+                                            <span className="text-xs font-semibold">Ubicación</span>
                                         </button>
                                     </div>
-                                </div><hr className="border border-slate-500"/>
+                                </div><hr className="border border-slate-500" />
                                 {selectedOption === 'precioPorHora' && (
                                     <>
                                         <h1 className="font-semibold ml-5 mt-1 dark:text-white">Hora: <span className="text-sm font-semibold text-slate-500"> (Selecciona a tu preferencia)</span></h1>
@@ -298,7 +287,7 @@ const ModalTrabajos = ({ idOferta }) => {
                                 )}
                                 <div className="mb-3 mt-7">
                                     <div className="flex justify-around flex-wrap gap-3 lg:gap-0 md:pb-2">
-                                        <button type="submit" className="py-2 px-7 font-semibold text-emerald-700 bg-emerald-200 dark:text-emerald-200 dark:bg-emerald-900 hover:brightness-125 rounded-lg duration-300 cursor-pointer" onClick={() => { setCargaTra(!cargaTra) }}>{ cargaTra ? <SpinnerCargaModal w={6} h={6} HH={6}/> :'Crear'}</button>
+                                        <button type="submit" className="py-2 px-7 font-semibold text-emerald-700 bg-emerald-200 dark:text-emerald-200 dark:bg-emerald-900 hover:brightness-125 rounded-lg duration-300 cursor-pointer" onClick={() => { setCargaTra(!cargaTra) }}>{cargaTra ? <SpinnerCargaModal w={6} h={6} HH={6} /> : 'Crear'}</button>
                                         <button type="button" className="py-2 px-6 font-semibold text-red-700 bg-red-200 dark:text-red-200 dark:bg-red-900 hover:brightness-125 rounded-lg duration-300 cursor-pointer" onClick={() => { setModalTra(!modalTra); setMapaCliProv(false) }}>Cerrar</button>
                                     </div>
                                 </div>
@@ -308,17 +297,8 @@ const ModalTrabajos = ({ idOferta }) => {
                             <div className={`${carga ? 'hidden' : ''}`}>
                                 <h1 className="flex justify-center items-center text-xl font-semibold text-center my-2 gap-x-1 dark:text-white">
                                     Información
-                                    <svg width="24" height="24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="12" y="8" width="40" height="48" rx="4" fill="#E5E7EB" stroke="#9CA3AF" strokeWidth="2" />
-
-                                        <rect x="18" y="14" width="28" height="4" rx="1" fill="#4F46E5" />
-
-                                        <rect x="18" y="22" width="28" height="3" rx="1" fill="#A5B4FC" />
-                                        <rect x="18" y="28" width="28" height="3" rx="1" fill="#A5B4FC" />
-                                        <rect x="18" y="34" width="22" height="3" rx="1" fill="#A5B4FC" />
-
-                                        <circle cx="32" cy="48" r="6" fill="#10B981" />
-                                        <path d="M30 48l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
                                     </svg>
                                 </h1>
                                 <div className="flex justify-center mb-2">
@@ -344,21 +324,10 @@ const ModalTrabajos = ({ idOferta }) => {
                         <div className={`${calendario === true && mapaCliProv === false ? "" : "hidden"} transition ease-in-out duration-300`}>
                             <h1 className="flex justify-center items-center gap-x-1 text-xl text-center font-semibold mt-2 dark:text-white">
                                 Disponibilidad
-                                <svg width="24" height="24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="8" y="12" width="48" height="44" rx="4" fill="#F3F4F6" stroke="#4B5563" strokeWidth="2" />
-
-                                    <rect x="8" y="12" width="48" height="10" fill="#D1D5DB" />
-
-                                    <line x1="20" y1="8" x2="20" y2="16" stroke="#1F2937" strokeWidth="3" />
-                                    <line x1="44" y1="8" x2="44" y2="16" stroke="#1F2937" strokeWidth="3" />
-
-                                    <rect x="16" y="26" width="8" height="8" fill="#10B981" />
-                                    <rect x="28" y="26" width="8" height="8" fill="#10B981" />
-                                    <rect x="40" y="26" width="8" height="8" fill="#10B981" />
-                                    <rect x="16" y="38" width="8" height="8" fill="#10B981" />
-                                    <rect x="28" y="38" width="8" height="8" fill="#10B981" />
-                                    <rect x="40" y="38" width="8" height="8" fill="#10B981" />
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
                                 </svg>
+
                             </h1>
                             <div className="flex justify-center mt-3">
                                 <Calendario />
