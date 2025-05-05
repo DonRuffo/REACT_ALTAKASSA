@@ -9,9 +9,9 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
         setValorTra(e.target.value)
     }
     return (
-        <div className="flex flex-col justify-between items-center py-5 md:py-8 relative rounded-xl bg-gray-100 dark:border-none dark:bg-gray-900 shadow-lg shadow-cyan-200 dark:shadow-purple-800 hover:scale-105 duration-300 ease-in-out">
+        <div className="flex flex-col justify-between items-center py-5 md:py-8 relative rounded-xl bg-gray-100 dark:border-none dark:bg-black outline outline-slate-200 dark:outline-slate-600 shadow-md shadow-cyan-200 dark:shadow-purple-800 hover:scale-105 duration-300 ease-in-out">
             <div>
-                <h1 className="text-3xl text-slate-600 text-center font-semibold dark:text-white">{Servicio1}</h1>
+                <h1 className="text-3xl text-slate-600 text-center font-CalSans dark:text-white">{Servicio1}</h1>
                 <div className="flex justify-center py-4">
                     <img src={logo1} alt={Servicio1} className="w-[125px] h-[125px] lg:w-[200px] lg:h-[200px]" />
                 </div>

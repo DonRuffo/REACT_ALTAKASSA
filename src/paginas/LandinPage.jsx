@@ -403,8 +403,8 @@ const LandingPage = () => {
     return (
         <>
             <div className={darkMode ? "dark" : ""}>
-                <main className="bg-white dark:bg-gray-950">
-                    <nav className="px-10 py-5 flex justify-between dark:bg-gray-950" id="LandingPage">
+                <main className="bg-white dark:bg-black font-Cabin">
+                    <nav className="fixed z-10 w-full px-10 py-5 lg:py-5 flex justify-between dark:bg-gray-950" id="LandingPage">
                         <select className="w-1/3 mr-1 md:mr-0 rounded-xl py-2 md:w-40 text-center text-purple-500 font-semibold bg-transparent outline focus:outline-purple-600 hover:brightness-125 duration-300"
                             onChange={(e) => {
                                 const targetId = e.target.value
@@ -414,7 +414,7 @@ const LandingPage = () => {
                                 }
                             }}
                         >
-                            <option value="Menu" className="text-sm font-semibold dark:bg-gray-950">Menu</option>
+                            <option value="Inicio" className="text-sm font-semibold dark:bg-gray-950">Inicio</option>
                             <option value="QuienesSomos" className="text-sm font-semibold dark:bg-gray-950">Quienes Somos</option>
                             <option value="Servicios" className="text-sm font-semibold dark:bg-gray-950">Servicios</option>
                             <option value="Contacto" className="text-sm font-semibold dark:bg-gray-950">Contacto</option>
@@ -424,11 +424,12 @@ const LandingPage = () => {
                             <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-transparent outline text-purple-500 font-semibold rounded-xl hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
                         </ul>
                     </nav>
+                    <section className="dark:bg-black py-10" id="Inicio"></section>
                     <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px] xl:h-[785px]"
-                        id="Inicio" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),url(${logoBG})` }}>
+                        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),url(${logoBG})` }}>
                         <div className="flex flex-col items-center px-2">
                             <img src={imgAksin} alt="logoAlta" width={110} height={110} className="" />
-                            <h1 className="text-white text-center text-5xl md:text-6xl font-bold">Bienvenido a AltaKassa</h1>
+                            <h1 className="text-white text-center text-5xl md:text-6xl font-CalSans">Bienvenido a Alta-Kassa</h1>
                             <p className="text-white font-semibold mt-2 text-lg text-center">Ofrecer o buscar un servicio nunca había sido más sencillo</p>
                         </div><br /><br />
                         <div className="flex justify-center gap-x-2 lg:gap-x-4 px-4">
@@ -459,16 +460,16 @@ const LandingPage = () => {
                                 </svg>
                             </button>
                         </div>
-                    </section>
-                    <section id="DescriptionSection" className="pt-24 dark:bg-gray-950">
+                    </section><br /><br /><br /><br />
+                    <section id="DescriptionSection" className="py-24 dark:bg-black">
                         <div className="flex flex-col items-center bg-emerald-50 dark:bg-emerald-950">
-                            <div className="w-5/6 lg:w-4/6 py-10">
-                                <h1 className="text-center text-4xl lg:text-5xl font-semibold text-emerald-600 dark:text-emerald-500 duration-300 mb-2">¿Qué es AltaKassa?</h1>
+                            <div className="w-5/6 lg:w-4/6 py-32">
+                                <h1 className="text-center text-4xl lg:text-5xl text-emerald-600 dark:text-emerald-500 duration-300 mb-2 font-CalSans">¿Qué es Alta-Kassa?</h1>
                                 <div className="md:flex">
                                     <div className="w-full md:w-3/5 flex flex-col justify-center mt-8 md:mt-0">
-                                        <h1 className="text-left text-2xl font-bold mb-5 dark:text-white">Fácil para ti. Justo para ellos. Perfecto para todos</h1>
+                                        <h1 className="text-left text-2xl font-CalSans mb-5 dark:text-white">Fácil para ti. Justo para ellos. Perfecto para todos</h1>
                                         <p className="text-justify lg:text-lg dark:text-white">
-                                            AltaKassa Multiservicios es una plataforma que conecta a personas que necesitan servicios a domicilio
+                                            Alta-Kassa Multiservicios es una plataforma que conecta a personas que necesitan servicios a domicilio
                                             —como plomería, limpieza, cerrajería, entre otros— con técnicos y especialistas capacitados.
                                             Nuestro objetivo es facilitar una experiencia rápida, práctica y segura, generando confianza y comodidad
                                             tanto para los clientes como para los proveedores de servicios.
@@ -480,27 +481,27 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
-                    </section><br /><br /><br />
+                    </section><br /><br /><br /><br />
                     <section className="flex flex-col justify-center items-center">
-                        <h1 className="text-4xl md:text-5xl font-semibold text-center text-emerald-600 dark:text-emerald-500 duration-300 pb-10">Beneficios para ti</h1>
+                        <h1 className="text-4xl md:text-5xl font-CalSans text-center text-emerald-600 dark:text-emerald-500 duration-300 pb-10">Beneficios para ti</h1>
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como cliente</h2>
                         <div className="w-4/5 md:w-11/12 lg:w-4/5">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-5">
                                 <CardBeneficio Beneficio={"Transparencia"} logo={logoTransparencia} texto={"Comunicación abierta y rendición de cuentas en tiempo real entre el cliente y proveedor"} />
                                 <CardBeneficio Beneficio={"Garantía"} logo={logoGarantia} texto={"¡Calidad de la mano de obra 100% garantizado! Los proveedores son continuamente supervisados para brindar un servicio de calidad."} />
                                 <CardBeneficio Beneficio={"Seguridad"} logo={logoSeguridad} texto={"¡Alta protección de información! Desde el registro de datos personales hasta la solicitud y cumplimiento de un servicio por parte de los/las proveedores."} />
                             </div><br /><br /><br /><br />
                             <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como proveedor</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-5">
                                 <CardBeneficio Beneficio={"Usabilidad"} logo={logoUsabilidad} texto={"Sistema óptimo y sencillo de manejar, con un entorno amigable y una clara interfaz para navegar desde cualquier dispositivo."} />
                                 <CardBeneficio Beneficio={"Comodidad"} logo={logoComodidad} texto={"Ofrece fácilmente uno o más servicios en la plataforma y consigue ¡nuevos clientes mucho más rápido! desde la comodidad de tu hogar o trabajo."} />
                                 <CardBeneficio Beneficio={"Fiabilidad"} logo={logoFiabilidad} texto={"El sistema mantiene credibilidad en sus funciones y prioriza un ambiente de trabajo armónico entre proveedor y cliente, tanto en la plataforma como al prestar el servicio."} />
                             </div><br /><br /><br /><br />
                         </div>
                     </section>
-                    <section className="flex flex-col items-center justify-center" id="Servicios">
+                    <section className="flex py-24 flex-col items-center justify-center bg-radial-[at_0%_50%] from-emerald-200 dark:from-emerald-700 from-1% to-white dark:to-black to-60%" id="Servicios">
                         <div className="w-4/5">
-                            <h1 className="text-left text-5xl md:pl-5 font-semibold text-cyan-600">Servicios</h1>
+                            <h1 className="text-left text-4xl lg:text-5xl md:pl-5 font-CalSans text-cyan-600">Servicios</h1>
                         </div>
                         <div className="w-4/5">
                             <div className="flex flex-col md:flex-row items-center md:gap-10">
@@ -517,23 +518,23 @@ const LandingPage = () => {
                     </section><br /><br />
                     <section className="flex justify-center">
                         <div className="w-4/5">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-12">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-12 pb-8">
                                 <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia y una gestión eficiente de los desechos, previniendo problemas como fugas, obstrucciones y contaminación del agua."} texto2={plomero} />
                                 <CardServicios Servicio1={"Carpintería"} logo1={imgCarpinteria} texto1={"La carpintería combina habilidades técnicas-creativas, fundamental tanto en la construcción como en el diseño de interiores que aporta funcionalidad y estética a los espacios."} texto2={carpintero} />
-                            </div><br /><br />
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-12">
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-12 pb-8">
                                 <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas, tintes y revestimientos en interiores y exteriores de edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."} texto2={pintor} />
                                 <CardServicios Servicio1={"Albañilería"} logo1={imgAlbanil} texto1={"Fundamental en la construcción de edificaciones e infraestructuras, combinando habilidades manuales con conocimiento en materiales, técnicas constructivas y normas de seguridad."} texto2={albañil} />
-                            </div><br /><br />
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-12">
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-12 pb-8">
                                 <CardServicios Servicio1={"Limpieza"} logo1={imgLimpieza} texto1={"Profesional especializado en la limpieza general del hogar. Mantener la casa libre de polvo e impurezas, tanto en losas y paredes como en muebles e inmuebles, es importante para la salud."} texto2={limpieza} />
                                 <CardServicios Servicio1={"Técnico-Electrodomésticos"} logo1={imgElectro} texto1={"Profesional especializado en la instalación, mantenimiento y reparación de aparatos eléctricos utilizados en el hogar, como lavadoras, refrigeradores, hornos, microondas y lavavajillas."} texto2={tecnico} />
                             </div>
                         </div>
-                    </section><br /><br /><br /><br /><br />
+                    </section><br /><br /><br /><br /><br /><br /><br /><br />
                     <section id="QuienesSomos" className="flex flex-col items-center justify-center md:mb-20 bg-emerald-50 dark:bg-emerald-950">
-                        <div className="w-full md:w-4/5 py-10">
-                            <h1 className="px-8 md:mb-2 font-semibold text-center text-4xl lg:text-5xl text-emerald-600 dark:text-emerald-500 duration-300">¿Quiénes somos?</h1><br />
+                        <div className="w-full md:w-4/5 py-32">
+                            <h1 className="px-8 md:mb-2 font-CalSans text-center text-4xl lg:text-5xl text-emerald-600 dark:text-emerald-500 duration-300">¿Quiénes somos?</h1><br />
                             <div className="flex flex-col md:flex-row items-center md:justify-center lg:items-start">
                                 <div className="w-3/5 flex md:hidden lg:flex justify-center items-start max-h-[300px] pb-5 md:p-0">
                                     <img src={imgSomos} alt="QuienesSomos" width={300} height={250} />
@@ -556,16 +557,22 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
-                    </section><br /><br /><br /><br />
-                    <section className="flex justify-center">
+                    </section><br /><br /><br /><br /><br /><br /><br /><br />
+                    <section className="relative z-0 flex justify-center bg-gradient-to-b from-white dark:from-black via-cyan-200 dark:via-cyan-700 to-white dark:to-black dark:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute top-16 md:top-4 left-10 md:left-1/5 size-5 rotate-45">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute top-16 md:top-4 right-10 md:right-1/5 size-5 rotate-135">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                        </svg>
                         <div className="w-4/5">
-                            <h1 className="text-5xl text-center font-semibold text-sky-600 pb-4 dark:text-purple-500">Dinámica del sistema</h1>
+                            <h1 className="text-5xl text-center font-CalSans text-sky-600 pb-4 dark:text-purple-500">Dinámica del sistema</h1>
                             <p className="text-center dark:text-white"><b>Importante: </b>Un cliente o proveedor deberá iniciar sesión o registrarse como primer requisito para ingresar
                                 al sistema de la empresa</p><br />
                             <div className="flex justify-center">
                                 <img src={imPerfilDinamica} alt="Perfil Dinamica" width={325} height={300} />
                             </div><br /><br />
-                            <h1 className="text-4xl text-sky-600 font-semibold dark:text-purple-500 text-center">¿Qúe puede hacer con cada perfil?</h1><br />
+                            <h1 className="text-4xl text-sky-600 font-CalSans dark:text-purple-500 text-center">¿Qúe puede hacer con cada perfil?</h1><br />
 
                             <div className="flex justify-center">
                                 <div className="w-full lg:w-1/2 bg-gray-100 dark:bg-gray-900 p-3 rounded-lg">
@@ -622,45 +629,53 @@ const LandingPage = () => {
                                 </div>
                             )}
                         </div>
-                    </section><br />
+                    </section><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 </main>
-                <footer className="bg-black" id="Contacto">
-                    <div className="flex flex-col md:flex-row items-center justify-center">
-                        <div className="w-full flex-col md:flex-row md:w-4/5 flex justify-center">
-                            <div className="w-full md:w-2/5 flex justify-center pt-8">
-                                <img src={logoAltaKassaBlanco} alt="LogoEnFooter" width={325} height={325} />
-                            </div>
-                            <div className="w-full md:w-3/5 flex flex-wrap justify-center md:pt-10 gap-8">
-                                <div className="w-48 p-2">
-                                    <h1 className="text-sky-600 text-xl font-semibold md:pb-6">Contacto directo</h1>
-                                    <p className="text-slate-400 text-sm font-semibold py-2">dennisdiaz407@gmail.com</p>
-                                    <p className="text-slate-400 text-sm font-semibold py-2">martin.ayala@epn.edu.ec</p>
-                                    <p className="text-slate-400 text-sm font-semibold py-2">Cel1: 0979438388</p>
-                                    <p className="text-slate-400 text-sm font-semibold py-2">Cel2: 0983781929</p>
-                                </div>
-                                <div className="w-48 p-2">
-                                    <h1 className="text-sky-600 text-xl font-semibold md:pb-6">Indice</h1>
-                                    <ul className="text-slate-400 font-semibold text-sm">
-                                        <li className="py-2">Foros</li>
-                                        <li className="py-2"><a href="#Inicio" className="hover:text-white hover:underline duration-300">Inicio</a></li>
-                                        <li className="py-2">Quienes Somos</li>
-                                        <li className="py-2"><a href="#Servicios" className="hover:text-white hover:underline duration-300">Servicios</a></li>
-                                    </ul>
-                                </div>
-                                <div className="w-48 p-2">
-                                    <h1 className="text-sky-600 text-xl font-semibold pb-6">Redes</h1>
-                                    <div className="flex gap-3">
-                                        <a href="https://www.facebook.com/leomessi/about" target="_blank" rel="noopener noreferrer"><FaFacebook style={{ color: "white", width: 30, height: 30 }} /></a>
-                                        <a href="https://www.instagram.com/leomessi/" target="_blank" rel="noopener noreferrer"><FaInstagram style={{ color: "white", width: 30, height: 30 }} /></a>
-                                        <a href="https://x.com/Messismo10" target="_blank" rel="noopener noreferrer"><FaTwitter style={{ color: "white", width: 30, height: 30 }} /></a>
-                                    </div><br />
-                                </div>
-                            </div><hr />
+                <footer className="font-Cabin bg-gradient-to-b from-white dark:from-black via-emerald-200 dark:via-emerald-700 to-emerald-400 dark:to-emerald-500 flex flex-col items-center justify-center">
+                    <div className="flex flex-col items-center">
+                        <h1 className="text-center text-xl dark:text-white font-CalSans mb-1">Conecta. Soluciona. Crece.</h1>
+                        <h1 className="dark:text-white font-CalSans text-4xl md:text-5xl text-center">Prueba Alta-Kassa</h1>
+                        <p className="dark:text-white my-10 w-5/6 md:w-xl text-center">Un sistema ideal si lo que buscas es adquirir clientes rápidamente o si quieres un servicio de calidad para tu hogar</p>
+                        <button className="group flex items-center gap-x-1 rounded-3xl px-5 py-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 text-lg font-semibold text-neutral-900 cursor-pointer hover:brightness-105 duration-300" onClick={() => { navigate('/registro') }}>
+                            Empezar
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="group-hover:translate-x-0.5 duration-300 ease-in-out size-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                        </button>
+                    </div><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                    <div className="w-11/12 md:w-4/5 bg-black rounded-3xl flex flex-col justify-center mb-10" id="Contacto">
+                        <div className="block md:flex items-center gap-x-5 p-10">
+                            <img src={imgAksin} alt="LogoAK" width={100} height={100} />
+                            <h1 className="text-4xl text-white font-CalSans">Alta-Kassa Multiservicios</h1>
                         </div>
-                    </div>
-                    <div className="flex justify-center pb-5 pt-3">
-                        <div className="w-4/5">
-                            <p className="footer-copy text-white">Copyright &copy; 2024 Alta-Kassa</p>
+                        <div className="w-full px-12 flex flex-wrap justify-start md:py-28 gap-8 border-white">
+                            <div className="w-48 p-2">
+                                <h1 className="text-sky-600 text-xl font-semibold md:pb-6">Contacto directo</h1>
+                                <p className="text-slate-400 text-sm font-semibold py-2">dennisdiaz407@gmail.com</p>
+                                <p className="text-slate-400 text-sm font-semibold py-2">martin.ayala@epn.edu.ec</p>
+                                <p className="text-slate-400 text-sm font-semibold py-2">Cel1: 0979438388</p>
+                                <p className="text-slate-400 text-sm font-semibold py-2">Cel2: 0983781929</p>
+                            </div>
+                            <div className="w-48 p-2">
+                                <h1 className="text-sky-600 text-xl font-semibold md:pb-6">Indice</h1>
+                                <ul className="text-slate-400 font-semibold text-sm">
+                                    <li className="py-2">Foros</li>
+                                    <li className="py-2"><a href="#Inicio" className="hover:text-white hover:underline duration-300">Inicio</a></li>
+                                    <li className="py-2">Quienes Somos</li>
+                                    <li className="py-2"><a href="#Servicios" className="hover:text-white hover:underline duration-300">Servicios</a></li>
+                                </ul>
+                            </div>
+                            <div className="w-48 p-2">
+                                <h1 className="text-sky-600 text-xl font-semibold pb-6">Redes</h1>
+                                <div className="flex gap-3">
+                                    <a href="https://www.facebook.com/leomessi/about" target="_blank" rel="noopener noreferrer"><FaFacebook style={{ color: "white", width: 30, height: 30 }} /></a>
+                                    <a href="https://www.instagram.com/leomessi/" target="_blank" rel="noopener noreferrer"><FaInstagram style={{ color: "white", width: 30, height: 30 }} /></a>
+                                    <a href="https://x.com/Messismo10" target="_blank" rel="noopener noreferrer"><FaTwitter style={{ color: "white", width: 30, height: 30 }} /></a>
+                                </div><br />
+                            </div>
+                        </div><hr className="border border-slate-700" />
+                        <div className="flex justify-start py-5 px-10">
+                            <p className="footer-copy text-slate-400 text-lg">Copyright &copy; 2025 Alta-Kassa</p>
                         </div>
                     </div>
                 </footer>

@@ -1,16 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import '../../../CSS/fondos.css'
 import imgSinTrabajo from '../../assets/Tiempo.svg'
 import OfertaStore from "../../store/OfertaStore";
 import AuthStoreContext from "../../store/AuthStore";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import SpinnerCargaModal from "../../componentes/RuedaCargaModal";
 
 const ContratosProv = () => {
-    const { trabajosProvs } = OfertaStore()
+    const { trabajosProvs, ObtenerTrabajos } = OfertaStore()
+    const {Perfil} = AuthStoreContext()
+
+    const cancelarTrabajo = async (idTra, servicio, idProv) => {
+        const token = localStorage.getItem('token')
+        const rol = localStorage.getItem('rol')
+        const confirmar = confirm(`¿Estás seguro de cancelar el trabajo de ${servicio}?`)
+        if (confirmar) {
+            try {
+                const urlCancelar = `${import.meta.env.VITE_BACKEND_URL}/cancelarTrabajo/${idTra}?proveedor=${idProv}`
+                const options = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                const respuesta = await axios.put(urlCancelar, {}, options)
+                toast.success(respuesta.data.msg)
+                await ObtenerTrabajos(token, rol)
+                await Perfil(token,rol)
+            } catch (error) {
+                console.log("Error al cancelar el trabajo", error);
+                toast.error(error.response.data.msg)
+            }
+        }
+    }
+
     return (
         <>
+            <ToastContainer />
             <section>
-                <h1 className="text-center text-purple-600 font-semibold text-3xl mb-3 mt-5">Trabajos actuales</h1>
-                <h2 className="text-xl mb-5 text-center dark:text-white">Aquí podrás ver tus trabajos agendados</h2>
+                <h1 className="text-center text-purple-600 font-CalSans text-3xl mb-3 mt-5">Trabajos actuales</h1>
+                <h2 className="text-xl mb-5 text-center dark:text-white">Aquí podrás ver tus trabajos agendados como proveedor</h2>
                 <div className="flex justify-center flex-wrap gap-x-3">
                     {trabajosProvs.length !== 0 && trabajosProvs.some((tra) => tra.status === "Agendado") ? trabajosProvs.map((tra) => (
                         tra.status === "Agendado" && (
@@ -23,7 +53,7 @@ const ContratosProv = () => {
                                     <div className="-space-y-0.5">
                                         <p className="text-xl font-semibold text-white truncate w-28">{tra.cliente.nombre}</p>
                                         <p className="font-semibold text-teal-900">{tra.fecha.split('T')[0]}</p>
-                                        <p className="font-semibold">{tra.desde} - {tra.hasta}</p>
+                                        <p className="font-semibold">{tra.desde.split('T')[1].split('.')[0].split(':')[0]+':00'} - {tra.hasta.split('T')[1].split('.')[0].split(':')[0]+':00'}</p>
                                     </div>
                                 </div>
                                 <div className="flex justify-around mt-1.5 gap-x-3">
@@ -41,7 +71,9 @@ const ContratosProv = () => {
                                     </div>
                                 </div>
                                 <div className="flex justify-around mt-3">
-                                    <button type="button" className="px-3 py-2 bg-red-200 rounded-md text-red-700 font-semibold hover:bg-red-900 hover:scale-105 duration-300 cursor-pointer">Cancelar</button>
+                                    <button type="button" className="px-3 py-2 bg-red-200 rounded-md text-red-700 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={async () => {
+                                        await cancelarTrabajo(tra._id, tra.servicio, tra.proveedor._id);
+                                    }}>Cancelar</button>
                                 </div>
                             </div>
                         )

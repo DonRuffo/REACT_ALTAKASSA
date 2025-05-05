@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import OfertaStore from "../../store/OfertaStore";
+import AuthStoreContext from "../../store/AuthStore";
+import socket from "../../context/SocketConexion";
+import SpinnerCargaModal from "../RuedaCargaModal";
 
 const ModalOferta = () => {
 
-    const { modalOf, setModalOf, MisOfertas } = OfertaStore()
+
+    const { Perfil, auth } = AuthStoreContext()
+    const { modalOf, setModalOf, setOferta, setOfertaProvs } = OfertaStore()
+    const [carga, setCarga] = useState(false)
     const [formOf, setFormOf] = useState({
         precioPorDia: "",
         precioPorHora: "",
@@ -28,13 +34,20 @@ const ModalOferta = () => {
             }
             const respuesta = await axios.post(url, formOf, options)
             toast.success(respuesta.data.msg)
-            await MisOfertas(token, rol)
+            await Perfil(token, rol)
+            setCarga(false)
+            setTimeout(() => {
+                if (modalOf === true) {
+                    setModalOf(false)
+                }
+            }, 2000)
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
             error.response.data.msg.forEach((mensaje) => {
                 toast.error(mensaje)
             })
+            setCarga(false)
         }
 
     }
@@ -45,12 +58,23 @@ const ModalOferta = () => {
             [e.target.name]: e.target.value
         })
     }
+
+    useEffect(() => {
+        socket.on('Crear-oferta', ({ ofertaPop }) => {
+            setOferta(prev => [...prev, ofertaPop])
+
+            if (auth._id === ofertaPop.proveedor._id) {
+                setOfertaProvs(prev => [...prev, ofertaPop])
+            }
+        })
+        return () => socket.off('Crear-oferta')
+    }, [])
     return (
-        <>  
+        <>
             <div className="fixed bg-black/80 inset-0 transition-all duration-300">
                 <ToastContainer />
-                <div className="fixed dark:border-none outline-2 outline-emerald-700 dark:outline-emerald-500 top-1/4 left-[40px] right-[40px] md:left-[150px] md:right-[150px] min-w-60  lg:top-1/4 lg:left-[550px] lg:right-[300px] bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 rounded-lg shadow-2xl">
-                    <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-semibold text-center pt-4 text-emerald-700 dark:text-emerald-500">Nueva oferta</h1>
+                <div className="fixed dark:border-none outline-2 outline-emerald-700 dark:outline-emerald-500 top-1/5 md:top-1/4 left-[40px] right-[40px] md:left-[150px] md:right-[150px] min-w-64 lg:left-[550px] lg:right-[300px] bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 rounded-lg shadow-2xl">
+                    <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-emerald-700 dark:text-emerald-500">Nueva oferta</h1>
                     <form onSubmit={handleCreateOferta} className="mx-2">
                         <div className="my-3">
                             <div className="flex justify-around flex-wrap gap-2">
@@ -87,8 +111,8 @@ const ModalOferta = () => {
                         </div><br />
                         <div className="mb-3">
                             <div className="flex justify-around">
-                                <button type="submit" className="py-2 px-7 font-semibold text-emerald-700 bg-emerald-200 dark:text-emerald-200 dark:bg-emerald-900 rounded-lg hover:bg-green-800 duration-300 cursor-pointer" onClick={() => { setTimeout(() => { setModalOf(false) }, 3000) }}>Crear</button>
-                                <button type="button" className="py-2 px-6 font-semibold text-red-700 bg-red-200 dark:text-red-200 dark:bg-red-900 rounded-lg hover:bg-red-800 duration-300 cursor-pointer" onClick={() => { setModalOf(!modalOf) }}>Cerrar</button>
+                                <button type="submit" className="py-2 px-7 font-semibold text-emerald-700 bg-emerald-200 dark:text-emerald-200 dark:bg-emerald-900 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { setCarga(true) }}>{carga ? <SpinnerCargaModal h={6} w={6} HH={6} /> : 'Crear'}</button>
+                                <button type="button" className="py-2 px-6 font-semibold text-red-700 bg-red-200 dark:text-red-200 dark:bg-red-900 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { setModalOf(!modalOf) }}>Cerrar</button>
                             </div>
                         </div>
                     </form>

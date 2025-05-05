@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../../../CSS/fondos.css'
 
 import imgSinTrabajo from '../../assets/Tiempo.svg'
@@ -39,10 +39,34 @@ const ContratosCliente = () => {
             }
         }
     }
+
+    const cancelarTrabajo = async (idTra, servicio, idProv) => {
+        const token = localStorage.getItem('token')
+        const rol = localStorage.getItem('rol')
+        const confirmar = confirm(`¿Estás seguro de cancelar el trabajo de ${servicio}?`)
+        if (confirmar) {
+            try {
+                const urlCancelar = `${import.meta.env.VITE_BACKEND_URL}/cancelarTrabajo/${idTra}?proveedor=${idProv}`
+                const options = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                const respuesta = await axios.put(urlCancelar, {}, options)
+                toast.success(respuesta.data.msg)
+                await ObtenerTrabajos(token, rol)
+                await Perfil(token,rol)
+            } catch (error) {
+                console.log("Error al cancelar el trabajo", error);
+                toast.error(error.response.data.msg)
+            }
+        }
+    }
     return (
         <>
             <section>
-                <h1 className="text-center text-cyan-600 font-semibold text-3xl mt-5">Trabajos actuales</h1>
+                <h1 className="text-center text-cyan-600 font-CalSans text-3xl mt-5">Trabajos actuales</h1>
                 <p className="text-center font-semibold text-xl mb-5 dark:text-white">Aquí podrás ver las solicitudes que han sido aceptadas o rechazadas por los proveedores</p>
                 <div className="flex flex-wrap gap-2 mb-5">
                     <label className="dark:text-white  font-semibold has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-36 border-2 border-gray-500 dark:border-white rounded-md px-2 py-1 flex justify-between items-center">
@@ -60,7 +84,7 @@ const ContratosCliente = () => {
                 </div>
                 <div className="flex justify-center flex-wrap gap-x-5">
                     {trabajos.length !== 0 ? (
-                        trabajos.some(tra => tra.status !== "En espera") ? (
+                        trabajos.some(tra => tra.status !== "En espera" && tra.status !== "Cancelado" && tra.status !== "Completado") ? (
                             trabajos.map((tra) => (
                                 (tra.status === "Rechazado" && (selectedOption === "Rechazadas" || selectedOption === "Todas") && (
                                     <div key={tra._id} className="w-fit h-fit py-4 px-5 radial-gradientRechazados-bg rounded-lg shadow-lg shadow-fuchsia-300 mb-5">
@@ -104,7 +128,7 @@ const ContratosCliente = () => {
                                             <div className="-space-y-0.5">
                                                 <p className="text-xl font-semibold text-white truncate w-28">{tra.proveedor.nombre}</p>
                                                 <p className="font-semibold text-cyan-800">{tra.fecha.split('T')[0]}</p>
-                                                <p className="font-semibold">{tra.desde} - {tra.hasta}</p>
+                                                <p className="font-semibold">{tra.desde.split('T')[1].split('.')[0].split(':')[0]+':00'} - {tra.hasta.split('T')[1].split('.')[0].split(':')[0]+':00'}</p>
                                             </div>
                                         </div>
                                         <div className="flex justify-around mt-1.5 gap-x-3">
@@ -122,7 +146,11 @@ const ContratosCliente = () => {
                                             </div>
                                         </div>
                                         <div className="flex justify-around mt-2">
-                                            <button type="button" className="px-3 py-2 bg-red-200 rounded-md text-red-800 font-semibold hover:scale-105 duration-300 cursor-pointer">Cancelar</button>
+                                            <button type="button" className="px-3 py-2 bg-red-200 rounded-md text-red-800 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={
+                                                async () =>{{
+                                                    await cancelarTrabajo(tra._id, tra.servicio, tra.proveedor._id)
+                                                }}
+                                            }>Cancelar</button>
                                         </div>
                                     </div>
                                 ))

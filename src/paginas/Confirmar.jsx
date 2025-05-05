@@ -36,7 +36,7 @@ const Confirmar = () => {
                         <img src={logoConfirm} alt="Rocket" width={208} height={208} className={`${carga ? 'hidden' : ''}`} />
                     </div>
                     <h1 className={`${carga ? '' :'hidden'} text-4xl text-sky-600 pt-5 font-semibold`}>Validando cuenta...</h1>
-                    <h1 className={`${carga ? 'hidden' :''} text-4xl text-sky-600 pt-5 font-semibold`}>Gracias por Confirmar</h1>
+                    <h1 className={`${carga ? 'hidden' :''} text-4xl text-sky-600 pt-5 font-CalSans`}>Gracias por Confirmar</h1>
                     <p className={`${carga ? 'hidden' : ''} text-slate-600 text-xl pb-5`}>Ya puedes iniciar sesión</p>
                     <Link className={`${carga ? 'hidden' : ''} p-2 bg-sky-600 text-white rounded-lg hover:bg-sky-800 duration-300`} to='/login' replace>Iniciar Sesión</Link>
                 </div>

@@ -54,7 +54,7 @@ const Sugerencias = () => {
             <ToastContainer />
             <section className="flex justify-center mt-5 ">
                 <div className="w-full lg:w-4/5 mb-5 rounded-lg bg-gray-100 dark:bg-gray-900 shadow-lg dark:shadow-slate-700">
-                    <h1 className="text-center text-3xl font-semibold text-purple-600 mt-5">Sugerencias y comentarios</h1>
+                    <h1 className="text-center text-3xl font-CalSans text-purple-600 mt-5">Sugerencias y comentarios</h1>
                     <div className="flex justify-around flex-wrap lg:mx-8 mt-5">
                         <div className="px-3 lg:w-[500px]">
                             <p className="dark:text-white font-semibold text-xl text-center lg:text-left">¡Cuéntanos cómo ha sido tu experiencia en el sistema y comparte tus sugerencias!</p>

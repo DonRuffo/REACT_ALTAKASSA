@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const NavInfo = () => {
 
     const { modalPerfil, setModalPerfil } = OfertaStore()
-    const { auth, menu, handleMenu, tipo, setTipo, setOpcionActiva } = AuthStoreContext()
+    const { auth, menu, handleMenu, tipo, setTipo, setOpcionActiva, connectionStatus } = AuthStoreContext()
     const navigate = useNavigate()
     const tipoM = tipo.charAt(0).toUpperCase() + tipo.slice(1)
     const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente'
@@ -62,8 +62,14 @@ const NavInfo = () => {
 
             </div>
             <div className="flex items-center justify-end gap-x-1.5 w-2/5">
-                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-emerald-500 brightness-125">
-                    <div className="w-full h-full md:w-3 md:h-3 rounded-full bg-emerald-500 brightness-125 animate-ping"></div>
+                <div className="text-cyan-600 flex gap-x-0.5 items-center mr-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                    </svg>
+                    <p className="text-black dark:text-white">{auth.monedasTrabajos}</p>
+                </div>
+                <div className={`w-2 h-2 md:w-3 md:h-3 rounded-full ${connectionStatus ? 'bg-emerald-500' : 'bg-red-500'} brightness-125`}>
+                    <div className={`w-full h-full md:w-3 md:h-3 rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping' : 'bg-red-500'} brightness-125`}></div>
                 </div>
                 <h1 className="font-semibold text-sm dark:text-white text-right">{auth.nombre}</h1>
                 <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>

@@ -27,6 +27,7 @@ import RutasCliProv from './routes/RutasCli-Pro'
 import InicioSuperAdmin from './paginas/superAdmin/InicioSuAdmin'
 import RegistroAdmin from './paginas/superAdmin/RegistroAdmin'
 import AppInit from './context/AppInit'
+import EsqueletoOfertas from './paginas/Esqueletos/EsqOfertas'
 function App() {
 
   return (
@@ -92,7 +93,7 @@ function App() {
                   <Route path='configuracion' element={<Configuracion />} />
                   <Route path='no-encontrado' element={<PaginaNoPermitida />} />
                   <Route path='*' element={<NotFound />} />
-                  <Route path='pruebas' element={<RegistroAdmin />} />
+                  <Route path='pruebas' element={<EsqueletoOfertas />} />
                 </Route>
               </Routes>
             </PrivateRoutes>

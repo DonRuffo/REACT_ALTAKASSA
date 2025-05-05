@@ -40,10 +40,10 @@ const Recuperar = () => {
         <>
             <ToastContainer />
             <div className={darkMode ? "dark" : ""}>
-                <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 font-Cabin">
                     <div id="Formulario" className="bg-white dark:bg-black h-screen flex items-center justify-center">
                         <div className="w-5/6 md:w-4/6">
-                            <h1 className="mb-3 font-bold text-orange-600 text-center text-xl">RECUPERAR CONTRASEÑA</h1>
+                            <h1 className="mb-3 font-CalSans text-orange-600 text-center text-xl">RECUPERAR CONTRASEÑA</h1>
                             <hr className="dark:border dark:border-gray-900" />
                             <form onSubmit={HandleSubmit}>
                                 <div className="my-3">
@@ -51,7 +51,7 @@ const Recuperar = () => {
                                     <input type="email" name="email" onChange={(e) => { setMail({ email: e.target.value }) }} className="block w-full  dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-orange-700 focus:outline-none focus:ring-1 focus:ring-orange-700 py-1 px-2 text-gray-500" placeholder="Ingresa tu correo" />
                                 </div>
                                 <div className="my-7 flex justify-center">
-                                    <button type="submit" className="w-1/4 py-2 border border-orange-400 rounded-lg bg-orange-500 text-white hover:bg-orange-700 duration-300 cursor-pointer" onClick={() => setReloj(true)}> Enviar</button>
+                                    <button type="submit" className="w-1/4 py-2 border border-orange-400 rounded-lg bg-orange-500 text-white hover:bg-orange-700 duration-300 cursor-pointer font-CalSans" onClick={() => setReloj(true)}> Enviar</button>
                                     {reloj && <RelojDeArena />}
                                 </div>
                             </form>

@@ -8,7 +8,7 @@ import NavInfo from "../componentes/NavParaSmMd";
 const Dashboard = () => {
     const sideBar = useRef(null)
     const navigate = useNavigate()
-    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo } = AuthStoreContext()
+    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus } = AuthStoreContext()
     const { modalPerfil, setModalPerfil } = OfertaStore()
 
     const [rotar, setRotar] = useState(false)
@@ -47,15 +47,15 @@ const Dashboard = () => {
 
     return (
         <>
-            <div className={`${dark ? "dark bg-black" : ""}`}>
-                <div className="flex h-screen">
+            <div className={`${dark ? "dark bg-emerald-950" : "bg-emerald-900"}`}>
+                <div className="flex h-screen font-Cabin">
                     <div ref={sideBar} className={`flex flex-col justify-between fixed z-50 inset-y-0 left-0 w-52 bg-emerald-900 dark:bg-emerald-950 rounded-r-xl text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
                         <div id="nav">
-                            <h1 className="text-2xl text-white text-center font-bold">AltaKassa</h1>
+                            <h1 className="text-2xl text-white text-center font-CalSans">Alta-Kassa</h1>
                             <div className="flex justify-center">
                                 <img src={logoAlta} alt="AltaKassa Logo" width={165} height={165} />
                             </div><hr />
-                            <nav className="py-2 min-h-[300px] max-h-[310px]">
+                            <nav className="py-2 min-h-[300px] max-h-[310px] ">
                                 <Link to='/dashboard' id="inicio" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'inicio' ? 'bg-emerald-800' : ''}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
@@ -217,8 +217,14 @@ const Dashboard = () => {
                                 </button>
                             </div>
                             <div className="flex items-center gap-x-4">
-                                <div className="w-3 h-3 rounded-full bg-emerald-500 brightness-125">
-                                    <div className="w-full h-full rounded-full bg-emerald-500 brightness-125 animate-ping"></div>
+                                <div className="text-cyan-500 flex gap-x-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                                    </svg>
+                                    <p className="text-black dark:text-white">{auth.monedasTrabajos}</p>
+                                </div>
+                                <div className={`w-2.5 h-2.5 rounded-full ${connectionStatus ? 'bg-emerald-500': 'bg-red-500'} brightness-125`}>
+                                    <div className={`w-full h-full rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping': 'bg-red-500'} brightness-125`}></div>
                                 </div>
                                 <h1 className="font-semibold dark:text-white">{auth.nombre} {auth.apellido}</h1>
                                 <div className="flex justify-center h-[44px] w-[44px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
@@ -227,7 +233,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <NavInfo />
-                        <div className='overflow-y-auto px-8'>
+                        <div className='overflow-y-auto px-8 h-screen bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%'>
                             <Outlet />
                         </div>
                     </div>

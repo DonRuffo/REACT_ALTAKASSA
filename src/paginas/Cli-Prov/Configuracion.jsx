@@ -151,7 +151,7 @@ const Configuracion = () => {
 
     return (
         <>
-            <h1 className="text-3xl font-semibold text-sky-600 pb-5 mt-5">Configuración</h1>
+            <h1 className="text-3xl font-CalSans text-sky-600 pb-5 mt-5">Configuración</h1>
             <ToastContainer />
             <section className="flex flex-col md:flex-row justify-between">
                 <div className="w-full md:w-2/5  flex bg-gray-100 dark:bg-gray-900 dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg md:max-h-[210px] mb-8 md:mb-5">
@@ -187,7 +187,7 @@ const Configuracion = () => {
                     </ul>
                 </div>
                 <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-gray-100 rounded-xl shadow-lg h-auto outline outline-purple-100 p-5 dark:bg-gray-900 mb-5`}>
-                    <h1 className="text-2xl text-center text-purple-600 font-semibold pb-5">Cambio de contraseña</h1>
+                    <h1 className="text-2xl text-center text-purple-600 font-CalSans pb-5">Cambio de contraseña</h1>
                     <div className="border px-3 py-2 mb-3 bg-slate-200 rounded-lg dark:bg-transparent dark:text-white">
                         <h1 className="font-bold">Tener en cuenta:</h1>
                         <ul>
@@ -222,7 +222,7 @@ const Configuracion = () => {
                 </div>
                 <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg h-auto outline outline-emerald-100 dark:bg-gray-900 mb-5`}>
                     <div className="w-full p-2 flex flex-col items-center">
-                        <h1 className="font-semibold text-green-600 text-2xl pt-3">Actualizar perfil</h1>
+                        <h1 className="font-CalSans text-green-600 text-2xl pt-3">Actualizar perfil</h1>
                         <span className="font-semibold text-sm text-slate-500 dark:text-slate-300 text-center">Cambia los campos que requieras y presiona actualiza</span>
                     </div>
                     <div className="w-full p-6 flex flex-col">
@@ -274,7 +274,7 @@ const Configuracion = () => {
                 </div>
                 <div className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-red-100 dark:bg-gray-900 dark:text-white  mb-5`}>
                     <div className="flex flex-col items-center">
-                        <h1 className="font-semibold text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
+                        <h1 className="font-CalSans text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
                         <span className="font-semibold text-slate-500 dark:text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>
                         <div className="cursor-pointer flex flex-col justify-center items-center border-dashed border-2 border-gray-400 bg-transparent rounded-lg w-[100px] h-[110px] mt-3 mb-2 lg:mb-0 hover:bg-gray-300 dark:hover:bg-gray-950 transition-all duration-300" onClick={actualizarUbi}>
                             <img src={imgLocation} alt="actualizarUbi" width={60} height={60} />

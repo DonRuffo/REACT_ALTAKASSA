@@ -37,10 +37,10 @@ const Restablecer = () => {
     }
     return (
         <>
-            <div className="flex flex-col items-center pt-10 md:pt-20 bg-gray-100">
+            <div className="flex flex-col items-center pt-10 md:pt-20 bg-gray-100 font-Cabin">
                 <ToastContainer />
                 <div className="w-4/5 md:w-1/3 flex flex-col items-center justify-center bg-white rounded-xl shadow-xl">
-                    <h1 className="text-3xl font-semibold text-slate-600 text-center py-5">Restablecer contraseña</h1>
+                    <h1 className="text-3xl font-CalSans text-slate-600 text-center py-5">Restablecer contraseña</h1>
                     <div className="w-5/6">
                         <form onSubmit={HandleSubmit}>
                             <div className="my-3">

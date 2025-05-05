@@ -12,6 +12,10 @@ const OfertaStore = create((set, get) => ({
     modalProvs: false,
     mapaCliProv: false,
 
+    //pulsos de esqueletos
+    pulseTra: true,
+    pulseMisOfertas: true,
+
     //arrays
     trabajos: [],
     trabajosProvs: [],
@@ -24,9 +28,19 @@ const OfertaStore = create((set, get) => ({
     idProveedor: '',
 
     //seteadores de arrays y string
-    setTrabajos: (tra) => set({ trabajos: tra }),
-    setOferta: (of) => set({ oferta: of }),
-    setOfertaProvs: (of) => set({ ofertaProvs: of }),
+    setTrabajos: (tra) => set(state => ({
+        trabajos: typeof tra === 'function' ? tra(state.trabajos) : tra
+    })),
+    setTrabajosProvs: (tra) => set(state => ({
+        trabajosProvs: typeof tra === 'function' ? tra(state.trabajosProvs) : tra
+    })),
+    setOferta: (of) => set(state => ({
+        oferta: typeof of === 'function' ? of(state.oferta) : of
+    })),
+    setOfertaProvs: (of) => set(state => ({
+        ofertaProvs: typeof of === 'function' ? of(state.ofertaProvs) : of
+    })),
+
     setTraProveedor: (traProv) => set({ traProveedor: traProv }),
     setFechas: (fec) => set({ fechas: fec }),
     setIdProveedor: (id) => set({ idProveedor: id }),
@@ -88,6 +102,7 @@ const OfertaStore = create((set, get) => ({
             }
             const respuesta = await axios.get(url, options)
             set({ ofertaProvs: respuesta.data })
+            set({ pulseMisOfertas: false })
         } catch (error) {
             console.log('Error al intentar obtener las ofertas', error.message)
         }
@@ -107,6 +122,7 @@ const OfertaStore = create((set, get) => ({
             const respuestaProvs = await axios.get(urlProvs, options)
             set({ trabajos: respuesta.data })
             set({ trabajosProvs: respuestaProvs.data })
+            set({ pulseTra: false })
         } catch (error) {
             console.log('Error al obtener los trabajos', error);
         }

@@ -16,6 +16,15 @@ const AuthStoreContext = create((set, get) => ({
     foto: false,
     opcionActiva: 'inicio',
     sideBar: null,
+    connectionStatus: false,
+
+    //status para sockets
+
+
+    //pulsos para cargas previas
+    pulseUbiActual: true,
+    pulseUbiTra: true,
+    pulseFoto: true,
 
     //modales
     modalContra: false,
@@ -25,6 +34,7 @@ const AuthStoreContext = create((set, get) => ({
 
     //seteadores para actualizaciones
     setAuth: (authData) => set((state) => ({ ...state.auth, ...authData })),
+    setConnectionStatus: (conec) => set({connectionStatus:conec}),
     setMenu: (menuData) => set({ menu: menuData }),
     setTipo: (tipoData) => set({ tipo: tipoData }),
     setDark: (darkData) => set({ dark: darkData }),
@@ -48,7 +58,7 @@ const AuthStoreContext = create((set, get) => ({
         set({ darkMode: nuevoStateDark })
     },
 
-    
+
     Perfil: async (token, rol) => {
         try {
             let url = ''
@@ -68,7 +78,7 @@ const AuthStoreContext = create((set, get) => ({
         }
     },
 
-    
+
     verificarFoto: async (token, rol) => {
         if (rol === 'administrador') return
         try {
@@ -82,13 +92,12 @@ const AuthStoreContext = create((set, get) => ({
             const respuesta = await axios.get(url, options)
             if (respuesta.data.msg === 'No') set({ foto: false })
             if (respuesta.data.msg === 'Si') set({ foto: true })
-
+            set({ pulseFoto: false })
         } catch (error) {
             console.log('Error al verificar la foto de perfil')
         }
     },
 
-    
     verificarUbicacionActual: async (token, rol, tipo) => {
         if (rol === 'administrador' || tipo === 'proveedor') return
         try {
@@ -102,7 +111,7 @@ const AuthStoreContext = create((set, get) => ({
             const respuesta = await axios.get(url, options)
             if (respuesta.data.msg === 'No') set({ ubiActual: false })
             if (respuesta.data.msg === 'Si') set({ ubiActual: true })
-
+            set({ pulseUbiActual: false })
         } catch (error) {
             console.log('Error al verificar la ubicacion de perfil')
         }
@@ -121,6 +130,7 @@ const AuthStoreContext = create((set, get) => ({
             const respuesta = await axios.get(url, options)
             if (respuesta.data.msg === 'No') set({ ubiTrabajo: false })
             if (respuesta.data.msg === 'Si') set({ ubiTrabajo: true })
+            set({ pulseUbiTra: false })
         } catch (error) {
             console.log('Error al verificar la ubicacion de perfil')
         }

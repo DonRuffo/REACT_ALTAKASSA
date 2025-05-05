@@ -68,14 +68,14 @@ const Login = () => {
         <>
             <ToastContainer />
             <div className={darkMode ? "dark" : ""}>
-                <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 font-Cabin">
 
                     <div className="radial-gradientLogin-bg md:w-full h-screen flex items-center justify-center">
                         <img src={logoNegroAK} alt='Altakassa' />
                     </div>
                     <div id='Formulario' className="bg-white dark:bg-black flex items-center justify-center h-screen">
                         <div className='w-5/6 md:w-4/6'>
-                            <h1 className='text-xl text-blue-500 font-bold text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
+                            <h1 className='text-xl text-blue-500 font-CalSans text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
                             <hr className='dark:border dark:border-gray-900' />
                             <form onSubmit={HandleSubmit}>
                                 <div className="my-3">
@@ -93,7 +93,7 @@ const Login = () => {
 
 
                                 <div className="my-7 flex justify-center">
-                                    <button type='submit' onClick={() => setCarga(true)} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white cursor-pointer`}>Ingresar</button>
+                                    <button type='submit' onClick={() => setCarga(true)} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white cursor-pointer font-CalSans`}>Ingresar</button>
                                     {carga && (<RelojDeArena />)}
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />

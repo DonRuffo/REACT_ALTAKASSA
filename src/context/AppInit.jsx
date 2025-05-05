@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import AuthStoreContext from "../store/AuthStore";
 import OfertaStore from "../store/OfertaStore";
-import { shallow } from 'zustand/shallow'
+import SocketStatus from "./SocketHook";
 
 const AppInit = ({ children }) => {
     const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, dark, setDark, setDarkMode, auth, setTipo } = AuthStoreContext()
     const { ListarOfertas, ObtenerTrabajos, oferta, trabajos, MisOfertas, ofertaProvs } = OfertaStore()
+
+    SocketStatus()
+
     useEffect(() => {
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
@@ -48,7 +51,7 @@ const AppInit = ({ children }) => {
             if (trabajos.length === 0) {
                 ObtenerTrabajos(token, rol);
             }
-            if (ofertaProvs.length === 0){
+            if (ofertaProvs.length === 0) {
                 MisOfertas(token, rol)
             }
         }

@@ -70,7 +70,7 @@ const MapaCliProv = ({ form }) => {
                 </svg>
 
             </h1>
-            <div ref={containerRef} className={`rounded-md h-5/6 w-11/12 border`}></div>
+            <div ref={containerRef} className={`rounded-md h-5/6 w-11/12`}></div>
         </>
     )
 }
