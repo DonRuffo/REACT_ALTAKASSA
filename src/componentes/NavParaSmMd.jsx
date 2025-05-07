@@ -25,20 +25,9 @@ const NavInfo = () => {
 
     const [rotar, setRotar] = useState(false)
 
-    const visualizar = () => {
-        const elemento = document.getElementById('nav')
-        if (elemento){
-            elemento.scrollIntoView({behavior: 'instant'})
-        }
-    }
-
-    useEffect(()=>{
-        visualizar()
-    }, [])
-
     return (
-        <div className="lg:hidden flex justify-between mb-3 mt-4 px-4">
-            <div className="w-2/5 text-purple-600" id="nav">
+        <div className="lg:hidden flex justify-between mb-3 mt-4">
+            <div className="w-2/5 text-purple-600 flex justify-between" id="nav">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" onClick={() => handleMenu()} className={`${menu === true ? 'hidden' : ''} cursor-pointer duration-300`} >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
                 </svg>
@@ -46,7 +35,12 @@ const NavInfo = () => {
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg>
-
+                <div className="text-cyan-600 flex gap-x-0.5 items-center mr-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                    </svg>
+                    <p className="text-black dark:text-white">{auth.monedasTrabajos}</p>
+                </div>
             </div>
             <div className="relative w-1/5 flex justify-center text-orange-500 items-center -space-x-1" onClick={() => setRotar(!rotar)}>
                 {tipoM === 'Proveedor' ? (
@@ -73,18 +67,13 @@ const NavInfo = () => {
 
             </div>
             <div className="flex items-center justify-end gap-x-1.5 w-2/5">
-                <div className="text-cyan-600 flex gap-x-0.5 items-center mr-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-                    </svg>
-                    <p className="text-black dark:text-white">{auth.monedasTrabajos}</p>
-                </div>
+                
                 <div className={`w-2 h-2 md:w-3 md:h-3 rounded-full ${connectionStatus ? 'bg-emerald-500' : 'bg-red-500'} brightness-125`}>
                     <div className={`w-full h-full md:w-3 md:h-3 rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping' : 'bg-red-500'} brightness-125`}></div>
                 </div>
                 <h1 className="font-semibold text-sm dark:text-white text-right">{auth.nombre}</h1>
                 <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
-                    <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
+                    <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white shrink-0" />
                 </div>
             </div>
         </div>

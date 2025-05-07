@@ -231,8 +231,8 @@ const Dashboard = () => {
                                     </svg>
                                     <p className="text-black dark:text-white">{auth.monedasTrabajos}</p>
                                 </div>
-                                <div className={`w-2.5 h-2.5 rounded-full ${connectionStatus ? 'bg-emerald-500': 'bg-red-500'} brightness-125`}>
-                                    <div className={`w-full h-full rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping': 'bg-red-500'} brightness-125`}></div>
+                                <div className={`w-2.5 h-2.5 rounded-full ${connectionStatus ? 'bg-emerald-500' : 'bg-red-500'} brightness-125`}>
+                                    <div className={`w-full h-full rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping' : 'bg-red-500'} brightness-125`}></div>
                                 </div>
                                 <h1 className="font-semibold dark:text-white">{auth.nombre} {auth.apellido}</h1>
                                 <div className="flex justify-center h-[44px] w-[44px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
@@ -240,8 +240,9 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        <NavInfo />
-                        <div className='overflow-y-auto px-8 h-screen bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%'>
+
+                        <div className='flex flex-col overflow-y-auto px-8 h-screen bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%'>
+                            <NavInfo />
                             <Outlet />
                         </div>
                     </div>
