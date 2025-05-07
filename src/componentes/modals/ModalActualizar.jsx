@@ -6,12 +6,13 @@ import Calendario from "../Calendario";
 import MapaCliProv from "../MapaClient-Prov";
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
+import socket from "../../context/SocketConexion";
 
 
 const ModalActualizar = ({ idTrabajo, idOferta }) => {
     const { auth } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('');
-    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv, ObtenerTrabajos } = OfertaStore()
+    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv, setTrabajos, setTrabajosProvs } = OfertaStore()
     const [carga, setCarga] = useState(true)
     const [calendario, setCalendario] = useState(false)
 
@@ -93,7 +94,6 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
             }
             const respuesta = await axios.put(url, formTrabajo, options)
             toast.success(respuesta.data.msg)
-            await ObtenerTrabajos(token, rol)
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.msg)
@@ -179,6 +179,20 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
             }));
         }
     }, [formTrabajo.desde, formTrabajo.hasta, formTrabajo.tipo]);
+
+    useEffect(() =>{
+        socket.on('Trabajo-actualizado', ({id, trabajoActualizado}) =>{
+            if(auth._id === trabajoActualizado.cliente._id){
+                setTrabajos(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
+            }
+            if(auth._id === trabajoActualizado.proveedor._id){
+                setTrabajosProvs(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
+            }
+        })
+
+
+        return () => socket.off('Trabajo-actualizado')
+    }, [])
 
 
     return (

@@ -28,6 +28,7 @@ import InicioSuperAdmin from './paginas/superAdmin/InicioSuAdmin'
 import RegistroAdmin from './paginas/superAdmin/RegistroAdmin'
 import AppInit from './context/AppInit'
 import EsqueletoOfertas from './paginas/Esqueletos/EsqOfertas'
+import HistorialTrabajoProvs from './paginas/Proveedor/HistorialProv'
 function App() {
 
   return (
@@ -70,11 +71,18 @@ function App() {
                     </RutasProveedor>
                   } />
 
-                  <Route path='historial' element={
+                  <Route path='historialProveedor' element={
+                    <RutasProveedor>
+                      <HistorialTrabajoProvs />
+                    </RutasProveedor>
+                  } />
+
+                  <Route path='historialCliente' element={
                     <RutasCliente>
                       <HistorialTrabajoCli />
                     </RutasCliente>
                   } />
+
                   <Route path='solicitudes/cliente' element={
                     <RutasCliente>
                       <SolicitudesCli />

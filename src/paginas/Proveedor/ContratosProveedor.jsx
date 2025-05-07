@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../../../CSS/fondos.css'
 import imgSinTrabajo from '../../assets/Tiempo.svg'
 import OfertaStore from "../../store/OfertaStore";
@@ -6,12 +6,14 @@ import AuthStoreContext from "../../store/AuthStore";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import SpinnerCargaModal from "../../componentes/RuedaCargaModal";
+import socket from "../../context/SocketConexion";
 
 const ContratosProv = () => {
-    const { trabajosProvs, ObtenerTrabajos } = OfertaStore()
-    const {Perfil} = AuthStoreContext()
+    const { trabajosProvs, setTrabajos, setTrabajosProvs } = OfertaStore()
+    const {Perfil, auth} = AuthStoreContext()
 
     const cancelarTrabajo = async (idTra, servicio, idProv) => {
+        console.log(idProv)
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
         const confirmar = confirm(`¿Estás seguro de cancelar el trabajo de ${servicio}?`)
@@ -24,9 +26,9 @@ const ContratosProv = () => {
                         Authorization: `Bearer ${token}`
                     }
                 }
+                console.log(urlCancelar)
                 const respuesta = await axios.put(urlCancelar, {}, options)
                 toast.success(respuesta.data.msg)
-                await ObtenerTrabajos(token, rol)
                 await Perfil(token,rol)
             } catch (error) {
                 console.log("Error al cancelar el trabajo", error);
@@ -34,6 +36,19 @@ const ContratosProv = () => {
             }
         }
     }
+
+    useEffect(()=>{
+        socket.on('Trabajo-cancelado',({id, trabajoActualizado})=>{
+            if(auth._id === trabajoActualizado.cliente._id){
+                setTrabajos(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
+            }
+            if(auth._id === trabajoActualizado.proveedor._id){
+                setTrabajosProvs(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
+            }
+        })
+
+        return () => socket.off('Trabajo-cancelado')
+    }, [])
 
     return (
         <>

@@ -5,8 +5,8 @@ import imgSinTrabajo from '../../assets/Tiempo.svg'
 import { Link } from "react-router-dom";
 
 
-const HistorialTrabajoCli = () => {
-    const { trabajos } = OfertaStore()
+const HistorialTrabajoProvs = () => {
+    const { trabajosProvs } = OfertaStore()
     const [selectedOption, setSelectedOption] = useState('Todos')
 
     const handleRadioChange = (e) => {
@@ -17,7 +17,7 @@ const HistorialTrabajoCli = () => {
         <>
             <section>
                 <h1 className="text-center text-cyan-600 font-CalSans text-3xl mt-5">Historial</h1>
-                <p className="text-center font-semibold text-xl mb-5 dark:text-white">Aquí podrás ver tus trabajos completados o cancelados como cliente</p>
+                <p className="text-center font-semibold text-xl mb-5 dark:text-white">Aquí podrás ver tus trabajos completados o cancelados como proveedor</p>
                 <div className="flex flex-wrap gap-2 mb-5">
                     <label className="dark:text-white  font-semibold has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-36 border-2 border-gray-500 dark:border-white rounded-md px-2 py-1 flex justify-between items-center">
                         Todos
@@ -33,9 +33,9 @@ const HistorialTrabajoCli = () => {
                     </label>
                 </div>
                 <div className="flex justify-center flex-wrap gap-x-5">
-                    {trabajos.length !== 0 ? (
-                        trabajos.some(tra => tra.status !== "En espera" && tra.status !== "Agendado" && tra.status !== "Rechazado") ? (
-                            trabajos.map((tra) => (
+                    {trabajosProvs.length !== 0 ? (
+                        trabajosProvs.some(tra => tra.status !== "En espera" && tra.status !== "Agendado" && tra.status !== "Rechazado") ? (
+                            trabajosProvs.map((tra) => (
                                 (tra.status === "Cancelado" && (selectedOption === "Cancelados" || selectedOption === "Todos") && (
                                     <div key={tra._id} className="w-fit h-fit py-4 px-5 radial-gradientRechazados-bg rounded-lg shadow-lg shadow-fuchsia-300 mb-5">
                                         <h1 className="text-center text-2xl pb-1.5 border-b-2 font-semibold text-white">{tra.servicio}</h1>
@@ -136,4 +136,4 @@ const HistorialTrabajoCli = () => {
     )
 }
 
-export default HistorialTrabajoCli
+export default HistorialTrabajoProvs

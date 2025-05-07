@@ -5,10 +5,13 @@ import '../../../CSS/fondos.css'
 import imgSinTrabajo from '../../assets/Tiempo.svg'
 import { Link } from "react-router-dom";
 import OfertaStore from "../../store/OfertaStore";
+import AuthStoreContext from "../../store/AuthStore";
+import socket from "../../context/SocketConexion";
 
 const ContratosCliente = () => {
 
-    const { trabajos, ObtenerTrabajos } = OfertaStore()
+    const { trabajos, ObtenerTrabajos, setTrabajos, setTrabajosProvs } = OfertaStore()
+    const {auth} = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('Todas')
 
     const handleRadioChange = (e) => {
@@ -63,6 +66,19 @@ const ContratosCliente = () => {
             }
         }
     }
+
+    useEffect(()=>{
+        socket.on('Trabajo-cancelado',({id, trabajoActualizado})=>{
+            if(auth._id === trabajoActualizado.cliente._id){
+                setTrabajos(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
+            }
+            if(auth._id === trabajoActualizado.proveedor._id){
+                setTrabajosProvs(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
+            }
+        })
+
+        return () => socket.off('Trabajo-cancelado')
+    }, [])
     return (
         <>
             <section>

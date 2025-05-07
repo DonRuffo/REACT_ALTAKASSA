@@ -404,7 +404,7 @@ const LandingPage = () => {
         <>
             <div className={darkMode ? "dark" : ""}>
                 <main className="bg-white dark:bg-black font-Cabin">
-                    <nav className="fixed z-10 w-full px-10 py-5 lg:py-5 flex justify-between dark:bg-gray-950" id="LandingPage">
+                    <nav className="fixed z-10 w-full px-10 py-5 lg:py-5 flex justify-between backdrop-blur-sm bg-white/30 dark:bg-black/30" id="LandingPage">
                         <select className="w-1/3 mr-1 md:mr-0 rounded-xl py-2 md:w-40 text-center text-purple-500 font-semibold bg-transparent outline focus:outline-purple-600 hover:brightness-125 duration-300"
                             onChange={(e) => {
                                 const targetId = e.target.value
