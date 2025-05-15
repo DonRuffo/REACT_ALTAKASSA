@@ -19,10 +19,8 @@ const Registro = () => {
         apellido: "",
         direccion: "Pichincha",
         email: "",
-        telefono: "",
         contrasenia: ""
     })
-
 
     const HandleChange = (e) => {
         setForm({
@@ -35,7 +33,7 @@ const Registro = () => {
         e.preventDefault()
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/registroUser`
-
+            console.log(form)
             const respuesta = await axios.post(url, form)
             toast.success(respuesta.data.msg)
             localStorage.setItem('usuario', respuesta.data.rol)
@@ -43,7 +41,6 @@ const Registro = () => {
         } catch (error) {
             console.log('No se ejecuta el endpoint', error)
             toast.error(error.response.data.msg)
-
             setReloj(false)
         }
     }
