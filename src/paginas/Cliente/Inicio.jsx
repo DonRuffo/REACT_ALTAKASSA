@@ -53,6 +53,31 @@ const Inicio = () => {
         setFiltro(true)
     }
 
+    const obtenerUbi = async () => {
+        try {
+            const rol = localStorage.getItem('rol')
+            const token = localStorage.getItem('token')
+            const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiUser`
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.get(urlCli, options)
+            const ubiActual = {
+                ubicacionActual: {
+                    longitud: respuesta.data.ubiActual.longitud,
+                    latitud: respuesta.data.ubiActual.latitud
+                }
+            }
+            setAuth(ubiActual)
+            await Perfil(token, rol)
+        } catch (error) {
+            console.log('Error, no se obtiene la ubicacion')
+        }
+    }
+
     const categorias = [
         "Plomería",
         "Limpieza",
@@ -79,6 +104,10 @@ const Inicio = () => {
         console.log(auth.ubicacionActual)
     }, [])
     
+
+    useEffect(() => {
+        obtenerUbi()
+    }, [])
     return (//#BA05FF COLOR DEL SISTEMA
         <>
             <ToastContainer />
