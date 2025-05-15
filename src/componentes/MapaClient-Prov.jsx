@@ -28,12 +28,18 @@ const MapaCliProv = ({ form }) => {
         const latitudProv = form.proveedor.ubicacionTrabajo.latitud
         const longitudProv = form.proveedor.ubicacionTrabajo.longitud
         if (mapRef.current) {
+            const radio=1000
             const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
+            const circuloProv = L.circle([latitudProv, longitudProv],{
+                color:'blue',
+                fillColor: '#aaf',
+                fillOpacity: 0.3,
+                radius: radio
+            }).bindPopup(`${form.proveedor.nombre} trabaja en esta zona`)
 
-            const marcadorProveedor = L.marker([latitudProv, longitudProv], { icon: iconMap }).bindPopup(form.proveedor.nombre)
 
             marcadorCliente.addTo(mapRef.current).openPopup()
-            marcadorProveedor.addTo(mapRef.current).openPopup()
+            circuloProv.addTo(mapRef.current)
 
             const bounds = L.latLngBounds([
                 [latitudCli, longitudCli],
@@ -64,9 +70,9 @@ const MapaCliProv = ({ form }) => {
         <>
             <h1 className="flex items-center gap-x-1 text-xl text-center font-semibold mt-2 dark:text-white mb-1">
                 Ubicación
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                 </svg>
 
             </h1>

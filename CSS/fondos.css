@@ -43,6 +43,21 @@
     animation: pulse 2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite; 
 }
 
+.tooltip-personalizado {
+  opacity: 0;
+  transform: translateY(-5px);
+  animation: fadeInTooltip 0.3s ease forwards;
+  
+}
+
+@keyframes fadeInTooltip {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 @keyframes pulse {
     50% {
       opacity: 0.7;

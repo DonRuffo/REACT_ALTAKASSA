@@ -109,9 +109,8 @@ const Dashboard = () => {
 
                                 <Link to='/dashboard/historialCliente' id="Historial" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'cliente' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'Historial' ? 'bg-emerald-800' : ''}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
-
                                     <p className=" px-2">Historial</p>
                                 </Link>
 
@@ -119,7 +118,6 @@ const Dashboard = () => {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                                     </svg>
-
                                     <p className=" px-2">Historial</p>
                                 </Link>
 
@@ -231,8 +229,8 @@ const Dashboard = () => {
                                     </svg>
                                     <p className="text-black dark:text-white">{auth.monedasTrabajos}</p>
                                 </div>
-                                <div className={`w-2.5 h-2.5 rounded-full ${connectionStatus ? 'bg-emerald-500': 'bg-red-500'} brightness-125`}>
-                                    <div className={`w-full h-full rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping': 'bg-red-500'} brightness-125`}></div>
+                                <div className={`w-2.5 h-2.5 rounded-full ${connectionStatus ? 'bg-emerald-500' : 'bg-red-500'} brightness-125`}>
+                                    <div className={`w-full h-full rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping' : 'bg-red-500'} brightness-125`}></div>
                                 </div>
                                 <h1 className="font-semibold dark:text-white">{auth.nombre} {auth.apellido}</h1>
                                 <div className="flex justify-center h-[44px] w-[44px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>

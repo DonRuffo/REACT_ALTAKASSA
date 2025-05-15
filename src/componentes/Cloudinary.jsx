@@ -21,7 +21,6 @@ const Cloudinary = () => {
         }
         try {
             const rol = localStorage.getItem('rol')
-            const tipoUsuario = localStorage.getItem('tipo')
             const token = localStorage.getItem('token')
             const options = {
                 headers: {
@@ -51,7 +50,7 @@ const Cloudinary = () => {
             }
             setAuth(fotito)
             setFoto(true)
-            await Perfil(token, rol, tipoUsuario)
+            await Perfil(token, rol)
             toast.success('Foto subida con éxito')
         } catch (error) {
             console.error('error', error.message)

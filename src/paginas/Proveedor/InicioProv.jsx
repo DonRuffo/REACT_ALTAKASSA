@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import logoInicioProv from '../../assets/Motivacion.svg';
 import ModalOferta from "../../componentes/modals/ModalOferta";
 import LocationImg from '../../assets/Mapa.svg'
@@ -15,13 +15,14 @@ import logoOferta from '../../assets/Oferta.svg'
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import EsqueletoInicioProv from "../Esqueletos/EsqInicioProv";
-
+import { Tooltip } from "react-tooltip";
 
 const InicioProve = () => {
-    const { auth, setAuth, menu, handleMenu, ubiTrabajo, setUbiTrabajo, foto, pulseFoto, pulseUbiTra, pulseUbiActual, verificarUbicacionTrabajo } = AuthStoreContext()
+    const { auth, setAuth, ubiTrabajo, setUbiTrabajo, foto, pulseFoto, pulseUbiTra, pulseUbiActual } = AuthStoreContext()
     const { modalOf, handleModalOf } = OfertaStore()
     const [carga, setCarga] = useState(false)
     const [revelar, setRevelar] = useState(false)
+    const [popup, setPopup] = useState(false)
 
     const mapRef = useRef(null)
     const mapContainerRef = useRef(null)
@@ -37,6 +38,15 @@ const InicioProve = () => {
 
     const scrollMap = () => {
         if (revelar === false) {
+            const container = document.getElementById('botonUbi')
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth' })
+            }, 300)
+        }
+    }
+
+    const scrollSegirudad = () => {
+        if (popup === false) {
             const container = document.getElementById('botonUbi')
             setTimeout(() => {
                 container.scrollIntoView({ behavior: 'smooth' })
@@ -159,7 +169,7 @@ const InicioProve = () => {
                                     <p className="font-semibold text-lg dark:text-white">3</p>
                                 </div>
                             </div>
-                        </section>
+                        </section><br />
                         <h1 className={`${foto && ubiTrabajo ? '' : 'hidden'} text-xl font-semibold dark:text-white text-center`}>Ya puedes comenzar a crear</h1>
                         <section className="flex justify-center mt-4">
                             <motion.div layout className="w-4/5 flex justify-center gap-5 flex-wrap transition-all duration-300"
@@ -183,17 +193,39 @@ const InicioProve = () => {
                                     <button type="button" className="px-4 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={handleModalOf}>Crear</button>
                                 </motion.div>
                                 <motion.div layout ref={mapContainerRef} id="map" className={`${revelar ? 'block' : 'hidden'} relative z-0 h-[300px] w-[225px] md:h-[260px] md:w-[350px] rounded-md transition-all duration-300`}></motion.div>
-                                <motion.div id="botonUbi" layout className={`${ubiTrabajo ? '' : 'hidden'} h-[100px] lg:h-[260px] w-[100px] flex flex-col justify-center items-center transition-all duration-300`}>
-                                    <div className="p-3 rounded-lg" >
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="orange" className="size-18 cursor-pointer" onClick={async () => { setRevelar(!revelar); await creacionMapa(); scrollMap() }}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
-                                        </svg>
-                                        <p className={`${revelar ? 'hidden' : ''} dark:text-white font-semibold text-center`}>Ver</p>
-                                        <p className={`${revelar ? '' : 'hidden'} dark:text-white font-semibold text-center`}>Ocultar</p>
+                                <motion.div id="botonUbi" layout className={`${ubiTrabajo ? '' : 'hidden'} h-[100px] md:h-[260px] flex flex-wrap md:w-auto gap-3 justify-center items-center transition-all duration-300`}>
+                                    <div className="flex items-center gap-x-2">
+                                        <div className="rounded-lg" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="orange" className="size-18 cursor-pointer" onClick={async () => { setRevelar(!revelar); await creacionMapa(); scrollMap(); setPopup(false) }}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                                            </svg>
+                                            <p className={`${revelar ? 'hidden' : ''} dark:text-white font-semibold text-center`}>Ver</p>
+                                            <p className={`${revelar ? '' : 'hidden'} dark:text-white font-semibold text-center`}>Ocultar</p>
+                                        </div>
+                                        <div data-tooltip-id="seguridad" data-tooltip-content={'Ubicación protegida'} className={`text-cyan-500 ${revelar ? 'hidden' : ''}`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7 cursor-pointer" onClick={() => { setPopup(!popup); scrollSegirudad() }}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div className={`${popup ? '' : 'hidden'} flex flex-col py-2 justify-center items-center w-52 text-cyan-500 outline-2 outline-cyan-500 bg-gray-100 dark:bg-gray-900 rounded-lg`}>
+                                        <div className="flex flex-col items-center">
+                                            <h1 className="text-black dark:text-white">Tu ubicación está protegida</h1>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7 cursor-pointer">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                                            </svg>
+                                        </div><br />
+                                        <p className="text-sm px-3 text-center text-black dark:text-white">
+                                            Solo usaremos tu ubicación real para mostrar a los clientes una zona aproximada donde trabajas.
+                                            Nunca mostraremos tu dirección exacta ni la compartiremos públicamente.</p>
                                     </div>
                                 </motion.div>
                             </motion.div>
+                            <Tooltip id="seguridad" place="right" style={{
+                                fontSize: 13
+                            }} className={`${popup ? 'hidden' : ''}`}/>
                         </section><br /><br />
+
                         {modalOf && (<ModalOferta />)}
                     </>
                 )}

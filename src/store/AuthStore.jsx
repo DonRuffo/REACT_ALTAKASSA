@@ -136,9 +136,9 @@ const AuthStoreContext = create((set, get) => ({
         }
     },
 
-    ubiCliente: (token, rol, tipo) => {
+    ubiCliente: (token, rol) => {
         return new Promise((resolve, reject) => {
-            if (rol === 'administrador' || tipo === 'proveedor') return
+            if (rol === 'administrador') return
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     const { latitude, longitude } = position.coords
@@ -152,6 +152,7 @@ const AuthStoreContext = create((set, get) => ({
                         }
                         const repuesta = await axios.post(url, { latitude, longitude }, options)
                         set({ ubiActual: true })
+                        
                         resolve()
                     } catch (error) {
                         console.log('Error al obtener la ubicacion actual', error.message)

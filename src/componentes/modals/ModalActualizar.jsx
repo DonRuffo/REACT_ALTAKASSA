@@ -200,7 +200,7 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
             <div className="fixed bg-black/80 inset-0 transition-all duration-300">
                 <ToastContainer />
                 <div className="fixed top-1/6 md:top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 outline-2 dark:outline-emerald-500 outline-emerald-700">
-                    <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-emerald-700 dark:text-emerald-500">Solicitud de Trabajo</h1>
+                    <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-emerald-700 dark:text-emerald-500">Actualizar solicitud</h1>
                     <div className="grid grid-cols-2">
                         <div className="border-r-2 border-black dark:border-white">
                             <h1 className=" dark:text-white text-xl font-semibold text-center my-2">Seleccionar</h1>
@@ -222,7 +222,7 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
                                         </div>
                                     </div>
                                 </div><hr className="border border-slate-500" />
-                                <div className="mb-3 px-2 py-0.5 lg:px-6 flex flex-col md:flex-row flex-wrap justify-between gap-2 items-center">
+                                <div className="mb-3 px-2 py-0.5 flex flex-col lg:flex-row flex-wrap justify-between md:justify-center lg:justify-between lg:px-5 gap-2 items-center">
                                     <div>
                                         <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white">Fecha: </label>
                                         <input type="date" name="fecha" onChange={(e) => { handleChange(e); compararFechas(e) }} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />

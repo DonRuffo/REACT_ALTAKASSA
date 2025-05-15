@@ -14,11 +14,10 @@ import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import imgSinOfertas from '../../assets/Sinofertas.svg'
 import EsqueletoInicioCli from "../Esqueletos/EsqInicioCli";
-import {io} from 'socket.io-client'
 
 
 const Inicio = () => {
-    const { auth, setAuth, foto, ubiActual, setUbiActual, verificarUbicacionActual, pulseFoto, pulseUbiTra, pulseUbiActual, Perfil } = AuthStoreContext()
+    const { auth, setAuth, foto, ubiActual, setUbiActual, verificarUbicacionActual, pulseFoto, pulseUbiTra, pulseUbiActual, Perfil, ubiCliente } = AuthStoreContext()
     const { modalTra, setModalTra, oferta, setOferta, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
@@ -38,7 +37,7 @@ const Inicio = () => {
             const token = localStorage.getItem('token')
             const rol = localStorage.getItem('rol')
             const tipo = localStorage.getItem('tipo')
-            await ubiCliente(token, rol, tipo)
+            await ubiCliente(token, rol)
             setCarga(false)
             setUbiActual(true)
         } catch (error) {
@@ -52,31 +51,6 @@ const Inicio = () => {
     const almacenarValor = (e) => {
         setValor(e.target.textContent)
         setFiltro(true)
-    }
-
-    const obtenerUbi = async () => {
-        try {
-            const rol = localStorage.getItem('rol')
-            const token = localStorage.getItem('token')
-            const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiUser`
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-            const respuesta = await axios.get(urlCli, options)
-            const ubiActual = {
-                ubicacionActual: {
-                    longitud: respuesta.data.ubiActual.longitud,
-                    latitud: respuesta.data.ubiActual.latitud
-                }
-            }
-            setAuth(ubiActual)
-            await Perfil(token, rol)
-        } catch (error) {
-            console.log('Error, no se obtiene la ubicacion')
-        }
     }
 
     const categorias = [
@@ -102,17 +76,9 @@ const Inicio = () => {
     }, [valor, oferta])
 
     useEffect(() => {
-        obtenerUbi()
+        console.log(auth.ubicacionActual)
     }, [])
     
-
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        const rol = localStorage.getItem('rol')
-        const tipoUsuario = localStorage.getItem('tipo')
-        if (!rol || !token) return
-        verificarUbicacionActual(token, rol, tipoUsuario)
-    }, [])
     return (//#BA05FF COLOR DEL SISTEMA
         <>
             <ToastContainer />

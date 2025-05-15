@@ -43,7 +43,7 @@ const Login = () => {
             await MisOfertas(respuesta.data.token, respuesta.data.rol)
             await Perfil(respuesta.data.token, respuesta.data.rol)
             await ObtenerTrabajos(respuesta.data.token, respuesta.data.rol)
-            await ubiCliente(respuesta.data.token, respuesta.data.rol, 'cliente')
+            await ubiCliente(respuesta.data.token, respuesta.data.rol)
             await verificarFoto(respuesta.data.token, respuesta.data.rol)
             await verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente')
             await verificarUbicacionTrabajo(respuesta.data.token, respuesta.data.rol, 'proveedor')

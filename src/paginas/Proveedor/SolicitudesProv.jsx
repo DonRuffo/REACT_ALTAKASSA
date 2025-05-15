@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
 import imgSoli from '../../assets/Descansando.svg'
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
-import SpinnerCargaModal from "../../componentes/RuedaCargaModal";
+import {Tooltip} from 'react-tooltip';
 import EsqueletoSoliCli from "../Esqueletos/EsqSolicitudesCli";
 import socket from "../../context/SocketConexion";
 
@@ -56,15 +56,15 @@ const SolicitudProv = () => {
                 }
                 const respuesta = await axios.put(url, {}, options)
                 toast.success(respuesta.data.msg)
-                
+
             } catch (error) {
                 console.log(error)
                 toast.error(error.response.data.msg)
-                
+
             }
         } else {
             setTimeout(() => {
-                
+
             }, 300)
         }
     }
@@ -101,7 +101,7 @@ const SolicitudProv = () => {
             {pulseTra ? <EsqueletoSoliCli />
                 : (
                     <>
-                        <h1 className="text-center font-CalSans text-3xl text-purple-600 mb-3 mt-5">Solicitudes</h1>
+                        <h1 className="text-center font-CalSans text-3xl text-purple-600 mt-5">Solicitudes</h1>
                         <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus solicitudes de trabajo como proveedor</h2>
                         <section>
                             <div className="flex justify-center gap-3 flex-wrap">
@@ -109,9 +109,9 @@ const SolicitudProv = () => {
                                     trabajosProvs.some(tra => tra.status === "En espera") ? (
                                     trabajosProvs.map((tra) => (
                                         tra.status === "En espera" && (
-                                            <div key={tra._id} className="w-fit h-fit max-w-64 py-4 px-5 radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
+                                            <div key={tra._id} className="w-fit h-fit max-w-64 py-2 px-5 radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
                                                 <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
-                                                <div className="flex justify-center items-center gap-x-3 mt-2">
+                                                <div className="flex justify-center items-center gap-x-3 mt-1.5">
                                                     <div className="w-[65px] h-[65px] rounded-full overflow-hidden">
                                                         <img src={tra.cliente.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                                     </div>
@@ -127,9 +127,26 @@ const SolicitudProv = () => {
                                                     </h1>
                                                 </div>
                                                 <p className="text-center">Total {tra.tipo === 'precioPorDia' ? 'por Día' : 'por Horas'}</p>
-                                                <div className="flex justify-around mt-2 gap-x-4">
-                                                    <button className="px-4 py-2 bg-cyan-200 rounded-md text-cyan-700 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={async () => { await AceptarSolicitud(tra._id, tra.servicio)}}>Aceptar</button>
-                                                    <button className="px-3 py-2 bg-red-200 rounded-md text-red-700 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={async () => { await RechazarSolicitud(tra._id, tra.servicio) }} >Rechazar</button>
+                                                <div className="flex justify-around mt-1 gap-x-4">
+                                                    <div data-tooltip-id="Aceptar" data-tooltip-content={'Aceptar'} className="py-0.5 rounded-md text-cyan-700 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={async () => { await AceptarSolicitud(tra._id, tra.servicio) }}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-9">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                        
+                                                    </div>
+                                                    <div data-tooltip-id="ubicacion" data-tooltip-content={'Ver ubicación'} className="py-0.5 rounded-md text-emerald-700 font-semibold hover:scale-105 duration-300 cursor-pointer">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-9">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                                        </svg>
+                                                        
+                                                    </div>
+                                                    <div data-tooltip-id="Rechazar" data-tooltip-content={'Rechazar'} className="py-0.5 rounded-md text-red-700 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={async () => { await RechazarSolicitud(tra._id, tra.servicio) }} >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-9">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         )
@@ -143,6 +160,16 @@ const SolicitudProv = () => {
                                 )}
                             </div>
                         </section>
+                        <Tooltip id="Aceptar" place="top" style={{
+                            fontSize: 13
+                        }}/>
+                        <Tooltip id="ubicacion" place="top" style={{
+                            fontSize: 13
+                        }} />
+                        <Tooltip id="Rechazar" place="top" style={{
+                            fontSize: 13
+                        }} />
+
                     </>
                 )}
         </>
