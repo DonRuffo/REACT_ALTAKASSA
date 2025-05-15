@@ -33,7 +33,6 @@ const Registro = () => {
         e.preventDefault()
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/registroUser`
-            console.log(form)
             const respuesta = await axios.post(url, form)
             toast.success(respuesta.data.msg)
             localStorage.setItem('usuario', respuesta.data.rol)
