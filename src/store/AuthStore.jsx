@@ -8,6 +8,7 @@ const AuthStoreContext = create((set, get) => ({
     auth: {},
     ubicacionActual:{},
     ubicacionTrabajo:{},
+    ubicacionTraProvs:{},
     ivActual:'',
     menu: false,
     tipo: '',
@@ -39,6 +40,7 @@ const AuthStoreContext = create((set, get) => ({
     setAuth: (authData) => set((state) => ({ ...state.auth, ...authData })),
     setUbicacionActual: (ubi) => set({ubicacionActual:ubi}),
     setUbicacionTrabajo: (ubi) => set({ubicacionTrabajo:ubi}),
+    setUbicacionTraProvs: (ubi) => set({ubicacionTraProvs:ubi}),
     setConnectionStatus: (conec) => set({connectionStatus:conec}),
     setMenu: (menuData) => set({ menu: menuData }),
     setTipo: (tipoData) => set({ tipo: tipoData }),
@@ -157,7 +159,8 @@ const AuthStoreContext = create((set, get) => ({
                         }
                         const respuesta = await axios.post(url, { latitude, longitude }, options)
                         set({ ubiActual: true })
-                        set({ivActual:respuesta.data.iv})
+                        set({ ivActual:respuesta.data.iv})
+                        //localStorage.setItem('dd', respuesta.data.iv)
                         resolve()
                     } catch (error) {
                         console.log('Error al obtener la ubicacion actual', error.message)

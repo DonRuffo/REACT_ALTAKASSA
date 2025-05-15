@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logoInicioProv from '../../assets/Motivacion.svg';
 import ModalOferta from "../../componentes/modals/ModalOferta";
 import LocationImg from '../../assets/Mapa.svg'
@@ -18,7 +18,7 @@ import EsqueletoInicioProv from "../Esqueletos/EsqInicioProv";
 import { Tooltip } from "react-tooltip";
 
 const InicioProve = () => {
-    const { auth, setAuth, ubiTrabajo, setUbiTrabajo, foto, pulseFoto, pulseUbiTra, pulseUbiActual } = AuthStoreContext()
+    const { auth, setAuth, ubiTrabajo, setUbiTrabajo, foto, pulseFoto, pulseUbiTra, pulseUbiActual, setUbicacionTrabajo, ubicacionTrabajo } = AuthStoreContext()
     const { modalOf, handleModalOf } = OfertaStore()
     const [carga, setCarga] = useState(false)
     const [revelar, setRevelar] = useState(false)
@@ -120,8 +120,8 @@ const InicioProve = () => {
 
     const creacionMapa = async () => {
         try {
-            const latitud = auth.ubicacionTrabajo.latitud
-            const longitud = auth.ubicacionTrabajo.longitud
+            const latitud = ubicacionTrabajo.latitude
+            const longitud = ubicacionTrabajo.longitude
             if (mapRef.current) {
                 mapRef.current.setView([latitud, longitud], 15);
                 L.marker([latitud, longitud], { icon: iconMap }).addTo(mapRef.current)
@@ -134,6 +134,26 @@ const InicioProve = () => {
         }
     }
 
+    const desencriptar = async () => {
+            const url = `${import.meta.env.VITE_BACKEND_URL}/ubiUserTra?prov=${auth.email}`
+            try {
+                const token = localStorage.getItem('token')
+                const options = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                const respuesta = await axios.get(url, options)
+                setUbicacionTrabajo(respuesta.data.desencriptado)
+            } catch (error) {
+                console.log("No se puede desencriptar")
+            }
+        }
+    useEffect(() => {
+        if(!auth?.email) return
+        desencriptar()
+    }, [auth])
 
     return (
         <>
@@ -223,7 +243,7 @@ const InicioProve = () => {
                             </motion.div>
                             <Tooltip id="seguridad" place="right" style={{
                                 fontSize: 13
-                            }} className={`${popup ? 'hidden' : ''}`}/>
+                            }} className={`${popup ? 'hidden' : ''}`} />
                         </section><br /><br />
 
                         {modalOf && (<ModalOferta />)}

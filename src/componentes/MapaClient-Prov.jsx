@@ -21,36 +21,21 @@ const MapaCliProv = ({ form }) => {
     const mapRef = useRef(null)
     const containerRef = useRef(null)
     const { mapaCliProv } = OfertaStore()
-    const { ubicacionActual, ubicacionTrabajo, setUbicacionTrabajo } = AuthStoreContext()
+    const { ubicacionActual, ubicacionTrabajo, setUbicacionTrabajo, auth } = AuthStoreContext()
+    const emailProv = form.proveedor.email
     const creacionMapa = async () => {
 
         const latitudCli = ubicacionActual.latitude
         const longitudCli = ubicacionActual.longitude
-        const emailProv = form.proveedor.email
-        const url = `${import.meta.env.VITE_BACKEND_URL}/ubiUserTra?prov=${emailProv}`
-        try {
-            
-            const token = localStorage.getItem('token')
-            const options = {
-                headers:{
-                    'Content-Type':'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-            const respuesta = await axios.get(url, options)
-            setUbicacionTrabajo(respuesta.data.desencriptado)
-        } catch (error) {
-            console.log("No se puede desencriptar")
-        }
 
         const longitudProv = ubicacionTrabajo.longitude
         const latitudProv = ubicacionTrabajo.latitude
 
         if (mapRef.current) {
-            const radio=1000
+            const radio = 1000
             const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
-            const circuloProv = L.circle([latitudProv, longitudProv],{
-                color:'blue',
+            const circuloProv = L.circle([latitudProv, longitudProv], {
+                color: 'blue',
                 fillColor: '#aaf',
                 fillOpacity: 0.3,
                 radius: radio

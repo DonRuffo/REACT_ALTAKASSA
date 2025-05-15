@@ -12,7 +12,7 @@ import AuthStoreContext from "../../store/AuthStore";
 
 const ModalTrabajos = ({ idOferta }) => {
     const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil, mapaCliProv, setMapaCliProv, setTrabajos, setTrabajosProvs } = OfertaStore()
-    const { auth } = AuthStoreContext()
+    const { auth, setUbicacionTrabajo } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
     const [carga, setCarga] = useState(true)
@@ -58,7 +58,6 @@ const ModalTrabajos = ({ idOferta }) => {
         });
     };
 
-
     const [form, setForm] = useState({
         proveedor: {
             nombre: "",
@@ -72,7 +71,7 @@ const ModalTrabajos = ({ idOferta }) => {
         servicio: "",
         descripcion: ""
     })
-
+    //Datos para el formulario de trabajo
     const [formTrabajo, setFormTrabajo] = useState({
         oferta: idOferta,
         fecha: "",
@@ -82,6 +81,7 @@ const ModalTrabajos = ({ idOferta }) => {
         desde: "08:00",
         hasta: "17:00"
     })
+    //Obtiene los datos de la oferta a la cual se va a solicitar el servicio
     const ObtenerOferta = async () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/verOferta/${idOferta}`
@@ -104,6 +104,8 @@ const ModalTrabajos = ({ idOferta }) => {
             console.log(error)
         }
     }
+
+    //calcula el precio por las horas que selecciona el usuario
     const calcularPrecioPorHoras = (trabajo) => {
         const formato = "2024-01-01";
         const desdeTime = new Date(`${formato}T${trabajo.desde}:00`);
@@ -131,6 +133,7 @@ const ModalTrabajos = ({ idOferta }) => {
         })
     };
 
+    //compara fechas para que no se seleccione fechas anteriores a la actual
     const compararFechas = (e) => {
         const fechaElegida = new Date(e.target.value)
         fechaElegida.setDate(fechaElegida.getDate() + 1)
@@ -143,6 +146,7 @@ const ModalTrabajos = ({ idOferta }) => {
         }
     }
 
+    //Envio de datos al backend
     const handleSubmitTrabajo = async (e) => {
         e.preventDefault()
         try {
@@ -174,6 +178,28 @@ const ModalTrabajos = ({ idOferta }) => {
         }
 
     }
+    //Desencripta la ubicación del proveedor seleccionado
+    const desencriptar = async (email) => {
+        const url = `${import.meta.env.VITE_BACKEND_URL}/ubiUserTra?prov=${email}`
+        try {
+            const token = localStorage.getItem('token')
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.get(url, options)
+            setUbicacionTrabajo(respuesta.data.desencriptado)
+        } catch (error) {
+            console.log("No se puede desencriptar")
+        }
+    }
+
+    useEffect(() => {
+        if(!form?.proveedor.email) return
+        desencriptar(form.proveedor.email)
+    }, [form])
 
     useEffect(() => {
         if (idOferta) ObtenerOferta();

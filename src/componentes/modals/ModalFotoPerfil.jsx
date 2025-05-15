@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const ModalFotoPerfil = ({ url }) => {
     const { setModalPerfil, modalPerfil } = OfertaStore()
-    console.log(modalPerfil)
     const variantsModal = {
         hidden: { opacity: 0, scale: 0.95, y: 50 },
         visible: { opacity: 1, scale: 1, y: 0 },

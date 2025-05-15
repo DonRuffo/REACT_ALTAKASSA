@@ -15,10 +15,10 @@ const AppInit = ({ children }) => {
         const tipoUsuario = localStorage.getItem('tipo')
         if (!rol || !token) return
         Perfil(token, rol)
-        ubiCliente(token, rol)
         verificarFoto(token, rol)
         verificarUbicacionActual(token, rol, 'cliente')
         verificarUbicacionTrabajo(token, rol, 'proveedor')
+        ubiCliente(token, rol)
         setTipo(tipoUsuario)
     }, [])
 
