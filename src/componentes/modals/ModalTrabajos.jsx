@@ -65,10 +65,7 @@ const ModalTrabajos = ({ idOferta }) => {
             apellido: "",
             email: "",
             f_perfil: "",
-            ubicacionTrabajo: {
-                latitud: "",
-                longitud: ""
-            }
+            ubicacionTrabajo: ""
         },
         precioPorDia: "",
         precioPorHora: "",

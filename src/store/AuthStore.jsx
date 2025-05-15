@@ -6,6 +6,9 @@ import { create } from 'zustand'
 const AuthStoreContext = create((set, get) => ({
     //inicializaciones de vairables
     auth: {},
+    ubicacionActual:{},
+    ubicacionTrabajo:{},
+    ivActual:'',
     menu: false,
     tipo: '',
     dark: false,
@@ -34,6 +37,8 @@ const AuthStoreContext = create((set, get) => ({
 
     //seteadores para actualizaciones
     setAuth: (authData) => set((state) => ({ ...state.auth, ...authData })),
+    setUbicacionActual: (ubi) => set({ubicacionActual:ubi}),
+    setUbicacionTrabajo: (ubi) => set({ubicacionTrabajo:ubi}),
     setConnectionStatus: (conec) => set({connectionStatus:conec}),
     setMenu: (menuData) => set({ menu: menuData }),
     setTipo: (tipoData) => set({ tipo: tipoData }),
@@ -150,9 +155,9 @@ const AuthStoreContext = create((set, get) => ({
                                 Authorization: `Bearer ${token}`
                             }
                         }
-                        const repuesta = await axios.post(url, { latitude, longitude }, options)
+                        const respuesta = await axios.post(url, { latitude, longitude }, options)
                         set({ ubiActual: true })
-                        
+                        set({ivActual:respuesta.data.iv})
                         resolve()
                     } catch (error) {
                         console.log('Error al obtener la ubicacion actual', error.message)

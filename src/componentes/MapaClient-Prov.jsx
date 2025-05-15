@@ -4,6 +4,7 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
 import OfertaStore from "../store/OfertaStore";
 import AuthStoreContext from "../store/AuthStore";
+import axios from "axios";
 
 
 
@@ -20,13 +21,31 @@ const MapaCliProv = ({ form }) => {
     const mapRef = useRef(null)
     const containerRef = useRef(null)
     const { mapaCliProv } = OfertaStore()
-    const { auth } = AuthStoreContext()
-    const creacionMapa = () => {
+    const { ubicacionActual, ubicacionTrabajo, setUbicacionTrabajo } = AuthStoreContext()
+    const creacionMapa = async () => {
 
-        const latitudCli = auth.ubicacionActual.latitud
-        const longitudCli = auth.ubicacionActual.longitud
-        const latitudProv = form.proveedor.ubicacionTrabajo.latitud
-        const longitudProv = form.proveedor.ubicacionTrabajo.longitud
+        const latitudCli = ubicacionActual.latitude
+        const longitudCli = ubicacionActual.longitude
+        const emailProv = form.proveedor.email
+        const url = `${import.meta.env.VITE_BACKEND_URL}/ubiUserTra?prov=${emailProv}`
+        try {
+            
+            const token = localStorage.getItem('token')
+            const options = {
+                headers:{
+                    'Content-Type':'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.get(url, options)
+            setUbicacionTrabajo(respuesta.data.desencriptado)
+        } catch (error) {
+            console.log("No se puede desencriptar")
+        }
+
+        const longitudProv = ubicacionTrabajo.longitude
+        const latitudProv = ubicacionTrabajo.latitude
+
         if (mapRef.current) {
             const radio=1000
             const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
