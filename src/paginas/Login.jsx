@@ -39,14 +39,16 @@ const Login = () => {
             localStorage.removeItem('usuario')
 
             setTipo('cliente')
-            await ListarOfertas(respuesta.data.token, respuesta.data.rol)
-            await MisOfertas(respuesta.data.token, respuesta.data.rol)
-            await Perfil(respuesta.data.token, respuesta.data.rol)
-            await ObtenerTrabajos(respuesta.data.token, respuesta.data.rol)
-            await ubiCliente(respuesta.data.token, respuesta.data.rol)
-            await verificarFoto(respuesta.data.token, respuesta.data.rol)
-            await verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente')
-            await verificarUbicacionTrabajo(respuesta.data.token, respuesta.data.rol, 'proveedor')
+            await Promise.all([
+                ListarOfertas(respuesta.data.token, respuesta.data.rol),
+                MisOfertas(respuesta.data.token, respuesta.data.rol),
+                Perfil(respuesta.data.token, respuesta.data.rol),
+                ObtenerTrabajos(respuesta.data.token, respuesta.data.rol),
+                ubiCliente(respuesta.data.token, respuesta.data.rol),
+                verificarFoto(respuesta.data.token, respuesta.data.rol),
+                verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente'),
+                verificarUbicacionTrabajo(respuesta.data.token, respuesta.data.rol, 'proveedor')
+            ])
             navigate('/dashboard')
         } catch (error) {
             console.log(error)
