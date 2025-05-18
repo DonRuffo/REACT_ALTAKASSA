@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import logoConfirm from '../assets/ConfirmarLOGO.svg'
 import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";

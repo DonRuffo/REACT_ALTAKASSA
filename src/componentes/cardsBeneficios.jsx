@@ -1,5 +1,6 @@
 import React from "react";
 import '../../CSS/fondos.css'
+import PropTypes from "prop-types";
 
 const CardBeneficio = ({Beneficio, logo, texto,}) => {
     return (
@@ -13,6 +14,11 @@ const CardBeneficio = ({Beneficio, logo, texto,}) => {
         </div>
 
     )
+}
+CardBeneficio.propTypes = {
+    Beneficio: PropTypes.string.isRequired,
+    logo: PropTypes.string.isRequired,
+    texto: PropTypes.string.isRequired
 }
 
 export default CardBeneficio

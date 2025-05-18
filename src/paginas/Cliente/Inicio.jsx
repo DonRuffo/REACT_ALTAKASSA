@@ -17,8 +17,8 @@ import EsqueletoInicioCli from "../Esqueletos/EsqInicioCli";
 
 
 const Inicio = () => {
-    const { auth, setAuth, foto, ubiActual, setUbiActual, ubicacionActual, pulseFoto, pulseUbiTra, pulseUbiActual, Perfil, ubiCliente, setUbicacionActual, ivActual } = AuthStoreContext()
-    const { modalTra, setModalTra, oferta, setOferta, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
+    const { auth, setAuth, foto, ubiActual, setUbiActual, pulseFoto, pulseUbiTra, pulseUbiActual, Perfil, ubiCliente, setUbicacionActual, ivActual } = AuthStoreContext()
+    const { modalTra, setModalTra, oferta, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
@@ -36,7 +36,6 @@ const Inicio = () => {
         try {
             const token = localStorage.getItem('token')
             const rol = localStorage.getItem('rol')
-            const tipo = localStorage.getItem('tipo')
             await ubiCliente(token, rol)
             setCarga(false)
             setUbiActual(true)

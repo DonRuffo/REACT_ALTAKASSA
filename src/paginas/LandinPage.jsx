@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import logoDarkMode from '../assets/moon.png';
-import logoAltaKassaNegro from '../assets/AK NEGRA.png';
-import logoAltaKassaBlanco from '../assets/AK BLANCA.png';
+
 import logoComodidad from '../assets/Comodidad.svg';
 import logoUsabilidad from '../assets/Usabilidad.svg';
 import logoTransparencia from '../assets/Transparencia.svg';
@@ -394,7 +393,7 @@ const LandingPage = () => {
             container.scrollIntoView({ behavior: 'smooth' })
         }
     }
-
+    //desbloquear para produccion
     /*useEffect(() => {
         setTimeout(() => {
             scrollInicio()

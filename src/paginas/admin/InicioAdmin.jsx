@@ -3,7 +3,7 @@ import React from "react";
 import AuthStoreContext from "../../store/AuthStore";
 
 const InicioAdmin = () => {
-    const { auth, menu, handleMenu } = AuthStoreContext()
+    const { auth} = AuthStoreContext()
 
     return (
         <>

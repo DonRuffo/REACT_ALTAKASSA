@@ -1,5 +1,6 @@
 import React from "react";
 import OfertaStore from "../../store/OfertaStore";
+import PropTypes from "prop-types";
 
 const ModalFotoProvs = ({url}) => {
     const { modalProvs, setModalProvs } = OfertaStore()
@@ -18,6 +19,10 @@ const ModalFotoProvs = ({url}) => {
             </div>
         </>
     )
+}
+
+ModalFotoProvs.propTypes = {
+    url:PropTypes.string.isRequired
 }
 
 export default ModalFotoProvs

@@ -54,7 +54,7 @@ const Configuracion = () => {
     const handleSubmitPerfil = async (e) => {
         e.preventDefault()
         try {
-            const respuesta = await ActualizarPerfil(formPerfil)
+            await ActualizarPerfil(formPerfil)
         } catch (error) {
             console.log(error)
         }
@@ -63,7 +63,7 @@ const Configuracion = () => {
     const handleSubmitContrasenia = async (e) => {
         e.preventDefault()
         try {
-            const respuesta = await ActualizarContrasenia(formContra)
+            await ActualizarContrasenia(formContra)
         } catch (error) {
             console.log(error)
 
@@ -131,7 +131,7 @@ const Configuracion = () => {
                             Authorization: `Bearer ${token}`
                         }
                     }
-                    const respuesta = await axios.post(url, { latitude, longitude }, options)
+                    await axios.post(url, { latitude, longitude }, options)
                     const ubi = {
                         ubicacionTrabajo: {
                             longitud: longitude,
@@ -141,7 +141,7 @@ const Configuracion = () => {
                     toast.success('Ubicación actualizada')
                     setAuth(ubi)
                     await Perfil(token, rol, tipo)
-                } catch (error) {
+                } catch {
                     console.error('Error al actualizar la ubicación')
                     toast.error('Error al actualizar')
                 }

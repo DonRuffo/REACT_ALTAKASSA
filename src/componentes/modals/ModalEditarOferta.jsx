@@ -5,6 +5,7 @@ import SpinnerCargaModal from "../RuedaCargaModal";
 import OfertaStore from "../../store/OfertaStore";
 import socket from "../../context/SocketConexion";
 import AuthStoreContext from "../../store/AuthStore";
+import PropTypes from "prop-types";
 
 const ModalEditarOferta = ({ idOferta }) => {
 
@@ -16,7 +17,7 @@ const ModalEditarOferta = ({ idOferta }) => {
         servicio: "",
         descripcion: ""
     })
-    const { setModalEditOf, modalEditOf, MisOfertas, oferta, ofertaProvs, setOferta, setOfertaProvs } = OfertaStore()
+    const { setModalEditOf, modalEditOf, MisOfertas, setOferta, setOfertaProvs } = OfertaStore()
     const { auth } = AuthStoreContext()
 
 
@@ -139,5 +140,8 @@ const ModalEditarOferta = ({ idOferta }) => {
     )
 }
 
+ModalEditarOferta.propTypes = {
+    idOferta:PropTypes.string.isRequired
+}
 
 export default ModalEditarOferta

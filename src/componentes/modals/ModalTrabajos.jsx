@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Calendario from "../Calendario";
 import SpinnerCargaModal from "../RuedaCargaModal";
 import ModalFotoPerfil from "./ModalFotoPerfil";
@@ -9,6 +9,7 @@ import MapaCliProv from "../MapaClient-Prov";
 import OfertaStore from "../../store/OfertaStore";
 import socket from "../../context/SocketConexion";
 import AuthStoreContext from "../../store/AuthStore";
+import PropTypes from "prop-types";
 
 const ModalTrabajos = ({ idOferta }) => {
     const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil, mapaCliProv, setMapaCliProv, setTrabajos, setTrabajosProvs } = OfertaStore()
@@ -151,7 +152,6 @@ const ModalTrabajos = ({ idOferta }) => {
         e.preventDefault()
         try {
             const token = localStorage.getItem('token')
-            const rol = localStorage.getItem('rol')
             const url = `${import.meta.env.VITE_BACKEND_URL}/crearTrabajo`
             const options = {
                 headers: {
@@ -191,7 +191,7 @@ const ModalTrabajos = ({ idOferta }) => {
             }
             const respuesta = await axios.get(url, options)
             setUbicacionTrabajo(respuesta.data.desencriptado)
-        } catch (error) {
+        } catch {
             console.log("No se puede desencriptar")
         }
     }
@@ -380,5 +380,8 @@ const ModalTrabajos = ({ idOferta }) => {
     )
 }
 
+ModalTrabajos.propTypes = {
+    idOferta: PropTypes.string.isRequired
+}
 
 export default ModalTrabajos

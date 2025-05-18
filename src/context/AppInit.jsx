@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import AuthStoreContext from "../store/AuthStore";
 import OfertaStore from "../store/OfertaStore";
 import SocketStatus from "./SocketHook";
+import PropTypes from "prop-types";
 
 const AppInit = ({ children }) => {
-    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, dark, setDark, setDarkMode, auth, setTipo } = AuthStoreContext()
+    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, setDark, setDarkMode, setTipo } = AuthStoreContext()
     const { ListarOfertas, ObtenerTrabajos, oferta, trabajos, MisOfertas, ofertaProvs } = OfertaStore()
 
     SocketStatus()
@@ -14,11 +15,13 @@ const AppInit = ({ children }) => {
         const rol = localStorage.getItem('rol')
         const tipoUsuario = localStorage.getItem('tipo')
         if (!rol || !token) return
-        Perfil(token, rol)
-        verificarFoto(token, rol)
-        verificarUbicacionActual(token, rol, 'cliente')
-        verificarUbicacionTrabajo(token, rol, 'proveedor')
-        ubiCliente(token, rol)
+        Promise.all([
+            Perfil(token, rol),
+            verificarFoto(token, rol),
+            verificarUbicacionActual(token, rol, 'cliente'),
+            verificarUbicacionTrabajo(token, rol, 'proveedor'),
+            ubiCliente(token, rol),
+        ])
         setTipo(tipoUsuario)
     }, [])
 
@@ -61,6 +64,10 @@ const AppInit = ({ children }) => {
             {children}
         </>
     )
+}
+
+AppInit.propTypes = {
+    children:PropTypes.node.isRequired
 }
 
 export default AppInit

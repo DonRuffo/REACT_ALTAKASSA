@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import imgSinTrabajo from '../../assets/Tiempo.svg'
 import { Link } from "react-router-dom";

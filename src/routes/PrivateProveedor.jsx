@@ -2,7 +2,7 @@ import React from "react";
 import Inicio from "../paginas/Cliente/Inicio";
 import InicioAdmin from "../paginas/admin/InicioAdmin";
 import AuthStoreContext from "../store/AuthStore";
-
+import PropTypes from "prop-types";
 
 const PrivateProveedor = ({ children }) => {
     const tipo = localStorage.getItem('tipo')
@@ -15,5 +15,9 @@ const PrivateProveedor = ({ children }) => {
         return (<InicioAdmin />)
     }
 };
+
+PrivateProveedor.propTypes = {
+    children:PropTypes.node.isRequired
+}
 
 export default PrivateProveedor

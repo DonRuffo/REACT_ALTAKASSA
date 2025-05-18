@@ -51,7 +51,6 @@ const Login = () => {
             ])
             navigate('/dashboard')
         } catch (error) {
-            console.log(error)
             toast.error(error.response.data.msg)
             setCarga(false)
         }

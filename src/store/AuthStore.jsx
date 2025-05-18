@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { create } from 'zustand'
@@ -80,7 +79,7 @@ const AuthStoreContext = create((set, get) => ({
 
             const respuesta = await axios.get(url, options)
             set({ auth: respuesta.data })
-        } catch (error) {
+        } catch {
             console.log('Error al conectar con el perfil')
         }
     },
@@ -100,7 +99,7 @@ const AuthStoreContext = create((set, get) => ({
             if (respuesta.data.msg === 'No') set({ foto: false })
             if (respuesta.data.msg === 'Si') set({ foto: true })
             set({ pulseFoto: false })
-        } catch (error) {
+        } catch {
             console.log('Error al verificar la foto de perfil')
         }
     },
@@ -119,7 +118,7 @@ const AuthStoreContext = create((set, get) => ({
             if (respuesta.data.msg === 'No') set({ ubiActual: false })
             if (respuesta.data.msg === 'Si') set({ ubiActual: true })
             set({ pulseUbiActual: false })
-        } catch (error) {
+        } catch  {
             console.log('Error al verificar la ubicacion de perfil')
         }
     },
@@ -138,7 +137,7 @@ const AuthStoreContext = create((set, get) => ({
             if (respuesta.data.msg === 'No') set({ ubiTrabajo: false })
             if (respuesta.data.msg === 'Si') set({ ubiTrabajo: true })
             set({ pulseUbiTra: false })
-        } catch (error) {
+        } catch  {
             console.log('Error al verificar la ubicacion de perfil')
         }
     },
@@ -167,7 +166,7 @@ const AuthStoreContext = create((set, get) => ({
                         reject()
                     }
                 },
-                    (error) => {
+                    () => {
                         set({ ubiActual: false })
                         reject()
                     }

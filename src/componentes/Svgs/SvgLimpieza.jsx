@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 const SvgServicio = ({ servicio }) => {
@@ -129,6 +130,10 @@ const SvgServicio = ({ servicio }) => {
 
         </>
     )
+}
+
+SvgServicio.propTypes = {
+    servicio: PropTypes.string.isRequired
 }
 
 export default SvgServicio

@@ -13,7 +13,7 @@ import socket from "../../context/SocketConexion";
 import { Tooltip } from "react-tooltip";
 
 const ListadoOfertas = () => {
-    const { modalEditOf, setModalEditOf, ofertaProvs, setOfertaProvs, oferta, setOferta, pulseMisOfertas } = OfertaStore()
+    const { modalEditOf, setModalEditOf, ofertaProvs, setOfertaProvs, setOferta, pulseMisOfertas } = OfertaStore()
 
     const { setOpcionActiva, auth, Perfil } = AuthStoreContext()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../../../CSS/fondos.css'
 import ModalActualizar from "../../componentes/modals/ModalActualizar";
 import imgSinTrabajo from '../../assets/Tiempo.svg'
@@ -8,12 +8,14 @@ import OfertaStore from "../../store/OfertaStore";
 import AuthStoreContext from "../../store/AuthStore";
 import EsqueletoSoliCli from "../Esqueletos/EsqSolicitudesCli";
 import { Tooltip } from "react-tooltip";
+import { DateTime } from "luxon";
+import socket from "../../context/SocketConexion";
 
 const SolicitudesCli = () => {
     const [trabajoSeleccionado, setTrabajoSeleccioando] = useState(null)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
-    const { modalTraActual, setModalTraActual, trabajos, pulseTra, ObtenerTrabajos } = OfertaStore()
-    const { setOpcionActiva } = AuthStoreContext()
+    const { modalTraActual, setModalTraActual, trabajos, setTrabajos, pulseTra, ObtenerTrabajos } = OfertaStore()
+    const { setOpcionActiva, auth } = AuthStoreContext()
 
     const seleccionarTrabajo = (id) => {
         setTrabajoSeleccioando(id)
@@ -38,13 +40,22 @@ const SolicitudesCli = () => {
                         Authorization: `Bearer ${token}`
                     }
                 }
-                const respuesta = await axios.delete(url, options)
+                await axios.delete(url, options)
                 await ObtenerTrabajos(token, rol, tipo)
             } catch (error) {
                 console.log(error);
             }
         }
     }
+
+    useEffect(()=>{
+        socket.on('Trabajo-eliminado', ({id, trabajo}) =>{
+            if (auth._id === trabajo.cliente._id) {
+                setTrabajos(prev => prev.filter(of => of._id !== id))
+            }
+        })
+        return () => socket.off('Trabajo-eliminado')
+    }, [])
 
     return (
         <>
@@ -67,7 +78,7 @@ const SolicitudesCli = () => {
                                                     <div className="-space-y-0.5">
                                                         <p className="text-xl font-semibold text-white truncate w-28">{tra.proveedor.nombre}</p>
                                                         <p className="font-semibold text-cyan-800">{tra.fecha.split('T')[0]}</p>
-                                                        <p className="font-semibold">{tra.desde.split('T')[1].split('.')[0].split(':')[0] + ':00'} - {tra.hasta.split('T')[1].split('.')[0].split(':')[0] + ':00'}</p>
+                                                        <p className="font-semibold">{DateTime.fromISO(tra.desde, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                                     </div>
                                                 </div>
                                                 <div className="flex justify-center mt-1.5">

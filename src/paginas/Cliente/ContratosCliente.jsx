@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import OfertaStore from "../../store/OfertaStore";
 import AuthStoreContext from "../../store/AuthStore";
 import socket from "../../context/SocketConexion";
+import { toast } from "react-toastify";
 
 const ContratosCliente = () => {
 
@@ -34,7 +35,7 @@ const ContratosCliente = () => {
                         Authorization: `Bearer ${token}`
                     }
                 }
-                const respuesta = await axios.delete(url, options)
+                await axios.delete(url, options)
                 await ObtenerTrabajos(token, rol, tipo)
             } catch (error) {
                 console.log(error);
@@ -59,7 +60,6 @@ const ContratosCliente = () => {
                 const respuesta = await axios.put(urlCancelar, {}, options)
                 toast.success(respuesta.data.msg)
                 await ObtenerTrabajos(token, rol)
-                await Perfil(token,rol)
             } catch (error) {
                 console.log("Error al cancelar el trabajo", error);
                 toast.error(error.response.data.msg)

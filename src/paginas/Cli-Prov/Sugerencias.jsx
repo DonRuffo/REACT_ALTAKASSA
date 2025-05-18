@@ -6,7 +6,7 @@ import RelojDeArena from "../../componentes/RelojArena";
 import AuthStoreContext from "../../store/AuthStore";
 
 const Sugerencias = () => {
-    const {menu, handleMenu, auth} = AuthStoreContext()
+    const {auth} = AuthStoreContext()
     const [carga, setCarga] = useState(false)
     const [formSug, setFormSug] = useState({
         email:"",

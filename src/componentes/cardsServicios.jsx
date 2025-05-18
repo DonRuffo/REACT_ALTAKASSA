@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -60,6 +61,13 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
             )}
         </div>
     )
+}
+
+CardServicios.propTypes = {
+    Servicio1: PropTypes.string.isRequired,
+    logo1: PropTypes.string.isRequired,
+    texto1: PropTypes.string.isRequired,
+    texto2: PropTypes.array.isRequired
 }
 
 export default CardServicios

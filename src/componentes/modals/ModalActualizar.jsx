@@ -7,6 +7,7 @@ import MapaCliProv from "../MapaClient-Prov";
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import socket from "../../context/SocketConexion";
+import PropTypes from "prop-types";
 
 
 const ModalActualizar = ({ idTrabajo, idOferta }) => {
@@ -83,7 +84,6 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
         e.preventDefault()
         try {
             const token = localStorage.getItem('token')
-            const rol = localStorage.getItem('rol')
             const url = `${import.meta.env.VITE_BACKEND_URL}/actualizarTrabajo/${idTrabajo}`
             const options = {
                 headers: {
@@ -333,6 +333,11 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
         </>
     )
 
+}
+
+ModalActualizar.propTypes = {
+    idOferta:PropTypes.string.isRequired,
+    idTrabajo: PropTypes.string.isRequired
 }
 
 

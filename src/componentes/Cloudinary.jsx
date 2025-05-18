@@ -44,7 +44,7 @@ const Cloudinary = () => {
             const formPerfil = {
                 secure_url: respuesta.data.secure_url
             }
-            const subida = await axios.post(url_subida, formPerfil, options)
+            await axios.post(url_subida, formPerfil, options)
             const fotito = {
                 f_perfil: respuesta.data.secure_url
             }

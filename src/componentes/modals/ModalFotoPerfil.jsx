@@ -1,14 +1,10 @@
 import React from "react";
 import OfertaStore from "../../store/OfertaStore";
-import { motion, AnimatePresence } from "framer-motion";
+import PropTypes from "prop-types";
 
 const ModalFotoPerfil = ({ url }) => {
     const { setModalPerfil, modalPerfil } = OfertaStore()
-    const variantsModal = {
-        hidden: { opacity: 0, scale: 0.95, y: 50 },
-        visible: { opacity: 1, scale: 1, y: 0 },
-        exit: { opacity: 0, scale: 0.95, y: 50 }
-    }
+    
     return (
         <>
             <div className="fixed inset-0 z-50 bg-black/80 flex flex-col items-center justify-center overflow-auto">
@@ -24,6 +20,10 @@ const ModalFotoPerfil = ({ url }) => {
             </div>
         </>
     )
+}
+
+ModalFotoPerfil.propTypes = {
+    url:PropTypes.string.isRequired
 }
 
 export default ModalFotoPerfil

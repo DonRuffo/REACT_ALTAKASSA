@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import React from "react";
+import PropTypes from "prop-types";
 
 const SpinnerCargaModal = ({w,h,HH}) => {
   return (
@@ -11,5 +13,10 @@ const SpinnerCargaModal = ({w,h,HH}) => {
     </div>
   )
 }
+  SpinnerCargaModal.propTypes = {
+    w: PropTypes.number.isRequired,
+    h: PropTypes.number.isRequired,
+    HH: PropTypes.number.isRequired
+  }
 
 export default SpinnerCargaModal

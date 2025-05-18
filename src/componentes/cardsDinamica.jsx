@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 const CardDinamica = ({ logo, texto}) => {
@@ -9,4 +10,8 @@ const CardDinamica = ({ logo, texto}) => {
     )
 }
 
+CardDinamica.propTypes = {
+    logo: PropTypes.string.isRequired,
+    texto: PropTypes.string.isRequired
+}
 export default CardDinamica

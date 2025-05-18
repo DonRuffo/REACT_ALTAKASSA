@@ -1,4 +1,4 @@
-// DotPulseLoader.jsx
+import React from "react";
 import { motion } from "framer-motion";
 
 const DotPulseLoader = () => {

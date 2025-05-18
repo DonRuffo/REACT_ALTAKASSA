@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React ,{ useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
 import imgSoli from '../../assets/Descansando.svg'
@@ -8,14 +8,13 @@ import OfertaStore from "../../store/OfertaStore";
 import {Tooltip} from 'react-tooltip';
 import EsqueletoSoliCli from "../Esqueletos/EsqSolicitudesCli";
 import socket from "../../context/SocketConexion";
+import {DateTime} from 'luxon';
 
 const SolicitudProv = () => {
     const { trabajosProvs, pulseTra, setTrabajos, setTrabajosProvs } = OfertaStore()
     const { Perfil, auth } = AuthStoreContext()
     const token = localStorage.getItem('token')
     const rol = localStorage.getItem('rol')
-
-    const [carga, setCarga] = useState(false)
 
     const AceptarSolicitud = async (id, indx) => {
         const confirmar = confirm(`¿Estás seguro de aceptar el trabajo para ${indx}?`)
@@ -87,11 +86,16 @@ const SolicitudProv = () => {
                 setTrabajosProvs(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
             }
         })
-
+        socket.on('Trabajo-eliminado', ({id, trabajo}) =>{
+            if (auth._id === trabajo.proveedor._id) {
+                setTrabajos(prev => [...prev.filter(of => of._id !== id)])
+            }
+        })
 
         return () => {
             socket.off('Trabajo-agendado')
             socket.off('Trabajo-rechazado')
+            socket.off('Trabajo-eliminado')
         }
     }, [])
 
@@ -118,7 +122,7 @@ const SolicitudProv = () => {
                                                     <div className="-space-y-0.5 ">
                                                         <p className="text-xl font-semibold text-white truncate w-28">{tra.cliente.nombre}</p>
                                                         <p className="font-semibold text-cyan-800">{tra.fecha.split('T')[0]}</p>
-                                                        <p className="font-semibold">{tra.desde.split('T')[1].split('.')[0].split(':')[0] + ':00'} - {tra.hasta.split('T')[1].split('.')[0].split(':')[0] + ':00'}</p>
+                                                        <p className="font-semibold">{DateTime.fromISO(tra.desde, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                                     </div>
                                                 </div>
                                                 <div className="flex justify-center mt-1.5">

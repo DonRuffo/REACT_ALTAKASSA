@@ -38,7 +38,6 @@ const Registro = () => {
             localStorage.setItem('usuario', respuesta.data.rol)
             setReloj(false)
         } catch (error) {
-            console.log('No se ejecuta el endpoint', error)
             toast.error(error.response.data.msg)
             setReloj(false)
         }

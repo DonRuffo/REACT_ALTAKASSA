@@ -4,8 +4,7 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
 import OfertaStore from "../store/OfertaStore";
 import AuthStoreContext from "../store/AuthStore";
-import axios from "axios";
-
+import PropTypes from "prop-types";
 
 
 const MapaCliProv = ({ form }) => {
@@ -21,8 +20,7 @@ const MapaCliProv = ({ form }) => {
     const mapRef = useRef(null)
     const containerRef = useRef(null)
     const { mapaCliProv } = OfertaStore()
-    const { ubicacionActual, ubicacionTrabajo, setUbicacionTrabajo, auth } = AuthStoreContext()
-    const emailProv = form.proveedor.email
+    const { ubicacionActual, ubicacionTrabajo } = AuthStoreContext()
     const creacionMapa = async () => {
 
         const latitudCli = ubicacionActual.latitude
@@ -84,4 +82,9 @@ const MapaCliProv = ({ form }) => {
         </>
     )
 }
+
+MapaCliProv.propTypes = {
+    form: PropTypes.object.isRequired
+}
+
 export default MapaCliProv

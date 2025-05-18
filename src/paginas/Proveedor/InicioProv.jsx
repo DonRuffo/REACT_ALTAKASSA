@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React,{ useEffect, useRef, useState } from "react";
 import logoInicioProv from '../../assets/Motivacion.svg';
 import ModalOferta from "../../componentes/modals/ModalOferta";
 import LocationImg from '../../assets/Mapa.svg'
@@ -87,7 +87,7 @@ const InicioProve = () => {
                         reject()
                     }
                 },
-                    (error) => {
+                    () => {
                         setUbiTrabajo(false)
                         reject()
                     }
@@ -146,7 +146,7 @@ const InicioProve = () => {
                 }
                 const respuesta = await axios.get(url, options)
                 setUbicacionTrabajo(respuesta.data.desencriptado)
-            } catch (error) {
+            } catch {
                 console.log("No se puede desencriptar")
             }
         }
