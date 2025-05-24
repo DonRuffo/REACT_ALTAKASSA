@@ -74,8 +74,9 @@ const ModalEditarOferta = ({ idOferta }) => {
 
     useEffect(() => {
         socket.on('Actualizar-oferta', ({ id, ofertaActual }) => {
-            setOferta(prev => [...prev.filter(of => of._id !== id), ofertaActual])
-
+            if (auth.monedasTrabajos !==0) {
+              setOferta(prev => [...prev.filter(of => of._id !== id), ofertaActual])  
+            }
             if (auth._id === ofertaActual.proveedor._id) {
                 setOfertaProvs(prev => [...prev.filter(of => of._id !== id), ofertaActual])
             }

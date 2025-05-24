@@ -89,7 +89,7 @@ const Inicio = () => {
         "Niñera",
         "Chófer"
     ]
-    //fdsfdsf
+    
     useEffect(() => {
         if (valor) {
             const filtradas = oferta.filter((of) => of.servicio === valor)
@@ -105,7 +105,7 @@ const Inicio = () => {
         if(!ivActual) return
         obtenerUbi()
     }, [ivActual])
-    return (//#BA05FF COLOR DEL SISTEMA
+    return (
         <>
             <ToastContainer />
             {pulseFoto || pulseUbiActual || pulseUbiTra ? <EsqueletoInicioCli />

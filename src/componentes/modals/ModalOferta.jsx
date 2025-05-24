@@ -61,7 +61,9 @@ const ModalOferta = () => {
 
     useEffect(() => {
         socket.on('Crear-oferta', ({ ofertaPop }) => {
-            setOferta(prev => [...prev, ofertaPop])
+            if (auth.monedasTrabajos !== 0) {
+                setOferta(prev => [...prev, ofertaPop])   
+            }
 
             if (auth._id === ofertaPop.proveedor._id) {
                 setOfertaProvs(prev => [...prev, ofertaPop])

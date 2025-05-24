@@ -8,7 +8,6 @@ const SocketStatus = () => {
 
     useEffect(() => {
         socket.on('connect', () => {
-            console.log('Socket conectado')
             setConnectionStatus(true)
           })
       
