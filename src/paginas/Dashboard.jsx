@@ -194,7 +194,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     {modalPerfil && <ModalFotoPerfil url={auth.f_perfil} />}
-                    <div className="flex-1 flex flex-col h-screen bg-white dark:bg-black">
+                    <div className="flex-1 px-5 h-screen bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
                         <div className="border-b border-gray-200 dark:border-gray-700 h-16 hidden lg:flex justify-between items-center px-5">
                             <div className="flex gap-x-2">
                                 <button className="flex items-center gap-x-1 font-semibold bg-gray-100 rounded-md py-2 px-3 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear cursor-pointer" onClick={() => setRotar(!rotar)}>
@@ -238,11 +238,8 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        
-                        <div className='flex-1 overflow-y-auto px-8 h-screen bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%'>
-                            <NavInfo />
-                            <Outlet />
-                        </div>
+                        <NavInfo />
+                        <Outlet />
                     </div>
                 </div>
             </div>
