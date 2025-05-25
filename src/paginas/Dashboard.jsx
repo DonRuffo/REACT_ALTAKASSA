@@ -238,8 +238,9 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        <NavInfo />
+                        
                         <div className='flex-1 overflow-y-auto px-8 h-screen bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%'>
+                            <NavInfo />
                             <Outlet />
                         </div>
                     </div>

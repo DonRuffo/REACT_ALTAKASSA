@@ -61,11 +61,12 @@ const ListadoOfertas = () => {
             {pulseMisOfertas ? <EsqueletoOfertas />
                 : (
                     <div className="relative">
-                        <div className="absolute top-2 right-5">
+                        <div className="hidden md:block absolute md:top-2 md:right-5">
                             <p className="font-semibold dark:text-white">Ofertas restantes: <span className="text-cyan-500">{auth.cantidadOfertas}</span></p>
                         </div>
                         <h1 className="text-3xl text-center font-CalSans text-purple-600 mb-3 mt-5">Tus ofertas</h1>
-                        <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus ofertas creadas</h2>
+                        <h2 className="text-xl text-center md:mb-5 dark:text-white">Aquí puedes ver tus ofertas creadas</h2>
+                        <p className="font-semibold md:hidden dark:text-white text-center mb-5">Ofertas restantes: <span className="text-cyan-500">{auth.cantidadOfertas}</span></p>
                         <div className="flex justify-center gap-x-3 flex-wrap">
                             {ofertaProvs.length !== 0 ? ofertaProvs.map((of, index) => (
                                 <div key={of._id} className="radial-gradientOfertas-bg h-fit w-fit px-8 py-3  rounded-lg shadow-lg shadow-purple-400 mb-5">
