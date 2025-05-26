@@ -14,6 +14,7 @@ import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import imgSinOfertas from '../../assets/Sinofertas.svg'
 import EsqueletoInicioCli from "../Esqueletos/EsqInicioCli";
+import socket from "../../context/SocketConexion";
 
 
 const Inicio = () => {
