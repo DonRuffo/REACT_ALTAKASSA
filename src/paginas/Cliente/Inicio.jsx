@@ -105,6 +105,19 @@ const Inicio = () => {
         if(!ivActual) return
         obtenerUbi()
     }, [ivActual])
+
+    useEffect(() => {
+            socket.on('Crear-oferta', ({ ofertaPop }) => {
+                if (auth.monedasTrabajos !== 0) {
+                    setOferta(prev => [...prev, ofertaPop])
+                }
+    
+                if (auth._id === ofertaPop.proveedor._id) {
+                    setOfertaProvs(prev => [...prev, ofertaPop])
+                }
+            })
+            return () => socket.off('Crear-oferta')
+        }, [])
     return (
         <>
             <ToastContainer />
