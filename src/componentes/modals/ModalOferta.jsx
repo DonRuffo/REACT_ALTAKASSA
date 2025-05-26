@@ -497,7 +497,7 @@ const ModalOferta = () => {
                             </div>
                         </div>
                     </form>
-                    <div className={`${ventana ? '' : 'hidden'} px-5 text-white overflow-y-auto max-h-[400px]`}>
+                    <div className={`${ventana ? '' : 'hidden'} px-5 dark:text-white overflow-y-auto max-h-[400px]`}>
                         <h1 className="text-xl md:text-2xl font-semibold text-center mt-3">{cat}</h1>
                         <p className="text-center font-semibold text-sm md:text-base mb-3">Especifica las labores que eres capaz de realizar para una meyor transparencia en tus servicios</p>
                         <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 ${cat === 'Limpieza' ? '' : 'hidden'} ml-4`}>
