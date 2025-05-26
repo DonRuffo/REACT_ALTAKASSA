@@ -138,14 +138,6 @@ const LandingPage = () => {
         ]
     },
     {
-        titulo: 'Organización de Espacios',
-        caracteristicas: [
-            'Organización de salas y áreas comunes.',
-            'Organización de juguetes en habitaciones infantiles.',
-            'Reubicación de muebles ligeros para una mejor limpieza.'
-        ]
-    },
-    {
         titulo: 'Limpieza de Espacios Exteriores ',
         caracteristicas: [
             'Barrido de patios y terrazas.',

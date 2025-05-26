@@ -160,8 +160,8 @@ const InicioProve = () => {
             <ToastContainer />
             {pulseFoto || pulseUbiActual || pulseUbiTra ? <EsqueletoInicioProv />
                 : (
-                    <>
-                        <section className="flex justify-center mt-5 lg:mb-14">
+                    <div className="px-5">
+                        <section className="flex justify-center mt-20 lg:mt-5 lg:mb-14">
                             <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-gray-800 dark:shadow-slate-700 transition-all duration-300">
                                 <h1 className="text-3xl text-center text-purple-500 font-CalSans pt-4 px-3 md:px-0">¡Bienvenido {auth.nombre}!</h1>
                                 <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0 dark:text-white">Qué gusto tenerte aquí</h2>
@@ -247,7 +247,7 @@ const InicioProve = () => {
                         </section><br /><br />
 
                         {modalOf && (<ModalOferta />)}
-                    </>
+                    </div>
                 )}
         </>
     )

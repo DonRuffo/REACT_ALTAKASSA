@@ -151,9 +151,9 @@ const Configuracion = () => {
 
     return (
         <>
-            <h1 className="text-3xl font-CalSans text-sky-600 pb-5 mt-5">Configuración</h1>
+            <h1 className="text-3xl font-CalSans text-sky-600 pb-5 mt-20 lg:mt-5 px-5">Configuración</h1>
             <ToastContainer />
-            <section className="flex flex-col md:flex-row justify-between">
+            <section className="flex flex-col md:flex-row justify-between px-5">
                 <div className="w-full md:w-2/5  flex bg-gray-100 dark:bg-gray-900 dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg md:max-h-[210px] mb-8 md:mb-5">
                     <ul className="w-full p-2">
                         <OpcionConfig titulo={"Cambiar contraseña"} logo={

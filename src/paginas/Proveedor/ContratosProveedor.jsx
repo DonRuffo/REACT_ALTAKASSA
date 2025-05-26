@@ -53,8 +53,8 @@ const ContratosProv = () => {
         <>
             <ToastContainer />
             <section>
-                <h1 className="text-center text-purple-600 font-CalSans text-3xl mb-3 mt-5">Trabajos actuales</h1>
-                <h2 className="text-xl mb-5 text-center dark:text-white">Aquí podrás ver tus trabajos agendados como proveedor</h2>
+                <h1 className="text-center text-purple-600 font-CalSans text-3xl mb-3 mt-20 lg:mt-5">Trabajos actuales</h1>
+                <h2 className="text-xl mb-5 text-center dark:text-white px-5">Aquí podrás ver tus trabajos agendados como proveedor</h2>
                 <div className="flex justify-center flex-wrap gap-x-3">
                     {trabajosProvs.length !== 0 && trabajosProvs.some((tra) => tra.status === "Agendado") ? trabajosProvs.map((tra) => (
                         tra.status === "Agendado" && (

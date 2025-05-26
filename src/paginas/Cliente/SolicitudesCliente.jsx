@@ -63,8 +63,8 @@ const SolicitudesCli = () => {
                 : (
                     <>
                         <section>
-                            <h1 className="text-3xl text-center text-cyan-600 font-CalSans mt-5">Solicitudes</h1>
-                            <p className="text-xl text-center font-semibold mb-5 dark:text-white">Aquí podrás visualizar tus solicitudes de trabajo como cliente</p>
+                            <h1 className="text-3xl text-center text-cyan-600 font-CalSans mt-20 lg:mt-5">Solicitudes</h1>
+                            <p className="text-xl text-center font-semibold mb-5 dark:text-white px-5">Aquí podrás visualizar tus solicitudes de trabajo como cliente</p>
                             <div className="flex justify-center gap-3 flex-wrap">
                                 {trabajos.length !== 0 && trabajos.some(tra => tra.status === "En espera") ? (
                                     trabajos.map((tra) => (
@@ -132,10 +132,10 @@ const SolicitudesCli = () => {
                         </section >
                         <Tooltip id="actualizar" place="top" style={{
                             fontSize: 13
-                        }}/>
+                        }} className="hidden lg:block" />
                         <Tooltip id="eliminar" place="top" style={{
                             fontSize:13
-                        }}/>
+                        }} className="hidden lg:block" />
                     </>
                 )}
         </>

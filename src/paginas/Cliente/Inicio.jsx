@@ -111,7 +111,7 @@ const Inicio = () => {
             {pulseFoto || pulseUbiActual || pulseUbiTra ? <EsqueletoInicioCli />
                 : (
                     <>
-                        <section className="flex justify-center mt-5">
+                        <section className="flex justify-center mt-20 lg:mt-5">
                             <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700">
                                 <h1 className="text-3xl text-center text-purple-600 font-CalSans pt-4 px-3 md:px-0">¡Bienvenido {auth.nombre}!</h1>
                                 <h2 className="text-xl text-center dark:text-white pt-3 pb-5 px-3 md:px-0">¡Los proveedores esperan por brindarte sus servicios!</h2>

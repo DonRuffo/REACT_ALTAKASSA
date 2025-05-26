@@ -105,8 +105,8 @@ const SolicitudProv = () => {
             {pulseTra ? <EsqueletoSoliCli />
                 : (
                     <>
-                        <h1 className="text-center font-CalSans text-3xl text-purple-600 mt-5">Solicitudes</h1>
-                        <h2 className="text-xl mb-5 text-center dark:text-white">Aquí puedes ver tus solicitudes de trabajo como proveedor</h2>
+                        <h1 className="text-center font-CalSans text-3xl text-purple-600 mt-20 lg:mt-5">Solicitudes</h1>
+                        <h2 className="text-xl mb-5 text-center dark:text-white px-5">Aquí puedes ver tus solicitudes de trabajo como proveedor</h2>
                         <section>
                             <div className="flex justify-center gap-3 flex-wrap">
                                 {trabajosProvs.length !== 0 &&
@@ -166,13 +166,13 @@ const SolicitudProv = () => {
                         </section>
                         <Tooltip id="Aceptar" place="top" style={{
                             fontSize: 13
-                        }}/>
+                        }} className="hidden lg:block" />
                         <Tooltip id="ubicacion" place="top" style={{
                             fontSize: 13
-                        }} />
+                        }} className="hidden lg:block" />
                         <Tooltip id="Rechazar" place="top" style={{
                             fontSize: 13
-                        }} />
+                        }} className="hidden lg:block" />
 
                     </>
                 )}

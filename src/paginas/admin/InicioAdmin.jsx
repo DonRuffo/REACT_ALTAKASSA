@@ -26,13 +26,35 @@ const InicioAdmin = () => {
         }
     }
 
+    const eliminarUser = async (id, nombre) => {
+        const token = localStorage.getItem('token')
+        if (!token) return
+        const confirmar = confirm(`¿Desea elminar al usuario ${nombre}?`)
+        if (confirmar) {
+            try {
+                const url = `${import.meta.env.VITE_BACKEND_URL}/eliminarUser/${id}`
+                const options = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+
+                const respuesta = await axios.delete(url, options)
+                setUsers(respuesta.data)
+            } catch (error) {
+                console.error("No valio", error)
+            }
+        }
+    }
+
     useEffect(() => {
         traerUsuarios()
     }, [])
 
     return (
         <>
-            <section className="mt-5">
+            <section className="mt-20 lg:mt-5 px-4">
                 <h1 className="text-2xl lg:text-3xl text-purple-600 font-CalSans text-center">Bienvenido {auth.nombre} {auth.apellido}</h1>
                 <p className="text-lg lg:text-xl dark:text-white text-center">Te presento la lista de usuarios del sistema, puedes revisarlos</p><br />
                 <div className="flex justify-center">
@@ -64,7 +86,7 @@ const InicioAdmin = () => {
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 9v6m-4.5 0V9M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                         </svg>
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-6 cursor-pointer hover:text-red-500 transition-all ease-in-out duration-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-6 cursor-pointer hover:text-red-500 transition-all ease-in-out duration-200" onClick={async () => { await eliminarUser(us._id, us.nombre) }}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
                                         </svg>
                                     </th>
