@@ -6,6 +6,7 @@ import AuthStoreContext from "../../store/AuthStore";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import socket from "../../context/SocketConexion";
+import { DateTime } from "luxon";
 
 const ContratosProv = () => {
     const { trabajosProvs, setTrabajos, setTrabajosProvs } = OfertaStore()
@@ -37,16 +38,23 @@ const ContratosProv = () => {
     }
 
     useEffect(() => {
-        socket.on('Trabajo-cancelado', ({ id, trabajoActualizado }) => {
-            if (auth._id === trabajoActualizado.cliente._id) {
-                setTrabajos(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
+
+        socket.on('Trabajo-agendado', ({ id, trabajoActualizado }) => {
+            if (auth._id === trabajoActualizado.proveedor._id) {
+                setTrabajosProvs(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
             }
+        })
+
+        socket.on('Trabajo-cancelado', ({ id, trabajoActualizado }) => {
             if (auth._id === trabajoActualizado.proveedor._id) {
                 setTrabajosProvs(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
             }
         })
 
-        return () => socket.off('Trabajo-cancelado')
+        return () => {
+            socket.off('Trabajo-cancelado')
+            socket.off('Trabajo-agendado')
+        }
     }, [])
 
     return (
@@ -67,7 +75,7 @@ const ContratosProv = () => {
                                     <div className="-space-y-0.5">
                                         <p className="text-xl font-semibold text-white truncate w-28">{tra.cliente.nombre}</p>
                                         <p className="font-semibold text-teal-900">{tra.fecha.split('T')[0]}</p>
-                                        <p className="font-semibold">{tra.desde.split('T')[1].split('.')[0].split(':')[0] + ':00'} - {tra.hasta.split('T')[1].split('.')[0].split(':')[0] + ':00'}</p>
+                                        <p className="font-semibold">{DateTime.fromISO(tra.desde, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                     </div>
                                 </div>
                                 <div className="flex justify-around mt-1.5 gap-x-3">

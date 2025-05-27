@@ -49,12 +49,27 @@ const SolicitudesCli = () => {
     }
 
     useEffect(()=>{
+        socket.on('Trabajo-agendado', ({ id, trabajoActualizado }) => {
+            if (auth._id === trabajoActualizado.cliente._id) {
+                setTrabajos(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
+            }
+        })
+        
+        socket.on('Trabajo-rechazado', ({ id, trabajoActualizado }) => {
+            if (auth._id === trabajoActualizado.cliente._id) {
+                setTrabajos(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
+            }
+        })
         socket.on('Trabajo-eliminado', ({id, trabajo}) =>{
             if (auth._id === trabajo.cliente._id) {
                 setTrabajos(prev => prev.filter(of => of._id !== id))
             }
         })
-        return () => socket.off('Trabajo-eliminado')
+        return () => {
+            socket.off('Trabajo-eliminado')
+            socket.off('Trabajo-rechazado')
+            socket.off('Trabajo-agendado')
+        }
     }, [])
 
     return (

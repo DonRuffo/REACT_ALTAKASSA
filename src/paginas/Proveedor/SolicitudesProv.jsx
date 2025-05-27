@@ -69,26 +69,27 @@ const SolicitudProv = () => {
     }
 
     useEffect(() => {
-        socket.on('Trabajo-agendado', ({ id, trabajoActualizado }) => {
-            if (auth._id === trabajoActualizado.cliente._id) {
-                setTrabajos(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
+
+        socket.on('Nueva-solicitud', ({trabajoActual})=>{
+            if (auth._id === trabajoActual.proveedor._id) {
+                setTrabajosProvs(prev => [...prev, trabajoActual])
             }
+        })
+
+        socket.on('Trabajo-agendado', ({ id, trabajoActualizado }) => {
             if (auth._id === trabajoActualizado.proveedor._id) {
                 setTrabajosProvs(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
             }
         })
 
         socket.on('Trabajo-rechazado', ({ id, trabajoActualizado }) => {
-            if (auth._id === trabajoActualizado.cliente._id) {
-                setTrabajos(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
-            }
             if (auth._id === trabajoActualizado.proveedor._id) {
                 setTrabajosProvs(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
             }
         })
         socket.on('Trabajo-eliminado', ({id, trabajo}) =>{
             if (auth._id === trabajo.proveedor._id) {
-                setTrabajos(prev => [...prev.filter(of => of._id !== id)])
+                setTrabajosProvs(prev => [...prev.filter(of => of._id !== id)])
             }
         })
 
