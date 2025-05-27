@@ -101,6 +101,7 @@ const ModalOferta = () => {
             if (auth._id === ofertaPop.proveedor._id) {
                 setOfertaProvs(prev => [...prev, ofertaPop])
             }
+            console.log('ESCUCHANDO')
         })
         return () => socket.off('Crear-oferta')
     }, [])
