@@ -15,7 +15,7 @@ import { Tooltip } from "react-tooltip";
 const ListadoOfertas = () => {
     const { modalEditOf, setModalEditOf, ofertaProvs, setOfertaProvs, setOferta, pulseMisOfertas } = OfertaStore()
 
-    const { setOpcionActiva, auth, Perfil } = AuthStoreContext()
+    const { setOpcionActiva, auth } = AuthStoreContext()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
     const EliminarOferta = async (id, indx) => {
         try {
@@ -33,7 +33,6 @@ const ListadoOfertas = () => {
                 };
                 const respuesta = await axios.delete(url, options)
                 toast.success(respuesta.data.msg)
-                await Perfil(token, rol)
             }
         } catch (error) {
             console.log(error);

@@ -4,7 +4,7 @@ import ModalOferta from "../../componentes/modals/ModalOferta";
 import LocationImg from '../../assets/Mapa.svg'
 import SpinnerCarga from "../../componentes/RuedaCarga";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
@@ -157,7 +157,7 @@ const InicioProve = () => {
 
     return (
         <>
-            <ToastContainer />
+            
             {pulseFoto || pulseUbiActual || pulseUbiTra ? <EsqueletoInicioProv />
                 : (
                     <div className="px-5">

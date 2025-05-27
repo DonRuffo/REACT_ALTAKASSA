@@ -111,9 +111,23 @@ const Inicio = () => {
                 if (ofertaPop.proveedor.monedasTrabajos !== 0) {
                     setOferta(prev => [...prev, ofertaPop])
                 }
-                console.log('Escuchando')
             })
-            return () => socket.off('Nueva-Oferta')
+
+            socket.on('Eliminacion', ({id}) =>{
+                setOferta(prev => prev.filter(of => of._id !== id))
+            })
+
+            socket.on('Actualizacion', ({id, ofertaActual}) =>{
+                if (ofertaActual.proveedor.monedasTrabajos !== 0) {
+                    setOferta(prev => [...prev.filter(of => of._id !== id), ofertaActual])
+                }
+            })
+
+            return () => {
+                socket.off('Nueva-Oferta')
+                socket.off('Eliminacion')
+                socket.off('Actualizacion')
+            }
         }, [])
     return (
         <>
