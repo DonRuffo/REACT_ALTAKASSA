@@ -14,12 +14,11 @@ import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import imgSinOfertas from '../../assets/Sinofertas.svg'
 import EsqueletoInicioCli from "../Esqueletos/EsqInicioCli";
-import socket from "../../context/SocketConexion";
 
 
 const Inicio = () => {
     const { auth, setAuth, foto, ubiActual, setUbiActual, pulseFoto, pulseUbiTra, pulseUbiActual, Perfil, ubiCliente, setUbicacionActual, ivActual } = AuthStoreContext()
-    const { modalTra, setModalTra, oferta, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
+    const { modalTra, setModalTra, oferta, setIdProveedor, modalProvs, setModalProvs, setOferta } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
@@ -107,18 +106,6 @@ const Inicio = () => {
         obtenerUbi()
     }, [ivActual])
 
-    useEffect(() => {
-            socket.on('Crear-oferta', ({ ofertaPop }) => {
-                if (auth.monedasTrabajos !== 0) {
-                    setOferta(prev => [...prev, ofertaPop])
-                }
-    
-                if (auth._id === ofertaPop.proveedor._id) {
-                    setOfertaProvs(prev => [...prev, ofertaPop])
-                }
-            })
-            return () => socket.off('Crear-oferta')
-        }, [])
     return (
         <>
             <ToastContainer />
