@@ -9,7 +9,7 @@ import SpinnerCargaModal from "../RuedaCargaModal";
 const ModalOferta = () => {
 
 
-    const { Perfil, auth } = AuthStoreContext()
+    const { auth } = AuthStoreContext()
     const { modalOf, setModalOf, setOferta, setOfertaProvs } = OfertaStore()
     const [carga, setCarga] = useState(false)
     const [formOf, setFormOf] = useState({
@@ -40,7 +40,7 @@ const ModalOferta = () => {
             }
             const respuesta = await axios.post(url, formOf, options)
             toast.success(respuesta.data.msg)
-            await Perfil(token, rol)
+            
             setCarga(false)
             setTimeout(() => {
                 if (modalOf === true) {
