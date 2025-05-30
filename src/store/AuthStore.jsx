@@ -5,10 +5,10 @@ import { create } from 'zustand'
 const AuthStoreContext = create((set, get) => ({
     //inicializaciones de vairables
     auth: {},
-    ubicacionActual:{},
-    ubicacionTrabajo:{},
-    ubicacionTraProvs:{},
-    ivActual:'',
+    ubicacionActual: {},
+    ubicacionTrabajo: {},
+    ubicacionTraProvs: {},
+    ivActual: '',
     menu: false,
     tipo: '',
     dark: false,
@@ -20,6 +20,7 @@ const AuthStoreContext = create((set, get) => ({
     opcionActiva: 'inicio',
     sideBar: null,
     connectionStatus: false,
+    planes: [],
 
     //status para sockets
 
@@ -34,13 +35,15 @@ const AuthStoreContext = create((set, get) => ({
     modalPerfil: false,
     modalUbi: false,
     modalTema: false,
+    modalPagos: false,
+    modalEditPagos: false,
 
     //seteadores para actualizaciones
     setAuth: (authData) => set((state) => ({ ...state.auth, ...authData })),
-    setUbicacionActual: (ubi) => set({ubicacionActual:ubi}),
-    setUbicacionTrabajo: (ubi) => set({ubicacionTrabajo:ubi}),
-    setUbicacionTraProvs: (ubi) => set({ubicacionTraProvs:ubi}),
-    setConnectionStatus: (conec) => set({connectionStatus:conec}),
+    setUbicacionActual: (ubi) => set({ ubicacionActual: ubi }),
+    setUbicacionTrabajo: (ubi) => set({ ubicacionTrabajo: ubi }),
+    setUbicacionTraProvs: (ubi) => set({ ubicacionTraProvs: ubi }),
+    setConnectionStatus: (conec) => set({ connectionStatus: conec }),
     setMenu: (menuData) => set({ menu: menuData }),
     setTipo: (tipoData) => set({ tipo: tipoData }),
     setDark: (darkData) => set({ dark: darkData }),
@@ -54,6 +57,8 @@ const AuthStoreContext = create((set, get) => ({
     setModalPerfil: (modal) => set({ modalPerfil: modal }),
     setModalUbi: (modal) => set({ modalUbi: modal }),
     setModalTema: (modal) => set({ modalTema: modal }),
+    setModalPagos: (modal) => set({ modalPagos: modal }),
+    setModalEditPagos: (modal) => set({ modalEditPagos: modal }),
     setsideBar: (ref) => set({ sideBar: ref }),
 
     //funciones
@@ -118,7 +123,7 @@ const AuthStoreContext = create((set, get) => ({
             if (respuesta.data.msg === 'No') set({ ubiActual: false })
             if (respuesta.data.msg === 'Si') set({ ubiActual: true })
             set({ pulseUbiActual: false })
-        } catch  {
+        } catch {
             console.log('Error al verificar la ubicacion de perfil')
         }
     },
@@ -137,7 +142,7 @@ const AuthStoreContext = create((set, get) => ({
             if (respuesta.data.msg === 'No') set({ ubiTrabajo: false })
             if (respuesta.data.msg === 'Si') set({ ubiTrabajo: true })
             set({ pulseUbiTra: false })
-        } catch  {
+        } catch {
             console.log('Error al verificar la ubicacion de perfil')
         }
     },
@@ -158,7 +163,7 @@ const AuthStoreContext = create((set, get) => ({
                         }
                         const respuesta = await axios.post(url, { latitude, longitude }, options)
                         set({ ubiActual: true })
-                        set({ ivActual:respuesta.data.iv})
+                        set({ ivActual: respuesta.data.iv })
                         //localStorage.setItem('dd', respuesta.data.iv)
                         resolve()
                     } catch (error) {
@@ -237,6 +242,23 @@ const AuthStoreContext = create((set, get) => ({
         const { sideBar } = get()
         if (sideBar && !sideBar.contains(event.target)) {
             set({ menu: false })
+        }
+    },
+
+    obtenerPlanes: async (token, rol) => {
+        if (rol !== 'administrador') return
+        const url = `${import.meta.env.VITE_BACKEND_URL}/obtenerPlanes`
+        try {
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.get(url, options)
+            set({ planes: respuesta.data })
+        } catch (error) {
+            console.error(error)
         }
     }
 

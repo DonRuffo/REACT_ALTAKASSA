@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AuthStoreContext from "../store/AuthStore";
 import OfertaStore from "../store/OfertaStore";
 
-const Calendario = () => {
+const Calendario = ({dias}) => {
     const { dark } = AuthStoreContext()
     const { fechas } = OfertaStore()
 
@@ -142,7 +142,11 @@ const Calendario = () => {
         }
     ]
 
-const [conteo, setConteo] = useState(1)
+const [conteo, setConteo] = useState(0)
+
+const setearDias = () =>{
+    setConteo(dias)
+}
 
 function derecha() {
     if (conteo >= 1 && conteo <= 11) {
@@ -158,6 +162,10 @@ function izquierda() {
         setConteo(1)
     }
 }
+
+useEffect(()=>{
+    setearDias()
+}, [])
 
 
 const diasEnCalendario = (dia, id) =>{

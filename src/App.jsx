@@ -29,6 +29,9 @@ import AppInit from './context/AppInit'
 import EsqueletoOfertas from './paginas/Esqueletos/EsqOfertas'
 import HistorialTrabajoProvs from './paginas/Proveedor/HistorialProv'
 import InicioAdmin from './paginas/admin/InicioAdmin'
+import RutasAdmin from './routes/PrivateAdmin'
+import VerSugerencias from './paginas/admin/VerSugerencias'
+import PlanesdePago from './paginas/admin/Pagos'
 function App() {
 
   return (
@@ -98,6 +101,19 @@ function App() {
                       <Sugerencias />
                     </RutasCliProv>
                   } />
+
+                  <Route path='ver-sugerencias' element={
+                    <RutasAdmin>
+                      <VerSugerencias />
+                    </RutasAdmin>
+                  } />
+
+                  <Route path='planes-de-pago' element={
+                    <RutasAdmin>
+                      <PlanesdePago />
+                    </RutasAdmin>
+                  } />
+                  
                   <Route path='configuracion' element={<Configuracion />} />
                   <Route path='no-encontrado' element={<PaginaNoPermitida />} />
                   <Route path='*' element={<NotFound />} />

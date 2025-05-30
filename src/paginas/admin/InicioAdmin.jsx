@@ -58,7 +58,7 @@ const InicioAdmin = () => {
                 <h1 className="text-2xl lg:text-3xl text-purple-600 font-CalSans text-center">Bienvenido {auth.nombre} {auth.apellido}</h1>
                 <p className="text-lg lg:text-xl dark:text-white text-center">Te presento la lista de usuarios del sistema, puedes revisarlos</p><br />
                 <div className="flex justify-center">
-                    <table className="w-full lg:w-3/5 dark:text-white outline-2 outline-cyan-600 rounded-xl overflow-hidden">
+                    <table className="w-full lg:w-3/5 text-white outline-2 outline-cyan-600 rounded-xl overflow-hidden">
                         <thead className="bg-cyan-700 text-xs md:text-lg">
                             <tr>
                                 <th className="py-2">N°</th>

@@ -8,7 +8,7 @@ const NavInfo = () => {
     const { modalPerfil, setModalPerfil } = OfertaStore()
     const { auth, menu, handleMenu, tipo, setTipo, setOpcionActiva, connectionStatus } = AuthStoreContext()
     const navigate = useNavigate()
-    const tipoM = tipo.charAt(0).toUpperCase() + tipo.slice(1)
+    const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
     const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente'
 
     const cambioDeTipo = () => {

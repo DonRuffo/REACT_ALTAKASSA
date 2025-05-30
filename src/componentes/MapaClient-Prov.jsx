@@ -30,7 +30,7 @@ const MapaCliProv = ({ form }) => {
         const latitudProv = ubicacionTrabajo.latitude
 
         if (mapRef.current) {
-            const radio = 1000
+            const radio = 2000
             const marcadorCliente = L.marker([latitudCli, longitudCli], { icon: iconMap }).bindPopup('Aquí estas')
             const circuloProv = L.circle([latitudProv, longitudProv], {
                 color: 'blue',

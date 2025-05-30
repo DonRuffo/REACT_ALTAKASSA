@@ -6,12 +6,13 @@ import PropTypes from "prop-types";
 
 const PrivateProveedor = ({ children }) => {
     const tipo = localStorage.getItem('tipo')
-    const {auth} = AuthStoreContext()
+    const rol = localStorage.getItem('rol')
+    
     if(tipo === 'proveedor'){
         return children
     }else if(tipo ==='cliente'){
         return (<Inicio />)
-    }else if(auth.rol === 'administrador'){
+    }else if(rol === 'administrador'){
         return (<InicioAdmin />)
     }
 };

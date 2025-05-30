@@ -31,24 +31,35 @@ const Login = () => {
         e.preventDefault()
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/loginUser`
+            const urlAd = `${import.meta.env.VITE_BACKEND_URL}/login`
 
-            const respuesta = await axios.post(url, form)
-            localStorage.setItem('token', respuesta.data.token)
-            localStorage.setItem('rol', respuesta.data.rol)
-            localStorage.setItem('tipo', 'cliente')
-            localStorage.removeItem('usuario')
+            if (form.email === import.meta.env.VITE_S) {
+                const resAd = await axios.post(urlAd, form)
+                localStorage.setItem('token', resAd.data.token)
+                localStorage.setItem('rol', resAd.data.rol)
+                localStorage.removeItem('usuario')
+                await Perfil(resAd.data.token, resAd.data.rol)
+                
+            } else {
+                console.log("ALAA")
+                const respuesta = await axios.post(url, form)
+                localStorage.setItem('token', respuesta.data.token)
+                localStorage.setItem('rol', respuesta.data.rol)
+                localStorage.setItem('tipo', 'cliente')
+                localStorage.removeItem('usuario')
 
-            setTipo('cliente')
-            await Promise.all([
-                ListarOfertas(respuesta.data.token, respuesta.data.rol),
-                MisOfertas(respuesta.data.token, respuesta.data.rol),
-                Perfil(respuesta.data.token, respuesta.data.rol),
-                ObtenerTrabajos(respuesta.data.token, respuesta.data.rol),
-                ubiCliente(respuesta.data.token, respuesta.data.rol),
-                verificarFoto(respuesta.data.token, respuesta.data.rol),
-                verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente'),
-                verificarUbicacionTrabajo(respuesta.data.token, respuesta.data.rol, 'proveedor')
-            ])
+                setTipo('cliente')
+                await Promise.all([
+                    ListarOfertas(respuesta.data.token, respuesta.data.rol),
+                    MisOfertas(respuesta.data.token, respuesta.data.rol),
+                    Perfil(respuesta.data.token, respuesta.data.rol),
+                    ObtenerTrabajos(respuesta.data.token, respuesta.data.rol),
+                    ubiCliente(respuesta.data.token, respuesta.data.rol),
+                    verificarFoto(respuesta.data.token, respuesta.data.rol),
+                    verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente'),
+                    verificarUbicacionTrabajo(respuesta.data.token, respuesta.data.rol, 'proveedor')
+                ])
+            }
             navigate('/dashboard')
         } catch (error) {
             toast.error(error.response.data.msg)

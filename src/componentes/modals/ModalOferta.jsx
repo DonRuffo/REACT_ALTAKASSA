@@ -448,11 +448,11 @@ const ModalOferta = () => {
                             <div className="flex justify-around flex-wrap gap-2">
                                 <div className="flex gap-2 items-center">
                                     <label htmlFor="precioPorDia" className="text-md font-semibold dark:text-white">Precio/Dia:</label>
-                                    <input type="text" id="precioPorDia" name="precioPorDia" onChange={handleChange} value={formOf.precioPorDia || ""} className="dark:bg-gray-900 dark:text-slate-200 w-20 py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700" />
+                                    <input type="number" id="precioPorDia" name="precioPorDia" onChange={handleChange} value={formOf.precioPorDia || ""} className="dark:bg-gray-900 dark:text-slate-200 w-20 py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700" />
                                 </div>
                                 <div className="flex gap-2 items-center">
                                     <label htmlFor="precioPorHora" className="text-md font-semibold  dark:text-white">Precio/Hora:</label>
-                                    <input type="text" id="precioPorHora" name="precioPorHora" onChange={handleChange} value={formOf.precioPorHora || ""} className="dark:bg-gray-900 dark:text-slate-200 w-20 py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700" />
+                                    <input type="number" id="precioPorHora" name="precioPorHora" onChange={handleChange} value={formOf.precioPorHora || ""} className="dark:bg-gray-900 dark:text-slate-200 w-20 py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700" />
                                 </div>
                             </div>
                         </div>

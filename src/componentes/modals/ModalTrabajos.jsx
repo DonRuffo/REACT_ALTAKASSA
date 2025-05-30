@@ -19,6 +19,9 @@ const ModalTrabajos = ({ idOferta }) => {
     const [carga, setCarga] = useState(true)
     const [cargaTra, setCargaTra] = useState(false)
 
+    const fechaHoy = new Date()
+    const numeroMes = fechaHoy.getMonth()+1
+
     const TrabajosAgendados = async () => {
         try {
             const token = localStorage.getItem('token')
@@ -366,7 +369,7 @@ const ModalTrabajos = ({ idOferta }) => {
                                 </svg>
                             </h1>
                             <div className="flex justify-center mt-3">
-                                <Calendario />
+                                <Calendario dias={numeroMes}/>
                             </div>
                             <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-600">rojo</b> están agendados</p>
                         </div>
