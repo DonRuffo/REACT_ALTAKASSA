@@ -8,7 +8,7 @@ import ModalEditarPlan from "../../componentes/modals/ModalEditarPagos";
 
 const PlanesdePago = () => {
 
-    const { modalPagos, setModalPagos, planes, obtenerPlanes, setModalEditPagos, modalEditPagos } = AuthStoreContext()
+    const { modalPagos, setModalPagos, planes, setModalEditPagos, modalEditPagos } = AuthStoreContext()
 
     const EliminarPlan = async (id, nombre) => {
         const confirmar = confirm(`¿Estás seguro de eliminar el plan ${nombre}?`)
@@ -31,15 +31,10 @@ const PlanesdePago = () => {
         }
     }
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        const rol = localStorage.getItem('rol')
-        obtenerPlanes(token, rol)
-    }, [])
     return (
         <div className="relative">
             <ToastContainer />
-            <div className="flex flex-col justify-center items-center mt-5">
+            <div className="flex flex-col justify-center items-center mt-20 md:mt-5">
                 <h1 className="text-purple-600 text-2xl md:text-3xl font-CalSans">
                     Planes de pago
                 </h1>
@@ -90,8 +85,8 @@ const PlanesdePago = () => {
             </div><br /><br />
             {planes.length > 0 && (
                <div className="flex justify-center">
-                <button type="button" className="group px-4 py-1 bg-amber-700 rounded-lg font-semibold hover:brightness-110 duration-300 ease-in-out cursor-pointer mb-3" onClick={()=>{setModalPagos(true)}}>
-                    Crear plan <span className="text-xl group-hover:scale-125">+</span>
+                <button type="button" className="group px-4 py-1 bg-gradient-to-r from-amber-700 to-yellow-500 rounded-lg font-semibold hover:brightness-110 hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer mb-3" onClick={()=>{setModalPagos(true)}}>
+                    Crear plan
                 </button>
             </div>
             )}

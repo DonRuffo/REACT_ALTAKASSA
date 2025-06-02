@@ -2,29 +2,16 @@ import React, { useEffect, useState } from "react";
 
 import AuthStoreContext from "../../store/AuthStore";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import ModalPublicaciones from "../../componentes/modals/ModalPublicaciones";
 
 const InicioAdmin = () => {
-    const { auth } = AuthStoreContext()
-    const [user, setUsers] = useState([])
-
-    const traerUsuarios = async () => {
-        const token = localStorage.getItem('token')
-        if (!token) return
-        try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/listarUsuarios`
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-
-            const respuesta = await axios.get(url, options)
-            setUsers(respuesta.data)
-        } catch (error) {
-            console.error("No valio", error)
-        }
-    }
+    const { auth, modalUsers, setModalUsers, users } = AuthStoreContext()
+    const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
+    
+    const handleModalPubli = (id) => {
+        setOfertaSeleccionada(id);
+    };
 
     const eliminarUser = async (id, nombre) => {
         const token = localStorage.getItem('token')
@@ -41,24 +28,22 @@ const InicioAdmin = () => {
                 }
 
                 const respuesta = await axios.delete(url, options)
-                setUsers(respuesta.data)
+                toast.success(respuesta.data.msg)
             } catch (error) {
                 console.error("No valio", error)
+                toast.error(error.response.data.msg)
             }
         }
     }
 
-    useEffect(() => {
-        traerUsuarios()
-    }, [])
-
     return (
         <>
+            <ToastContainer />
             <section className="mt-20 lg:mt-5 px-4">
                 <h1 className="text-2xl lg:text-3xl text-purple-600 font-CalSans text-center">Bienvenido {auth.nombre} {auth.apellido}</h1>
                 <p className="text-lg lg:text-xl dark:text-white text-center">Te presento la lista de usuarios del sistema, puedes revisarlos</p><br />
                 <div className="flex justify-center">
-                    <table className="w-full lg:w-3/5 text-white outline-2 outline-cyan-600 rounded-xl overflow-hidden">
+                    <table className="w-full lg:w-3/5 text-white  rounded-lg shadow-lg dark:shadow-cyan-900 overflow-hidden">
                         <thead className="bg-cyan-700 text-xs md:text-lg">
                             <tr>
                                 <th className="py-2">N°</th>
@@ -70,15 +55,16 @@ const InicioAdmin = () => {
                             </tr>
                         </thead>
                         <tbody className="bg-cyan-950 text-xs md:text-base">
-                            {user.map(((us, index) => (
-                                <tr key={us._id}>
+                            {users.map(((us, index) => (
+                                <>
+                                  <tr key={us._id}>
                                     <th className="py-1.5">{index + 1}</th>
                                     <th>{us.nombre} {us.apellido}</th>
                                     <th>{us.direccion}</th>
                                     <th>{us.calificacionCliente}</th>
                                     <th>{us.calificacionProveedor}</th>
                                     <th className="flex gap-x-1 md:gap-x-2 lg:gap-x-3 justify-center py-1.5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-6 cursor-pointer hover:text-green-500 transition-all ease-in-out duration-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-6 cursor-pointer hover:text-green-500 transition-all ease-in-out duration-200" onClick={() => {handleModalPubli(us._id); setModalUsers(true)}}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                         </svg>
@@ -91,11 +77,12 @@ const InicioAdmin = () => {
                                         </svg>
                                     </th>
                                 </tr>
+                                {ofertaSeleccionada === us._id && modalUsers && <ModalPublicaciones idRev={us._id}/>}  
+                                </>
                             )))}
                         </tbody>
                     </table>
                 </div>
-
             </section>
         </>
     )

@@ -21,8 +21,8 @@ const AuthStoreContext = create((set, get) => ({
     sideBar: null,
     connectionStatus: false,
     planes: [],
-
-    //status para sockets
+    users: [],
+    categorias: [],
 
 
     //pulsos para cargas previas
@@ -37,9 +37,16 @@ const AuthStoreContext = create((set, get) => ({
     modalTema: false,
     modalPagos: false,
     modalEditPagos: false,
+    modalUsers: false,
+    modalCategorias: false,
+    modalCreditos: false,
+    modalPlanes: false,
 
     //seteadores para actualizaciones
     setAuth: (authData) => set((state) => ({ ...state.auth, ...authData })),
+    setCategorias: (cat) => set((state) => ({
+        categorias: typeof cat === 'function' ? cat(state.categorias) : cat
+    })),
     setUbicacionActual: (ubi) => set({ ubicacionActual: ubi }),
     setUbicacionTrabajo: (ubi) => set({ ubicacionTrabajo: ubi }),
     setUbicacionTraProvs: (ubi) => set({ ubicacionTraProvs: ubi }),
@@ -59,6 +66,10 @@ const AuthStoreContext = create((set, get) => ({
     setModalTema: (modal) => set({ modalTema: modal }),
     setModalPagos: (modal) => set({ modalPagos: modal }),
     setModalEditPagos: (modal) => set({ modalEditPagos: modal }),
+    setModalUsers: (modal) => set({ modalUsers: modal }),
+    setModalCategorias: (modal) => set({ modalCategorias: modal }),
+    setModalCreditos: (modal) => set({ modalCreditos: modal }),
+    setModalPlanes: (modal) => set({ modalPlanes: modal }),
     setsideBar: (ref) => set({ sideBar: ref }),
 
     //funciones
@@ -245,8 +256,7 @@ const AuthStoreContext = create((set, get) => ({
         }
     },
 
-    obtenerPlanes: async (token, rol) => {
-        if (rol !== 'administrador') return
+    obtenerPlanes: async (token) => {
         const url = `${import.meta.env.VITE_BACKEND_URL}/obtenerPlanes`
         try {
             const options = {
@@ -257,6 +267,40 @@ const AuthStoreContext = create((set, get) => ({
             }
             const respuesta = await axios.get(url, options)
             set({ planes: respuesta.data })
+        } catch (error) {
+            console.error(error)
+        }
+    },
+    traerUsuarios: async (token, rol) => {
+        if (rol !== "administrador") return
+        if (!token) return
+        try {
+            const url = `${import.meta.env.VITE_BACKEND_URL}/listarUsuarios`
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options)
+            set({ users: respuesta.data })
+        } catch (error) {
+            console.error("No valio", error)
+        }
+    },
+    obtenerCategorias: async (token) => {
+        try {
+            const url = `${import.meta.env.VITE_BACKEND_URL}/listaCategorias`
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options)
+            set({ categorias: respuesta.data })
         } catch (error) {
             console.error(error)
         }

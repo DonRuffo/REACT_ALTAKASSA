@@ -17,7 +17,7 @@ import EsqueletoInicioCli from "../Esqueletos/EsqInicioCli";
 import socket from "../../context/SocketConexion";
 
 const Inicio = () => {
-    const { auth, setAuth, foto, ubiActual, setUbiActual, pulseFoto, pulseUbiTra, pulseUbiActual, Perfil, ubiCliente, setUbicacionActual, ivActual } = AuthStoreContext()
+    const { auth, setAuth, foto, ubiActual, setUbiActual, pulseFoto, pulseUbiTra, pulseUbiActual, Perfil, ubiCliente, setUbicacionActual, ivActual, categorias } = AuthStoreContext()
     const { modalTra, setModalTra, oferta, setIdProveedor, modalProvs, setModalProvs, setOferta } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
@@ -77,18 +77,6 @@ const Inicio = () => {
         }
     }
 
-    const categorias = [
-        "Plomería",
-        "Limpieza",
-        "Carpintería",
-        "Pintor",
-        "Albañilería",
-        "Técnico-Electrodomésticos",
-        "Cerrajería",
-        "Electricista",
-        "Niñera",
-        "Chófer"
-    ]
     
     useEffect(() => {
         if (valor) {
@@ -173,8 +161,8 @@ const Inicio = () => {
                             <div className="w-5/6 ">
                                 <h1 className="font-CalSans text-2xl mb-3 dark:text-white mt-3">Categorías</h1>
                                 <div className="flex flex-wrap justify-around mb-4 gap-1">
-                                    {categorias.map((cat) => (
-                                        <Link key={cat} onClick={(e) => {
+                                    {categorias.map((cat, index) => (
+                                        <Link key={index} onClick={(e) => {
                                             e.preventDefault()
                                             almacenarValor(e)
                                             setTimeout(() => {
@@ -183,7 +171,7 @@ const Inicio = () => {
                                                     category.scrollIntoView({ behavior: 'smooth' })
                                                 }
                                             }, 100)
-                                        }} className="px-4 py-2 mb-2 md:my-0 border-2 border-emerald-600 rounded-md text-emerald-600 font-semibold hover:bg-emerald-600 hover:text-white duration-300">{cat}</Link>
+                                        }} className="px-4 py-2 mb-2 md:my-0 border-2 border-emerald-600 rounded-md text-emerald-600 font-semibold hover:bg-emerald-600 hover:text-white duration-300">{cat.nombre}</Link>
                                     ))}
                                 </div><hr className="border border-gray-300 dark:border-gray-800" />
                             </div>

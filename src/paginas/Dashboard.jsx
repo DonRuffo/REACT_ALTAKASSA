@@ -5,14 +5,15 @@ import ModalFotoPerfil from "../componentes/modals/ModalFotoPerfil";
 import AuthStoreContext from "../store/AuthStore";
 import OfertaStore from "../store/OfertaStore";
 import NavInfo from "../componentes/NavParaSmMd";
+import ModalCreditos from "../componentes/modals/ModalCreditos";
+import ModalPlanes from "../componentes/modals/ModalPlanes";
 const Dashboard = () => {
     const sideBar = useRef(null)
     const navigate = useNavigate()
-    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus } = AuthStoreContext()
+    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus, setModalCreditos, modalCreditos, modalPlanes, setModalPlanes } = AuthStoreContext()
     const { modalPerfil, setModalPerfil } = OfertaStore()
 
     const [rotar, setRotar] = useState(false)
-    const rol = localStorage.getItem('rol')
     const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
     const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente'
 
@@ -20,11 +21,12 @@ const Dashboard = () => {
         if (tipo === 'cliente') {
             localStorage.setItem('tipo', 'proveedor')
             setTipo('proveedor')
+            navigate('/dashboard/proveedor')
         } else if (tipo === 'proveedor') {
             localStorage.setItem('tipo', 'cliente')
             setTipo('cliente')
+            navigate('/dashboard/cliente')
         }
-        navigate('/dashboard')
         setOpcionActiva('inicio')
     }
 
@@ -49,14 +51,14 @@ const Dashboard = () => {
         <>
             <div className={`${dark ? "dark bg-emerald-950" : "bg-emerald-900"}`}>
                 <div className="flex h-screen font-Cabin">
-                    <div ref={sideBar} className={`flex flex-col justify-between fixed z-50 inset-y-0 left-0 w-52 bg-emerald-900 dark:bg-emerald-950 rounded-r-xl text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
+                    <div ref={sideBar} className={`flex flex-col justify-between fixed z-30 inset-y-0 left-0 w-52 bg-emerald-900 dark:bg-emerald-950 rounded-r-xl text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
                         <div id="nav">
                             <h1 className="text-2xl text-white text-center font-CalSans">Alta-Kassa</h1>
                             <div className="flex justify-center">
                                 <img src={logoAlta} alt="AltaKassa Logo" width={165} height={165} />
                             </div><hr />
                             <nav className="py-2 min-h-[300px] max-h-[310px] ">
-                                <Link to='/dashboard' id="inicio" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'inicio' ? 'bg-emerald-800' : ''}`}>
+                                <Link to={`${tipo === 'cliente' ? '/dashboard/cliente' : tipo === 'proveedor' ? '/dashboard/proveedor' : tipo === 'admin' ? '/dashboard/admin' : ''} `} id="inicio" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'inicio' ? 'bg-emerald-800' : ''}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
                                     </svg>
@@ -125,7 +127,7 @@ const Dashboard = () => {
                                     <img src='' alt="Ayuda" width={26} height={26} /><p className=" px-2">Ayuda</p>
                                 </Link>
 
-                                <Link to='/dashboard/sugerencias' id="Sugerencias" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${rol === 'administrador' ? 'hidden' : ''}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex  gap-1 ${opcionActiva === 'Sugerencias' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/sugerencias' id="Sugerencias" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'admin' ? 'hidden' : ''}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex  gap-1 ${opcionActiva === 'Sugerencias' ? 'bg-emerald-800' : ''}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
                                     </svg>
@@ -133,7 +135,7 @@ const Dashboard = () => {
                                     <p className="px-2">Sugerencias</p>
                                 </Link>
 
-                                <Link to='/dashboard/planes-de-pago' id="VerProvs" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${rol === 'administrador' ? 'block' : 'hidden'} py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex  gap-1 ${opcionActiva === 'VerProvs' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/planes-de-pago' id="planes" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'admin' ? 'block' : 'hidden'} py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex  gap-1 ${opcionActiva === 'planes' ? 'bg-emerald-800' : ''}`}>
                                     <svg
                                         width="24" height="24"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +148,17 @@ const Dashboard = () => {
 
                                 </Link>
 
-                                <Link to='/dashboard/ver-sugerencias' id="VerSugerencias" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${rol === 'administrador' ? 'block' : 'hidden'} py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex  gap-1 ${opcionActiva === 'VerSugerencias' ? 'bg-emerald-800' : ''}`}>
+                                <Link to='/dashboard/categorias' id="Cat" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'admin' ? 'block' : 'hidden'} py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex  gap-1 ${opcionActiva === 'Cat' ? 'bg-emerald-800' : ''}`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                    </svg>
+
+                                    <p className="px-2">Categorías</p>
+
+                                </Link>
+
+                                <Link to='/dashboard/ver-sugerencias' id="VerSugerencias" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'admin' ? 'block' : 'hidden'} py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex  gap-1 ${opcionActiva === 'VerSugerencias' ? 'bg-emerald-800' : ''}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
                                     </svg>
@@ -175,9 +187,9 @@ const Dashboard = () => {
                     </div>
                     {modalPerfil && <ModalFotoPerfil url={auth.f_perfil} />}
                     <div className="flex-1 h-screen overflow-y-auto bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
-                        <div className="border-b border-gray-200 dark:border-gray-700 h-16 hidden lg:flex justify-between items-center px-5">
+                        <div className="border-b border-gray-200 dark:border-gray-700 h-14 hidden lg:flex justify-between items-center px-5">
                             <div className="flex gap-x-2">
-                                <button className={`${rol === "administrador" ? 'hidden' : ''} flex items-center gap-x-1 font-semibold bg-gray-100 rounded-md py-2 px-3 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear cursor-pointer`} onClick={() => setRotar(!rotar)}>
+                                <button className={`${tipo === "admin" ? 'hidden' : ''} flex items-center gap-x-1 font-semibold bg-gray-100 rounded-md py-2 px-3 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear cursor-pointer`} onClick={() => setRotar(!rotar)}>
                                     {tipoM}
                                     {tipoM === 'Proveedor' ? (
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
@@ -202,18 +214,24 @@ const Dashboard = () => {
                                     Cambiar a {tipoUsuario}
                                 </button>
                             </div>
-                            <div className="flex items-center gap-x-4">
-                                <div className={`${rol === "administrador" ? 'hidden' : ''} text-cyan-500 flex gap-x-1`}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
+                            <div className="flex items-center">
+                                <div className={`${tipo === "admin" ? 'hidden' : ''} group text-cyan-600 flex items-center gap-x-1 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={() => {setModalPlanes(true)}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                    <p>consigue más créditos</p>
+                                </div>
+                                <div className={`${tipo === "admin" ? 'hidden' : ''} text-cyan-500 flex gap-x-1 mr-7 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={()=>{setModalCreditos(true)}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
                                     </svg>
-                                    <p className="text-black dark:text-white">{auth.monedasTrabajos}</p>
+                                    <p className="text-black dark:text-white">{auth.monedasTrabajos} créditos</p>
                                 </div>
-                                <div className={`w-2.5 h-2.5 rounded-full ${connectionStatus ? 'bg-emerald-500' : 'bg-red-500'} brightness-125`}>
+                                <div className={`w-2.5 h-2.5 mr-2 rounded-full ${connectionStatus ? 'bg-emerald-500' : 'bg-red-500'} brightness-125`}>
                                     <div className={`w-full h-full rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping' : 'bg-red-500'} brightness-125`}></div>
                                 </div>
-                                <h1 className="font-semibold dark:text-white">{auth.nombre} {auth.apellido}</h1>
-                                <div className="flex justify-center h-[44px] w-[44px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
+                                <h1 className="font-semibold mr-2 dark:text-white">{auth.nombre} {auth.apellido}</h1>
+                                <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
                                     <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
@@ -221,6 +239,8 @@ const Dashboard = () => {
                         <NavInfo />
                         <Outlet />
                     </div>
+                    {modalCreditos && <ModalCreditos />}
+                    {modalPlanes && <ModalPlanes />}
                 </div>
             </div>
         </>

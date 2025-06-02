@@ -127,7 +127,7 @@ const Registro = () => {
                                     {reloj && <RelojDeArena />}
                                 </div> <hr className="dark:border dark:border-gray-900" />
                                 <div className="flex justify-end mt-2">
-                                    <p className="text-sm text-slate-500 dark:text-slate-300 font-semibold">¿Ya tienes cuenta? <Link className="text-emerald-500 dark:text-emerald-300 hover:underline duration-300" to="/login">Click Aquí</Link></p>
+                                    <p className="text-base text-slate-500 dark:text-slate-300 font-semibold">¿Ya tienes cuenta? {'-->'}  <Link className="text-emerald-500 dark:text-emerald-300 hover:underline duration-300" to="/login">Inicia sesión</Link></p>
                                 </div>
                             </form>
                         </div>

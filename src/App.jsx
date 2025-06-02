@@ -11,7 +11,6 @@ import Restablecer from './paginas/Restablecer'
 import PrivateRoutes from './routes/PrivateRoutes'
 import Configuracion from './paginas/Cli-Prov/Configuracion'
 import InicioProve from './paginas/Proveedor/InicioProv'
-import PrivateProveedor from './routes/PrivateProveedor'
 import ListadoOfertas from './paginas/Proveedor/MisOfertas'
 import HistorialTrabajoCli from './paginas/Cliente/HistorialTrabajosCli'
 import SolicitudProv from './paginas/Proveedor/SolicitudesProv'
@@ -32,6 +31,8 @@ import InicioAdmin from './paginas/admin/InicioAdmin'
 import RutasAdmin from './routes/PrivateAdmin'
 import VerSugerencias from './paginas/admin/VerSugerencias'
 import PlanesdePago from './paginas/admin/Pagos'
+import Inicio from './paginas/Cliente/Inicio'
+import CategoriasServicios from './paginas/admin/Categorías'
 function App() {
 
   return (
@@ -51,11 +52,23 @@ function App() {
             <PrivateRoutes>
               <Routes>
                 <Route element={<Dashboard />}>
-                  <Route index element={
-                    <PrivateProveedor>
+                  <Route path='cliente' element={
+                    <RutasCliente >
+                      <Inicio />
+                    </RutasCliente>
+                  }/>
+                  <Route path='proveedor' element={
+                    <RutasProveedor>
                       <InicioProve />
-                    </PrivateProveedor>
-                  } />
+                    </RutasProveedor>
+                  }/>
+
+                  <Route path='admin' element={
+                    <RutasAdmin>
+                      <InicioAdmin />
+                    </RutasAdmin>
+                  }/>
+
                   <Route path='ofertas' element={
                     <RutasProveedor>
                       <ListadoOfertas />
@@ -113,6 +126,12 @@ function App() {
                       <PlanesdePago />
                     </RutasAdmin>
                   } />
+
+                  <Route path='categorias'element={
+                    <RutasAdmin>
+                      <CategoriasServicios />
+                    </RutasAdmin>
+                  }/>
                   
                   <Route path='configuracion' element={<Configuracion />} />
                   <Route path='no-encontrado' element={<PaginaNoPermitida />} />

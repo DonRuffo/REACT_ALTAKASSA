@@ -5,7 +5,7 @@ import SocketStatus from "./SocketHook";
 import PropTypes from "prop-types";
 
 const AppInit = ({ children }) => {
-    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, setDark, setDarkMode, setTipo } = AuthStoreContext()
+    const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, setDark, setDarkMode, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias } = AuthStoreContext()
     const { ListarOfertas, ObtenerTrabajos, oferta, trabajos, MisOfertas, ofertaProvs } = OfertaStore()
 
     SocketStatus()
@@ -15,12 +15,22 @@ const AppInit = ({ children }) => {
         const rol = localStorage.getItem('rol')
         const tipoUsuario = localStorage.getItem('tipo')
         if (!rol || !token) return
+        if (rol === 'administrador') {
+            Promise.all([
+                traerUsuarios(token, rol),
+                Perfil(token, rol),
+                obtenerPlanes(token),
+                obtenerCategorias(token)
+            ])
+        }
         Promise.all([
             Perfil(token, rol),
             verificarFoto(token, rol),
             verificarUbicacionActual(token, rol, 'cliente'),
             verificarUbicacionTrabajo(token, rol, 'proveedor'),
             ubiCliente(token, rol),
+            obtenerPlanes(token),
+            obtenerCategorias(token)
         ])
         setTipo(tipoUsuario)
     }, [])
@@ -67,7 +77,7 @@ const AppInit = ({ children }) => {
 }
 
 AppInit.propTypes = {
-    children:PropTypes.node.isRequired
+    children: PropTypes.node.isRequired
 }
 
 export default AppInit

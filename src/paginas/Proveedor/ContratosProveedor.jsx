@@ -9,7 +9,7 @@ import socket from "../../context/SocketConexion";
 import { DateTime } from "luxon";
 
 const ContratosProv = () => {
-    const { trabajosProvs, setTrabajos, setTrabajosProvs } = OfertaStore()
+    const { trabajosProvs, setTrabajosProvs } = OfertaStore()
     const { Perfil, auth } = AuthStoreContext()
 
     const cancelarTrabajo = async (idTra, servicio, idProv) => {

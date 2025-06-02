@@ -10,7 +10,7 @@ import AuthStoreContext from '../store/AuthStore';
 import OfertaStore from '../store/OfertaStore';
 
 const Login = () => {
-    const { Perfil, darkMode, verificarUbicacionActual, verificarUbicacionTrabajo, ubiCliente, verificarFoto, setTipo } = AuthStoreContext()
+    const { Perfil, darkMode, verificarUbicacionActual, verificarUbicacionTrabajo, ubiCliente, verificarFoto, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias } = AuthStoreContext()
     const { ObtenerTrabajos, ListarOfertas, MisOfertas } = OfertaStore()
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)
@@ -37,11 +37,18 @@ const Login = () => {
                 const resAd = await axios.post(urlAd, form)
                 localStorage.setItem('token', resAd.data.token)
                 localStorage.setItem('rol', resAd.data.rol)
+                localStorage.setItem('tipo', 'admin')
                 localStorage.removeItem('usuario')
-                await Perfil(resAd.data.token, resAd.data.rol)
-                
+
+                setTipo('admin')
+                await Promise.all([
+                    traerUsuarios(resAd.data.token, resAd.data.rol),
+                    Perfil(resAd.data.token, resAd.data.rol),
+                    obtenerPlanes(resAd.data.token),
+                    obtenerCategorias(resAd.data.token)
+                ])
+                navigate('/dashboard/admin')
             } else {
-                console.log("ALAA")
                 const respuesta = await axios.post(url, form)
                 localStorage.setItem('token', respuesta.data.token)
                 localStorage.setItem('rol', respuesta.data.rol)
@@ -57,10 +64,12 @@ const Login = () => {
                     ubiCliente(respuesta.data.token, respuesta.data.rol),
                     verificarFoto(respuesta.data.token, respuesta.data.rol),
                     verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente'),
-                    verificarUbicacionTrabajo(respuesta.data.token, respuesta.data.rol, 'proveedor')
+                    verificarUbicacionTrabajo(respuesta.data.token, respuesta.data.rol, 'proveedor'),
+                    obtenerPlanes(respuesta.data.token),
+                    obtenerCategorias(respuesta.data.token)
                 ])
+                navigate('/dashboard/cliente')
             }
-            navigate('/dashboard')
         } catch (error) {
             toast.error(error.response.data.msg)
             setCarga(false)
@@ -110,8 +119,8 @@ const Login = () => {
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />
                                 <div className='mt-1 md:mt-3 md:mb-1'>
-                                    <p className='text-sm text-slate-500 dark:text-slate-300 mb-1 font-semibold'>Olvidaste tu contraseña: <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
-                                    <p className='text-sm text-slate-500 dark:text-slate-300 font-semibold'>No tienes una cuenta: <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/registro'>Regístrate Aquí</Link></p>
+                                    <p className='text-base text-slate-500 dark:text-slate-300 mb-1 font-semibold'>Olvidaste tu contraseña: <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
+                                    <p className='text-base text-slate-500 dark:text-slate-300 font-semibold'>No tienes una cuenta: <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/registro'>Regístrate Aquí</Link></p>
                                 </div>
                             </form><br />
                             <div>
