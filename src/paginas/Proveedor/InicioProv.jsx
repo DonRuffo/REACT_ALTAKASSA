@@ -1,4 +1,4 @@
-import React,{ useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logoInicioProv from '../../assets/Motivacion.svg';
 import ModalOferta from "../../componentes/modals/ModalOferta";
 import LocationImg from '../../assets/Mapa.svg'
@@ -135,38 +135,42 @@ const InicioProve = () => {
     }
 
     const desencriptar = async () => {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/ubiUserTra?prov=${auth.email}`
-            try {
-                const token = localStorage.getItem('token')
-                const options = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`
-                    }
+        const url = `${import.meta.env.VITE_BACKEND_URL}/ubiUserTra?prov=${auth.email}`
+        try {
+            const token = localStorage.getItem('token')
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
                 }
-                const respuesta = await axios.get(url, options)
-                setUbicacionTrabajo(respuesta.data.desencriptado)
-            } catch {
-                console.log("No se puede desencriptar")
             }
+            const respuesta = await axios.get(url, options)
+            setUbicacionTrabajo(respuesta.data.desencriptado)
+        } catch {
+            console.log("No se puede desencriptar")
         }
+    }
     useEffect(() => {
-        if(!auth?.email) return
+        if (!auth?.email) return
         desencriptar()
     }, [auth])
 
     return (
         <>
-            
+
             {pulseFoto || pulseUbiActual || pulseUbiTra ? <EsqueletoInicioProv />
                 : (
                     <div className="px-5">
                         <section className="flex justify-center mt-20 lg:mt-5 lg:mb-14">
-                            <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-gray-800 dark:shadow-slate-700 transition-all duration-300">
-                                <h1 className="text-3xl text-center text-purple-500 font-CalSans pt-4 px-3 md:px-0">¡Bienvenido {auth.nombre}!</h1>
-                                <h2 className="text-xl text-center pt-3 pb-5 px-3 md:px-0 dark:text-white">Qué gusto tenerte aquí</h2>
-                                <div className="flex justify-center pb-5">
-                                    <img src={logoInicioProv} alt="Proveedor" width={125} height={130} />
+                            <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 lg:w-3/5 py-10 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700 transition-all duration-300">
+                                <h1 className="text-2xl md:text-3xl text-center text-purple-500 font-CalSans px-3 md:px-0">Vista como proveedor</h1>
+                                <h2 className="text-base md:text-xl text-center pt-3 px-3 md:px-0 dark:text-white">Desde aquí puedes publicar tus ofertas de servicios</h2>
+                                
+                                <div className="flex lg:hidden justify-center pb-1">
+                                    <img src={logoInicioProv} alt="Proveedor" width={110} height={110} />
+                                </div>
+                                <div className="absolute -top-2 left-2 flex justify-center pb-1">
+                                    <img src={logoInicioProv} alt="Proveedor" width={185} height={185} />
                                 </div>
                             </div>
                         </section>

@@ -12,8 +12,13 @@ const CategoriasServicios = () => {
             setCategorias(prev => [...prev, cat])
         })
 
+        socket.on('Categoria eliminada', ({id}) =>{
+            setCategorias(prev => prev.filter(of => of._id !== id))
+        })
+
         return () => {
             socket.off('nuevaCategoria')
+            socket.off('Categoria eliminada')
         }
     }, [])
 

@@ -5,10 +5,11 @@ import ModalCrearPlan from "../../componentes/modals/ModalPagos";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ModalEditarPlan from "../../componentes/modals/ModalEditarPagos";
+import socket from "../../context/SocketConexion";
 
 const PlanesdePago = () => {
 
-    const { modalPagos, setModalPagos, planes, setModalEditPagos, modalEditPagos } = AuthStoreContext()
+    const { modalPagos, setModalPagos, planes, setPlanes,setModalEditPagos, modalEditPagos } = AuthStoreContext()
 
     const EliminarPlan = async (id, nombre) => {
         const confirmar = confirm(`¿Estás seguro de eliminar el plan ${nombre}?`)
@@ -30,6 +31,21 @@ const PlanesdePago = () => {
             }
         }
     }
+
+    useEffect(()=>{
+        socket.on('Plan actualizado', ({id, planActualizado})=>{
+            setPlanes(prev => [...prev.filter(pl => pl._id !== id), ...planActualizado])
+        })
+
+        socket.on('Plan eliminado', ({id}) => {
+            setPlanes(prev => prev.filter(pl => pl._id !== id))
+        })
+
+        return () =>{
+            socket.off('Plan actualizado')
+            socket.off('Plan eliminado')
+        }
+    }, [])
 
     return (
         <div className="relative">

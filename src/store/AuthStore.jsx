@@ -47,6 +47,9 @@ const AuthStoreContext = create((set, get) => ({
     setCategorias: (cat) => set((state) => ({
         categorias: typeof cat === 'function' ? cat(state.categorias) : cat
     })),
+    setPlanes: (plan) => set((state) => ({
+        planes: typeof plan === 'function' ? plan(state.planes) : plan
+    })),
     setUbicacionActual: (ubi) => set({ ubicacionActual: ubi }),
     setUbicacionTrabajo: (ubi) => set({ ubicacionTrabajo: ubi }),
     setUbicacionTraProvs: (ubi) => set({ ubicacionTraProvs: ubi }),

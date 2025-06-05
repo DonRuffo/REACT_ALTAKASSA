@@ -9,9 +9,10 @@ import ModalCreditos from "../componentes/modals/ModalCreditos";
 import ModalPlanes from "../componentes/modals/ModalPlanes";
 const Dashboard = () => {
     const sideBar = useRef(null)
+    const verPerfil = useRef(null)
     const navigate = useNavigate()
     const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus, setModalCreditos, modalCreditos, modalPlanes, setModalPlanes } = AuthStoreContext()
-    const { modalPerfil, setModalPerfil } = OfertaStore()
+    const { modalPerfil, setModalInfo, modalInfo, setperfilBar, handleClickOutsidePerfil } = OfertaStore()
 
     const [rotar, setRotar] = useState(false)
     const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
@@ -37,6 +38,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         setsideBar(sideBar.current)
+        setperfilBar(verPerfil.current)
     }, [])
     useEffect(() => {
         if (menu) {
@@ -47,6 +49,16 @@ const Dashboard = () => {
         }
     }, [menu])
 
+    useEffect(() =>{
+        if(modalInfo){
+            document.addEventListener('mousedown', handleClickOutsidePerfil)
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsidePerfil)
+        }
+    }, [modalInfo])
+
     return (
         <>
             <div className={`${dark ? "dark bg-emerald-950" : "bg-emerald-900"}`}>
@@ -55,7 +67,7 @@ const Dashboard = () => {
                         <div id="nav">
                             <h1 className="text-2xl text-white text-center font-CalSans">Alta-Kassa</h1>
                             <div className="flex justify-center">
-                                <img src={logoAlta} alt="AltaKassa Logo" width={165} height={165} />
+                                <img src={logoAlta} alt="AltaKassa Logo" width={150} height={165} />
                             </div><hr />
                             <nav className="py-2 min-h-[300px] max-h-[310px] ">
                                 <Link to={`${tipo === 'cliente' ? '/dashboard/cliente' : tipo === 'proveedor' ? '/dashboard/proveedor' : tipo === 'admin' ? '/dashboard/admin' : ''} `} id="inicio" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'inicio' ? 'bg-emerald-800' : ''}`}>
@@ -186,7 +198,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     {modalPerfil && <ModalFotoPerfil url={auth.f_perfil} />}
-                    <div className="flex-1 h-screen overflow-y-auto bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
+                    <div className="flex-1 relative h-screen overflow-y-auto bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
                         <div className="border-b border-gray-200 dark:border-gray-700 h-14 hidden lg:flex justify-between items-center px-5">
                             <div className="flex gap-x-2">
                                 <button className={`${tipo === "admin" ? 'hidden' : ''} flex items-center gap-x-1 font-semibold bg-gray-100 rounded-md py-2 px-3 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear cursor-pointer`} onClick={() => setRotar(!rotar)}>
@@ -215,13 +227,13 @@ const Dashboard = () => {
                                 </button>
                             </div>
                             <div className="flex items-center">
-                                <div className={`${tipo === "admin" ? 'hidden' : ''} group text-cyan-600 flex items-center gap-x-1 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={() => {setModalPlanes(true)}}>
+                                <div className={`${tipo === "admin" ? 'hidden' : ''} group text-cyan-600 flex items-center gap-x-1 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={() => { setModalPlanes(true) }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
                                     <p>consigue más créditos</p>
                                 </div>
-                                <div className={`${tipo === "admin" ? 'hidden' : ''} text-cyan-500 flex gap-x-1 mr-7 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={()=>{setModalCreditos(true)}}>
+                                <div className={`${tipo === "admin" ? 'hidden' : ''} text-cyan-500 flex gap-x-1 mr-7 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={() => { setModalCreditos(true) }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
                                     </svg>
@@ -231,13 +243,34 @@ const Dashboard = () => {
                                     <div className={`w-full h-full rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping' : 'bg-red-500'} brightness-125`}></div>
                                 </div>
                                 <h1 className="font-semibold mr-2 dark:text-white">{auth.nombre} {auth.apellido}</h1>
-                                <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
+                                <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={()=> {setModalInfo(!modalInfo)}}>
                                     <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
                         </div>
                         <NavInfo />
                         <Outlet />
+                        <div ref={verPerfil} className={`absolute dark:text-white bg-gray-100 dark:bg-gray-900 py-2 px-3 top-15 right-6 xl:w-36 h-auto rounded-xl outline outline-emerald-600 ${modalInfo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'} transition-all duration-300 ease-in-out`}>
+                            <Link className="group flex items-center gap-x-1 mb-2 text-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 group-hover:scale-110 transition-all duration-300 ease-in-out">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                </svg>
+                                Perfil
+                            </Link><hr />
+                            <Link to={`/login`} className="group flex items-center gap-x-1 mt-1 text-sm" onClick={
+                                ()=>{
+                                    localStorage.removeItem('token')
+                                    localStorage.removeItem('rol')
+                                    localStorage.removeItem('tipo')
+                                }
+                            }>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 group-hover:scale-110 transition-all duration-300 ease-in-out">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                                </svg>
+
+                                Cerrar Sesión
+                            </Link>
+                        </div>
                     </div>
                     {modalCreditos && <ModalCreditos />}
                     {modalPlanes && <ModalPlanes />}

@@ -123,15 +123,18 @@ const Inicio = () => {
             {pulseFoto || pulseUbiActual || pulseUbiTra ? <EsqueletoInicioCli />
                 : (
                     <>
-                        <section className="flex justify-center mt-20 lg:mt-5">
-                            <div className="rounded-md shadow-lg w-4/5 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700">
-                                <h1 className="text-3xl text-center text-purple-600 font-CalSans pt-4 px-3 md:px-0">¡Bienvenido {auth.nombre}!</h1>
-                                <h2 className="text-xl text-center dark:text-white pt-3 pb-5 px-3 md:px-0">¡Los proveedores esperan por brindarte sus servicios!</h2>
-                                <div className="flex justify-center pb-4">
-                                    <img src={logoInicio} alt="Constructor" width={125} height={125} className='rounded-full' />
+                        <section className="flex justify-center mt-20 lg:mt-5 mb-5">
+                            <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 md:w-3/5 lg:py-10 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700">
+                                <h1 className="text-2xl md:text-3xl text-center text-purple-600 font-CalSans px-3 md:px-0">¡Qué gusto volver a verte!</h1>
+                                <h2 className="md:text-xl text-center dark:text-white pt-3  md:px-0">Los proveedores esperan por brindarte sus servicios</h2>
+                                <div className="absolute -top-2 left-2 hidden lg:flex justify-center pb-4">
+                                    <img src={logoInicio} alt="Constructor" width={185} height={185}  />
+                                </div>
+                                <div className="lg:hidden flex justify-center pb-1">
+                                    <img src={logoInicio} alt="Constructor" width={110} height={110}  />
                                 </div>
                             </div>
-                        </section>
+                        </section><br />
                         <section className={`${foto && ubiActual ? 'hidden' : ''} my-5 flex flex-col justify-center items-center`}>
                             <h1 className="text-center text-xl mb-3 dark:text-white">Antes de comenzar, debes seguir estos pasos: </h1>
                             <div className="flex -space-x-1 justify-center mb-3">

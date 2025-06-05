@@ -10,6 +10,8 @@ const OfertaStore = create((set, get) => ({
     modalPerfil: false,
     modalProvs: false,
     mapaCliProv: false,
+    modalInfo:  false,
+    perfilBar:null,
 
     //pulsos de esqueletos
     pulseTra: true,
@@ -43,6 +45,7 @@ const OfertaStore = create((set, get) => ({
     setTraProveedor: (traProv) => set({ traProveedor: traProv }),
     setFechas: (fec) => set({ fechas: fec }),
     setIdProveedor: (id) => set({ idProveedor: id }),
+    setperfilBar: (bar) => set({perfilBar:bar}),
 
     //seteadores de modales
     setModalOf: (modal) => set({ modalOf: modal }),
@@ -52,6 +55,7 @@ const OfertaStore = create((set, get) => ({
     setModalPerfil: (modal) => set({ modalPerfil: modal }),
     setModalProvs: (modal) => set({ modalProvs: modal }),
     setMapaCliProv: (mapa) => set({ mapaCliProv: mapa }),
+    setModalInfo:(modal) => set({modalInfo:modal}),
 
     //handles
     handleModalOf: () => {
@@ -125,9 +129,14 @@ const OfertaStore = create((set, get) => ({
         } catch (error) {
             console.log('Error al obtener los trabajos', error);
         }
+    },
+
+    handleClickOutsidePerfil: (event) => {
+        const { perfilBar } = get()
+        if (perfilBar && !perfilBar.contains(event.target)) {
+            set({ modalInfo: false })
+        }
     }
-
-
 
 }))
 
