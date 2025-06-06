@@ -33,6 +33,7 @@ import VerSugerencias from './paginas/admin/VerSugerencias'
 import PlanesdePago from './paginas/admin/Pagos'
 import Inicio from './paginas/Cliente/Inicio'
 import CategoriasServicios from './paginas/admin/Categorías'
+import PlanesPagoProv from './paginas/Proveedor/PlanesPago'
 function App() {
 
   return (
@@ -92,6 +93,12 @@ function App() {
                       <HistorialTrabajoProvs />
                     </RutasProveedor>
                   } />
+
+                  <Route path='planesPago' element={
+                    <RutasProveedor>
+                      <PlanesPagoProv />
+                    </RutasProveedor>
+                  }/>
 
                   <Route path='historialCliente' element={
                     <RutasCliente>

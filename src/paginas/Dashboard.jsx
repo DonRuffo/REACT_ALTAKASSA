@@ -12,7 +12,7 @@ const Dashboard = () => {
     const verPerfil = useRef(null)
     const navigate = useNavigate()
     const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus, setModalCreditos, modalCreditos, modalPlanes, setModalPlanes } = AuthStoreContext()
-    const { modalPerfil, setModalInfo, modalInfo, setperfilBar, handleClickOutsidePerfil } = OfertaStore()
+    const { modalPerfilFoto, setModalInfo, modalInfo, setperfilBar, handleClickOutsidePerfil, handleInfo } = OfertaStore()
 
     const [rotar, setRotar] = useState(false)
     const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
@@ -49,8 +49,8 @@ const Dashboard = () => {
         }
     }, [menu])
 
-    useEffect(() =>{
-        if(modalInfo){
+    useEffect(() => {
+        if (modalInfo) {
             document.addEventListener('mousedown', handleClickOutsidePerfil)
         }
 
@@ -69,7 +69,7 @@ const Dashboard = () => {
                             <div className="flex justify-center">
                                 <img src={logoAlta} alt="AltaKassa Logo" width={150} height={165} />
                             </div><hr />
-                            <nav className="py-2 min-h-[300px] max-h-[310px] ">
+                            <nav className="py-2 min-h-[300px] max-h-[350px] border-b">
                                 <Link to={`${tipo === 'cliente' ? '/dashboard/cliente' : tipo === 'proveedor' ? '/dashboard/proveedor' : tipo === 'admin' ? '/dashboard/admin' : ''} `} id="inicio" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'inicio' ? 'bg-emerald-800' : ''}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
@@ -135,6 +135,13 @@ const Dashboard = () => {
                                     <p className=" px-2">Historial</p>
                                 </Link>
 
+                                <Link to='/dashboard/planesPago' id="Planes" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`${tipo === 'proveedor' ? 'block' : 'hidden'}  py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'Planes' ? 'bg-emerald-800' : ''}`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                                    </svg>
+                                    <p className=" px-2">Planes Pro</p>
+                                </Link>
+
                                 <Link to='/dashboard/novedades' id="" onClick={(e) => { handleMenu(); asignarValor(e) }} className="hidden py-2 px-3 rounded hover:bg-gray-800 duration-100 gap-1 focus:bg-emerald-800">
                                     <img src='' alt="Ayuda" width={26} height={26} /><p className=" px-2">Ayuda</p>
                                 </Link>
@@ -179,13 +186,12 @@ const Dashboard = () => {
 
                                 <Link to='/dashboard/configuracion' id="Config" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'Config' ? 'bg-emerald-800' : ''}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                                     </svg>
 
-                                    <p className="px-2">Configuración</p>
+                                    <p className="px-2">Perfil</p>
                                 </Link>
-                            </nav><hr />
+                            </nav>
                         </div>
                         <div className="flex justify-center">
                             <button className="px-5 py-2 mb-5 bg-gray-950 dark:bg-emerald-700 text-white rounded-md hover:bg-gray-700 dark:hover:bg-emerald-800 duration-300 cursor-pointer"
@@ -197,7 +203,7 @@ const Dashboard = () => {
                                 }}>Cerrar Sesión</button>
                         </div>
                     </div>
-                    {modalPerfil && <ModalFotoPerfil url={auth.f_perfil} />}
+                    {modalPerfilFoto && <ModalFotoPerfil url={auth.f_perfil} />}
                     <div className="flex-1 relative h-screen overflow-y-auto bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
                         <div className="border-b border-gray-200 dark:border-gray-700 h-14 hidden lg:flex justify-between items-center px-5">
                             <div className="flex gap-x-2">
@@ -243,28 +249,38 @@ const Dashboard = () => {
                                     <div className={`w-full h-full rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping' : 'bg-red-500'} brightness-125`}></div>
                                 </div>
                                 <h1 className="font-semibold mr-2 dark:text-white">{auth.nombre} {auth.apellido}</h1>
-                                <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={()=> {setModalInfo(!modalInfo)}}>
+                                <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalInfo(!modalInfo) }}>
                                     <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
                                 </div>
                             </div>
                         </div>
                         <NavInfo />
                         <Outlet />
-                        <div ref={verPerfil} className={`absolute dark:text-white bg-gray-100 dark:bg-gray-900 py-2 px-3 top-15 right-6 xl:w-36 h-auto rounded-xl outline outline-emerald-600 ${modalInfo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'} transition-all duration-300 ease-in-out`}>
-                            <Link className="group flex items-center gap-x-1 mb-2 text-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 group-hover:scale-110 transition-all duration-300 ease-in-out">
+                        <div ref={verPerfil} className={`fixed z-20 dark:text-white bg-gray-100 dark:bg-gray-900 py-2 px-3 top-16 right-4 lg:right-6 xl:w-36 h-auto rounded-xl outline outline-emerald-600 ${modalInfo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'} transition-all duration-300 ease-in-out`}>
+                            <Link to={'/dashboard/configuracion'} id="Config" className="group flex items-center gap-x-1 mb-1 text-sm" onClick={(e) => { handleInfo(); asignarValor(e) }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                                 </svg>
+
                                 Perfil
-                            </Link><hr />
+                            </Link>
+                            <Link to={'/dashboard/planesPago'} id="Planes" className="group flex items-center gap-x-1 mb-2 text-sm" onClick={(e) => { setTipo('proveedor'); localStorage.setItem('tipo', 'proveedor'); asignarValor(e); handleInfo() }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                                </svg>
+
+                                Planes Pro
+                            </Link>
+                            <hr />
                             <Link to={`/login`} className="group flex items-center gap-x-1 mt-1 text-sm" onClick={
-                                ()=>{
+                                () => {
                                     localStorage.removeItem('token')
                                     localStorage.removeItem('rol')
                                     localStorage.removeItem('tipo')
+                                    handleInfo()
                                 }
                             }>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 group-hover:scale-110 transition-all duration-300 ease-in-out">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                                 </svg>
 

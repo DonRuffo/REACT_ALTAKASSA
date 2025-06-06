@@ -5,13 +5,17 @@ import { EyeOff, Eye } from 'lucide-react';
 import imgLocation from '../../assets/Mapa.svg'
 import axios from "axios";
 import AuthStoreContext from "../../store/AuthStore";
+import OfertaStore from "../../store/OfertaStore";
 
 const Configuracion = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
     const [ojoActivo2, setOjoActivo2] = useState(false)
 
-    const { auth, setAuth , ActualizarPerfil, ActualizarContrasenia, setDark, modalContra, setModalContra, modalPerfil,
-        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi, Perfil} = AuthStoreContext()
+    const { auth, setAuth, ActualizarPerfil, ActualizarContrasenia, setDark, modalContra, setModalContra, modalPerfil,
+        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi, Perfil } = AuthStoreContext()
+
+    const { modalPerfilFoto, setModalPerfilFoto } = OfertaStore()
+
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
     const accesoTema = () => { setModalTema(!modalTema) }
@@ -116,15 +120,15 @@ const Configuracion = () => {
     const actualizarUbi = () => {
         const tipo = localStorage.getItem('tipo')
         const rol = localStorage.getItem('rol')
-        if(tipo === 'cliente' || rol === 'administrador') return
+        if (tipo === 'cliente' || rol === 'administrador') return
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position) => {
                 const { latitude, longitude } = position.coords
                 try {
-                    
+
                     const token = localStorage.getItem('token')
                     const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-trabajo`
-                    
+
                     const options = {
                         headers: {
                             'Content-Type': 'application/json',
@@ -151,42 +155,47 @@ const Configuracion = () => {
 
     return (
         <>
-            <h1 className="text-3xl font-CalSans text-sky-600 pb-5 mt-20 lg:mt-5 px-5">Configuración</h1>
             <ToastContainer />
-            <section className="flex flex-col md:flex-row justify-between px-5">
-                <div className="w-full md:w-2/5  flex bg-gray-100 dark:bg-gray-900 dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg md:max-h-[210px] mb-8 md:mb-5">
-                    <ul className="w-full p-2">
-                        <OpcionConfig titulo={"Cambiar contraseña"} logo={
-                            (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" strokeWidth="2" />
-                                <path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" strokeWidth="2" />
-                                <circle cx="12" cy="15" r="1.5" fill="currentColor" />
-                            </svg>
-                            )
-                        } clic={accesoContra} />
-                        <OpcionConfig titulo={"Actualizar perfil"} logo={(
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
-                                <path d="M4 20a8 8 0 0116 0" stroke="currentColor" strokeWidth="2" />
-                            </svg>
+            <section className="flex flex-col md:flex-row justify-between px-5 mb-3">
+                <div className="w-full md:w-2/5 flex flex-col items-center">
+                    <h1 className="text-3xl font-CalSans text-sky-600 pb-1 mt-20 lg:mt-5 px-8">{auth.nombre} {auth.apellido}</h1>
+                    <div className="w-52 h-52 outline outline-gray-100 dark:outline-gray-900 rounded-full shrink-0 overflow-hidden cursor-pointer mb-3" onClick={() => { setModalPerfilFoto(true) }}>
+                        <img src={auth.f_perfil} alt="FotoPerfil" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex w-4/5 bg-gray-100 dark:bg-gray-900 dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg md:max-h-[210px] mb-8 md:mb-5">
+                        <ul className="w-full p-2">
+                            <OpcionConfig titulo={"Cambiar contraseña"} logo={
+                                (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" strokeWidth="2" />
+                                    <path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="12" cy="15" r="1.5" fill="currentColor" />
+                                </svg>
+                                )
+                            } clic={accesoContra} />
+                            <OpcionConfig titulo={"Actualizar perfil"} logo={(
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
+                                    <path d="M4 20a8 8 0 0116 0" stroke="currentColor" strokeWidth="2" />
+                                </svg>
 
-                        )} clic={accesoPerfil} />
-                        {auth.rol !== 'administrador' && <OpcionConfig titulo={"Actualizar Ubicación"} logo={(
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2">
-                                <polygon points="3,6 9,2 15,6 21,2 21,18 15,22 9,18 3,22" />
-                                <circle cx="12" cy="12" r="3" />
-                            </svg>
-                        )} clic={accesoUbi} />}
-                        <OpcionConfig titulo={"Tema"} logo={(
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
-                                <path d="M12 2a10 10 0 000 20 5 5 0 010-10A5 5 0 0112 2z" fill="currentColor" />
-                            </svg>
-                        )} clic={accesoTema} />
-                    </ul>
+                            )} clic={accesoPerfil} />
+                            {auth.rol !== 'administrador' && <OpcionConfig titulo={"Actualizar Ubicación"} logo={(
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2">
+                                    <polygon points="3,6 9,2 15,6 21,2 21,18 15,22 9,18 3,22" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            )} clic={accesoUbi} />}
+                            <OpcionConfig titulo={"Tema"} logo={(
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
+                                    <path d="M12 2a10 10 0 000 20 5 5 0 010-10A5 5 0 0112 2z" fill="currentColor" />
+                                </svg>
+                            )} clic={accesoTema} />
+                        </ul>
+                    </div>
                 </div>
-                <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-gray-100 rounded-xl shadow-lg h-auto outline outline-purple-100 p-5 dark:bg-gray-900 mb-5`}>
+                <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-gray-100 rounded-xl shadow-lg h-auto outline outline-purple-100 p-5 dark:bg-gray-900 my-5`}>
                     <h1 className="text-2xl text-center text-purple-600 font-CalSans pb-5">Cambio de contraseña</h1>
                     <div className="border px-3 py-2 mb-3 bg-slate-200 rounded-lg dark:bg-transparent dark:text-white">
                         <h1 className="font-bold">Tener en cuenta:</h1>
@@ -220,7 +229,7 @@ const Configuracion = () => {
                         </form>
                     </div>
                 </div>
-                <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg h-auto outline outline-emerald-100 dark:bg-gray-900 mb-5`}>
+                <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:max-h-[400px] md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg h-auto outline outline-emerald-100 dark:bg-gray-900 my-5`}>
                     <div className="w-full p-2 flex flex-col items-center">
                         <h1 className="font-CalSans text-green-600 text-2xl pt-3">Actualizar perfil</h1>
                         <span className="font-semibold text-sm text-slate-500 dark:text-slate-300 text-center">Cambia los campos que requieras y presiona actualiza</span>
@@ -251,7 +260,7 @@ const Configuracion = () => {
 
                     </div>
                 </div>
-                <div className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-indigo-100 dark:bg-gray-900 dark:text-white  mb-5`}>
+                <div className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-indigo-100 dark:bg-gray-900 dark:text-white  my-5`}>
                     <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-100 has-[input:checked]:dark:bg-gray-950 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -272,7 +281,7 @@ const Configuracion = () => {
                         <input type="radio" name="tema" id="Claro" value="Claro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800" />
                     </label>
                 </div>
-                <div className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-red-100 dark:bg-gray-900 dark:text-white  mb-5`}>
+                <div className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[225px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-red-100 dark:bg-gray-900 dark:text-white  my-5`}>
                     <div className="flex flex-col items-center">
                         <h1 className="font-CalSans text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
                         <span className="font-semibold text-slate-500 dark:text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>
@@ -282,6 +291,9 @@ const Configuracion = () => {
                         </div>
                     </div>
                 </div>
+            </section>
+            <section className="flex flex-col md:flex-row justify-between px-5">
+
             </section>
         </>
     )

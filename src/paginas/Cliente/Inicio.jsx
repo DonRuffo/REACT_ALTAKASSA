@@ -125,10 +125,10 @@ const Inicio = () => {
                     <>
                         <section className="flex justify-center mt-20 lg:mt-5 mb-5">
                             <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 md:w-3/5 lg:py-10 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700">
-                                <h1 className="text-2xl md:text-3xl text-center text-purple-600 font-CalSans px-3 md:px-0">¡Qué gusto volver a verte!</h1>
-                                <h2 className="md:text-xl text-center dark:text-white pt-3  md:px-0">Los proveedores esperan por brindarte sus servicios</h2>
-                                <div className="absolute -top-2 left-2 hidden lg:flex justify-center pb-4">
-                                    <img src={logoInicio} alt="Constructor" width={185} height={185}  />
+                                <h1 className="relative z-10 text-2xl md:text-3xl text-center text-purple-600 font-CalSans px-3 md:px-0">¡Qué gusto volver a verte!</h1>
+                                <h2 className="relative z-10 md:text-xl text-center dark:text-white pt-3  md:px-0">Los proveedores esperan por brindarte sus servicios</h2>
+                                <div className="absolute opacity-50 z-0 -top-2 left-2 hidden lg:flex justify-center pb-4">
+                                    <img src={logoInicio} alt="Constructor" width={215} height={185} />
                                 </div>
                                 <div className="lg:hidden flex justify-center pb-1">
                                     <img src={logoInicio} alt="Constructor" width={110} height={110}  />

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const NavInfo = () => {
 
-    const { modalPerfil, setModalPerfil } = OfertaStore()
+    const { modalInfo, setModalInfo } = OfertaStore()
     const { auth, menu, handleMenu, tipo, setTipo, setOpcionActiva, connectionStatus } = AuthStoreContext()
     const navigate = useNavigate()
     const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
@@ -73,7 +73,7 @@ const NavInfo = () => {
                     <div className={`w-full h-full md:w-3 md:h-3 rounded-full ${connectionStatus ? 'bg-emerald-500 animate-ping' : 'bg-red-500'} brightness-125`}></div>
                 </div>
                 <h1 className="font-semibold text-sm dark:text-white text-right">{auth.nombre}</h1>
-                <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalPerfil(!modalPerfil) }}>
+                <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalInfo(!modalInfo) }}>
                     <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white shrink-0" />
                 </div>
             </div>

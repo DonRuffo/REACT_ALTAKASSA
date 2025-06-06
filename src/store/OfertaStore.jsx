@@ -7,11 +7,11 @@ const OfertaStore = create((set, get) => ({
     modalEditOf: false,
     modalTra: false,
     modalTraActual: false,
-    modalPerfil: false,
+    modalPerfilFoto: false,
     modalProvs: false,
     mapaCliProv: false,
-    modalInfo:  false,
-    perfilBar:null,
+    modalInfo: false,
+    perfilBar: null,
 
     //pulsos de esqueletos
     pulseTra: true,
@@ -45,17 +45,17 @@ const OfertaStore = create((set, get) => ({
     setTraProveedor: (traProv) => set({ traProveedor: traProv }),
     setFechas: (fec) => set({ fechas: fec }),
     setIdProveedor: (id) => set({ idProveedor: id }),
-    setperfilBar: (bar) => set({perfilBar:bar}),
+    setperfilBar: (bar) => set({ perfilBar: bar }),
 
     //seteadores de modales
     setModalOf: (modal) => set({ modalOf: modal }),
     setModalEditOf: (modal) => set({ modalEditOf: modal }),
     setModalTra: (modal) => set({ modalTra: modal }),
     setModalTraActual: (modal) => set({ modalTraActual: modal }),
-    setModalPerfil: (modal) => set({ modalPerfil: modal }),
+    setModalPerfilFoto: (modal) => set({ modalPerfilFoto: modal }),
     setModalProvs: (modal) => set({ modalProvs: modal }),
     setMapaCliProv: (mapa) => set({ mapaCliProv: mapa }),
-    setModalInfo:(modal) => set({modalInfo:modal}),
+    setModalInfo: (modal) => set({ modalInfo: modal }),
 
     //handles
     handleModalOf: () => {
@@ -74,6 +74,8 @@ const OfertaStore = create((set, get) => ({
         const nuevoState = !get().modalTraActual
         set({ modalTraActual: nuevoState })
     },
+
+    handleInfo: () => set((state) => ({ modalInfo: !state.modalInfo })),
 
     //funciones
     ListarOfertas: async (token, rol) => {
