@@ -14,7 +14,7 @@ const Configuracion = () => {
     const { auth, setAuth, ActualizarPerfil, ActualizarContrasenia, setDark, modalContra, setModalContra, modalPerfil,
         setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi, Perfil } = AuthStoreContext()
 
-    const { modalPerfilFoto, setModalPerfilFoto } = OfertaStore()
+    const { setModalPerfilFoto } = OfertaStore()
 
     const accesoContra = () => { setModalContra(!modalContra) }
     const accesoPerfil = () => { setModalPerfil(!modalPerfil) }
@@ -23,9 +23,91 @@ const Configuracion = () => {
     const [formPerfil, setFormPerfil] = useState({
         nombre: auth.nombre || "",
         apellido: auth.apellido || "",
-        direccion: auth.direccion || "",
-        telefono: auth.telefono || ""
+        direccion: auth.direccion || ""
     })
+
+    //actualizar la foto del perfil
+    const SubidaImage = async (e) => {
+        const urlPublic = `${import.meta.env.VITE_BACKEND_URL}/publicIdUser/${auth._id}`
+        let eliminarFoto
+        const url_subida = `${import.meta.env.VITE_BACKEND_URL}/fotoUser`
+        const preset_name = 'pUsuario'
+        const file = e.target.files
+        if (!file || file.length === 0) {
+            toast.error('No se seleccionó ninguna imagen');
+            return;
+        }
+        //obtener el public ID
+        try {
+            const token = localStorage.getItem('token')
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const resPublic = await axios.get(urlPublic, options)
+            eliminarFoto = `${import.meta.env.VITE_BACKEND_URL}/eliminarFotoA?public=${resPublic.data.publicId}`
+        } catch (error) {
+            console.error(error)
+        }
+
+        //eliminar la foto actual
+        try {
+            const token = localStorage.getItem('token')
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.delete(eliminarFoto, options)
+            console.log(respuesta.data.msg)
+        } catch (error) {
+            console.error(error)
+        }
+
+        //subir la nueva foto
+        try {
+            const rol = localStorage.getItem('rol')
+            const token = localStorage.getItem('token')
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const url = `${import.meta.env.VITE_BACKEND_URL}/firmaAK?preset=${preset_name}`
+            const datosFirma = await axios.get(url, options)
+            const { timestamp, firmaCAK, apiKey, cloudName } = datosFirma.data
+            const formFile = new FormData()
+            formFile.append('file', file[0])
+            formFile.append('upload_preset', preset_name)
+            formFile.append("api_key", apiKey);
+            formFile.append("timestamp", timestamp);
+            formFile.append("signature", firmaCAK);
+
+            const url_cloud = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
+            const respuesta = await axios.post(url_cloud, formFile)
+            const formPerfil = {
+                secure_url: respuesta.data.secure_url
+            }
+            await axios.post(url_subida, formPerfil, options)
+            const fotito = {
+                f_perfil: respuesta.data.secure_url
+            }
+            setAuth(fotito)
+            await Perfil(token, rol)
+            toast.success('Foto actualizada')
+        } catch (error) {
+            console.error('error', error.message)
+        }
+    }
+
+
+
     useEffect(() => {
         setFormPerfil({
             nombre: auth.nombre || "",
@@ -248,9 +330,15 @@ const Configuracion = () => {
                                 <label htmlFor="direccion" className="font-semibold dark:text-white">Dirección:</label>
                                 <input type="text" name="direccion" id="direccion" value={formPerfil.direccion || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
                             </div>
-                            <div className="mb-4">
-                                <label htmlFor="telefono" className="font-semibold dark:text-white">Teléfono:</label>
-                                <input type="text" name="telefono" id="telefono" value={formPerfil.telefono || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-5 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
+                            <div className="mb-4 flex items-center gap-x-5">
+                                <label className="font-semibold dark:text-white">Foto de perfil:</label>
+                                <label htmlFor="fotoP" className="group flex gap-x-1.5 items-center px-4 py-1 rounded-lg bg-green-200 text-green-800 font-semibold hover:brightness-110 duration-300 ease-in-out cursor-pointer">
+                                    Actualizar foto
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                    </svg>
+                                </label>
+                                <input type="file" id="fotoP" className="hidden" onChange={async (e) => SubidaImage(e)}/>
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button type="submit" className="px-4 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Actualizar</button>
