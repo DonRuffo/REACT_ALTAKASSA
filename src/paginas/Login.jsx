@@ -100,14 +100,14 @@ const Login = () => {
                             <hr className='dark:border dark:border-gray-900' />
                             <form onSubmit={HandleSubmit}>
                                 <div className="my-3">
-                                    <label className="mb-2 block text-md font-semibold text-blue-500">Correo electrónico</label>
-                                    <input type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Ingresa tu correo" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
+                                    <label htmlFor='email' className="mb-2 block text-md font-semibold text-blue-500">Correo electrónico</label>
+                                    <input id='email' type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Ingresa tu correo" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
                                 </div>
 
                                 <div className="mb-3">
-                                    <label className="mb-2 block text-md font-semibold text-blue-500">Contraseña</label>
+                                    <label htmlFor='contrasenia' className="mb-2 block text-md font-semibold text-blue-500">Contraseña</label>
                                     <div className='flex gap-2 relative'>
-                                        <input type={ojoActivo ? "text" : "password"} name='contrasenia' onChange={HandleChange} value={form.contrasenia || ""} placeholder="********************" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
+                                        <input id='contrasenia' type={ojoActivo ? "text" : "password"} name='contrasenia' onChange={HandleChange} value={form.contrasenia || ""} placeholder="********************" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
                                         <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                     </div>
                                 </div>

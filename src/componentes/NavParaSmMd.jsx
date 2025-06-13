@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const NavInfo = () => {
 
     const { modalInfo, setModalInfo } = OfertaStore()
-    const { auth, menu, handleMenu, tipo, setTipo, setOpcionActiva, connectionStatus } = AuthStoreContext()
+    const { auth, menu, handleMenu, tipo, setTipo, setOpcionActiva, connectionStatus, setModalCreditos, modalCreditos } = AuthStoreContext()
     const navigate = useNavigate()
     const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
     const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente'
@@ -36,11 +36,11 @@ const NavInfo = () => {
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" onClick={() => handleMenu()} className={`${menu === false ? 'hidden' : ''} cursor-pointer duration-300`}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg>
-                <div className={`text-cyan-600 flex gap-x-0.5 items-center mr-1.5 ${tipo === 'admin' ? 'hidden' : ''}`}>
+                <div className={`text-cyan-600 flex gap-x-0.5 items-center mr-1.5 ${tipo === 'admin' ? 'hidden' : ''}`} onClick={()=>{setModalCreditos(true)}}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
                     </svg>
-                    <p className="text-black dark:text-white">{auth.monedasTrabajos}</p>
+                    <p className="text-black dark:text-white">{auth.monedasTrabajos} <span className="text-sm">créditos</span></p>
                 </div>
             </div>
             <div className={`relative w-1/5 flex justify-center text-orange-500 items-center -space-x-1 ${tipo === 'admin' ? 'hidden' : ''}`} onClick={() => setRotar(!rotar)}>

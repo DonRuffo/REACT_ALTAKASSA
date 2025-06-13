@@ -6,13 +6,16 @@ import imgLocation from '../../assets/Mapa.svg'
 import axios from "axios";
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
+import SpinnerCargaModal from "../../componentes/RuedaCargaModal";
 
 const Configuracion = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
     const [ojoActivo2, setOjoActivo2] = useState(false)
+    const [carga, setCarga] = useState(false)
+
 
     const { auth, setAuth, ActualizarPerfil, ActualizarContrasenia, setDark, modalContra, setModalContra, modalPerfil,
-        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi, Perfil } = AuthStoreContext()
+        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi, Perfil, selectorM} = AuthStoreContext()
 
     const { setModalPerfilFoto } = OfertaStore()
 
@@ -34,7 +37,7 @@ const Configuracion = () => {
         const preset_name = 'pUsuario'
         const file = e.target.files
         if (!file || file.length === 0) {
-            toast.error('No se seleccionó ninguna imagen');
+            toast.error('No se seleccionó ninguna foto');
             return;
         }
         //obtener el public ID
@@ -62,8 +65,7 @@ const Configuracion = () => {
                     Authorization: `Bearer ${token}`
                 }
             }
-            const respuesta = await axios.delete(eliminarFoto, options)
-            console.log(respuesta.data.msg)
+            await axios.delete(eliminarFoto, options)
         } catch (error) {
             console.error(error)
         }
@@ -92,7 +94,8 @@ const Configuracion = () => {
             const url_cloud = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
             const respuesta = await axios.post(url_cloud, formFile)
             const formPerfil = {
-                secure_url: respuesta.data.secure_url
+                secure_url: respuesta.data.secure_url,
+                public_id:respuesta.data.public_id
             }
             await axios.post(url_subida, formPerfil, options)
             const fotito = {
@@ -100,9 +103,11 @@ const Configuracion = () => {
             }
             setAuth(fotito)
             await Perfil(token, rol)
+            setCarga(false)
             toast.success('Foto actualizada')
         } catch (error) {
             console.error('error', error.message)
+            setCarga(false)
         }
     }
 
@@ -112,8 +117,7 @@ const Configuracion = () => {
         setFormPerfil({
             nombre: auth.nombre || "",
             apellido: auth.apellido || "",
-            direccion: auth.direccion || "",
-            telefono: auth.telefono || ""
+            direccion: auth.direccion || ""
         })
     }, [auth])
 
@@ -235,12 +239,19 @@ const Configuracion = () => {
         }
     }
 
+    useEffect(()=>{
+        const elemento = document.getElementById(selectorM)
+
+        if(elemento){
+            elemento.scrollIntoView({behavior:'smooth'})
+        }else return
+    }, [selectorM])
     return (
         <>
             <ToastContainer />
             <section className="flex flex-col md:flex-row justify-between px-5 mb-3">
                 <div className="w-full md:w-2/5 flex flex-col items-center">
-                    <h1 className="text-3xl font-CalSans text-sky-600 pb-1 mt-20 lg:mt-5 px-8">{auth.nombre} {auth.apellido}</h1>
+                    <h1 className="text-3xl font-CalSans dark:text-white pb-1 mt-20 lg:mt-5 px-8">{auth.nombre} {auth.apellido}</h1>
                     <div className="w-52 h-52 outline outline-gray-100 dark:outline-gray-900 rounded-full shrink-0 overflow-hidden cursor-pointer mb-3" onClick={() => { setModalPerfilFoto(true) }}>
                         <img src={auth.f_perfil} alt="FotoPerfil" className="w-full h-full object-cover" />
                     </div>
@@ -273,11 +284,11 @@ const Configuracion = () => {
                                     <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
                                     <path d="M12 2a10 10 0 000 20 5 5 0 010-10A5 5 0 0112 2z" fill="currentColor" />
                                 </svg>
-                            )} clic={accesoTema} />
+                            )} clic={accesoTema}/>
                         </ul>
                     </div>
                 </div>
-                <div className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-gray-100 rounded-xl shadow-lg h-auto outline outline-purple-100 p-5 dark:bg-gray-900 my-5`}>
+                <div id="Cambiar contraseña" className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-gray-100 rounded-xl shadow-lg h-auto outline outline-purple-100 p-5 dark:bg-gray-900 my-5`}>
                     <h1 className="text-2xl text-center text-purple-600 font-CalSans pb-5">Cambio de contraseña</h1>
                     <div className="border px-3 py-2 mb-3 bg-slate-200 rounded-lg dark:bg-transparent dark:text-white">
                         <h1 className="font-bold">Tener en cuenta:</h1>
@@ -311,7 +322,7 @@ const Configuracion = () => {
                         </form>
                     </div>
                 </div>
-                <div className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:max-h-[400px] md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg h-auto outline outline-emerald-100 dark:bg-gray-900 my-5`}>
+                <div id="Actualizar perfil" className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:max-h-[400px] md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg h-auto outline outline-emerald-100 dark:bg-gray-900 my-5`}>
                     <div className="w-full p-2 flex flex-col items-center">
                         <h1 className="font-CalSans text-green-600 text-2xl pt-3">Actualizar perfil</h1>
                         <span className="font-semibold text-sm text-slate-500 dark:text-slate-300 text-center">Cambia los campos que requieras y presiona actualiza</span>
@@ -332,13 +343,14 @@ const Configuracion = () => {
                             </div>
                             <div className="mb-4 flex items-center gap-x-5">
                                 <label className="font-semibold dark:text-white">Foto de perfil:</label>
-                                <label htmlFor="fotoP" className="group flex gap-x-1.5 items-center px-4 py-1 rounded-lg bg-green-200 text-green-800 font-semibold hover:brightness-110 duration-300 ease-in-out cursor-pointer">
+                                <label htmlFor="fotoP" className="group flex gap-x-1.5 items-center px-4 py-1 rounded-lg bg-green-200 text-green-800 font-semibold hover:brightness-110 duration-300 ease-in-out cursor-pointer" onClick={()=>{setCarga(true)}}>
                                     Actualizar foto
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
                                     </svg>
                                 </label>
                                 <input type="file" id="fotoP" className="hidden" onChange={async (e) => SubidaImage(e)}/>
+                                {carga && <SpinnerCargaModal h={5} w={5} HH={6}/>}
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button type="submit" className="px-4 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Actualizar</button>
@@ -348,7 +360,7 @@ const Configuracion = () => {
 
                     </div>
                 </div>
-                <div className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-indigo-100 dark:bg-gray-900 dark:text-white  my-5`}>
+                <div id="Tema" className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-indigo-100 dark:bg-gray-900 dark:text-white  my-5`}>
                     <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-100 has-[input:checked]:dark:bg-gray-950 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -369,7 +381,7 @@ const Configuracion = () => {
                         <input type="radio" name="tema" id="Claro" value="Claro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800" />
                     </label>
                 </div>
-                <div className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[225px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-red-100 dark:bg-gray-900 dark:text-white  my-5`}>
+                <div id="Actualizar Ubicación" className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[225px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-red-100 dark:bg-gray-900 dark:text-white  my-5`}>
                     <div className="flex flex-col items-center">
                         <h1 className="font-CalSans text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
                         <span className="font-semibold text-slate-500 dark:text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>

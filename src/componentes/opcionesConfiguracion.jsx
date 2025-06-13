@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import AuthStoreContext from "../store/AuthStore";
 
 const OpcionConfig = ({ titulo, logo, clic }) => {
 
+    const { setSelectorM } = AuthStoreContext()
+
     return (
-        <li className={`group/list w-full rounded-xl hover:bg-gray-300 dark:hover:bg-gray-700 duration-100`}>
+        <li className={`group/list w-full rounded-xl hover:bg-gray-300 dark:hover:bg-gray-700 duration-100`} onClick={() => { setSelectorM(titulo) }}>
             <Link onClick={clic} className="flex justify-between px-5 py-3">
                 <div className="flex gap-2">
                     {logo}

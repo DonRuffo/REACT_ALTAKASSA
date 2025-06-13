@@ -250,7 +250,13 @@ const Dashboard = () => {
                                 </div>
                                 <h1 className="font-semibold mr-2 dark:text-white">{auth.nombre} {auth.apellido}</h1>
                                 <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalInfo(!modalInfo) }}>
-                                    <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
+                                    {auth.f_perfil !== null ? (
+                                      <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />  
+                                    ): (
+                                        <div className="w-full h-full flex justify-center items-center bg-gray-400 object-cover" >
+                                            <h1 className="text-lg text-white">US</h1>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

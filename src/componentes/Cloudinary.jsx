@@ -16,7 +16,7 @@ const Cloudinary = () => {
         const preset_name = 'pUsuario'
         const file = e.target.files
         if (!file || file.length === 0) {
-            toast.error('No se seleccionó ninguna imagen');
+            toast.error('No se seleccionó ninguna foto');
             return;
         }
         try {
@@ -42,7 +42,8 @@ const Cloudinary = () => {
             const url_cloud = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
             const respuesta = await axios.post(url_cloud, formFile)
             const formPerfil = {
-                secure_url: respuesta.data.secure_url
+                secure_url: respuesta.data.secure_url,
+                public_id:respuesta.data.public_id
             }
             await axios.post(url_subida, formPerfil, options)
             const fotito = {
@@ -51,7 +52,7 @@ const Cloudinary = () => {
             setAuth(fotito)
             setFoto(true)
             await Perfil(token, rol)
-            toast.success('Foto subida con éxito')
+            toast.success('Foto subida')
         } catch (error) {
             console.error('error', error.message)
             setCarga(false)

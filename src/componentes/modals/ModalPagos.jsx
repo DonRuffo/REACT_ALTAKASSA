@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AuthStoreContext from "../../store/AuthStore";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import socket from "../../context/SocketConexion";
 
 const ModalCrearPlan = () => {
     const { setModalPagos } = AuthStoreContext()
@@ -48,6 +49,7 @@ const ModalCrearPlan = () => {
             setActivo(false)
         }
     }, [form])
+
     return (
         <>
             <ToastContainer />

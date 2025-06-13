@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import logoPLAN from '../../assets/question.svg'
 import AuthStoreContext from "../../store/AuthStore";
 import ModalCrearPlan from "../../componentes/modals/ModalPagos";
@@ -10,6 +10,12 @@ import socket from "../../context/SocketConexion";
 const PlanesdePago = () => {
 
     const { modalPagos, setModalPagos, planes, setPlanes,setModalEditPagos, modalEditPagos } = AuthStoreContext()
+
+    const [planSelec, setPlanSelec] = useState(null)
+
+    const planSeleccionado = (id) => {
+        setPlanSelec(id)
+    }
 
     const EliminarPlan = async (id, nombre) => {
         const confirmar = confirm(`¿Estás seguro de eliminar el plan ${nombre}?`)
@@ -34,16 +40,21 @@ const PlanesdePago = () => {
 
     useEffect(()=>{
         socket.on('Plan actualizado', ({id, planActualizado})=>{
-            setPlanes(prev => [...prev.filter(pl => pl._id !== id), ...planActualizado])
+            setPlanes(prev => [...prev.filter(pl => pl._id !== id), planActualizado])
         })
 
         socket.on('Plan eliminado', ({id}) => {
             setPlanes(prev => prev.filter(pl => pl._id !== id))
         })
 
+        socket.on('Nuevo Plan', ({nuevoPlan}) => {
+            setPlanes(prev => [...prev, nuevoPlan])
+        })
+
         return () =>{
             socket.off('Plan actualizado')
             socket.off('Plan eliminado')
+            socket.off('Nuevo Plan')
         }
     }, [])
 
@@ -73,7 +84,7 @@ const PlanesdePago = () => {
                             <p className="dark:text-white text-center">{pl.descripcion}</p>
                         </div>
                         <div className="flex justify-around mt-3">
-                            <button type="button" className="text-cyan-500 cursor-pointer" onClick={()=>{setModalEditPagos(true)}}>
+                            <button type="button" className="text-cyan-500 cursor-pointer" onClick={()=>{setModalEditPagos(true); planSeleccionado(pl._id)}}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-8">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                                 </svg>
@@ -84,7 +95,7 @@ const PlanesdePago = () => {
                                 </svg>
                             </button>
                         </div>
-                        {modalEditPagos && <ModalEditarPlan idPlan={pl._id}/>}
+                        {modalEditPagos && planSelec === pl._id && <ModalEditarPlan idPlan={pl._id}/>}
                     </div>
                 )) : (
                     <div className="w-[275px] h-[375px] outline-2 outline-amber-600 rounded-xl bg-gray-100 dark:bg-gray-950 flex flex-col justify-center items-center">

@@ -23,6 +23,7 @@ const AuthStoreContext = create((set, get) => ({
     planes: [],
     users: [],
     categorias: [],
+    selectorM:null,
 
 
     //pulsos para cargas previas
@@ -50,6 +51,9 @@ const AuthStoreContext = create((set, get) => ({
     setPlanes: (plan) => set((state) => ({
         planes: typeof plan === 'function' ? plan(state.planes) : plan
     })),
+    setUsers: (us) => set((state) => ({
+        users: typeof us === 'function' ? us(state.users) : us
+    })) ,
     setUbicacionActual: (ubi) => set({ ubicacionActual: ubi }),
     setUbicacionTrabajo: (ubi) => set({ ubicacionTrabajo: ubi }),
     setUbicacionTraProvs: (ubi) => set({ ubicacionTraProvs: ubi }),
@@ -74,6 +78,7 @@ const AuthStoreContext = create((set, get) => ({
     setModalCreditos: (modal) => set({ modalCreditos: modal }),
     setModalPlanes: (modal) => set({ modalPlanes: modal }),
     setsideBar: (ref) => set({ sideBar: ref }),
+    setSelectorM:(selec) => set({selectorM:selec}),
 
     //funciones
     handleMenu: () => set((state) => ({ menu: !state.menu })),

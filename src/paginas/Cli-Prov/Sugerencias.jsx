@@ -55,7 +55,7 @@ const Sugerencias = () => {
             <section className="flex justify-center lg:mt-5 mt-20 px-8">
                 <div className="w-full lg:w-4/5 mb-5 rounded-lg bg-gray-100 dark:bg-gray-900 shadow-lg dark:shadow-slate-700">
                     <h1 className="text-center text-3xl font-CalSans text-purple-600 mt-5">Sugerencias y comentarios</h1>
-                    <div className="flex justify-around flex-wrap lg:mx-8 mt-5">
+                    <div className="flex justify-around flex-wrap lg:mx-5 xl:mx-8 mt-5">
                         <div className="px-3 lg:w-[500px]">
                             <p className="dark:text-white font-semibold text-xl text-center lg:text-left">¡Cuéntanos cómo ha sido tu experiencia en el sistema y comparte tus sugerencias!</p>
                             <form className="mt-4 dark:text-white" onSubmit={handleSubmit}>
@@ -93,7 +93,7 @@ const Sugerencias = () => {
                             </form>
                         </div>
                         <div className="mb-2">
-                            <img src={imgSug} alt="Sugerencias" width={325} />
+                            <img src={imgSug} alt="Sugerencias"  className="size-84"/>
                         </div>
                     </div>
                 </div>

@@ -87,7 +87,7 @@ const ModalPublicaciones = ({ idRev }) => {
                         <div className="mx-5 flex justify-center gap-3 flex-wrap">
                             {ofertas.length > 0 ? (
                                 ofertas.map(of => (
-                                    <div className="bg-gray-200 dark:bg-gray-900 text-black dark:text-white rounded-lg outline-2 outline-emerald-600 p-3 w-[180px]">
+                                    <div key={of._id} className="bg-gray-200 dark:bg-gray-900 text-black dark:text-white rounded-lg outline-2 outline-emerald-600 p-3 w-[180px]">
                                         <h1 className="text-lg text-amber-600 font-semibold">{of.servicio}</h1>
                                         <p className="mb-2"><span>$/Día: {of.precioPorDia}</span> - <span>$/Hora: {of.precioPorHora}</span></p>
                                         <div className="-space-y-0.5">
