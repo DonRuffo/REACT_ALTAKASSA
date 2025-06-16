@@ -255,7 +255,7 @@ const Configuracion = () => {
                     <div className="w-52 h-52 outline outline-gray-100 dark:outline-gray-900 rounded-full shrink-0 overflow-hidden cursor-pointer mb-3" onClick={() => { setModalPerfilFoto(true) }}>
                         <img src={auth.f_perfil} alt="FotoPerfil" className="w-full h-full object-cover" />
                     </div>
-                    <div className="flex w-4/5 bg-gray-100 dark:bg-gray-900 dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg md:max-h-[210px] mb-8 md:mb-5">
+                    <div className="flex w-4/5 bg-gray-100 dark:bg-black dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg md:max-h-[210px] mb-8 md:mb-5">
                         <ul className="w-full p-2">
                             <OpcionConfig titulo={"Cambiar contraseña"} logo={
                                 (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -288,7 +288,7 @@ const Configuracion = () => {
                         </ul>
                     </div>
                 </div>
-                <div id="Cambiar contraseña" className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-gray-100 rounded-xl shadow-lg h-auto outline outline-purple-100 p-5 dark:bg-gray-900 my-5`}>
+                <div id="Cambiar contraseña" className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-gray-100 rounded-xl shadow-lg h-auto outline dark:outline-gray-800 p-5 dark:bg-black my-5`}>
                     <h1 className="text-2xl text-center text-purple-600 font-CalSans pb-5">Cambio de contraseña</h1>
                     <div className="border px-3 py-2 mb-3 bg-slate-200 rounded-lg dark:bg-transparent dark:text-white">
                         <h1 className="font-bold">Tener en cuenta:</h1>
@@ -322,7 +322,7 @@ const Configuracion = () => {
                         </form>
                     </div>
                 </div>
-                <div id="Actualizar perfil" className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:max-h-[400px] md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg h-auto outline outline-emerald-100 dark:bg-gray-900 my-5`}>
+                <div id="Actualizar perfil" className={`${modalPerfil === true ? 'block' : 'hidden'} w-full md:max-h-[400px] md:w-1/2 flex flex-col bg-gray-100 rounded-xl shadow-lg h-auto outline dark:outline-gray-800 dark:bg-black my-5`}>
                     <div className="w-full p-2 flex flex-col items-center">
                         <h1 className="font-CalSans text-green-600 text-2xl pt-3">Actualizar perfil</h1>
                         <span className="font-semibold text-sm text-slate-500 dark:text-slate-300 text-center">Cambia los campos que requieras y presiona actualiza</span>
@@ -360,7 +360,8 @@ const Configuracion = () => {
 
                     </div>
                 </div>
-                <div id="Tema" className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[100px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-indigo-100 dark:bg-gray-900 dark:text-white  my-5`}>
+                <div id="Tema" className={`${modalTema === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[140px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline dark:outline-gray-800 dark:bg-black dark:text-white  my-5`}>
+                    <h1 className="font-CalSans text-2xl text-indigo-500 text-center mt-2">Tema del sistema</h1>
                     <label htmlFor="Oscuro" className="cursor-pointer flex justify-between px-4 py-2 mt-2 mx-2 items-center rounded-xl has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-100 has-[input:checked]:dark:bg-gray-950 has-[input:checked]:ring-1 has-[input:checked]:ring-purple-800">
                         <div className="flex gap-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -381,7 +382,7 @@ const Configuracion = () => {
                         <input type="radio" name="tema" id="Claro" value="Claro" onChange={handleRadioChange} className="peer appearance-none w-4 h-4 rounded-full border checked:border-4 checked:border-indigo-800" />
                     </label>
                 </div>
-                <div id="Actualizar Ubicación" className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[225px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline outline-red-100 dark:bg-gray-900 dark:text-white  my-5`}>
+                <div id="Actualizar Ubicación" className={`${modalUbi === true ? 'block' : 'hidden'} w-full md:w-1/2 md:max-h-[225px] flex flex-col bg-gray-100 rounded-xl shadow-lg outline dark:outline-gray-800 dark:bg-black dark:text-white  my-5`}>
                     <div className="flex flex-col items-center">
                         <h1 className="font-CalSans text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
                         <span className="font-semibold text-slate-500 dark:text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>

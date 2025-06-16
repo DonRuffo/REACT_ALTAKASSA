@@ -7,16 +7,70 @@ import OfertaStore from "../store/OfertaStore";
 import NavInfo from "../componentes/NavParaSmMd";
 import ModalCreditos from "../componentes/modals/ModalCreditos";
 import ModalPlanes from "../componentes/modals/ModalPlanes";
+import axios from "axios";
+import { DateTime } from "luxon";
+import socket from "../context/SocketConexion";
 const Dashboard = () => {
     const sideBar = useRef(null)
     const verPerfil = useRef(null)
     const navigate = useNavigate()
-    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus, setModalCreditos, modalCreditos, modalPlanes, setModalPlanes } = AuthStoreContext()
-    const { modalPerfilFoto, setModalInfo, modalInfo, setperfilBar, handleClickOutsidePerfil, handleInfo } = OfertaStore()
+    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus, setModalCreditos, modalCreditos, modalPlanes, setModalPlanes, nuevoMensaje, eliminarChat } = AuthStoreContext()
+    const { modalPerfilFoto, setModalInfo, modalInfo, setperfilBar, handleClickOutsidePerfil, handleInfo, setMensajesUsuario, mensajesUsuario } = OfertaStore()
 
     const [rotar, setRotar] = useState(false)
+    const [mensajes, setMensajes] = useState(false)
+    const [horaMsgs, setHoraMsgs] = useState('')
+    const [idMensaje, setIdMensaje] = useState('')
     const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
     const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente'
+
+
+    //funciones para mensajes
+    const mensajesRef = useRef(null)
+
+    const [formMsg, setFormMsg] = useState({
+        receptor: '',
+        mensaje: ''
+    })
+
+    const handleChangeMsgs = (e) => {
+        setFormMsg({
+            ...formMsg,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const enviarMensaje = async (idUser) => {
+        const token = localStorage.getItem('token')
+        formMsg.receptor = idUser
+
+        try {
+            const url = `${import.meta.env.VITE_BACKEND_URL}/envioMensaje`
+            const options = {
+                headers: {
+                    'Content-Type': 'Application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.post(url, formMsg, options)
+            setFormMsg({
+                receptor: '',
+                mensaje: ''
+            })
+            setMensajesUsuario((prev = []) => {
+                const existe = prev.find(of => of._id === respuesta.data._id)
+
+                if (existe) {
+                    return [...prev.filter(of => of._id !== respuesta.data._id), respuesta.data]
+                } else {
+                    return [...prev, respuesta.data]
+                }
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     const cambioDeTipo = () => {
         if (tipo === 'cliente') {
@@ -59,11 +113,36 @@ const Dashboard = () => {
         }
     }, [modalInfo])
 
+    useEffect(() => {
+        console.log(mensajesUsuario)
+        if (mensajesRef.current) {
+            mensajesRef.current.scrollTop = mensajesRef.current.scrollHeight
+        }
+    }, [mensajesUsuario, nuevoMensaje])
+
+    useEffect(() => {
+        socket.on('Mensaje', ({ conversacion }) => {
+            if (conversacion.participantes.includes(auth._id)) {
+                setMensajesUsuario(prev => {
+                    const existe = prev.find(of => of._id === conversacion._id)
+                    if (existe) {
+                        return [...prev.filter(of => of._id !== conversacion._id), conversacion]
+                    } else {
+                        return [...prev, conversacion]
+                    }
+                })
+            }
+        })
+
+        return () => {
+            socket.off('Mensaje')
+        }
+    }, [])
     return (
         <>
             <div className={`${dark ? "dark bg-emerald-950" : "bg-emerald-900"}`}>
                 <div className="flex h-screen font-Cabin">
-                    <div ref={sideBar} className={`flex flex-col justify-between fixed z-30 inset-y-0 left-0 w-52 bg-emerald-900 dark:bg-emerald-950 rounded-r-xl text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
+                    <div ref={sideBar} className={`flex flex-col justify-between fixed z-30 overflow-y-auto inset-y-0 left-0 w-52 bg-emerald-900 dark:bg-emerald-950 rounded-r-xl text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
                         <div id="nav">
                             <h1 className="text-2xl text-white text-center font-CalSans">Alta-Kassa</h1>
                             <div className="flex justify-center">
@@ -251,8 +330,8 @@ const Dashboard = () => {
                                 <h1 className="font-semibold mr-2 dark:text-white">{auth.nombre} {auth.apellido}</h1>
                                 <div className="flex justify-center h-[40px] w-[40px] rounded-full overflow-hidden cursor-pointer" onClick={() => { setModalInfo(!modalInfo) }}>
                                     {auth.f_perfil !== null ? (
-                                      <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />  
-                                    ): (
+                                        <img src={auth.f_perfil} alt="imgPerfil" className="w-full h-full object-cover ring-2 ring-white" />
+                                    ) : (
                                         <div className="w-full h-full flex justify-center items-center bg-gray-400 object-cover" >
                                             <h1 className="text-lg text-white">US</h1>
                                         </div>
@@ -277,6 +356,14 @@ const Dashboard = () => {
 
                                 Planes Pro
                             </Link>
+
+                            <div className="group flex items-center gap-x-1 mb-2 text-sm cursor-pointer" onClick={() => { setMensajes(!mensajes); handleInfo() }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                                </svg>
+
+                                Mensajes
+                            </div>
                             <hr />
                             <Link to={`/login`} className="group flex items-center gap-x-1 mt-1 text-sm" onClick={
                                 () => {
@@ -293,6 +380,58 @@ const Dashboard = () => {
                                 Cerrar Sesión
                             </Link>
                         </div>
+                    </div>
+                    <div className={`w-76 inset-y-14 fixed right-0 bottom-0 rounded-l-2xl bg-gray-100 dark:bg-black transform ${mensajes ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+                        <div className="absolute text-white right-3 top-3 cursor-pointer" onClick={() => { setMensajes(false) }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                        <h1 className="py-3 px-4 text-2xl text-white font-CalSans">Mensajes</h1><hr className="border-0.5 border-slate-700" /><br />
+
+                    </div>
+                    <div className="fixed w-auto h-auto bottom-0 left-1/2">
+                        {nuevoMensaje.map(msg => (
+                            <div key={msg.id} className="relative w-76 h-92 outline outline-gray-300 dark:outline-gray-800 dark:text-white bg-gray-100 dark:bg-black rounded-t-2xl">
+                                <div className="absolute top-2 right-2 cursor-pointer" onClick={() => { eliminarChat(msg.id) }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    </svg>
+                                </div>
+                                <div id='header' className="flex items-center py-2 px-3 gap-x-3.5">
+                                    <div className="w-10 h-10 rounded-full overflow-hidden">
+                                        <img src={msg.fPerfil} alt="perfilUser" className="w-full h-full object-cover" />
+                                    </div>
+                                    <p className="text-lg">{msg.nombre} {msg.apellido}</p>
+                                </div><hr className="border-0.5 border-slate-700" />
+                                <div ref={mensajesRef} id="contenedorMsgs" className="w-full h-[262px] overflow-y-auto">
+                                    <div className="flex flex-col px-1.5 py-1">
+                                        {mensajesUsuario.filter(oc => oc.participantes.includes((msg.id)))
+                                            .flatMap(loc => (
+                                                loc.mensajes.map((m) => (
+                                                    <React.Fragment key={m._id}>
+                                                        <p className={`text-white py-1 px-2.5 rounded-b-lg ${m.emisor === auth._id ? 'bg-emerald-700 self-end rounded-l-lg' : 'bg-gray-700 self-start rounded-r-lg'}  mt-1.5 w-fit max-w-3/4 text-start`} onClick={() => { setHoraMsgs(m.fecha); setIdMensaje(m._id) }}>{m.mensaje}</p>
+                                                        {idMensaje === m._id && <span className={`text-xs ${m.emisor === auth._id ? 'self-end' : 'self-start'} mt-0.5`}>{DateTime.fromISO(horaMsgs, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('yyyy LLL dd')} - {DateTime.fromISO(horaMsgs, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</span>}
+                                                    </React.Fragment>
+                                                ))
+                                            ))}
+                                    </div>
+                                </div>
+                                <div className="absolute flex justify-between gap-x-3 px-3 items-center bottom-0 w-full h-12 bg-transparent border-t dark:border-gray-800">
+                                    <input id="msgs" name="mensaje" onChange={handleChangeMsgs} value={formMsg.mensaje || ''} type="text" placeholder="Escribe un mensaje..." onKeyDown={(e) => {
+                                        if(e.key === 'Enter' && !e.shiftKey){
+                                            e.preventDefault()
+                                            enviarMensaje(msg.id)
+                                        }
+                                    }} className="w-full bg-gray-300 dark:bg-gray-900 rounded-lg px-2 py-0.5 focus:outline-none" />
+                                    <div className="flex text-emerald-500 justify-center items-center cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out" onClick={() => { enviarMensaje(msg.id) }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                     {modalCreditos && <ModalCreditos />}
                     {modalPlanes && <ModalPlanes />}

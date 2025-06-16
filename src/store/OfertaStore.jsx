@@ -25,6 +25,9 @@ const OfertaStore = create((set, get) => ({
     traProveedor: [],
     fechas: [],
 
+    //mensajes
+    mensajesUsuario: [],
+
     //string
     idProveedor: '',
 
@@ -40,6 +43,13 @@ const OfertaStore = create((set, get) => ({
     })),
     setOfertaProvs: (of) => set(state => ({
         ofertaProvs: typeof of === 'function' ? of(state.ofertaProvs) : of
+    })),
+
+    setNuevoMensaje: (msg) => set((state) => ({
+        nuevoMensaje: typeof msg === 'function' ? msg(state.nuevoMensaje) : msg
+    })),
+    setMensajesUsuario: (msg) => set((state) => ({
+        mensajesUsuario: typeof msg === 'function' ? msg(state.mensajesUsuario) : msg
     })),
 
     setTraProveedor: (traProv) => set({ traProveedor: traProv }),
@@ -137,6 +147,24 @@ const OfertaStore = create((set, get) => ({
         const { perfilBar } = get()
         if (perfilBar && !perfilBar.contains(event.target)) {
             set({ modalInfo: false })
+        }
+    },
+
+    obtenerMensajes: async (token, rol) => {
+        if (rol === 'administrador') return
+        const url = `${import.meta.env.VITE_BACKEND_URL}/mensajes`
+        try {
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options)
+            set(({ mensajesUsuario: [...respuesta.data.conversacion] }))
+        } catch (error) {
+            console.error(error)
         }
     }
 

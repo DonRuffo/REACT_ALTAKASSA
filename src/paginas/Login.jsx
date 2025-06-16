@@ -11,7 +11,7 @@ import OfertaStore from '../store/OfertaStore';
 
 const Login = () => {
     const { Perfil, darkMode, verificarUbicacionActual, verificarUbicacionTrabajo, ubiCliente, verificarFoto, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias } = AuthStoreContext()
-    const { ObtenerTrabajos, ListarOfertas, MisOfertas } = OfertaStore()
+    const { ObtenerTrabajos, ListarOfertas, MisOfertas, obtenerMensajes } = OfertaStore()
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)
     const navigate = useNavigate()
@@ -66,7 +66,8 @@ const Login = () => {
                     verificarUbicacionActual(respuesta.data.token, respuesta.data.rol, 'cliente'),
                     verificarUbicacionTrabajo(respuesta.data.token, respuesta.data.rol, 'proveedor'),
                     obtenerPlanes(respuesta.data.token),
-                    obtenerCategorias(respuesta.data.token)
+                    obtenerCategorias(respuesta.data.token),
+                    obtenerMensajes(respuesta.data.token, respuesta.data.rol)
                 ])
                 navigate('/dashboard/cliente')
             }

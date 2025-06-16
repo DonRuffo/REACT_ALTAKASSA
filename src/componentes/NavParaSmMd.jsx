@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const NavInfo = () => {
 
     const { modalInfo, setModalInfo } = OfertaStore()
-    const { auth, menu, handleMenu, tipo, setTipo, setOpcionActiva, connectionStatus, setModalCreditos, modalCreditos } = AuthStoreContext()
+    const { auth, menu, handleMenu, tipo, setTipo, setOpcionActiva, connectionStatus, setModalCreditos } = AuthStoreContext()
     const navigate = useNavigate()
     const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
     const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente'

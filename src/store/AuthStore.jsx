@@ -24,6 +24,7 @@ const AuthStoreContext = create((set, get) => ({
     users: [],
     categorias: [],
     selectorM:null,
+    nuevoMensaje: [],
 
 
     //pulsos para cargas previas
@@ -312,6 +313,29 @@ const AuthStoreContext = create((set, get) => ({
         } catch (error) {
             console.error(error)
         }
+    },
+    NuevoMSG: (idUser, nUser, nApellido, nFoto) => {
+        set((state) => {
+            const yaExiste = state.nuevoMensaje.some((u) => u.id === idUser);
+            if (yaExiste) return {}; 
+
+            const user = {
+                id: idUser,
+                nombre: nUser,
+                apellido: nApellido,
+                fPerfil: nFoto
+            };
+            return {
+                nuevoMensaje: [...state.nuevoMensaje, user] 
+            };
+        })
+    },
+
+    //funcion para eliminar del array a la conversacion actual. mas no los mensajes
+    eliminarChat: (idUser) => {
+        set(state => ({
+            nuevoMensaje: state.nuevoMensaje.filter(msg => msg.id !== idUser)
+        }))
     }
 
 }))

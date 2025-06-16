@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 const AppInit = ({ children }) => {
     const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, setDark, setDarkMode, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias } = AuthStoreContext()
-    const { ListarOfertas, ObtenerTrabajos, oferta, trabajos, MisOfertas, ofertaProvs } = OfertaStore()
+    const { ListarOfertas, ObtenerTrabajos, oferta, trabajos, MisOfertas, ofertaProvs, obtenerMensajes } = OfertaStore()
 
     SocketStatus()
 
@@ -30,7 +30,8 @@ const AppInit = ({ children }) => {
             verificarUbicacionTrabajo(token, rol, 'proveedor'),
             ubiCliente(token, rol),
             obtenerPlanes(token),
-            obtenerCategorias(token)
+            obtenerCategorias(token),
+            obtenerMensajes(token, rol)
         ])
         setTipo(tipoUsuario)
     }, [])
