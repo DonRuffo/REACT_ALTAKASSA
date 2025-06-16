@@ -43,7 +43,6 @@ const Dashboard = () => {
     const enviarMensaje = async (idUser) => {
         const token = localStorage.getItem('token')
         formMsg.receptor = idUser
-
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/envioMensaje`
             const options = {
@@ -53,20 +52,7 @@ const Dashboard = () => {
                 }
             }
 
-            const respuesta = await axios.post(url, formMsg, options)
-            setFormMsg({
-                receptor: '',
-                mensaje: ''
-            })
-            setMensajesUsuario((prev = []) => {
-                const existe = prev.find(of => of._id === respuesta.data._id)
-
-                if (existe) {
-                    return [...prev.filter(of => of._id !== respuesta.data._id), respuesta.data]
-                } else {
-                    return [...prev, respuesta.data]
-                }
-            })
+            await axios.post(url, formMsg, options)
         } catch (error) {
             console.error(error)
         }
@@ -114,7 +100,6 @@ const Dashboard = () => {
     }, [modalInfo])
 
     useEffect(() => {
-        console.log(mensajesUsuario)
         if (mensajesRef.current) {
             mensajesRef.current.scrollTop = mensajesRef.current.scrollHeight
         }
@@ -130,6 +115,10 @@ const Dashboard = () => {
                     } else {
                         return [...prev, conversacion]
                     }
+                })
+                setFormMsg({
+                    receptor: '',
+                    mensaje: ''
                 })
             }
         })
@@ -388,7 +377,9 @@ const Dashboard = () => {
                             </svg>
                         </div>
                         <h1 className="py-3 px-4 text-2xl text-white font-CalSans">Mensajes</h1><hr className="border-0.5 border-slate-700" /><br />
-
+                        <div>
+                            <img src="" alt="" />
+                        </div>
                     </div>
                     <div className="fixed w-auto h-auto bottom-0 left-1/2">
                         {nuevoMensaje.map(msg => (
@@ -419,9 +410,13 @@ const Dashboard = () => {
                                 </div>
                                 <div className="absolute flex justify-between gap-x-3 px-3 items-center bottom-0 w-full h-12 bg-transparent border-t dark:border-gray-800">
                                     <input id="msgs" name="mensaje" onChange={handleChangeMsgs} value={formMsg.mensaje || ''} type="text" placeholder="Escribe un mensaje..." onKeyDown={(e) => {
-                                        if(e.key === 'Enter' && !e.shiftKey){
+                                        if (e.key === 'Enter' && !e.shiftKey) {
                                             e.preventDefault()
                                             enviarMensaje(msg.id)
+                                        }
+                                        if (e.key === 'Escape'){
+                                            e.preventDefault()
+                                            eliminarChat(msg.id)
                                         }
                                     }} className="w-full bg-gray-300 dark:bg-gray-900 rounded-lg px-2 py-0.5 focus:outline-none" />
                                     <div className="flex text-emerald-500 justify-center items-center cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out" onClick={() => { enviarMensaje(msg.id) }}>
