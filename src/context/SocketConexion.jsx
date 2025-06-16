@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client'
 
-const socket = io(import.meta.env.VITE_BACK_LOCAL, {
+const socket = io(import.meta.env.VITE_BACK_URI, {
     autoConnect: true,
     reconnection: true,
     reconnectionAttempts: 6,
