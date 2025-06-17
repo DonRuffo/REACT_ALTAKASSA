@@ -123,9 +123,9 @@ const Inicio = () => {
                 : (
                     <>
                         <section className="flex justify-center mt-20 lg:mt-5 mb-5">
-                            <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 md:w-3/5 lg:py-10 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700">
-                                <h1 className="relative z-10 text-2xl md:text-3xl text-center text-purple-600 font-CalSans px-3 md:px-0">¡Qué gusto verte aquí!</h1>
-                                <h2 className="relative z-10 md:text-xl text-center dark:text-white pt-3  md:px-0">Los proveedores esperan por brindarte sus servicios</h2>
+                            <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 md:w-3/5 py-4.5 lg:py-10 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700">
+                                <h1 className="relative lg:z-10 text-2xl md:text-3xl text-center text-purple-600 font-CalSans px-3 md:px-0">¡Qué gusto verte aquí!</h1>
+                                <h2 className="relative lg:z-10 md:text-xl text-center dark:text-white pt-3  md:px-0">Los proveedores esperan por brindarte sus servicios</h2>
                                 <div className="absolute opacity-50 z-0 -top-2 left-2 hidden lg:flex justify-center pb-4">
                                     <img src={logoInicio} alt="Constructor" width={215} height={185} />
                                 </div>
@@ -186,7 +186,7 @@ const Inicio = () => {
                             </div>
                             <div className={`${filtro ? 'hidden' : ''} flex justify-center gap-x-5 flex-wrap`}>
                                 {oferta.length > 0 ? oferta.map((of, index) => (
-                                    <div key={of._id} className="flex items-center justify-between md:block radial-gradientOfertas-bg h-fit w-full py-1 md:p-4 md:w-fit md:max-w-48 rounded-lg shadow-lg shadow-purple-400 mb-5">
+                                    <div key={of._id} className="flex items-center justify-between md:block radial-gradientOfertas-bg h-fit w-full mx-6 md:mx-0 py-1 md:p-4 md:w-fit md:max-w-48 rounded-lg shadow-lg shadow-purple-400 mb-5">
                                         <div className="flex justify-center ml-1.5 md:ml-0 ">
                                             <div className="flex justify-center h-[70px] w-[70px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer shrink-0" onClick={() => { setModalProvs(!modalProvs); setValorUrl(of.proveedor.f_perfil); setIndex(index) }}>
                                                 <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />

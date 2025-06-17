@@ -53,8 +53,17 @@ const Dashboard = () => {
                     Authorization: `Bearer ${token}`
                 }
             }
-            console.log('aloooooooooo')
-            await axios.post(url, formMsg, options)
+        
+            const respuesta =await axios.post(url, formMsg, options)
+            console.log(respuesta.data)
+            setMensajesUsuario(prev => {
+                const existe = prev.find(of => of._id === respuesta.data._id)
+                if(existe){
+                    return [...prev.filter(alo => alo._id !== respuesta.data._id), respuesta.data]
+                }else{
+                    return [...prev, respuesta.data]
+                }
+            })
         } catch (error) {
             console.error(error)
         }
@@ -102,7 +111,6 @@ const Dashboard = () => {
     }, [modalInfo])
 
     useEffect(() => {
-        console.log(mensajesUsuario)
         if (mensajesRef.current) {
             mensajesRef.current.scrollTop = mensajesRef.current.scrollHeight
         }
@@ -375,7 +383,7 @@ const Dashboard = () => {
                             </Link>
                         </div>
                     </div>
-                    <div id="ContenedorMsgs" className={`w-76 inset-y-14 fixed right-0 bottom-0 rounded-l-2xl bg-gray-100 dark:bg-black transform ${mensajes ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+                    <div id="ContenedorMsgs" className={`w-72 inset-y-14 fixed right-0 bottom-0 rounded-l-2xl bg-gray-100 dark:bg-black transform ${mensajes ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
                         <div className="absolute text-white right-3 top-3 cursor-pointer" onClick={() => { setMensajes(false) }}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -388,12 +396,12 @@ const Dashboard = () => {
 
                             return (
                                 <div className="flex items-center gap-x-2.5 w-full h-15 border-b dark:border-slate-800 cursor-pointer" onClick={() => { NuevoMSG(users._id, users.nombre, users.apellido, users.f_perfil) }}>
-                                    <div className="ml-3.5 w-11 h-11 rounded-full overflow-hidden">
+                                    <div className="ml-3.5 w-11 h-11 rounded-full overflow-hidden shrink-0">
                                         <img src={users.f_perfil} alt="ussers" className="w-full h-full object-cover" />
                                     </div>
                                     <div className="-space-y-1">
                                         <h1 className="text-lg dark:text-white">{nameCompleto}</h1>
-                                        <p className="dark:text-slate-300">{ent.mensajes.at(-1).mensaje}</p>
+                                        <p className="dark:text-slate-300 truncate w-1/2">{ent.mensajes.at(-1).mensaje}</p>
                                     </div>
                                 </div>
                             )
@@ -402,7 +410,7 @@ const Dashboard = () => {
                         )}
 
                     </div>
-                    <div className="fixed w-auto h-auto bottom-0 left-1/2">
+                    <div className="fixed w-auto h-auto bottom-0 left-1/12 md:left-1/2">
                         {nuevoMensaje.map(msg => {
 
                             const comparacion = mensajesUsuario.some(n =>
