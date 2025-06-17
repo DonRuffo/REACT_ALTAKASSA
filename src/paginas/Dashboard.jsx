@@ -10,11 +10,12 @@ import ModalPlanes from "../componentes/modals/ModalPlanes";
 import axios from "axios";
 import { DateTime } from "luxon";
 import socket from "../context/SocketConexion";
+import '../../CSS/fondos.css'
 const Dashboard = () => {
     const sideBar = useRef(null)
     const verPerfil = useRef(null)
     const navigate = useNavigate()
-    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus, setModalCreditos, modalCreditos, modalPlanes, setModalPlanes, nuevoMensaje, eliminarChat } = AuthStoreContext()
+    const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus, setModalCreditos, modalCreditos, modalPlanes, setModalPlanes, nuevoMensaje, eliminarChat, NuevoMSG } = AuthStoreContext()
     const { modalPerfilFoto, setModalInfo, modalInfo, setperfilBar, handleClickOutsidePerfil, handleInfo, setMensajesUsuario, mensajesUsuario } = OfertaStore()
 
     const [rotar, setRotar] = useState(false)
@@ -44,14 +45,15 @@ const Dashboard = () => {
         const token = localStorage.getItem('token')
         formMsg.receptor = idUser
         try {
+
             const url = `${import.meta.env.VITE_BACKEND_URL}/envioMensaje`
             const options = {
                 headers: {
-                    'Content-Type': 'Application/json',
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
             }
-
+            console.log('aloooooooooo')
             await axios.post(url, formMsg, options)
         } catch (error) {
             console.error(error)
@@ -100,14 +102,17 @@ const Dashboard = () => {
     }, [modalInfo])
 
     useEffect(() => {
+        console.log(mensajesUsuario)
         if (mensajesRef.current) {
             mensajesRef.current.scrollTop = mensajesRef.current.scrollHeight
         }
     }, [mensajesUsuario, nuevoMensaje])
 
     useEffect(() => {
+        if (!auth._id) return
+
         socket.on('Mensaje', ({ conversacion }) => {
-            if (conversacion.participantes.includes(auth._id)) {
+            if (conversacion.participantes.some(of => of._id === auth._id)) {
                 setMensajesUsuario(prev => {
                     const existe = prev.find(of => of._id === conversacion._id)
                     if (existe) {
@@ -126,7 +131,7 @@ const Dashboard = () => {
         return () => {
             socket.off('Mensaje')
         }
-    }, [])
+    }, [auth._id])
     return (
         <>
             <div className={`${dark ? "dark bg-emerald-950" : "bg-emerald-900"}`}>
@@ -370,63 +375,87 @@ const Dashboard = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className={`w-76 inset-y-14 fixed right-0 bottom-0 rounded-l-2xl bg-gray-100 dark:bg-black transform ${mensajes ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+                    <div id="ContenedorMsgs" className={`w-76 inset-y-14 fixed right-0 bottom-0 rounded-l-2xl bg-gray-100 dark:bg-black transform ${mensajes ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
                         <div className="absolute text-white right-3 top-3 cursor-pointer" onClick={() => { setMensajes(false) }}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                         </div>
-                        <h1 className="py-3 px-4 text-2xl text-white font-CalSans">Mensajes</h1><hr className="border-0.5 border-slate-700" /><br />
-                        <div>
-                            <img src="" alt="" />
-                        </div>
+                        <h1 className="py-3 px-4 text-2xl text-white font-CalSans">Mensajes</h1><hr className="border-0.5 border-slate-700" />
+                        {mensajesUsuario.flatMap(ent => {
+                            const users = ent.participantes.find(of => of._id !== auth._id)
+                            const nameCompleto = users.nombre + ' ' + users.apellido
+
+                            return (
+                                <div className="flex items-center gap-x-2.5 w-full h-15 border-b dark:border-slate-800 cursor-pointer" onClick={() => { NuevoMSG(users._id, users.nombre, users.apellido, users.f_perfil) }}>
+                                    <div className="ml-3.5 w-11 h-11 rounded-full overflow-hidden">
+                                        <img src={users.f_perfil} alt="ussers" className="w-full h-full object-cover" />
+                                    </div>
+                                    <div className="-space-y-1">
+                                        <h1 className="text-lg dark:text-white">{nameCompleto}</h1>
+                                        <p className="dark:text-slate-300">{ent.mensajes.at(-1).mensaje}</p>
+                                    </div>
+                                </div>
+                            )
+                        }
+
+                        )}
+
                     </div>
                     <div className="fixed w-auto h-auto bottom-0 left-1/2">
-                        {nuevoMensaje.map(msg => (
-                            <div key={msg.id} className="relative w-76 h-92 outline outline-gray-300 dark:outline-gray-800 dark:text-white bg-gray-100 dark:bg-black rounded-t-2xl">
-                                <div className="absolute top-2 right-2 cursor-pointer" onClick={() => { eliminarChat(msg.id) }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                    </svg>
-                                </div>
-                                <div id='header' className="flex items-center py-2 px-3 gap-x-3.5">
-                                    <div className="w-10 h-10 rounded-full overflow-hidden">
-                                        <img src={msg.fPerfil} alt="perfilUser" className="w-full h-full object-cover" />
+                        {nuevoMensaje.map(msg => {
+
+                            const comparacion = mensajesUsuario.some(n =>
+                                n.participantes.some(lee => lee._id === msg.id)
+                            )
+
+                            return (
+                                <div key={msg.id} className="relative w-76 h-92 outline outline-gray-300 dark:outline-gray-800 dark:text-white bg-gray-100 dark:bg-black rounded-t-2xl">
+                                    <div className="absolute top-2 right-2 cursor-pointer" onClick={() => { eliminarChat(msg.id) }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                        </svg>
                                     </div>
-                                    <p className="text-lg">{msg.nombre} {msg.apellido}</p>
-                                </div><hr className="border-0.5 border-slate-700" />
-                                <div ref={mensajesRef} id="contenedorMsgs" className="w-full h-[262px] overflow-y-auto">
-                                    <div className="flex flex-col px-1.5 py-1">
-                                        {mensajesUsuario.filter(oc => oc.participantes.includes((msg.id)))
-                                            .flatMap(loc => (
+                                    <div id='header' className="flex items-center py-2 px-3 gap-x-3.5">
+                                        <div className="w-10 h-10 rounded-full overflow-hidden">
+                                            <img src={msg.fPerfil} alt="perfilUser" className="w-full h-full object-cover" />
+                                        </div>
+                                        <p className="text-lg">{msg.nombre} {msg.apellido}</p>
+                                    </div><hr className="border-0.5 border-slate-700" />
+                                    <div ref={mensajesRef} id="contenedorMsgs" className="w-full h-[262px] overflow-y-auto">
+                                        <div className="flex flex-col px-1.5 py-1">
+                                            {comparacion && mensajesUsuario.flatMap(loc => (
                                                 loc.mensajes.map((m) => (
                                                     <React.Fragment key={m._id}>
                                                         <p className={`text-white py-1 px-2.5 rounded-b-lg ${m.emisor === auth._id ? 'bg-emerald-700 self-end rounded-l-lg' : 'bg-gray-700 self-start rounded-r-lg'}  mt-1.5 w-fit max-w-3/4 text-start`} onClick={() => { setHoraMsgs(m.fecha); setIdMensaje(m._id) }}>{m.mensaje}</p>
                                                         {idMensaje === m._id && <span className={`text-xs ${m.emisor === auth._id ? 'self-end' : 'self-start'} mt-0.5`}>{DateTime.fromISO(horaMsgs, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('yyyy LLL dd')} - {DateTime.fromISO(horaMsgs, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</span>}
                                                     </React.Fragment>
                                                 ))
-                                            ))}
+                                            ))
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div className="absolute flex justify-between gap-x-3 px-3 items-center bottom-0 w-full h-12 bg-transparent border-t dark:border-gray-800">
+                                        <input id="msgs" name="mensaje" onChange={handleChangeMsgs} value={formMsg.mensaje || ''} type="text" placeholder="Escribe un mensaje..." onKeyDown={(e) => {
+                                            if (e.key === 'Enter' && !e.shiftKey) {
+                                                e.preventDefault()
+                                                enviarMensaje(msg.id)
+                                            }
+                                            if (e.key === 'Escape') {
+                                                e.preventDefault()
+                                                eliminarChat(msg.id)
+                                            }
+                                        }} className="w-full bg-gray-300 dark:bg-gray-900 rounded-lg px-2 py-0.5 focus:outline-none" />
+                                        <div className="flex text-emerald-500 justify-center items-center cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out" onClick={() => { enviarMensaje(msg.id) }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="absolute flex justify-between gap-x-3 px-3 items-center bottom-0 w-full h-12 bg-transparent border-t dark:border-gray-800">
-                                    <input id="msgs" name="mensaje" onChange={handleChangeMsgs} value={formMsg.mensaje || ''} type="text" placeholder="Escribe un mensaje..." onKeyDown={(e) => {
-                                        if (e.key === 'Enter' && !e.shiftKey) {
-                                            e.preventDefault()
-                                            enviarMensaje(msg.id)
-                                        }
-                                        if (e.key === 'Escape'){
-                                            e.preventDefault()
-                                            eliminarChat(msg.id)
-                                        }
-                                    }} className="w-full bg-gray-300 dark:bg-gray-900 rounded-lg px-2 py-0.5 focus:outline-none" />
-                                    <div className="flex text-emerald-500 justify-center items-center cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out" onClick={() => { enviarMensaje(msg.id) }}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                            )
+                        })}
                     </div>
                     {modalCreditos && <ModalCreditos />}
                     {modalPlanes && <ModalPlanes />}
