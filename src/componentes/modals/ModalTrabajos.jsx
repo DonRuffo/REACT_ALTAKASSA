@@ -12,7 +12,7 @@ import AuthStoreContext from "../../store/AuthStore";
 import PropTypes from "prop-types";
 
 const ModalTrabajos = ({ idOferta }) => {
-    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil, mapaCliProv, setMapaCliProv, setTrabajos, setTrabajosProvs } = OfertaStore()
+    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil, mapaCliProv, setMapaCliProv, setTrabajos } = OfertaStore()
     const { auth, setUbicacionTrabajo } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
@@ -232,16 +232,17 @@ const ModalTrabajos = ({ idOferta }) => {
     }, [traProveedor]);
 
     useEffect(() => {
-        socket.on('Trabajo-creado', ({ trabajoActual }) => {
+        if(!auth._id) return
+
+        const nuevaSoli = ({trabajoActual}) =>{
             if (auth._id === trabajoActual.cliente._id) {
                 setTrabajos(prev => [...prev, trabajoActual])
             }
-            if (auth._id === trabajoActual.proveedor._id) {
-                setTrabajosProvs(prev => [...prev, trabajoActual])
-            }
-        })
-        return () => socket.off('Trabajo-creado')
-    }, [])
+        }
+        socket.on('Nueva-solicitud', nuevaSoli)
+
+        return () => socket.off('Nueva-solicitud', nuevaSoli)
+    }, [auth._id])
 
 
     return (

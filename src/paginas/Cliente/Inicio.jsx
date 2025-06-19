@@ -17,7 +17,7 @@ import EsqueletoInicioCli from "../Esqueletos/EsqInicioCli";
 import socket from "../../context/SocketConexion";
 
 const Inicio = () => {
-    const { auth, setAuth, foto, ubiActual, setUbiActual, pulseFoto, pulseUbiTra, pulseUbiActual, ubiCliente, setUbicacionActual, ivActual, categorias } = AuthStoreContext()
+    const { setAuth, foto, ubiActual, setUbiActual, pulseFoto, pulseUbiTra, pulseUbiActual, ubiCliente, setUbicacionActual, ivActual, categorias } = AuthStoreContext()
     const { modalTra, setModalTra, oferta, setIdProveedor, modalProvs, setModalProvs, setOferta } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
@@ -76,7 +76,7 @@ const Inicio = () => {
         }
     }
 
-    
+
     useEffect(() => {
         if (valor) {
             const filtradas = oferta.filter((of) => of.servicio === valor)
@@ -89,33 +89,38 @@ const Inicio = () => {
 
 
     useEffect(() => {
-        if(!ivActual) return
+        if (!ivActual) return
         obtenerUbi()
     }, [ivActual])
 
     useEffect(() => {
-            socket.on('Nueva-Oferta', ({ ofertaPop }) => {
-                if (ofertaPop.proveedor.monedasTrabajos !== 0) {
-                    setOferta(prev => [...prev, ofertaPop])
-                }
-            })
 
-            socket.on('Eliminacion', ({id}) =>{
-                setOferta(prev => prev.filter(of => of._id !== id))
-            })
-
-            socket.on('Actualizacion', ({id, ofertaActual}) =>{
-                if (ofertaActual.proveedor.monedasTrabajos !== 0) {
-                    setOferta(prev => [...prev.filter(of => of._id !== id), ofertaActual])
-                }
-            })
-
-            return () => {
-                socket.off('Nueva-Oferta')
-                socket.off('Eliminacion')
-                socket.off('Actualizacion')
+        const nuevaOf = ({ ofertaPop }) => {
+            if (ofertaPop.proveedor.monedasTrabajos !== 0) {
+                setOferta(prev => [...prev, ofertaPop])
             }
-        }, [])
+        }
+
+        const eliminacion = ({ id }) => {
+            setOferta(prev => prev.filter(of => of._id !== id))
+        }
+
+        const actualizacion = ({id, ofertaActual}) => {
+            if (ofertaActual.proveedor.monedasTrabajos !== 0) {
+                setOferta(prev => [...prev.filter(of => of._id !== id), ofertaActual])
+            }
+        }
+
+        socket.on('Nueva-Oferta', nuevaOf)
+        socket.on('Eliminacion', eliminacion)
+        socket.on('Actualizacion', actualizacion)
+
+        return () => {
+            socket.off('Nueva-Oferta', nuevaOf)
+            socket.off('Eliminacion', eliminacion)
+            socket.off('Actualizacion', actualizacion)
+        }
+    }, [])
     return (
         <>
             <ToastContainer />
@@ -130,7 +135,7 @@ const Inicio = () => {
                                     <img src={logoInicio} alt="Constructor" width={215} height={185} />
                                 </div>
                                 <div className="lg:hidden flex justify-center pb-1">
-                                    <img src={logoInicio} alt="Constructor" width={110} height={110}  />
+                                    <img src={logoInicio} alt="Constructor" width={110} height={110} />
                                 </div>
                             </div>
                         </section><br />

@@ -14,7 +14,6 @@ const ContratosProv = () => {
     const { Perfil, auth, NuevoMSG } = AuthStoreContext()
 
     const cancelarTrabajo = async (idTra, servicio, idProv) => {
-        console.log(idProv)
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
         const confirmar = confirm(`¿Estás seguro de cancelar el trabajo de ${servicio}?`)
@@ -27,10 +26,9 @@ const ContratosProv = () => {
                         Authorization: `Bearer ${token}`
                     }
                 }
-                console.log(urlCancelar)
+                
                 const respuesta = await axios.put(urlCancelar, {}, options)
                 toast.success(respuesta.data.msg)
-                await Perfil(token, rol)
             } catch (error) {
                 console.log("Error al cancelar el trabajo", error);
                 toast.error(error.response.data.msg)

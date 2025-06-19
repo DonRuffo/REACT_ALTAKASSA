@@ -8,8 +8,6 @@ const AppInit = ({ children }) => {
     const { Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, setDark, setDarkMode, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias } = AuthStoreContext()
     const { ListarOfertas, ObtenerTrabajos, oferta, trabajos, MisOfertas, ofertaProvs, obtenerMensajes } = OfertaStore()
 
-    SocketStatus()
-
     useEffect(() => {
         const token = localStorage.getItem('token')
         const rol = localStorage.getItem('rol')
@@ -72,6 +70,7 @@ const AppInit = ({ children }) => {
     }, [])
     return (
         <>
+            <SocketStatus />
             {children}
         </>
     )

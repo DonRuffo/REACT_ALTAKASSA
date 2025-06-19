@@ -8,17 +8,21 @@ const CategoriasServicios = () => {
     const { categorias, setCategorias, modalCategorias, setModalCategorias } = AuthStoreContext()
 
     useEffect(()=>{
-        socket.on('nuevaCategoria', ({cat}) =>{
-            setCategorias(prev => [...prev, cat])
-        })
 
-        socket.on('Categoria eliminada', ({id}) =>{
+        const categorias = ({cat}) => {
+            setCategorias(prev => [...prev, cat])
+        }
+
+        const eliminarCat =({id}) =>{
             setCategorias(prev => prev.filter(of => of._id !== id))
-        })
+        }
+
+        socket.on('nuevaCategoria', categorias)
+        socket.on('Categoria eliminada', eliminarCat)
 
         return () => {
-            socket.off('nuevaCategoria')
-            socket.off('Categoria eliminada')
+            socket.off('nuevaCategoria', categorias)
+            socket.off('Categoria eliminada', eliminarCat)
         }
     }, [])
 

@@ -105,9 +105,6 @@ const HistorialTrabajoCli = () => {
                                                 <p className="pl-5 text-center" >Estado</p>
                                             </div>
                                         </div>
-                                        <div className="flex justify-around mt-2">
-                                            <button type="button" className="px-3 py-2 bg-red-200 rounded-md text-red-800 font-semibold hover:scale-105 duration-300 cursor-pointer">Cancelar</button>
-                                        </div>
                                     </div>
                                 ))
                             )

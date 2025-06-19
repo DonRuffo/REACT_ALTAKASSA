@@ -22,7 +22,6 @@ const ListadoOfertas = () => {
             const confirmar = confirm(`¿Estás seguro de eliminar la Oferta N°${indx}?`)
             if (confirmar) {
                 const token = localStorage.getItem('token')
-                const rol = localStorage.getItem('rol')
                 const url = `${import.meta.env.VITE_BACKEND_URL}/eliminarOferta/${id}`
                 const options = {
                     headers: {

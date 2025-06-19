@@ -11,8 +11,8 @@ import socket from "../../context/SocketConexion";
 import {DateTime} from 'luxon';
 
 const SolicitudProv = () => {
-    const { trabajosProvs, pulseTra, setTrabajos, setTrabajosProvs } = OfertaStore()
-    const { Perfil, auth } = AuthStoreContext()
+    const { trabajosProvs, pulseTra, setTrabajosProvs } = OfertaStore()
+    const { auth } = AuthStoreContext()
     const token = localStorage.getItem('token')
     const rol = localStorage.getItem('rol')
 
@@ -30,7 +30,6 @@ const SolicitudProv = () => {
                 }
                 const respuesta = await axios.put(url, {}, options)
                 toast.success(respuesta.data.msg)
-                await Perfil(token, rol)
             } catch (error) {
                 console.log(error)
                 toast.error(error.response.data.msg)
@@ -69,36 +68,53 @@ const SolicitudProv = () => {
     }
 
     useEffect(() => {
+        if(!auth._id) return
 
-        socket.on('Nueva-solicitud', ({trabajoActual})=>{
+        const nuevaSoli = ({ trabajoActual }) => {
+            console.log(trabajoActual)
             if (auth._id === trabajoActual.proveedor._id) {
                 setTrabajosProvs(prev => [...prev, trabajoActual])
             }
-        })
+        }
 
-        socket.on('Trabajo-agendado', ({ id, trabajoActualizado }) => {
+        const trabajoAgendado = ({ id, trabajoActualizado }) => {
             if (auth._id === trabajoActualizado.proveedor._id) {
                 setTrabajosProvs(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
             }
-        })
+        }
 
-        socket.on('Trabajo-rechazado', ({ id, trabajoActualizado }) => {
+        const trabajoRechazado = ({id, trabajoActualizado}) =>{
             if (auth._id === trabajoActualizado.proveedor._id) {
                 setTrabajosProvs(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
             }
-        })
-        socket.on('Trabajo-eliminado', ({id, trabajo}) =>{
+        }
+
+        const trabajoEliminado = ({id, trabajo}) => {
             if (auth._id === trabajo.proveedor._id) {
-                setTrabajosProvs(prev => [...prev.filter(of => of._id !== id)])
+                setTrabajosProvs(prev => prev.filter(of => of._id !== id))
             }
-        })
+        }
+
+        const trabajoActualizadoProv = ({id, trabajoActualizado}) =>{
+            if(auth._id === trabajoActualizado.proveedor._id){
+                setTrabajosProvs(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
+            }
+        }
+
+        socket.on('Nueva-solicitud', nuevaSoli)
+        socket.on('Trabajo-agendado', trabajoAgendado)
+        socket.on('Trabajo-rechazado', trabajoRechazado)
+        socket.on('Trabajo-eliminado', trabajoEliminado)
+        socket.on('Trabajo-actualizado', trabajoActualizadoProv)
 
         return () => {
-            socket.off('Trabajo-agendado')
-            socket.off('Trabajo-rechazado')
-            socket.off('Trabajo-eliminado')
+            socket.off('Nueva-solicitud', nuevaSoli)
+            socket.off('Trabajo-agendado', trabajoAgendado)
+            socket.off('Trabajo-rechazado', trabajoRechazado)
+            socket.off('Trabajo-eliminado', trabajoEliminado)
+            socket.off('Trabajo-actualizado', trabajoActualizadoProv)
         }
-    }, [])
+    }, [auth._id])
 
     return (
         <>
@@ -112,9 +128,9 @@ const SolicitudProv = () => {
                             <div className="flex justify-center gap-3 flex-wrap">
                                 {trabajosProvs.length !== 0 &&
                                     trabajosProvs.some(tra => tra.status === "En espera") ? (
-                                    trabajosProvs.map((tra) => (
+                                    trabajosProvs.map((tra, index) => (
                                         tra.status === "En espera" && (
-                                            <div key={tra._id} className="w-fit h-fit max-w-64 py-2 px-5 radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
+                                            <div key={`${tra._id}-${index}`} className="w-fit h-fit max-w-64 py-2 px-5 radial-gradientTrabajos-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
                                                 <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                                 <div className="flex justify-center items-center gap-x-3 mt-1.5">
                                                     <div className="w-[65px] h-[65px] rounded-full overflow-hidden">
@@ -157,7 +173,7 @@ const SolicitudProv = () => {
                                         )
                                     )
                                     )) : (
-                                    <div className="w-[250px] h-[265px] px-5 mb-5 shadow-lg dark:shadow-slate-800 bg-gray-100 rounded-lg dark:bg-gray-900 flex flex-col justify-center items-center">
+                                    <div className="w-[250px] h-[265px] px-5 mb-5 shadow-lg dark:shadow-gray-800 bg-gray-100 rounded-lg dark:bg-gray-900 flex flex-col justify-center items-center">
                                         <img src={imgSoli} alt="SinSolicitudes" width={150} height={150} />
                                         <p className="text-lg dark:text-white font-semibold text-center">Aún no tienes solicitudes de servicio</p>
                                         <p className="text-lg dark:text-white font-semibold text-center">¡Pronto las tendrás!</p>

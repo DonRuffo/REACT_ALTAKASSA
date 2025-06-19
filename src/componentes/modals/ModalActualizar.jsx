@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 const ModalActualizar = ({ idTrabajo, idOferta }) => {
     const { auth } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('');
-    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv, setTrabajos, setTrabajosProvs } = OfertaStore()
+    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv, setTrabajos } = OfertaStore()
     const [carga, setCarga] = useState(true)
     const [calendario, setCalendario] = useState(false)
 
@@ -184,24 +184,26 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
     }, [formTrabajo.desde, formTrabajo.hasta, formTrabajo.tipo]);
 
     useEffect(() =>{
-        socket.on('Trabajo-actualizado', ({id, trabajoActualizado}) =>{
+        
+        if(!auth._id) return
+
+        const trabajoActualizado = ({id, trabajoActualizado}) => {
             if(auth._id === trabajoActualizado.cliente._id){
                 setTrabajos(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
             }
-            if(auth._id === trabajoActualizado.proveedor._id){
-                setTrabajosProvs(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
-            }
-        })
+        }
 
+        socket.on('Trabajo-actualizado', trabajoActualizado)
 
-        return () => socket.off('Trabajo-actualizado')
-    }, [])
+        return () => socket.off('Trabajo-actualizado', trabajoActualizado)
+
+    }, [auth._id])
 
 
     return (
         <>
             <div className="fixed bg-black/80 inset-0 transition-all duration-300">
-                <ToastContainer />
+                <ToastContainer style={{position:'sticky'}}/>
                 <div className="fixed top-1/6 md:top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 outline-2 dark:outline-emerald-500 outline-emerald-700">
                     <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-emerald-700 dark:text-emerald-500">Actualizar solicitud</h1>
                     <div className="grid grid-cols-2">

@@ -31,8 +31,6 @@ const SolicitudesCli = () => {
         if (confirmar) {
             try {
                 const token = localStorage.getItem('token')
-                const rol = localStorage.getItem('rol')
-                const tipo = localStorage.getItem('tipo')
                 const url = `${import.meta.env.VITE_BACKEND_URL}/eliminarTrabajo/${id}`
                 const options = {
                     headers: {
@@ -41,7 +39,6 @@ const SolicitudesCli = () => {
                     }
                 }
                 await axios.delete(url, options)
-                await ObtenerTrabajos(token, rol, tipo)
             } catch (error) {
                 console.log(error);
             }
@@ -49,28 +46,37 @@ const SolicitudesCli = () => {
     }
 
     useEffect(()=>{
-        socket.on('Trabajo-agendado', ({ id, trabajoActualizado }) => {
+
+        if(!auth._id) return
+
+        const trabajoAgendado = ({id, trabajoActualizado}) =>{
             if (auth._id === trabajoActualizado.cliente._id) {
                 setTrabajos(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
             }
-        })
-        
-        socket.on('Trabajo-rechazado', ({ id, trabajoActualizado }) => {
+        }
+
+        const trabajoRechazado = ({id, trabajoActualizado}) => {
             if (auth._id === trabajoActualizado.cliente._id) {
                 setTrabajos(prev => [...prev.filter(tra => tra._id !== id), trabajoActualizado])
             }
-        })
-        socket.on('Trabajo-eliminado', ({id, trabajo}) =>{
+        }
+
+        const trabajoEliminado = ({id, trabajo}) => {
             if (auth._id === trabajo.cliente._id) {
                 setTrabajos(prev => prev.filter(of => of._id !== id))
             }
-        })
-        return () => {
-            socket.off('Trabajo-eliminado')
-            socket.off('Trabajo-rechazado')
-            socket.off('Trabajo-agendado')
         }
-    }, [])
+
+        socket.on('Trabajo-agendado', trabajoAgendado)
+        socket.on('Trabajo-rechazado', trabajoRechazado)
+        socket.on('Trabajo-eliminado', trabajoEliminado)
+
+        return () => {
+            socket.off('Trabajo-eliminado', trabajoEliminado)
+            socket.off('Trabajo-rechazado', trabajoRechazado)
+            socket.off('Trabajo-agendado', trabajoAgendado)
+        }
+    }, [auth._id])
 
     return (
         <>
@@ -119,7 +125,7 @@ const SolicitudesCli = () => {
                                         )
                                     ))
                                 ) : (
-                                    <div className="w-[250px] h-[265px] mb-5 px-5 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-slate-700 flex flex-col justify-center items-center">
+                                    <div className="w-[250px] h-[265px] mb-5 px-5 bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg dark:shadow-slate-700 flex flex-col justify-center items-center">
                                         <img src={imgSinTrabajo} alt="SinTrabajos" width={150} height={150} />
                                         <p className="text-lg text-gray-700 dark:text-white font-semibold text-center">Todavía no has solicitado ningún trabajo</p>
                                         <Link to='/dashboard/cliente' className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={() => setOpcionActiva('inicio')}>
