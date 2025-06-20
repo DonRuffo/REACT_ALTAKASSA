@@ -384,7 +384,7 @@ const Dashboard = () => {
                             </Link>
                         </div>
                     </div>
-                    <div id="ContenedorMsgs" className={`w-72 inset-y-14 fixed right-0 bottom-0 rounded-l-2xl bg-gray-100 dark:bg-black transform ${mensajes ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+                    <div id="ContenedorMsgs" className={`w-72 inset-y-14 fixed right-0 bottom-0 overflow-y-auto rounded-l-2xl bg-gray-100 dark:bg-black transform ${mensajes ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
                         <div className="absolute dark:text-white right-3 top-3 cursor-pointer" onClick={() => { setMensajes(false) }}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -420,7 +420,7 @@ const Dashboard = () => {
                         )}
 
                     </div>
-                    <div className="fixed bottom-0 right-1/12 md:right-1/2">
+                    <div className="fixed bottom-0 right-1/12 md:right-72">
                         <div className="flex flex-row-reverse w-auto h-auto gap-x-2">
                             {nuevoMensaje.map(msg => {
 

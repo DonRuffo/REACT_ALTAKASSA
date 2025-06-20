@@ -38,59 +38,58 @@ const HistorialTrabajoCli = () => {
                         trabajos.some(tra => tra.status !== "En espera" && tra.status !== "Agendado" && tra.status !== "Rechazado") ? (
                             trabajos.map((tra) => (
                                 (tra.status === "Cancelado" && (selectedOption === "Cancelados" || selectedOption === "Todos") && (
-                                    <div key={tra._id} className="w-fit h-fit py-4 px-5 radial-gradientRechazados-bg rounded-lg shadow-lg shadow-fuchsia-300 mb-5">
-                                        <h1 className="text-center text-2xl pb-1.5 border-b-2 font-semibold text-white">{tra.servicio}</h1>
+                                    <div key={tra._id} className="w-fit h-fit py-3 px-5 radial-gradientRechazados-bg rounded-lg shadow-lg shadow-fuchsia-300 mb-5">
+                                        <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <div className="flex justify-center items-center gap-x-3 mt-1.5">
                                             <div className="w-[65px] h-[65px] rounded-full overflow-hidden shrink-0">
                                                 <img src={tra.proveedor.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                             </div>
                                             <div className="-space-y-0.5">
                                                 <p className="text-xl font-semibold text-white truncate w-28">{tra.proveedor.nombre}</p>
-                                                <p className="font-semibold text-emerald-900">{tra.fecha.split('T')[0]}</p>
+                                                <p className="font-semibold">{tra.fecha.split('T')[0]}</p>
                                                 <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
                                         </div>
-                                        <div className="flex justify-around mt-1.5 gap-x-3">
-                                            <div className="flex flex-col justify-end items-center">
-                                                <h1 className="text-4xl font-semibold text-red-900">
-                                                    ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
-                                                </h1>
-                                                <p className="text-center">Total {tra.tipo === 'precioPorDia' ? 'por Día' : 'por Horas'}</p>
-                                            </div>
-                                            <div className="flex flex-col justify-end items-center">
+                                        <div className="flex justify-around my-1.5 gap-x-3">
+
+                                            <h1 className="text-3xl font-semibold text-red-900">
+                                                ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
+                                                <span className="text-base"> total</span>
+                                            </h1>
+                                            <div className="flex items-center">-</div>
+                                            <div className="flex justify-center items-center">
                                                 <h1 className="font-semibold text-xl text-red-900">
                                                     {tra.status}
                                                 </h1>
-                                                <p className="pl-5 text-center" >Estado</p>
                                             </div>
                                         </div>
                                     </div>
                                 ))
                                 || (tra.status === "Completado" && (selectedOption === "Completados" || selectedOption === "Todos") && (
-                                    <div key={tra._id} className="w-fit h-fit py-4 px-5 radial-gradientAceptados-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
-                                        <h1 className="text-center text-2xl pb-1.5 border-b-2 font-semibold text-white">{tra.servicio}</h1>
+                                    <div key={tra._id} className="w-fit h-fit py-3 px-5 radial-gradientAceptados-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
+                                        <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <div className="flex justify-center items-center gap-x-3 mt-1.5">
                                             <div className="w-[65px] h-[65px] rounded-full overflow-hidden shrink-0">
                                                 <img src={tra.proveedor.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                             </div>
                                             <div className="-space-y-0.5">
-                                                <p className="text-xl font-semibold text-white truncate w-28">{tra.proveedor.nombre}</p>
-                                                <p className="font-semibold text-cyan-800">{tra.fecha.split('T')[0]}</p>
+                                                <p className="text-xl font-semibold text-cyan-900 truncate w-28">{tra.proveedor.nombre}</p>
+                                                <p className="font-semibold">{tra.fecha.split('T')[0]}</p>
                                                 <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
                                         </div>
-                                        <div className="flex justify-around mt-1.5 gap-x-3">
-                                            <div className="flex flex-col justify-end items-center">
-                                                <h1 className="text-4xl font-semibold text-amber-900">
-                                                    ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
-                                                </h1>
-                                                <p className="text-center">Total {tra.tipo === 'precioPorDia' ? 'por Día' : 'por Horas'}</p>
-                                            </div>
-                                            <div className="flex flex-col justify-end items-center">
-                                                <h1 className="font-semibold text-xl text-amber-900">
+                                        <div className="flex justify-around my-1.5 gap-x-3">
+
+                                            <h1 className="text-3xl font-semibold text-cyan-900">
+                                                ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
+                                                <span className="text-base"> total</span>
+                                            </h1>
+
+                                            <div className="flex items-center">-</div>
+                                            <div className="flex items-center">
+                                                <h1 className="font-semibold text-xl text-cyan-900">
                                                     {tra.status}
                                                 </h1>
-                                                <p className="pl-5 text-center" >Estado</p>
                                             </div>
                                         </div>
                                     </div>

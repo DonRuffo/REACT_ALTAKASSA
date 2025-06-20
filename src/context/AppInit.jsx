@@ -74,7 +74,7 @@ const AppInit = ({ children }) => {
     //sockets
     useEffect(() => {
 
-        if (!auth._id) return
+        if (!auth._id ) return
 
         //funciones admin
         const eliminarUsuario = ({ id }) => {
@@ -106,6 +106,7 @@ const AppInit = ({ children }) => {
                 const objetoN2 = {
                     monedasTrabajos: auth.monedasTrabajos - 1
                 }
+                console.log(objetoN2)
                 setAuth(objetoN2)
             }
         }
@@ -141,6 +142,13 @@ const AppInit = ({ children }) => {
             if (ofertaPop.proveedor.monedasTrabajos !== 0) {
                 setOferta(prev => [...prev, ofertaPop])
             }
+            if (auth._id === ofertaPop.proveedor._id) {
+                setOfertaProvs(prev => [...prev, ofertaPop])
+                const cOferta = {
+                    cantidadOfertas: auth.cantidadOfertas - 1
+                }
+                setAuth(cOferta)
+            }
         }
         const eliminacion = ({ id }) => {
             setOferta(prev => prev.filter(of => of._id !== id))
@@ -166,6 +174,10 @@ const AppInit = ({ children }) => {
             setOferta(prev => prev.filter(of => of._id !== id))
             if (auth._id === oferta.proveedor._id) {
                 setOfertaProvs(prev => prev.filter(of => of._id !== id))
+                const cOfertas = {
+                    cantidadOfertas: auth.cantidadOfertas + 1 
+                }
+                setAuth(cOfertas)
             }
         }
         const nuevaSoli = ({ trabajoActual }) => {
@@ -190,15 +202,6 @@ const AppInit = ({ children }) => {
             }
             if (auth._id === ofertaActual.proveedor._id) {
                 setOfertaProvs(prev => [...prev.filter(of => of._id !== id), ofertaActual])
-            }
-        }
-        const ofertaNueva = ({ ofertaPop }) => {
-            if (auth.monedasTrabajos) {
-                setOferta(prev => [...prev, ofertaPop])
-            }
-
-            if (auth._id === ofertaPop.proveedor._id) {
-                setOfertaProvs(prev => [...prev, ofertaPop])
             }
         }
 
@@ -226,7 +229,6 @@ const AppInit = ({ children }) => {
         socket.on('Nueva-solicitud', nuevaSoli)
         socket.on('Trabajo-actualizado', trabajoActualizadoProv)
         socket.on('Actualizar-oferta', actualizarOf)
-        socket.on('Crear-oferta', ofertaNueva)
 
 
         //apagado de sockets
@@ -255,9 +257,8 @@ const AppInit = ({ children }) => {
             socket.off('Nueva-solicitud', nuevaSoli)
             socket.off('Trabajo-actualizado', trabajoActualizadoProv)
             socket.off('Actualizar-oferta', actualizarOf)
-            socket.off('Crear-oferta', ofertaNueva)
         }
-    }, [auth._id])
+    }, [auth._id, auth.monedasTrabajos, auth.cantidadOfertas])
     return (
         <>
             <SocketStatus />
