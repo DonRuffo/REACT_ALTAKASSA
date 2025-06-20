@@ -7,7 +7,7 @@ import AuthStoreContext from "../store/AuthStore";
 import SpinnerCarga from "./RuedaCarga";
 
 const Cloudinary = () => {
-    const { setAuth, setFoto, Perfil } = AuthStoreContext()
+    const { setAuth, setFoto } = AuthStoreContext()
 
 
     const [carga, setCarga] = useState(false)
@@ -51,7 +51,6 @@ const Cloudinary = () => {
             }
             setAuth(fotito)
             setFoto(true)
-            await Perfil(token, rol)
             toast.success('Foto subida')
         } catch (error) {
             console.error('error', error.message)

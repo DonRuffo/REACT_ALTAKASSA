@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import AuthStoreContext from "../../store/AuthStore";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
-import socket from "../../context/SocketConexion";
 
 const ModalCrearPlan = () => {
     const { setModalPagos } = AuthStoreContext()
@@ -42,17 +41,21 @@ const ModalCrearPlan = () => {
         }
     }
 
-    useEffect(()=>{
-        if(form.titulo !== '' && form.precio !== 0 && form.creditos !== 0 && form.descripcion !== ''){
+    useEffect(() => {
+        if (form.titulo !== '' && form.precio !== 0 && form.creditos !== 0 && form.descripcion !== '') {
             setActivo(true)
-        }else{
+        } else {
             setActivo(false)
         }
     }, [form])
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer
+                toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
+                closeOnClick
+                position="bottom-center"
+            />
             <div className="fixed inset-0 bg-black/80">
                 <div className="fixed dark:border-none outline-2 outline-emerald-700 dark:outline-emerald-500 top-1/5 md:top-1/4 left-[40px] md:left-[150px] lg:left-[425px] xl:left-[690px] right-[40px] md:right-[150px] lg:right-[200px] xl:right-[440px] min-w-64 lg:min-w-lg bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 rounded-lg shadow-2xl">
                     <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-emerald-700 dark:text-emerald-500">Nuevo plan</h1>
@@ -71,7 +74,7 @@ const ModalCrearPlan = () => {
                         </div>
                         <div className="my-3 px-5 lg:px-10">
                             <label htmlFor="descripcion" className="dark:text-white">Descripción:</label>
-                            <textarea  name="descripcion" id="descripcion" onChange={handleChange} value={form.descripcion || ''} placeholder="Ingresa una descripción" className="mt-1 min-h-10 max-h-20 dark:bg-gray-900 bg-gray-200 w-full rounded-lg px-2 py-1.5 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-800"></textarea>
+                            <textarea name="descripcion" id="descripcion" onChange={handleChange} value={form.descripcion || ''} placeholder="Ingresa una descripción" className="mt-1 min-h-10 max-h-20 dark:bg-gray-900 bg-gray-200 w-full rounded-lg px-2 py-1.5 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-800"></textarea>
                         </div>
                         <div className="flex justify-around">
                             <button type="submit" className={`${activo ? '' : 'pointer-events-none cursor-not-allowed opacity-50'} px-4 py-1 font-semibold text-emerald-700 bg-emerald-200 dark:bg-emerald-900 dark:text-emerald-200 rounded-lg cursor-pointer hover:brightness-110 duration-200`}>Crear</button>

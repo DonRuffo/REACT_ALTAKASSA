@@ -118,7 +118,7 @@ const Dashboard = () => {
     useEffect(() => {
         if (!auth._id) return
 
-        socket.on('Mensaje', ({ conversacion }) => {
+        const mensajeria = ({conversacion}) => {
             if (conversacion.participantes.some(of => of._id === auth._id)) {
                 setMensajesUsuario(prev => {
                     const existe = prev.find(of => of._id === conversacion._id)
@@ -133,17 +133,19 @@ const Dashboard = () => {
                     mensaje: ''
                 })
             }
-        })
+        }
+
+        socket.on('Mensaje', mensajeria)
 
         return () => {
-            socket.off('Mensaje')
+            socket.off('Mensaje', mensajeria)
         }
     }, [auth._id])
     return (
         <>
             <div className={`${dark ? "dark bg-emerald-950" : "bg-emerald-900"}`}>
                 <div className="flex h-screen font-Cabin">
-                    <div ref={sideBar} className={`flex flex-col justify-between fixed z-30 overflow-y-auto inset-y-0 left-0 w-52 bg-emerald-900 dark:bg-emerald-950 rounded-r-xl text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
+                    <div ref={sideBar} className={`custom-bar flex flex-col justify-between fixed z-30 overflow-y-auto inset-y-0 left-0 w-52 bg-emerald-900 dark:bg-emerald-950 rounded-r-xl text-white p-4 transform ${menu === true ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static`}>
                         <div id="nav">
                             <h1 className="text-2xl text-white text-center font-CalSans">Alta-Kassa</h1>
                             <div className="flex justify-center">
@@ -284,7 +286,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     {modalPerfilFoto && <ModalFotoPerfil url={auth.f_perfil} />}
-                    <div className="flex-1 relative h-screen overflow-y-auto bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
+                    <div className="custom-bar-outlet flex-1 relative h-screen overflow-y-auto bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
                         <div className="border-b border-gray-200 dark:border-gray-700 h-14 hidden lg:flex justify-between items-center px-5">
                             <div className="flex gap-x-2">
                                 <button className={`${tipo === "admin" ? 'hidden' : ''} flex items-center gap-x-1 font-semibold bg-gray-100 rounded-md py-2 px-3 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear cursor-pointer`} onClick={() => setRotar(!rotar)}>
@@ -418,7 +420,7 @@ const Dashboard = () => {
                         )}
 
                     </div>
-                    <div className="fixed bottom-0 left-1/12 md:left-1/2">
+                    <div className="fixed bottom-0 right-1/12 md:right-1/2">
                         <div className="flex flex-row-reverse w-auto h-auto gap-x-2">
                             {nuevoMensaje.map(msg => {
 
@@ -428,7 +430,7 @@ const Dashboard = () => {
                                 const filtroMensajes = mensajesUsuario.filter(wh => wh.participantes.some(of => of._id === msg.id))
 
                                 return (
-                                    <div key={msg.id} className="relative flex flex-col justify-between w-72 h-92 outline outline-gray-300 dark:outline-gray-800 dark:text-white bg-gray-100 dark:bg-black rounded-t-2xl">
+                                    <div key={msg.id} className="relative flex flex-col justify-between w-68 h-92 outline outline-gray-300 dark:outline-gray-800 dark:text-white bg-gray-100 dark:bg-black rounded-t-2xl">
                                         <div className="absolute top-2 right-2 cursor-pointer" onClick={() => { eliminarChat(msg.id) }}>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -440,7 +442,7 @@ const Dashboard = () => {
                                             </div>
                                             <p className="text-lg">{msg.nombre} {msg.apellido}</p>
                                         </div>
-                                        <div ref={mensajesRef} id="contenedorMsgs" className="w-full h-fit max-h-[260px] overflow-y-auto">
+                                        <div ref={mensajesRef} id="contenedorMsgs" className="custom-bar-msgs w-full h-fit max-h-[260px] overflow-y-auto">
                                             <div className="flex flex-col px-1.5 py-1">
                                                 {comparacion && filtroMensajes.flatMap(loc => (
                                                     loc.mensajes.map((m) => (
@@ -451,7 +453,6 @@ const Dashboard = () => {
                                                     ))
                                                 ))
                                                 }
-
                                             </div>
                                         </div>
                                         <div className="flex justify-between gap-x-3 px-3 py-2 items-center w-full h-fit dark:bg-black border-t dark:border-gray-800">

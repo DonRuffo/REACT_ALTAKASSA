@@ -51,7 +51,11 @@ const Sugerencias = () => {
     }
     return (
         <>
-            <ToastContainer />
+            <ToastContainer
+                toastStyle={{backgroundColor:'#1c2833 ', color:'white'}}
+                closeOnClick
+                position="bottom-center"
+            />
             <section className="flex justify-center lg:mt-5 mt-20 px-8">
                 <div className="w-full lg:w-4/5 mb-5 rounded-lg bg-gray-100 dark:bg-gray-900 shadow-lg dark:shadow-slate-700">
                     <h1 className="text-center text-3xl font-CalSans text-purple-600 mt-5">Sugerencias y comentarios</h1>

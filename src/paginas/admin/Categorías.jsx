@@ -1,30 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import AuthStoreContext from "../../store/AuthStore";
 import ModalCategoria from "../../componentes/modals/ModalCategoria";
-import socket from "../../context/SocketConexion";
 
 const CategoriasServicios = () => {
 
-    const { categorias, setCategorias, modalCategorias, setModalCategorias } = AuthStoreContext()
-
-    useEffect(()=>{
-
-        const categorias = ({cat}) => {
-            setCategorias(prev => [...prev, cat])
-        }
-
-        const eliminarCat =({id}) =>{
-            setCategorias(prev => prev.filter(of => of._id !== id))
-        }
-
-        socket.on('nuevaCategoria', categorias)
-        socket.on('Categoria eliminada', eliminarCat)
-
-        return () => {
-            socket.off('nuevaCategoria', categorias)
-            socket.off('Categoria eliminada', eliminarCat)
-        }
-    }, [])
+    const { categorias, modalCategorias, setModalCategorias } = AuthStoreContext()
 
     return (
         <>

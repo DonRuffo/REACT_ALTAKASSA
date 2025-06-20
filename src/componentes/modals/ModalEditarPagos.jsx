@@ -22,6 +22,7 @@ const ModalEditarPlan = ({ idPlan }) => {
         })
     }
 
+    //obtiene el plan con sus datos actuales
     const obtenerPlan = async () => {
         const url = `${import.meta.env.VITE_BACKEND_URL}/obtenerPlan/${idPlan}`
         const token = localStorage.getItem('token')
@@ -39,6 +40,7 @@ const ModalEditarPlan = ({ idPlan }) => {
         }
     }
 
+    //funcion para actualizar el plan
     const handleSubmit = async (e) => {
         e.preventDefault()
         const url = `${import.meta.env.VITE_BACKEND_URL}//actualizarPlan/${idPlan}`

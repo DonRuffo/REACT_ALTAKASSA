@@ -8,7 +8,7 @@ import DotPulseLoader from "../componentes/CargaConfirmar";
 const Confirmar = () => {
 
     const { token } = useParams()
-    const [carga, setCarga] =useState(true)
+    const [carga, setCarga] = useState(true)
 
     const verifyToken = async () => {
         try {
@@ -29,14 +29,18 @@ const Confirmar = () => {
     return (
         <>
             <div className="bg-slate-100 h-screen flex flex-col justify-center items-center">
-                <ToastContainer />
+                <ToastContainer
+                    toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
+                    closeOnClick
+                    position="bottom-center"
+                />
                 <div className="flex flex-col items-center justify-center h-screen md:h-auto">
                     <div className="flex justify-center">
                         {carga && <DotPulseLoader />}
                         <img src={logoConfirm} alt="Rocket" width={208} height={208} className={`${carga ? 'hidden' : ''}`} />
                     </div>
-                    <h1 className={`${carga ? '' :'hidden'} text-4xl text-sky-600 pt-5 font-semibold`}>Validando cuenta...</h1>
-                    <h1 className={`${carga ? 'hidden' :''} text-4xl text-sky-600 pt-5 font-CalSans`}>Gracias por Confirmar</h1>
+                    <h1 className={`${carga ? '' : 'hidden'} text-4xl text-sky-600 pt-5 font-semibold`}>Validando cuenta...</h1>
+                    <h1 className={`${carga ? 'hidden' : ''} text-4xl text-sky-600 pt-5 font-CalSans`}>Gracias por Confirmar</h1>
                     <p className={`${carga ? 'hidden' : ''} text-slate-600 text-xl pb-5`}>Ya puedes iniciar sesión</p>
                     <Link className={`${carga ? 'hidden' : ''} p-2 bg-sky-600 text-white rounded-lg hover:bg-sky-800 duration-300`} to='/login' replace>Iniciar Sesión</Link>
                 </div>

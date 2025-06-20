@@ -1,31 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import OfertaStore from "../../store/OfertaStore";
 import imgSinTrabajo from '../../assets/Tiempo.svg'
 import { Link } from "react-router-dom";
 import { DateTime } from "luxon";
-import socket from "../../context/SocketConexion";
 
 
 const HistorialTrabajoProvs = () => {
-    const { trabajosProvs, setTrabajosProvs } = OfertaStore()
+    const { trabajosProvs } = OfertaStore()
+
     const [selectedOption, setSelectedOption] = useState('Todos')
 
     const handleRadioChange = (e) => {
         const tipo = e.target.value
         setSelectedOption(tipo)
     }
-
-    useEffect(()=>{
-        socket.on('Trabajo-cancelado',({id, trabajoActualizado})=>{
-            if(auth._id === trabajoActualizado.proveedor._id){
-                setTrabajosProvs(prev => [...prev.filter((tra) => tra._id !== id), trabajoActualizado])
-            }
-        })
-
-        return () => {
-            socket.off('Trabajo-cancelado')
-        }
-    }, [])
+    
     return (
         <>
             <section>
@@ -59,7 +48,7 @@ const HistorialTrabajoProvs = () => {
                                             <div className="-space-y-0.5">
                                                 <p className="text-xl font-semibold text-white truncate w-28">{tra.proveedor.nombre}</p>
                                                 <p className="font-semibold text-emerald-900">{tra.fecha.split('T')[0]}</p>
-                                                <p className="font-semibold">{DateTime.fromISO(tra.desde, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
+                                                <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
                                         </div>
                                         <div className="flex justify-around mt-1.5 gap-x-3">
@@ -88,7 +77,7 @@ const HistorialTrabajoProvs = () => {
                                             <div className="-space-y-0.5">
                                                 <p className="text-xl font-semibold text-white truncate w-28">{tra.proveedor.nombre}</p>
                                                 <p className="font-semibold text-cyan-800">{tra.fecha.split('T')[0]}</p>
-                                                <p className="font-semibold">{DateTime.fromISO(tra.desde, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, {zone:'utc'}).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
+                                                <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
                                         </div>
                                         <div className="flex justify-around mt-1.5 gap-x-3">

@@ -7,13 +7,12 @@ import SpinnerCargaModal from "../RuedaCargaModal";
 import ModalFotoPerfil from "./ModalFotoPerfil";
 import MapaCliProv from "../MapaClient-Prov";
 import OfertaStore from "../../store/OfertaStore";
-import socket from "../../context/SocketConexion";
 import AuthStoreContext from "../../store/AuthStore";
 import PropTypes from "prop-types";
 
 const ModalTrabajos = ({ idOferta }) => {
     const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil, mapaCliProv, setMapaCliProv, setTrabajos } = OfertaStore()
-    const { auth, setUbicacionTrabajo } = AuthStoreContext()
+    const { setUbicacionTrabajo } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
     const [carga, setCarga] = useState(true)
@@ -230,20 +229,6 @@ const ModalTrabajos = ({ idOferta }) => {
 
         }, 200);
     }, [traProveedor]);
-
-    useEffect(() => {
-        if(!auth._id) return
-
-        const nuevaSoli = ({trabajoActual}) =>{
-            if (auth._id === trabajoActual.cliente._id) {
-                setTrabajos(prev => [...prev, trabajoActual])
-            }
-        }
-        socket.on('Nueva-solicitud', nuevaSoli)
-
-        return () => socket.off('Nueva-solicitud', nuevaSoli)
-    }, [auth._id])
-
 
     return (
         <>

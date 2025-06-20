@@ -157,15 +157,14 @@ const InicioProve = () => {
 
     return (
         <>
-
             {pulseFoto || pulseUbiActual || pulseUbiTra ? <EsqueletoInicioProv />
                 : (
                     <div className="px-5">
                         <section className="flex justify-center mt-20 lg:mt-5 lg:mb-14">
-                            <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 lg:w-3/5 py-4.5 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700 transition-all duration-300">
-                                <h1 className="relative z-10 text-2xl md:text-3xl text-center text-purple-500 font-CalSans px-3 md:px-0">Vista como proveedor</h1>
-                                <h2 className="relative z-10 text-base md:text-xl text-center pt-3 px-3 md:px-0 dark:text-white">Desde aquí puedes publicar tus ofertas de servicios</h2>
-                                
+                            <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 lg:w-3/5 py-4.5 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700 lg:py-10 transition-all duration-300">
+                                <h1 className="relative lg:z-10 text-2xl md:text-3xl text-center text-purple-500 font-CalSans px-3 md:px-0">Vista como proveedor</h1>
+                                <h2 className="relative lg:z-10 text-base md:text-xl text-center pt-3 px-3 md:px-0 dark:text-white">Desde aquí puedes publicar tus ofertas de servicios</h2>
+
                                 <div className="flex lg:hidden justify-center pb-1">
                                     <img src={logoInicioProv} alt="Proveedor" width={110} height={110} />
                                 </div>
@@ -174,6 +173,7 @@ const InicioProve = () => {
                                 </div>
                             </div>
                         </section>
+
                         <section className={` ${foto && ubiTrabajo ? 'hidden' : ''}`}>
                             <h1 className="text-center font-semibold text-lg dark:text-white">Antes de ingresar ofertas, sigue estos pasos:</h1><br />
                             <div className="flex justify-center -space-x-1 transition-all duration-300">

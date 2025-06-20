@@ -45,7 +45,7 @@ const AuthStoreContext = create((set, get) => ({
     modalPlanes: false,
 
     //seteadores para actualizaciones
-    setAuth: (authData) => set((state) => ({ ...state.auth, ...authData })),
+    setAuth: (authData) => set((state) => ({ auth:{...state.auth, ...authData} })),
     setCategorias: (cat) => set((state) => ({
         categorias: typeof cat === 'function' ? cat(state.categorias) : cat
     })),

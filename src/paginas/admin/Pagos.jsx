@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logoPLAN from '../../assets/question.svg'
 import AuthStoreContext from "../../store/AuthStore";
 import ModalCrearPlan from "../../componentes/modals/ModalPagos";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ModalEditarPlan from "../../componentes/modals/ModalEditarPagos";
-import socket from "../../context/SocketConexion";
 
 const PlanesdePago = () => {
 
-    const { modalPagos, setModalPagos, planes, setPlanes,setModalEditPagos, modalEditPagos } = AuthStoreContext()
+    const { modalPagos, setModalPagos, planes,setModalEditPagos, modalEditPagos } = AuthStoreContext()
 
     const [planSelec, setPlanSelec] = useState(null)
 
@@ -38,29 +37,13 @@ const PlanesdePago = () => {
         }
     }
 
-    useEffect(()=>{
-        socket.on('Plan actualizado', ({id, planActualizado})=>{
-            setPlanes(prev => [...prev.filter(pl => pl._id !== id), planActualizado])
-        })
-
-        socket.on('Plan eliminado', ({id}) => {
-            setPlanes(prev => prev.filter(pl => pl._id !== id))
-        })
-
-        socket.on('Nuevo Plan', ({nuevoPlan}) => {
-            setPlanes(prev => [...prev, nuevoPlan])
-        })
-
-        return () =>{
-            socket.off('Plan actualizado')
-            socket.off('Plan eliminado')
-            socket.off('Nuevo Plan')
-        }
-    }, [])
-
     return (
         <div className="relative">
-            <ToastContainer />
+            <ToastContainer
+                toastStyle={{backgroundColor:'#1c2833 ', color:'white'}}
+                closeOnClick
+                position="bottom-center"
+            />
             <div className="flex flex-col justify-center items-center mt-20 md:mt-5">
                 <h1 className="text-purple-600 text-2xl md:text-3xl font-CalSans">
                     Planes de pago

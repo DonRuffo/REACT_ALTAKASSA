@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import OfertaStore from "../../store/OfertaStore";
-import AuthStoreContext from "../../store/AuthStore";
-import socket from "../../context/SocketConexion";
 import SpinnerCargaModal from "../RuedaCargaModal";
 
 const ModalOferta = () => {
 
-
-    const { auth } = AuthStoreContext()
-    const { modalOf, setModalOf, setOferta, setOfertaProvs } = OfertaStore()
+    const { modalOf, setModalOf} = OfertaStore()
     const [carga, setCarga] = useState(false)
     const [formOf, setFormOf] = useState({
         precioPorDia: "",
@@ -40,7 +36,7 @@ const ModalOferta = () => {
             }
             const respuesta = await axios.post(url, formOf, options)
             toast.success(respuesta.data.msg)
-            
+
             setCarga(false)
             setTimeout(() => {
                 if (modalOf === true) {
@@ -93,22 +89,9 @@ const ModalOferta = () => {
     }
 
     useEffect(() => {
-        socket.on('Crear-oferta', ({ ofertaPop }) => {
-            if (auth.monedasTrabajos) {
-                setOferta(prev => [...prev, ofertaPop])
-            }
-
-            if (auth._id === ofertaPop.proveedor._id) {
-                setOfertaProvs(prev => [...prev, ofertaPop])
-            }
-        })
-        return () => socket.off('Crear-oferta')
-    }, [])
-
-    useEffect(() => {
         if (formOf.servicios.length > 0) {
             setLista(true)
-        }else{
+        } else {
             setLista(false)
         }
         if (formOf.descripcion !== '' && formOf.precioPorDia !== '' && formOf.precioPorHora !== '' && formOf.servicios.length > 0) {
@@ -437,10 +420,15 @@ const ModalOferta = () => {
         ]
     }
     ]
+
     return (
         <>
             <div className="fixed bg-black/80 inset-0 transition-all duration-300">
-                <ToastContainer />
+                <ToastContainer
+                    toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
+                    closeOnClick
+                    position="bottom-center"
+                />
                 <div className="fixed dark:border-none outline-2 outline-emerald-700 dark:outline-emerald-500 top-1/5 md:top-1/4 left-[40px] md:left-[150px] lg:left-[425px] xl:left-[550px] right-[40px] md:right-[150px] lg:right-[200px] xl:right-[370px] min-w-64 lg:min-w-lg bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 rounded-lg shadow-2xl">
                     <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-emerald-700 dark:text-emerald-500">Nueva oferta</h1>
                     <form onSubmit={handleCreateOferta} className={`mx-2 ${ventana ? 'hidden' : ''}`}>

@@ -38,7 +38,11 @@ const Recuperar = () => {
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer
+                toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
+                closeOnClick
+                position="bottom-center"
+            />
             <div className={darkMode ? "dark" : ""}>
                 <div className="grid grid-cols-1 md:grid-cols-2 font-Cabin">
                     <div id="Formulario" className="bg-white dark:bg-black h-screen flex items-center justify-center">

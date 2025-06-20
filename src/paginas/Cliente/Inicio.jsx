@@ -14,11 +14,10 @@ import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import imgSinOfertas from '../../assets/Sinofertas.svg'
 import EsqueletoInicioCli from "../Esqueletos/EsqInicioCli";
-import socket from "../../context/SocketConexion";
 
 const Inicio = () => {
     const { setAuth, foto, ubiActual, setUbiActual, pulseFoto, pulseUbiTra, pulseUbiActual, ubiCliente, setUbicacionActual, ivActual, categorias } = AuthStoreContext()
-    const { modalTra, setModalTra, oferta, setIdProveedor, modalProvs, setModalProvs, setOferta } = OfertaStore()
+    const { modalTra, setModalTra, oferta, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
@@ -76,7 +75,6 @@ const Inicio = () => {
         }
     }
 
-
     useEffect(() => {
         if (valor) {
             const filtradas = oferta.filter((of) => of.servicio === valor)
@@ -86,44 +84,18 @@ const Inicio = () => {
         }
     }, [valor, oferta])
 
-
-
     useEffect(() => {
         if (!ivActual) return
         obtenerUbi()
     }, [ivActual])
 
-    useEffect(() => {
-
-        const nuevaOf = ({ ofertaPop }) => {
-            if (ofertaPop.proveedor.monedasTrabajos !== 0) {
-                setOferta(prev => [...prev, ofertaPop])
-            }
-        }
-
-        const eliminacion = ({ id }) => {
-            setOferta(prev => prev.filter(of => of._id !== id))
-        }
-
-        const actualizacion = ({id, ofertaActual}) => {
-            if (ofertaActual.proveedor.monedasTrabajos !== 0) {
-                setOferta(prev => [...prev.filter(of => of._id !== id), ofertaActual])
-            }
-        }
-
-        socket.on('Nueva-Oferta', nuevaOf)
-        socket.on('Eliminacion', eliminacion)
-        socket.on('Actualizacion', actualizacion)
-
-        return () => {
-            socket.off('Nueva-Oferta', nuevaOf)
-            socket.off('Eliminacion', eliminacion)
-            socket.off('Actualizacion', actualizacion)
-        }
-    }, [])
     return (
         <>
-            <ToastContainer />
+            <ToastContainer
+                toastStyle={{backgroundColor:'#1c2833 ', color:'white'}}
+                closeOnClick
+                position="bottom-center"
+            />
             {pulseFoto || pulseUbiActual || pulseUbiTra ? <EsqueletoInicioCli />
                 : (
                     <>
@@ -167,7 +139,7 @@ const Inicio = () => {
                         <section className={`${foto && ubiActual ? '' : 'hidden'} flex justify-center`}>
                             <div className="w-5/6 ">
                                 <h1 className="font-CalSans text-2xl mb-3 dark:text-white mt-3">Categorías</h1>
-                                <div className="flex flex-wrap justify-around mb-4 gap-1">
+                                <div className="custom-bar-cat flex overflow-x-auto justify-around mb-4 gap-x-2.5 pb-1">
                                     {categorias.map((cat, index) => (
                                         <Link key={index} onClick={(e) => {
                                             e.preventDefault()

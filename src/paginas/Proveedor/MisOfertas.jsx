@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ModalEditarOferta from "../../componentes/modals/ModalEditarOferta";
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
@@ -9,11 +9,10 @@ import SvgServicio from "../../componentes/Svgs/SvgLimpieza";
 import OfertaStore from "../../store/OfertaStore";
 import AuthStoreContext from "../../store/AuthStore";
 import EsqueletoOfertas from "../Esqueletos/EsqOfertas";
-import socket from "../../context/SocketConexion";
 import { Tooltip } from "react-tooltip";
 
 const ListadoOfertas = () => {
-    const { modalEditOf, setModalEditOf, ofertaProvs, setOfertaProvs, setOferta, pulseMisOfertas } = OfertaStore()
+    const { modalEditOf, setModalEditOf, ofertaProvs, pulseMisOfertas } = OfertaStore()
 
     const { setOpcionActiva, auth } = AuthStoreContext()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
@@ -43,19 +42,14 @@ const ListadoOfertas = () => {
     const handleModalEditOf = (id) => {
         setOfertaSeleccionada(id);
     };
-    useEffect(() => {
-        socket.on('Oferta-eliminada', ({ id, oferta }) => {
-            setOferta(prev => prev.filter(of => of._id !== id))
-            if (auth._id === oferta.proveedor._id) {
-                setOfertaProvs(prev => prev.filter(of => of._id !== id))
-            }
-        })
-        return () => socket.off('Oferta-eliminada')
-    }, [])
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer
+                toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
+                closeOnClick
+                position="bottom-center"
+            />
             {pulseMisOfertas ? <EsqueletoOfertas />
                 : (
                     <div className="relative">

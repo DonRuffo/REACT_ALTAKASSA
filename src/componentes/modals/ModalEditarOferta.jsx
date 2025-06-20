@@ -3,7 +3,6 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import SpinnerCargaModal from "../RuedaCargaModal";
 import OfertaStore from "../../store/OfertaStore";
-import socket from "../../context/SocketConexion";
 import AuthStoreContext from "../../store/AuthStore";
 import PropTypes from "prop-types";
 
@@ -27,7 +26,7 @@ const ModalEditarOferta = ({ idOferta }) => {
     const { setModalEditOf, modalEditOf, MisOfertas, setOferta, setOfertaProvs } = OfertaStore()
     const { auth } = AuthStoreContext()
 
-
+    //obtiene la oferta con los datos actuales
     const ObtenerOferta = async () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/verOferta/${idOferta}`
@@ -45,7 +44,7 @@ const ModalEditarOferta = ({ idOferta }) => {
             console.log(error)
         }
     }
-
+    //Actualiza la oferta
     const handleSubmitOferta = async (e) => {
         e.preventDefault()
         try {
@@ -68,6 +67,7 @@ const ModalEditarOferta = ({ idOferta }) => {
         }
     }
 
+    //onChange para los nuevo valores dentro del form
     const handleChancheOfertas = (e) => {
         setForm({
             ...form,
@@ -85,6 +85,7 @@ const ModalEditarOferta = ({ idOferta }) => {
         }
     }
 
+    //onChange para los servicios concretos de las categorias de servicios
     const manejoBox = (caracteristica) => {
         setForm((prev) => {
             if (form.servicios.includes(caracteristica)) {
@@ -105,29 +106,15 @@ const ModalEditarOferta = ({ idOferta }) => {
         if (idOferta) ObtenerOferta();
     }, [idOferta]);
 
-
     useEffect(() => {
-        socket.on('Actualizar-oferta', ({ id, ofertaActual }) => {
-            if (auth.monedasTrabajos !== 0) {
-                setOferta(prev => [...prev.filter(of => of._id !== id), ofertaActual])
-            }
-            if (auth._id === ofertaActual.proveedor._id) {
-                setOfertaProvs(prev => [...prev.filter(of => of._id !== id), ofertaActual])
-            }
-        })
-
-        return () => socket.off('Actualizar-oferta')
-    }, [])
-
-    useEffect(()=>{
         if (form.servicios.length > 0) {
             setLista(true)
-        }else{
+        } else {
             setLista(false)
         }
-        if (form.descripcion !== '' && form.precioPorDia !== '' && form.precioPorHora !== '' && form.servicios.length > 0){
+        if (form.descripcion !== '' && form.precioPorDia !== '' && form.precioPorHora !== '' && form.servicios.length > 0) {
             setLlenado(true)
-        }else{
+        } else {
             setLlenado(false)
         }
     }, [form])
@@ -455,7 +442,11 @@ const ModalEditarOferta = ({ idOferta }) => {
     return (
         <>
             <div className="fixed bg-black/80 inset-0 transition-all duration-300">
-                <ToastContainer />
+                <ToastContainer
+                    toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
+                    closeOnClick
+                    position="bottom-center"
+                />
                 <div className=" dark:border-none outline-2 outline-emerald-700 dark:outline-emerald-500 fixed top-1/5 md:top-1/4 left-[40px] md:left-[150px] lg:left-[425px] xl:left-[550px] right-[40px] md:right-[150px] lg:right-[200px] xl:right-[370px] min-w-64 lg:min-w-lg rounded-lg shadow-2xl bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900">
                     <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500  rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-green-700 dark:text-emerald-500">Editar oferta</h1>
                     <form onSubmit={handleSubmitOferta} className={`mx-2 ${ventana ? 'hidden' : ''}`}>

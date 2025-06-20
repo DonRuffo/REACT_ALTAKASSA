@@ -4,10 +4,9 @@ import AuthStoreContext from "../../store/AuthStore";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ModalPublicaciones from "../../componentes/modals/ModalPublicaciones";
-import socket from "../../context/SocketConexion";
 
 const InicioAdmin = () => {
-    const { auth, modalUsers, setModalUsers, users, setUsers } = AuthStoreContext()
+    const { auth, modalUsers, setModalUsers, users } = AuthStoreContext()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
 
     const handleModalPubli = (id) => {
@@ -37,19 +36,15 @@ const InicioAdmin = () => {
         }
     }
 
-    useEffect(()=>{
-        socket.on('Usuario eliminado', ({id}) => {
-            setUsers(prev => prev.filter(us => us._id !== id))
-        })
-
-        return () => {
-            socket.off('Usuario eliminado')
-        }
-    }, [])
+    
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer
+                toastStyle={{backgroundColor:'#1c2833 ', color:'white'}}
+                closeOnClick
+                position="bottom-center"
+            />
             <section className="mt-20 lg:mt-5 px-4">
                 <h1 className="text-2xl lg:text-3xl text-purple-600 font-CalSans text-center">Bienvenido {auth.nombre} {auth.apellido}</h1>
                 <p className="text-lg lg:text-xl dark:text-white text-center">Te presento la lista de usuarios del sistema, puedes revisarlos</p><br />
