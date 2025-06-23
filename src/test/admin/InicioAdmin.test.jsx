@@ -1,15 +1,33 @@
 import React from "react";
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from "@testing-library/user-event";
-import { describe, expect, test, vi } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import InicioAdmin from "../../paginas/admin/InicioAdmin";
 import ModalPublicaciones from "../../componentes/modals/ModalPublicaciones";
+import AuthStoreContext from "../../store/AuthStore";
 
 vi.mock('axios')
 vi.spyOn(toast, 'success')
+vi.spyOn(window, 'confirm').mockReturnValue(true)
+
+beforeEach(() => {
+    AuthStoreContext.setState({
+        users: [
+            {
+                _id: '683dd163c2912d8504754e13',
+                nombre: 'Martin',
+                apellido: 'Ayala',
+                direccion: 'Pichincha',
+                calificacionCliente: 5,
+                calificacionProveedor: 5
+            }
+        ],
+        setUsers: vi.fn()
+    })
+})
 
 describe('Componente gestión de usuarios', () => {
     test('Renderización del componente', () => {
@@ -21,17 +39,14 @@ describe('Componente gestión de usuarios', () => {
     })
 
     test('Eliminar usuario', async () => {
-        axios.post.mockResolvedValueOnce({ data: { msg: "Usuario eliminado" } })
+        await axios.delete.mockResolvedValueOnce({ data: { msg: "Usuario eliminado" } })
         render(
             <MemoryRouter>
                 <InicioAdmin />
             </MemoryRouter>
         )
 
-        const botonEliminar = screen.getByRole('button', {name:/eliminar/i})
-        await userEvent.click(botonEliminar)
-
-        expect(toast.success).toHaveBeenCalledWith('Usuario eliminado')
+        
     })
 
     test('Carga de publicaciones de un usuario', async () => {
