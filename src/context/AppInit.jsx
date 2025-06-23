@@ -159,13 +159,14 @@ const AppInit = ({ children }) => {
             }
         }
         const traCancelInicio = ({ ofertaResp }) => {
-            if (ofertaResp.proveedor.monedasTrabajos !== 0) {
-                setOferta(prev => [...prev, ofertaResp])
+            if (ofertaResp[0].proveedor.monedasTrabajos !== 0) {
+                setOferta(prev => [...prev, ...ofertaResp] )
             }
         }
+        
         const remover = ({ ofertaResp }) => {
             if (ofertaResp.proveedor.monedasTrabajos === 0) {
-                setOferta(prev => prev.filter(of => of._id !== ofertaResp._id))
+                setOferta(prev => prev.filter(of => of.proveedor._id !== ofertaResp.proveedor._id))
             }
         }
 

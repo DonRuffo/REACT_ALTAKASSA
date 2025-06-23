@@ -42,31 +42,71 @@ const Dashboard = () => {
     }
 
     const enviarMensaje = async (idUser) => {
-        const token = localStorage.getItem('token')
-        formMsg.receptor = idUser
-        try {
+        const token = localStorage.getItem('token');
+        const mensajeTemporal = {
+            _id: Date.now().toString(), 
+            mensaje: formMsg.mensaje,
+            emisor: auth._id,
+            fecha: new Date().toISOString(),
+            estado: "pendiente" 
+        };
 
-            const url = `${import.meta.env.VITE_BACKEND_URL}/envioMensaje`
+        setFormMsg({
+            receptor: '',
+            mensaje: ''
+        });
+
+        setMensajesUsuario(prev => {
+           
+            const idx = prev.findIndex(conv =>
+                conv.participantes.some(p => p._id === idUser)
+            );
+            if (idx !== -1) {
+                
+                const nuevaConv = { ...prev[idx] };
+                nuevaConv.mensajes = [...nuevaConv.mensajes, mensajeTemporal];
+                return [
+                    ...prev.slice(0, idx),
+                    nuevaConv,
+                    ...prev.slice(idx + 1)
+                ];
+            }
+
+            return [
+                ...prev,
+                {
+                    _id: "temp-" + Date.now(),
+                    participantes: [auth, { _id: idUser }],
+                    mensajes: [mensajeTemporal]
+                }
+            ];
+        });
+
+     
+        try {
+            const url = `${import.meta.env.VITE_BACKEND_URL}/envioMensaje`;
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
-            }
-
-            const respuesta = await axios.post(url, formMsg, options)
-            setMensajesUsuario(prev => {
-                const existe = prev.find(of => of._id === respuesta.data._id)
-                if (existe) {
-                    return [...prev.filter(alo => alo._id !== respuesta.data._id), respuesta.data]
-                } else {
-                    return [...prev, respuesta.data]
-                }
-            })
+            };
+            await axios.post(url, { ...formMsg, receptor: idUser }, options);
         } catch (error) {
-            console.error(error)
+            setMensajesUsuario(prev => {
+                return prev.map(conv => {
+                    if (conv.participantes.some(p => p._id === idUser)) {
+                        const mensajesActualizados = conv.mensajes.map(m =>
+                            m._id === mensajeTemporal._id ? { ...m, estado: "error" } : m
+                        );
+                        return { ...conv, mensajes: mensajesActualizados };
+                    }
+                    return conv;
+                });
+            });
+            console.error(error);
         }
-    }
+    };
 
     const cambioDeTipo = () => {
         if (tipo === 'cliente') {
@@ -115,10 +155,11 @@ const Dashboard = () => {
         }
     }, [mensajesUsuario, nuevoMensaje])
 
+    //sockets 
     useEffect(() => {
         if (!auth._id) return
 
-        const mensajeria = ({conversacion}) => {
+        const mensajeria = ({ conversacion }) => {
             if (conversacion.participantes.some(of => of._id === auth._id)) {
                 setMensajesUsuario(prev => {
                     const existe = prev.find(of => of._id === conversacion._id)
@@ -128,19 +169,15 @@ const Dashboard = () => {
                         return [...prev, conversacion]
                     }
                 })
-                setFormMsg({
-                    receptor: '',
-                    mensaje: ''
-                })
             }
         }
-
         socket.on('Mensaje', mensajeria)
 
         return () => {
             socket.off('Mensaje', mensajeria)
         }
     }, [auth._id])
+
     return (
         <>
             <div className={`${dark ? "dark bg-emerald-950" : "bg-emerald-900"}`}>
@@ -449,6 +486,7 @@ const Dashboard = () => {
                                                         <React.Fragment key={m._id}>
                                                             <p className={`text-white py-1 px-2.5 rounded-b-lg ${m.emisor === auth._id ? 'bg-emerald-700 self-end rounded-l-lg' : 'bg-gray-700 self-start rounded-r-lg'}  mt-1.5 w-fit max-w-3/4 text-start`} onClick={() => { setHoraMsgs(m.fecha); setIdMensaje(m._id) }}>{m.mensaje}</p>
                                                             {idMensaje === m._id && <span className={`text-xs ${m.emisor === auth._id ? 'self-end' : 'self-start'} mt-0.5`}>{DateTime.fromISO(horaMsgs, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('yyyy LLL dd')} - {DateTime.fromISO(horaMsgs, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</span>}
+                                                            {m.estado === 'error' ? <span className={`text-red-500 text-xs ${m.emisor === auth._id ? 'self-end' : 'self-start'} mt-0.5`}>Error al enviar</span> : ''}
                                                         </React.Fragment>
                                                     ))
                                                 ))
@@ -456,7 +494,7 @@ const Dashboard = () => {
                                             </div>
                                         </div>
                                         <div className="flex justify-between gap-x-3 px-3 py-2 items-center w-full h-fit dark:bg-black border-t dark:border-gray-800">
-                                            <textarea id="msgs" name="mensaje" onChange={handleChangeMsgs} value={formMsg.mensaje || ''} type="text" placeholder="Escribe un mensaje..." onKeyDown={(e) => {
+                                            <textarea id="msgs" name="mensaje" onChange={handleChangeMsgs} value={formMsg.mensaje || ''} type="text" placeholder="Escribe un mensaje" onKeyDown={(e) => {
                                                 if (e.key === 'Enter' && !e.shiftKey) {
                                                     e.preventDefault()
                                                     enviarMensaje(msg.id)

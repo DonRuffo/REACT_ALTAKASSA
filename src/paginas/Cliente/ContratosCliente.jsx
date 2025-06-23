@@ -9,12 +9,14 @@ import OfertaStore from "../../store/OfertaStore";
 import AuthStoreContext from "../../store/AuthStore";
 import { toast } from "react-toastify";
 import { DateTime } from "luxon";
+import CalificacionProv from "../Proveedor/CalificacionProv";
 
 const ContratosCliente = () => {
 
-    const { trabajos, ObtenerTrabajos } = OfertaStore()
-    const { auth, NuevoMSG } = AuthStoreContext()
+    const { trabajos, ObtenerTrabajos, setModalCalifProv, modalCalifProv } = OfertaStore()
+    const { NuevoMSG } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('Todas')
+    const [trabajoSeleccionado, setTrabajoSeleccionado] = useState(null)
 
     const handleRadioChange = (e) => {
         const tipo = e.target.value
@@ -67,7 +69,7 @@ const ContratosCliente = () => {
             }
         }
     }
-    
+
     return (
         <>
             <section>
@@ -154,11 +156,24 @@ const ContratosCliente = () => {
                                             </div>
                                         </div><hr className="border border-white" />
                                         <div className="flex justify-around mt-2">
-                                            <button type="button" data-tooltip-id="mensaje" data-tooltip-content={'Enviar mensaje'} className="flex flex-col justify-center items-center px-3 text-emerald-700 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer" onClick={() => NuevoMSG(tra.proveedor._id, tra.proveedor.nombre, tra.proveedor.apellido, tra.proveedor.f_perfil)}>
+                                            <button type="button" data-tooltip-id="finalizar" data-tooltip-content={'Finalizar trabajo'} className="flex flex-col justify-center items-center  text-cyan-800 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer" onClick={() => {
+                                                const confirmar = confirm(`¿Estás seguro de finalizar el trabajo de ${tra.servicio}? Esta acción no se puede deshacer.`)
+                                                if (confirmar) {
+                                                    setModalCalifProv(true);
+                                                    setTrabajoSeleccionado(tra._id);
+                                                }
+                                            }
+                                            }>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+                                                <p className="text-sm">Finalizar</p>
+                                            </button>
+                                            <button type="button" data-tooltip-id="mensaje" data-tooltip-content={'Enviar mensaje'} className="flex flex-col justify-center items-center text-emerald-800 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer" onClick={() => NuevoMSG(tra.proveedor._id, tra.proveedor.nombre, tra.proveedor.apellido, tra.proveedor.f_perfil)}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.6" stroke="currentColor" className="size-7">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                                                 </svg>
-                                                <p className="text-sm lg:hidden">Mensaje</p>
+                                                <p className="text-sm">Mensaje</p>
                                             </button>
                                             <button type="button" className="flex flex-col justify-center items-center text-red-800 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={
                                                 async () => {
@@ -170,9 +185,10 @@ const ContratosCliente = () => {
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.6" stroke="currentColor" className="size-7">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                 </svg>
-                                                <p className="text-sm lg:hidden">Cancelar</p>
+                                                <p className="text-sm">Cancelar</p>
                                             </button>
                                         </div>
+                                        {modalCalifProv && trabajoSeleccionado === tra._id && <CalificacionProv id={tra._id} nombre={tra.proveedor.nombre} apellido={tra.proveedor.apellido} foto={tra.proveedor.f_perfil} />}
                                     </div>
                                 ))
                             )

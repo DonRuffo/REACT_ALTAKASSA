@@ -92,7 +92,7 @@ const Inicio = () => {
     return (
         <>
             <ToastContainer
-                toastStyle={{backgroundColor:'#1c2833 ', color:'white'}}
+                toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
                 closeOnClick
                 position="bottom-center"
             />
@@ -163,7 +163,13 @@ const Inicio = () => {
                             </div>
                             <div className={`${filtro ? 'hidden' : ''} flex justify-center gap-x-5 flex-wrap`}>
                                 {oferta.length > 0 ? oferta.map((of, index) => (
-                                    <div key={of._id} className="flex items-center justify-between md:block radial-gradientOfertas-bg h-fit w-full mx-6 md:mx-0 py-1 md:p-4 md:w-fit md:max-w-48 rounded-lg shadow-lg shadow-purple-400 mb-5">
+                                    <div key={of._id} className="relative flex items-center justify-between md:block radial-gradientOfertas-bg h-fit w-full mx-6 md:mx-0 py-1 md:p-4 md:w-fit md:max-w-48 rounded-lg shadow-lg shadow-purple-400 mb-5">
+                                        <div className="absolute flex justify-center items-center -top-2 right-2 z-10 bg-gray-800 text-yellow-600 px-2 py-1 rounded-md text-xs font-semibold">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                            </svg>
+                                            <p className="text-base">{of.proveedor.calificacionProveedor}</p>
+                                        </div>
                                         <div className="flex justify-center ml-1.5 md:ml-0 ">
                                             <div className="flex justify-center h-[70px] w-[70px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer shrink-0" onClick={() => { setModalProvs(!modalProvs); setValorUrl(of.proveedor.f_perfil); setIndex(index) }}>
                                                 <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />

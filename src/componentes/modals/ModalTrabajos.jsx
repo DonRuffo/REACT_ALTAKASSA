@@ -173,9 +173,6 @@ const ModalTrabajos = ({ idOferta }) => {
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
-            error.response.data.msg.forEach((mensaje) => {
-                toast.error(mensaje)
-            })
             setCargaTra(false)
         }
 

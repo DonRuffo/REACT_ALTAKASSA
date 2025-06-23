@@ -48,7 +48,7 @@ const PlanesdePago = () => {
                 <h1 className="text-purple-600 text-2xl md:text-3xl font-CalSans">
                     Planes de pago
                 </h1>
-                <p className="dark:text-white text-xl mt-1">Visualiza, crea o edita tus planes de pago</p>
+                <p className="dark:text-white text-xl mt-1">Visualiza, crea o edita tus planes premium</p>
             </div><br /><br />
             <div className="flex justify-center gap-x-5 flex-wrap gap-y-3">
                 {planes.length > 0 ? planes.map(pl => (
