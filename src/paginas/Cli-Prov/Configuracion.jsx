@@ -255,7 +255,12 @@ const Configuracion = () => {
             <section className="flex flex-col md:flex-row justify-between px-5 mb-3">
                 <div className="w-full md:w-2/5 flex flex-col items-center">
                     <h1 className="text-3xl font-CalSans dark:text-white pb-1 mt-20 lg:mt-5 px-8">{auth.nombre} {auth.apellido}</h1>
-                    <div className="w-52 h-52 outline outline-gray-100 dark:outline-gray-900 rounded-full shrink-0 overflow-hidden cursor-pointer mb-3" onClick={() => { setModalPerfilFoto(true) }}>
+                    <div className={`w-52 h-52 outline outline-gray-100 dark:outline-gray-900 rounded-full shrink-0 overflow-hidden cursor-pointer mb-3 ${auth.f_perfil === "" || auth.f_perfil === null ? 'bg-gray-500' : ''}`} onClick={() => { setModalPerfilFoto(true) }}>
+                        {auth.f_perfil === "" || auth.f_perfil === null ? (
+                            <div className="flex items-center justify-center w-full h-full">
+                                <h1 className="text-7xl text-center text-white">US</h1>
+                            </div>
+                        ): ''}
                         <img src={auth.f_perfil} alt="FotoPerfil" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex w-full lg:w-4/5 bg-gray-100 dark:bg-black dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg lg:max-h-[210px] mb-8 md:mb-5">

@@ -18,7 +18,7 @@ const CalificacionProv = ({id, nombre, apellido, foto}) => {
     const handleSubmitStars = async () => {
 
         try {
-            const url = `${import.meta.env.VITE_API_URL}/calificarProveedor/${id}`;
+            const url = `${import.meta.env.VITE_BACKEND_URL}/calificarProveedor/${id}`;
             const token = localStorage.getItem("token");
             const options = {
                 headers: {
@@ -31,7 +31,7 @@ const CalificacionProv = ({id, nombre, apellido, foto}) => {
             setHovered(0);
         } catch (error) {
             console.error("Error al enviar la calificación:", error);
-            toast.error(error.response.data.msg || "Error al enviar la calificación");
+            toast.error(error.response.data.msg);
         }
     }
 
@@ -44,11 +44,6 @@ const CalificacionProv = ({id, nombre, apellido, foto}) => {
             />
             <div className="fixed z-50 inset-0 bg-black/70 transition-opacity">
                 <div className="fixed outline-2 outline-emerald-500 left-[30px] right-[30px] md:left-[200px] md:right-[200px] lg:inset-x-5/12 inset-y-1/3 w-auto h-80 md:w-auto lg:w-88 md:h-88 items-center justify-center rounded-3xl dark:bg-gradient-to-b dark:from-emerald-600 dark:via-emerald-900 dark:to-black bg-white px-4 py-2 md:py-7">
-                    <div className="absolute top-2 right-2 cursor-pointer" onClick={() => setModalCalifProv(false)}>
-                        <button className="bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-colors">
-                            Cerrar
-                        </button>
-                    </div>
                     <h1 className="dark:text-white text-2xl font-CalSans text-center mt-3">Califica el servicio de:</h1>
                     <div className="flex justify-center items-center mt-3 mb-2">
                         <div className="w-20 h-20 rounded-full overflow-hidden">
@@ -82,7 +77,7 @@ const CalificacionProv = ({id, nombre, apellido, foto}) => {
                         <button
                             type="button"
                             className={`w-1/3 ${calificacion ? 'cursor-pointer hover:scale-105' : 'pointer-events-none cursor-not-allowed opacity-50'} bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2 rounded-lg transition-transform duration-300 ease-in-out`}
-                            onClick={handleSubmitStars}
+                            onClick={async () => { await handleSubmitStars(); setTimeout(() => setModalCalifProv(false), 2500) }}
                         >
                             Enviar
                         </button>

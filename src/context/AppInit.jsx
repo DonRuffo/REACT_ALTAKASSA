@@ -106,7 +106,6 @@ const AppInit = ({ children }) => {
                 const objetoN2 = {
                     monedasTrabajos: auth.monedasTrabajos - 1
                 }
-                console.log(objetoN2)
                 setAuth(objetoN2)
             }
         }
@@ -163,10 +162,14 @@ const AppInit = ({ children }) => {
                 setOferta(prev => [...prev, ...ofertaResp] )
             }
         }
-        
         const remover = ({ ofertaResp }) => {
             if (ofertaResp.proveedor.monedasTrabajos === 0) {
                 setOferta(prev => prev.filter(of => of.proveedor._id !== ofertaResp.proveedor._id))
+            }
+        }
+        const trabajoCompletadoCli = ({id, trabajo}) => {
+            if (auth._id === trabajo.cliente._id) {
+                setTrabajos(prev => [...prev.filter(tra => tra._id !== id), trabajo])
             }
         }
 
@@ -205,7 +208,11 @@ const AppInit = ({ children }) => {
                 setOfertaProvs(prev => [...prev.filter(of => of._id !== id), ofertaActual])
             }
         }
-
+        const trabajoCompletadoProv = ({ id, trabajo }) => {
+            if(auth._id === trabajo.proveedor._id) {
+                setTrabajosProvs(prev => [...prev.filter(tra => tra._id !== id), trabajo])
+            }
+        }
         //sockets admin
         socket.on('Usuario eliminado', eliminarUsuario)
         socket.on('Plan actualizado', planActual)
@@ -224,12 +231,14 @@ const AppInit = ({ children }) => {
         socket.on('Restablecer-oferta', traCancelInicio)
         socket.on('Remover-oferta', remover)
         socket.on('Trabajo-eliminado', trabajoEliminado)
+        socket.on('Trabajo-completado', trabajoCompletadoCli)
 
         //sockets proveedor
         socket.on('Oferta-eliminada', eliminarOf)
         socket.on('Nueva-solicitud', nuevaSoli)
         socket.on('Trabajo-actualizado', trabajoActualizadoProv)
         socket.on('Actualizar-oferta', actualizarOf)
+        socket.on('Trabajo-completado-prov', trabajoCompletadoProv)
 
 
         //apagado de sockets
@@ -252,12 +261,14 @@ const AppInit = ({ children }) => {
             socket.off('Restablecer-oferta', traCancelInicio)
             socket.off('Remover-oferta', remover)
             socket.off('Trabajo-eliminado', trabajoEliminado)
+            socket.off('Trabajo-completado', trabajoCompletadoCli)
 
             //proveedor
             socket.off('Oferta-eliminada', eliminarOf)
             socket.off('Nueva-solicitud', nuevaSoli)
             socket.off('Trabajo-actualizado', trabajoActualizadoProv)
             socket.off('Actualizar-oferta', actualizarOf)
+            socket.off('Trabajo-completado-prov', trabajoCompletadoProv)
         }
     }, [auth._id, auth.monedasTrabajos, auth.cantidadOfertas])
     return (

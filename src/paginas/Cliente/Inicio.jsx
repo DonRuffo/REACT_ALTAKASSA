@@ -101,7 +101,7 @@ const Inicio = () => {
                     <>
                         <section className="flex justify-center mt-20 lg:mt-5 mb-5">
                             <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 md:w-3/5 py-4.5 lg:py-10 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700">
-                                <h1 className="relative lg:z-10 text-2xl md:text-3xl text-center text-purple-600 font-CalSans px-3 md:px-0">¡Qué gusto verte aquí!</h1>
+                                <h1 className="relative lg:z-10 text-2xl md:text-3xl text-center text-purple-500 font-CalSans px-3 md:px-0">Vista como cliente</h1>
                                 <h2 className="relative lg:z-10 md:text-xl text-center dark:text-white pt-3  md:px-0">Los proveedores esperan por brindarte sus servicios</h2>
                                 <div className="absolute opacity-50 z-0 -top-2 left-2 hidden lg:flex justify-center pb-4">
                                     <img src={logoInicio} alt="Constructor" width={215} height={185} />
@@ -168,7 +168,7 @@ const Inicio = () => {
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
                                             </svg>
-                                            <p className="text-base">{of.proveedor.calificacionProveedor}</p>
+                                            <p className="text-base">{Number(of.proveedor.promedioProveedor).toFixed(1)}</p>
                                         </div>
                                         <div className="flex justify-center ml-1.5 md:ml-0 ">
                                             <div className="flex justify-center h-[70px] w-[70px] md:h-[85px] md:w-[85px] rounded-full overflow-hidden cursor-pointer shrink-0" onClick={() => { setModalProvs(!modalProvs); setValorUrl(of.proveedor.f_perfil); setIndex(index) }}>
