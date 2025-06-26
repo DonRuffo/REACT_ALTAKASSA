@@ -3,10 +3,12 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import OfertaStore from "../../store/OfertaStore";
 import SpinnerCargaModal from "../RuedaCargaModal";
+import AuthStoreContext from "../../store/AuthStore";
 
 const ModalOferta = () => {
 
     const { modalOf, setModalOf} = OfertaStore()
+    const {categorias} = AuthStoreContext()
     const [carga, setCarga] = useState(false)
     const [formOf, setFormOf] = useState({
         precioPorDia: "",
@@ -448,16 +450,9 @@ const ModalOferta = () => {
                             <div className="flex justify-center gap-2 px-6 items-center">
                                 <label htmlFor="servicio" className="text-md font-semibold dark:text-white">Categoría:</label>
                                 <select name="servicio" id="servicio" className="dark:bg-gray-900 dark:text-slate-200 w-full py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700" onChange={handleChange}>
-                                    <option value="Limpieza">Limpieza</option>
-                                    <option value="Chófer">Chófer</option>
-                                    <option value="Niñera">Niñera</option>
-                                    <option value="Téc.Electrodomésticos">Téc.Electrodomésticos</option>
-                                    <option value="Plomería">Plomería</option>
-                                    <option value="Pintor">Pintor</option>
-                                    <option value="Albañilería">Albañilería</option>
-                                    <option value="Cerrajería">Cerrajería</option>
-                                    <option value="Carpintería">Carpintería</option>
-                                    <option value="Electricista">Electricista</option>
+                                    {categorias.map((cat) => (
+                                        <option key={cat.nombre} value={cat.nombre} className="dark:bg-gray-900 dark:text-slate-200">{cat.nombre}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>

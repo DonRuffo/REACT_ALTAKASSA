@@ -139,7 +139,7 @@ const Inicio = () => {
                         <section className={`${foto && ubiActual ? '' : 'hidden'} flex justify-center`}>
                             <div className="w-5/6 ">
                                 <h1 className="font-CalSans text-2xl mb-3 dark:text-white mt-3">Categorías</h1>
-                                <div className="custom-bar-cat flex overflow-x-auto justify-around mb-4 gap-x-2.5 pb-1">
+                                <div className="relative custom-bar-cat flex overflow-x-auto justify-around mb-4 gap-x-2.5 pb-1">
                                     {categorias.map((cat, index) => (
                                         <Link key={index} onClick={(e) => {
                                             e.preventDefault()

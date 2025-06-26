@@ -119,7 +119,7 @@ const Login = () => {
 
 
                                 <div className="my-7 flex justify-center">
-                                    <button type='submit' onClick={() => setCarga(true)} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white cursor-pointer font-CalSans`}>Ingresar</button>
+                                    <button type='submit' onClick={() => {setCarga(true); setTimeout(() => {setCarga(false)}, [4000])}} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white cursor-pointer font-CalSans`}>Ingresar</button>
                                     {carga && (<RelojDeArena />)}
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />
