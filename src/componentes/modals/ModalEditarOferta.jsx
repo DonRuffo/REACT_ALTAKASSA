@@ -439,7 +439,7 @@ const ModalEditarOferta = ({ idOferta }) => {
 
     return (
         <>
-            <div className="fixed bg-black/80 inset-0 transition-all duration-300">
+            <div className="fixed z-50 bg-black/80 inset-0 transition-all duration-300">
                 <ToastContainer
                     toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
                     closeOnClick

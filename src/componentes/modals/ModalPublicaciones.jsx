@@ -36,7 +36,7 @@ const ModalPublicaciones = ({ idRev }) => {
     }, [])
     return (
         <>
-            <div className="fixed inset-0 bg-black/80">
+            <div className="fixed z-50 inset-0 bg-black/80">
                 <div className="max-h-[500px] overflow-y-auto fixed dark:border-none outline-2 outline-emerald-700 dark:outline-emerald-500 top-1/5 md:top-1/4 left-[40px] md:left-[150px] lg:left-[425px] xl:left-[550px] right-[40px] md:right-[150px] lg:right-[200px] xl:right-[370px] min-w-64 lg:min-w-lg bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 rounded-lg shadow-2xl">
                     <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-emerald-700 dark:text-emerald-500">Revisión</h1>
                     <div className={`flex justify-center mt-3 ${publicaciones || comentarios ? 'hidden' : ''}`}>
