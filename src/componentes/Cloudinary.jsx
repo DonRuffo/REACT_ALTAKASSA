@@ -20,7 +20,6 @@ const Cloudinary = () => {
             return;
         }
         try {
-            const rol = localStorage.getItem('rol')
             const token = localStorage.getItem('token')
             const options = {
                 headers: {

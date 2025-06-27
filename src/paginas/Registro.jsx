@@ -15,7 +15,6 @@ const Registro = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
     const [reloj, setReloj] = useState(false)
     const [lista, setLista] = useState(false)
-    const [errores, setErrores] = useState([]);
     const [form, setForm] = useState({
         nombre: "",
         apellido: "",

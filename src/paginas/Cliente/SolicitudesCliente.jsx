@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import '../../../CSS/fondos.css'
 import ModalActualizar from "../../componentes/modals/ModalActualizar";
 import imgSinTrabajo from '../../assets/Tiempo.svg'

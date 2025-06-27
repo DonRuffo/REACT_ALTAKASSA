@@ -11,7 +11,7 @@ import AuthStoreContext from "../../store/AuthStore";
 import PropTypes from "prop-types";
 
 const ModalTrabajos = ({ idOferta }) => {
-    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil, mapaCliProv, setMapaCliProv, setTrabajos } = OfertaStore()
+    const { modalTra, setModalTra, idProveedor, setIdProveedor, setFechas, setTraProveedor, traProveedor, setModalPerfil, modalPerfil, mapaCliProv, setMapaCliProv } = OfertaStore()
     const { setUbicacionTrabajo } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)

@@ -28,7 +28,6 @@ const ModalOferta = () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/crearOferta`
             const token = localStorage.getItem('token')
-            const rol = localStorage.getItem('rol')
             const options = {
                 headers: {
                     method: 'POST',

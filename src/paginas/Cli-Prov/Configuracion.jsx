@@ -72,7 +72,6 @@ const Configuracion = () => {
 
         //subir la nueva foto
         try {
-            const rol = localStorage.getItem('rol')
             const token = localStorage.getItem('token')
             const options = {
                 headers: {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import AuthStoreContext from "../../store/AuthStore";
 import axios from "axios";

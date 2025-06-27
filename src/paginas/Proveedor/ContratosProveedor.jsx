@@ -17,7 +17,6 @@ const ContratosProv = () => {
 
     const cancelarTrabajo = async (idTra, servicio, idProv) => {
         const token = localStorage.getItem('token')
-        const rol = localStorage.getItem('rol')
         const confirmar = confirm(`¿Estás seguro de cancelar el trabajo de ${servicio}?`)
         if (confirmar) {
             try {

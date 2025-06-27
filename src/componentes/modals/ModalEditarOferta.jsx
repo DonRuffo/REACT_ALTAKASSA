@@ -3,7 +3,6 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import SpinnerCargaModal from "../RuedaCargaModal";
 import OfertaStore from "../../store/OfertaStore";
-import AuthStoreContext from "../../store/AuthStore";
 import PropTypes from "prop-types";
 
 const ModalEditarOferta = ({ idOferta }) => {
@@ -23,8 +22,7 @@ const ModalEditarOferta = ({ idOferta }) => {
         descripcion: "",
         servicios: []
     })
-    const { setModalEditOf, modalEditOf, MisOfertas, setOferta, setOfertaProvs } = OfertaStore()
-    const { auth } = AuthStoreContext()
+    const { setModalEditOf, modalEditOf, MisOfertas } = OfertaStore()
 
     //obtiene la oferta con los datos actuales
     const ObtenerOferta = async () => {
