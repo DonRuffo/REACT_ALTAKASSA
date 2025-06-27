@@ -263,7 +263,7 @@ const Configuracion = () => {
                         ): ''}
                         <img src={auth.f_perfil} alt="FotoPerfil" className="w-full h-full object-cover" />
                     </div>
-                    <div className="flex w-full lg:w-4/5 bg-gray-100 dark:bg-black dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg lg:max-h-[210px] mb-8 md:mb-5">
+                    <div className="flex w-full lg:w-4/5 bg-gray-100 dark:bg-black dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg lg:max-h-[235px] mb-8 md:mb-5">
                         <ul className="w-full p-2">
                             <OpcionConfig titulo={"Cambiar contraseña"} logo={
                                 (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
