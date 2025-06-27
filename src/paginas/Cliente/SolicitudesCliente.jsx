@@ -13,8 +13,8 @@ import { DateTime } from "luxon";
 const SolicitudesCli = () => {
     const [trabajoSeleccionado, setTrabajoSeleccioando] = useState(null)
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null)
-    const { modalTraActual, setModalTraActual, trabajos, setTrabajos, pulseTra, ObtenerTrabajos } = OfertaStore()
-    const { setOpcionActiva, auth } = AuthStoreContext()
+    const { modalTraActual, setModalTraActual, trabajos, pulseTra } = OfertaStore()
+    const { setOpcionActiva } = AuthStoreContext()
 
     const seleccionarTrabajo = (id) => {
         setTrabajoSeleccioando(id)

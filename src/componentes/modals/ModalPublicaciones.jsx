@@ -79,10 +79,10 @@ const ModalPublicaciones = ({ idRev }) => {
                     <div id="comentarios" className={`${comentarios ? '' : 'hidden'}`}>
                         <h1 className="text-xl ml-8 mt-4 mb-2">Comentarios</h1>
                         <div className="flex justify-center">
-                            <button type="button" className="px-3 py-1 rounded-lg bg-red-200 text-red-700 dark:bg-red-900 dark:text-red-200 cursor-pointer hover:scale-105 duration-300 ease-in-out" onClick={() => { setComentarios(false) }}>Regresar</button>
+                            <button data-testid="regresar-comentarios" type="button" className="px-3 py-1 rounded-lg bg-red-200 text-red-700 dark:bg-red-900 dark:text-red-200 cursor-pointer hover:scale-105 duration-300 ease-in-out" onClick={() => { setComentarios(false) }}>Regresar</button>
                         </div>
                     </div>
-                    <div id="publicaciones" className={`${publicaciones ? '' : 'hidden'}`}>
+                    <div id="publicaciones" data-testid="publicaciones-div" className={`${publicaciones ? '' : 'hidden'}`}>
                         <h1 className="ml-8 mt-4 mb-2 text-xl">Publicaciones</h1>
                         <div className="mx-5 flex justify-center gap-3 flex-wrap">
                             {ofertas.length > 0 ? (
@@ -103,7 +103,7 @@ const ModalPublicaciones = ({ idRev }) => {
                             )}
                         </div><br />
                         <div className="flex justify-center">
-                            <button type="button" className="px-3 py-1 rounded-lg bg-red-200 text-red-700 dark:bg-red-900 dark:text-red-200 cursor-pointer hover:scale-105 duration-300 ease-in-out" onClick={() => { setPublicaciones(false) }}>Regresar</button>
+                            <button data-testid="regresar-publicaciones" type="button" className="px-3 py-1 rounded-lg bg-red-200 text-red-700 dark:bg-red-900 dark:text-red-200 cursor-pointer hover:scale-105 duration-300 ease-in-out" onClick={() => { setPublicaciones(false) }}>Regresar</button>
                         </div>
                     </div><br />
                     <div className={`flex justify-center mb-3 ${publicaciones || comentarios ? 'hidden' : ''}`}>

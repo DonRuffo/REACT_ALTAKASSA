@@ -324,7 +324,7 @@ const Configuracion = () => {
                                 </div>
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button type="submit" className="px-5 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Cambiar</button>
+                                <button data-testid="btn-actualizar-contrasenia" type="submit" className="px-5 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Actualizar</button>
                                 <button type="button" className="px-6 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
                             </div>
                         </form>

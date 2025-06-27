@@ -51,9 +51,9 @@ const Restablecer = () => {
                     <div className="w-5/6">
                         <form onSubmit={HandleSubmit}>
                             <div className="my-3 pb-3">
-                                <label className="block text-md font-semibold pb-1">Nueva contraseña</label>
+                                <label htmlFor="contrasenia" className="block text-md font-semibold pb-1">Nueva contraseña</label>
                                 <div className="relative">
-                                    <input type={`${ojoActivo ? 'text' : 'password'}`} placeholder="*******" name="contrasenia" onChange={HandleChange} value={form.contrasenia || ""} className="p-1 w-full text-slate-800 rounded-md border border-slate-400 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700" />
+                                    <input id="contrasenia" type={`${ojoActivo ? 'text' : 'password'}`} placeholder="*******" name="contrasenia" onChange={HandleChange} value={form.contrasenia || ""} className="p-1 w-full text-slate-800 rounded-md border border-slate-400 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700" />
                                     <button type="button" onClick={() => { setOjoActivo(!ojoActivo) }} className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                 </div>
                             </div>

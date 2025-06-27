@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 
 const ModalActualizar = ({ idTrabajo, idOferta }) => {
     const [selectedOption, setSelectedOption] = useState('');
-    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv, setTrabajos } = OfertaStore()
+    const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv } = OfertaStore()
     const [carga, setCarga] = useState(true)
     const [calendario, setCalendario] = useState(false)
 

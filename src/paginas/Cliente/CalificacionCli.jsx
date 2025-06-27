@@ -56,6 +56,7 @@ const CalificacionCli = ({ id, nombre, apellido, foto }) => {
                         {stars.map((star) => (
                             <svg
                                 key={star}
+                                data-testid="star"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
                                 viewBox="0 0 24 24"
