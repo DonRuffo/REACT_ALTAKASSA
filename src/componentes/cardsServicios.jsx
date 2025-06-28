@@ -10,7 +10,7 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
         setValorTra(e.target.value)
     }
     return (
-        <div className="flex flex-col justify-between items-center py-5 md:py-8 relative rounded-xl bg-gray-100 dark:border-none dark:bg-black outline outline-slate-200 dark:outline-slate-600 shadow-md shadow-cyan-200 dark:shadow-purple-800 hover:scale-105 duration-300 ease-in-out">
+        <div className="flex flex-col justify-between items-center py-5 md:py-8 relative rounded-xl bg-gray-100 dark:border-none dark:bg-gray-900 shadow-lg shadow-cyan-200 dark:shadow-emerald-600 hover:scale-105 duration-300 ease-in-out">
             <div>
                 <h1 className="text-3xl text-slate-600 text-center font-CalSans dark:text-white">{Servicio1}</h1>
                 <div className="flex justify-center py-4">
@@ -19,8 +19,8 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
                 <p className="text-md text-slate-600 font-semibold dark:text-slate-300 px-3.5 md:px-5 lg:px-10 text-center">{texto1}</p><br />
             </div>
             <div className="flex justify-center gap-x-2 lg:gap-x-3">
-                <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-600 dark:text-purple-600 hover:dark:bg-purple-600 hover:dark:text-black cursor-pointer">Contratar</Link>
-                <button type="button" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-purple-600 dark:text-purple-600 hover:dark:bg-purple-600 hover:dark:text-black cursor-pointer" onClick={() => setAbrir(!abrir)}>Trabajos</button>
+                <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-emerald-600 dark:text-emerald-600 hover:dark:bg-emerald-600 hover:dark:text-black cursor-pointer">Contratar</Link>
+                <button type="button" className="px-4 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-emerald-600 dark:text-emerald-600 hover:dark:bg-emerald-600 hover:dark:text-black cursor-pointer" onClick={() => setAbrir(!abrir)}>Trabajos</button>
             </div>
             {abrir && (
                 <div className="absolute top-0 left-0 w-full h-full rounded-xl bg-gray-300 dark:bg-gray-950 bg-opacity-65 dark:bg-opacity-60 flex justify-center items-center">

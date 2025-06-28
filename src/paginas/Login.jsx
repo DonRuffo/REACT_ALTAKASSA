@@ -124,8 +124,8 @@ const Login = () => {
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />
                                 <div className='mt-1 md:mt-3 md:mb-1'>
-                                    <p className='text-base text-slate-500 dark:text-slate-300 mb-1 font-semibold'>Olvidaste tu contraseña: <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
-                                    <p className='text-base text-slate-500 dark:text-slate-300 font-semibold'>No tienes una cuenta: <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/registro'>Regístrate Aquí</Link></p>
+                                    <p className='text-base text-slate-500 dark:text-slate-300 mb-1 font-semibold'>Olvidaste tu contraseña {'-->'} <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
+                                    <p className='text-base text-slate-500 dark:text-slate-300 font-semibold'>No tienes una cuenta {'-->'} <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/registro'>Regístrate Aquí</Link></p>
                                 </div>
                             </form><br />
                             <div>

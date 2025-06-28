@@ -46,6 +46,7 @@ const LandingPage = () => {
 
     const { darkMode, handleDarkPage } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('');
+    const [panel, setPanel] = useState(false)
 
     const navigate = useNavigate()
     const handleRadioChange = (event) => {
@@ -396,24 +397,47 @@ const LandingPage = () => {
             <div className={darkMode ? "dark" : ""}>
                 <main className="bg-white dark:bg-black font-Cabin">
                     <nav className="fixed z-10 w-full px-10 py-5 lg:py-5 flex justify-between backdrop-blur-sm bg-white/30 dark:bg-black/30" id="LandingPage">
-                        <select className="w-1/3 mr-1 md:mr-0 rounded-xl py-2 md:w-40 text-center text-purple-500 font-semibold bg-transparent outline focus:outline-purple-600 hover:brightness-125 duration-300"
-                            onChange={(e) => {
-                                const targetId = e.target.value
-                                const targetElement = document.getElementById(targetId)
-                                if (targetElement) {
-                                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                                }
-                            }}
-                        >
-                            <option value="Inicio" className="text-sm font-semibold dark:bg-gray-950">Inicio</option>
-                            <option value="QuienesSomos" className="text-sm font-semibold dark:bg-gray-950">Quienes Somos</option>
-                            <option value="Servicios" className="text-sm font-semibold dark:bg-gray-950">Servicios</option>
-                            <option value="Contacto" className="text-sm font-semibold dark:bg-gray-950">Contacto</option>
-                        </select>
-                        <img src={logoDarkMode} alt="CambioTema" onClick={() => { handleDarkPage() }} width={40} height={40} className="cursor-pointer" />
-                        <ul className="flex items-center">
-                            <li><Link to='/login' className="w-1/4 px-6 py-2 my-4 mx-1 md:ml-14 bg-transparent outline text-purple-500 font-semibold rounded-xl hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
-                        </ul>
+                        <div className="grid grid-cols-3 w-full">
+                            <div className="flex items-center justify-start">
+                                <select className="w-full text-lg mr-1 md:mr-0 rounded-lg py-2 md:w-40 text-center text-cyan-500 font-semibold bg-transparent outline-2 focus:outline-cyan-600 hover:brightness-125 duration-300 cursor-pointer"
+                                    onChange={(e) => {
+                                        const targetId = e.target.value
+                                        const targetElement = document.getElementById(targetId)
+                                        if (targetElement) {
+                                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                                        }
+                                    }}
+                                >
+                                    <option value="Inicio" className="text-sm font-semibold dark:bg-gray-950">Inicio</option>
+                                    <option value="QuienesSomos" className="text-sm font-semibold dark:bg-gray-950">Quienes Somos</option>
+                                    <option value="Servicios" className="text-sm font-semibold dark:bg-gray-950">Servicios</option>
+                                    <option value="Contacto" className="text-sm font-semibold dark:bg-gray-950">Contacto</option>
+                                </select>
+                            </div>
+                            <div className="flex items-center justify-center">
+                                <img src={logoDarkMode} alt="CambioTema" onClick={() => { handleDarkPage() }} width={40} height={40} className="cursor-pointer" />
+                            </div>
+                            <div className="hidden md:flex items-center justify-end">
+                                <ul className="flex items-center gap-x-1.5">
+                                    <li><Link to='/login' className="w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-500 text-lg text-cyan-500 font-semibold hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
+                                    <li><Link to='/registro' className=" w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-500 text-lg text-cyan-500 font-semibold hover:brightness-125 transition-all duration-300 text-center">Registro</Link></li>
+                                </ul>
+                            </div>
+                            <div className="md:hidden flex items-center justify-end text-cyan-500">
+                                <ul className="relative flex items-center gap-x-1.5">
+                                    <li><Link to='/login' className="w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-500 text-lg text-cyan-500 font-semibold hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className={`absolute top-1.5 -right-6 size-6 ${panel ? 'rotate-180' : ''} cursor-pointer transition-transform duration-300`} onClick={() => setPanel(!panel)}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </ul>
+                                <div className={`fixed ${panel ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'} top-17 right-1 w-32  bg-white dark:bg-black shadow-lg rounded-md p-4 duration-300`}>
+                                    <Link to='/registro' className=" w-1/4 px-2 py-1  mx-1 bg-transparent text-lg border-b border-cyan-500 text-cyan-500 font-semibold hover:brightness-125 duration-300 text-center">Registro</Link>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </nav>
                     <section className="dark:bg-black py-10" id="Inicio"></section>
                     <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px] xl:h-[785px]"

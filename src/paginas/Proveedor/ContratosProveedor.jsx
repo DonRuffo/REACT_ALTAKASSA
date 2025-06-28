@@ -15,6 +15,8 @@ const ContratosProv = () => {
 
     const [trabajoSeleccionado, setTrabajoSeleccionado] = useState(null);
 
+    const fechaDeHoy = DateTime.now().setZone('America/Guayaquil').toFormat('yyyy-MM-dd')
+
     const cancelarTrabajo = async (idTra, servicio, idProv) => {
         const token = localStorage.getItem('token')
         const confirmar = confirm(`¿Estás seguro de cancelar el trabajo de ${servicio}?`)
@@ -75,17 +77,17 @@ const ContratosProv = () => {
                                     </div>
                                 </div><hr className="border border-white" />
                                 <div className="flex justify-around mt-2">
-                                    <button type="button" data-tooltip-id="finalizar" data-tooltip-content={'Finalizar trabajo'} className="flex flex-col justify-center items-center text-cyan-800 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer" onClick={() => {
+                                    <button type="button" data-tooltip-id="finalizar" data-tooltip-content={'Finalizar trabajo'} className={`flex flex-col justify-center items-center text-cyan-800 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer ${fechaDeHoy === DateTime.fromISO(tra.fecha).setZone('America/Guayaquil').toFormat('yyyy-MM-dd') ? '' : 'hidden'}`} onClick={() => {
                                         const confirmar = confirm(`¿Estás seguro de finalizar el trabajo de ${tra.servicio}? Esta acción no se puede deshacer.`);
                                         if (confirmar) {
                                             setModalCalifCli(true);
                                             setTrabajoSeleccionado(tra._id);
                                         }
                                     }}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`size-7`}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                         </svg>
-                                        <p className="text-sm">Finalizar</p>
+                                        <p className={`text-sm `}>Finalizar</p>
                                     </button>
                                     <button type="button" data-tooltip-id="mensaje" data-tooltip-content={'Enviar mensaje'} className="flex flex-col justify-center items-center text-emerald-800 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer" onClick={() => NuevoMSG(tra.cliente._id, tra.cliente.nombre, tra.cliente.apellido, tra.cliente.f_perfil)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.6" stroke="currentColor" className="size-7">

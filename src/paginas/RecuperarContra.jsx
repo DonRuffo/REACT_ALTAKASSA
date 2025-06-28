@@ -61,7 +61,7 @@ const Recuperar = () => {
                             </form>
                             <hr className="dark:border dark:border-gray-900" />
                             <div className="my-3 flex justify-end">
-                                <p className="text-sm text-slate-500 dark:text-slate-300 font-semibold">¿No tienes una cuenta? <Link className="text-emerald-500 dark:text-emerald-300 hover:underline hover:text-orange-500 duration-300" to='/registro'>Registrate aquí</Link></p>
+                                <p className="text-base text-slate-500 dark:text-slate-300 font-semibold">¿No tienes una cuenta? {'-->'} <Link className="text-emerald-500 dark:text-emerald-300 hover:underline hover:text-orange-500 duration-300" to='/registro'>Registrate aquí</Link></p>
                             </div>
                         </div>
                     </div>

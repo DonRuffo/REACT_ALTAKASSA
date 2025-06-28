@@ -23,6 +23,8 @@ const ContratosCliente = () => {
         setSelectedOption(tipo)
     }
 
+    const fechaDeHoy = DateTime.now().setZone('America/Guayaquil').toFormat('yyyy-MM-dd')
+
     const EliminarTrabajo = async (id, indx) => {
         const confirmar = confirm(`¿Estás seguro del eliminar el trabajo de ${indx}?`)
         if (confirmar) {
@@ -156,7 +158,7 @@ const ContratosCliente = () => {
                                             </div>
                                         </div><hr className="border border-white" />
                                         <div className="flex justify-around mt-2">
-                                            <button type="button" data-tooltip-id="finalizar" data-tooltip-content={'Finalizar trabajo'} className="flex flex-col justify-center items-center  text-cyan-800 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer" onClick={() => {
+                                            <button type="button" data-tooltip-id="finalizar" data-tooltip-content={'Finalizar trabajo'} className={`flex flex-col justify-center items-center  text-cyan-800 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer ${fechaDeHoy === DateTime.fromISO(tra.fecha).setZone('America/Guayaquil').toFormat('yyyy-MM-dd') ? '' : 'hidden'}`} onClick={() => {
                                                 const confirmar = confirm(`¿Estás seguro de finalizar el trabajo de ${tra.servicio}? Esta acción no se puede deshacer.`)
                                                 if (confirmar) {
                                                     setModalCalifProv(true);
