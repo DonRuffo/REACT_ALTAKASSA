@@ -60,15 +60,15 @@ const InicioAdmin = () => {
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-cyan-950 text-xs md:text-base">
+                        <tbody className="bg-cyan-950 text-xs md:text-base divide-y divide-gray-700">
                             {users.map(((us, index) => (
                                 <React.Fragment key={us._id}>
                                     <tr key={us._id}>
                                         <td className="py-1.5 text-center">{index + 1}</td>
                                         <td className="text-center">{us.nombre} {us.apellido}</td>
                                         <td className="text-center">{us.direccion}</td>
-                                        <td className="text-center">{us.calificacionCliente}</td>
-                                        <td className="text-center">{us.calificacionProveedor}</td>
+                                        <td className="text-center">{Number(us.promedioCliente).toFixed(1)}</td>
+                                        <td className="text-center">{Number(us.promedioProveedor).toFixed(1)}</td>
                                         <td className="flex gap-x-1 md:gap-x-2 lg:gap-x-3 justify-center py-1.5">
                                             <svg xmlns="http://www.w3.org/2000/svg" role="button" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-6 cursor-pointer hover:text-green-500 transition-all ease-in-out duration-200" onClick={() => { handleModalPubli(us._id); setModalUsers(true) }}>
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />

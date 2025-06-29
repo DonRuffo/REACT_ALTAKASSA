@@ -50,7 +50,7 @@ const SolicitudesCli = () => {
                 : (
                     <>
                         <section>
-                            <h1 className="text-3xl text-center text-cyan-600 font-CalSans mt-20 lg:mt-5">Solicitudes</h1>
+                            <h1 className="text-3xl text-center text-cyan-500 font-CalSans mt-20 lg:mt-5">Solicitudes</h1>
                             <p className="text-xl text-center font-semibold mb-5 dark:text-white px-5">Aquí podrás visualizar tus solicitudes de trabajo como cliente</p>
                             <div className="flex justify-center gap-3 flex-wrap">
                                 {trabajos.length !== 0 && trabajos.some(tra => tra.status === "En espera") ? (

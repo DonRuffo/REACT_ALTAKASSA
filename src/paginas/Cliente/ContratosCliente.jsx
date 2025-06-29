@@ -75,7 +75,7 @@ const ContratosCliente = () => {
     return (
         <>
             <section>
-                <h1 className="text-center text-cyan-600 font-CalSans text-3xl mt-20 lg:mt-5">Trabajos actuales</h1>
+                <h1 className="text-center text-cyan-500 font-CalSans text-3xl mt-20 lg:mt-5">Trabajos actuales</h1>
                 <p className="text-center font-semibold text-xl mb-5 dark:text-white">Aquí podrás ver las solicitudes que han sido aceptadas o rechazadas por los proveedores</p>
                 <div className="flex flex-wrap gap-2 mb-5 px-5">
                     <label className="dark:text-white  font-semibold has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-32 border-2 border-gray-500 dark:border-white rounded-md px-2 py-1 flex justify-between items-center">

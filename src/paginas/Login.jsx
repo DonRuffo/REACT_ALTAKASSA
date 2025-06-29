@@ -11,9 +11,10 @@ import OfertaStore from '../store/OfertaStore';
 
 const Login = () => {
     const { Perfil, darkMode, verificarUbicacionActual, verificarUbicacionTrabajo, ubiCliente, verificarFoto, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias } = AuthStoreContext()
-    const { ObtenerTrabajos, ListarOfertas, MisOfertas, obtenerMensajes } = OfertaStore()
+    const { ObtenerTrabajos, ListarOfertas, MisOfertas, obtenerMensajes, traerSugerencias } = OfertaStore()
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)
+    const [mostrar, setMostrar] = useState(false)
     const navigate = useNavigate()
     const [form, setForm] = useState({
         email: "",
@@ -45,7 +46,8 @@ const Login = () => {
                     traerUsuarios(resAd.data.token, resAd.data.rol),
                     Perfil(resAd.data.token, resAd.data.rol),
                     obtenerPlanes(resAd.data.token),
-                    obtenerCategorias(resAd.data.token)
+                    obtenerCategorias(resAd.data.token),
+                    traerSugerencias(resAd.data.token, resAd.data.rol),
                 ])
                 navigate('/dashboard/admin')
             } else {
@@ -86,6 +88,14 @@ const Login = () => {
         }, 1000)
     }, [])
 
+    useEffect(() => {
+        if (form.email && form.contrasenia) {
+            setMostrar(true)
+        } else {
+            setMostrar(false)
+        }
+    }, [form])
+
     return (
         <>
             <ToastContainer
@@ -101,25 +111,27 @@ const Login = () => {
                     </div>
                     <div id='Formulario' className="bg-white dark:bg-black flex items-center justify-center h-screen">
                         <div className='w-5/6 md:w-4/6'>
-                            <h1 className='text-xl text-blue-500 font-CalSans text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
+                            <div className='flex justify-center'>
+                                <h1 className='text-2xl bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600 text-transparent bg-clip-text font-CalSans text-center pb-3' id="iniciarSesion">INICIAR SESIÓN</h1>
+                            </div>
                             <hr className='dark:border dark:border-gray-900' />
                             <form onSubmit={HandleSubmit}>
                                 <div className="my-3">
-                                    <label htmlFor='email' className="mb-2 block text-md font-semibold text-blue-500">Correo electrónico</label>
-                                    <input id='email' type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Ingresa tu correo" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
+                                    <label htmlFor='email' className="mb-2 block text-md font-semibold text-cyan-500">Correo electrónico</label>
+                                    <input id='email' type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Ingresa tu correo" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-cyan-600 focus:outline-none focus:ring-1 focus:ring-cyan-600 py-1 px-2 text-gray-500" />
                                 </div>
 
                                 <div className="mb-3">
-                                    <label htmlFor='contrasenia' className="mb-2 block text-md font-semibold text-blue-500">Contraseña</label>
+                                    <label htmlFor='contrasenia' className="mb-2 block text-md font-semibold text-cyan-500">Contraseña</label>
                                     <div className='flex gap-2 relative'>
-                                        <input id='contrasenia' type={ojoActivo ? "text" : "password"} name='contrasenia' onChange={HandleChange} value={form.contrasenia || ""} placeholder="********************" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-2 text-gray-500" />
+                                        <input id='contrasenia' type={ojoActivo ? "text" : "password"} name='contrasenia' onChange={HandleChange} value={form.contrasenia || ""} placeholder="********************" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-cyan-600 focus:outline-none focus:ring-1 focus:ring-cyan-600 py-1 px-2 text-gray-500" />
                                         <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                     </div>
                                 </div>
 
 
                                 <div className="my-7 flex justify-center">
-                                    <button type='submit' onClick={() => {setCarga(true); setTimeout(() => {setCarga(false)}, [4000])}} className={`${carga === false ? "" : "hidden"} py-2  w-1/3 md:w-1/4 block text-center bg-blue-700 text-white rounded-md duration-300 hover:bg-blue-900 hover:text-white cursor-pointer font-CalSans`}>Ingresar</button>
+                                    <button type='submit' onClick={() => { setCarga(true); setTimeout(() => { setCarga(false) }, [5000]) }} className={`${carga === false ? "" : "hidden"} py-2 px-6  ${mostrar ? '' : 'opacity-50 pointer-events-none cursor-not-allowed'} block text-center bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600 text-white rounded-md duration-300 hover:scale-105 hover:text-white cursor-pointer font-CalSans`}>Ingresar</button>
                                     {carga && (<RelojDeArena />)}
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />

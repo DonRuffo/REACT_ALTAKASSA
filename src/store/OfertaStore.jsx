@@ -26,6 +26,7 @@ const OfertaStore = create((set, get) => ({
     ofertaProvs: [],
     traProveedor: [],
     fechas: [],
+    sugerencias:[],
 
     //mensajes
     mensajesUsuario: [],
@@ -169,6 +170,24 @@ const OfertaStore = create((set, get) => ({
             set(({ mensajesUsuario: [...respuesta.data.conversacion] }))
         } catch (error) {
             console.error(error)
+        }
+    },
+
+    traerSugerencias: async (token, rol) => {
+        if(rol !== 'administrador') return
+        const url = `${import.meta.env.VITE_BACKEND_URL}/verSugerencias`;
+        try {
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const respuesta = await axios.get(url, options);
+            set({ sugerencias: respuesta.data });
+        } catch (error) {
+            console.error("Error al traer las sugerencias:", error);
         }
     }
 

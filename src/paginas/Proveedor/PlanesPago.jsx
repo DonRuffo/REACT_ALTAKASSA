@@ -8,7 +8,7 @@ const PlanesPagoProv = () => {
     return (
         <>
             <div className="mt-20 lg:mt-5">
-                <h1 className="text-purple-600 font-CalSans text-2xl md:text-3xl text-center">Dale un impulso a tus ingresos con más créditos</h1>
+                <h1 className="text-cyan-500 font-CalSans text-2xl md:text-3xl text-center">Dale un impulso a tus ingresos con más créditos</h1>
                 <p className="text-center dark:text-white text-lg">con los planes que tenemos para tí</p><br />
                 <div className="flex justify-center gap-x-4 mb-3">
                     {planes.map(pl => (

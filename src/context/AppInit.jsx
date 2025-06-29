@@ -8,7 +8,7 @@ import socket from "./SocketConexion";
 const AppInit = ({ children }) => {
     const { auth, setAuth, setPlanes, Perfil, ubiCliente, verificarFoto, verificarUbicacionActual, verificarUbicacionTrabajo, setDark,
         setDarkMode, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias, setUsers, setCategorias } = AuthStoreContext()
-    const { ListarOfertas, ObtenerTrabajos, oferta, trabajos, MisOfertas, ofertaProvs, obtenerMensajes, setTrabajos, setOferta, setTrabajosProvs, setOfertaProvs } = OfertaStore()
+    const { ListarOfertas, ObtenerTrabajos, oferta, trabajos, MisOfertas, ofertaProvs, obtenerMensajes, setTrabajos, setOferta, setTrabajosProvs, setOfertaProvs, traerSugerencias } = OfertaStore()
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -20,19 +20,22 @@ const AppInit = ({ children }) => {
                 traerUsuarios(token, rol),
                 Perfil(token, rol),
                 obtenerPlanes(token),
-                obtenerCategorias(token)
+                obtenerCategorias(token),
+                traerSugerencias(token, rol)
+            ])
+        } else if (rol === 'usuario'){
+            Promise.all([
+                Perfil(token, rol),
+                verificarFoto(token, rol),
+                verificarUbicacionActual(token, rol, 'cliente'),
+                verificarUbicacionTrabajo(token, rol, 'proveedor'),
+                ubiCliente(token, rol),
+                obtenerPlanes(token),
+                obtenerCategorias(token),
+                obtenerMensajes(token, rol)
             ])
         }
-        Promise.all([
-            Perfil(token, rol),
-            verificarFoto(token, rol),
-            verificarUbicacionActual(token, rol, 'cliente'),
-            verificarUbicacionTrabajo(token, rol, 'proveedor'),
-            ubiCliente(token, rol),
-            obtenerPlanes(token),
-            obtenerCategorias(token),
-            obtenerMensajes(token, rol)
-        ])
+
         setTipo(tipoUsuario)
     }, [])
 
@@ -74,7 +77,7 @@ const AppInit = ({ children }) => {
     //sockets
     useEffect(() => {
 
-        if (!auth._id ) return
+        if (!auth._id) return
 
         //funciones admin
         const eliminarUsuario = ({ id }) => {
@@ -159,7 +162,7 @@ const AppInit = ({ children }) => {
         }
         const traCancelInicio = ({ ofertaResp }) => {
             if (ofertaResp[0].proveedor.monedasTrabajos !== 0) {
-                setOferta(prev => [...prev, ...ofertaResp] )
+                setOferta(prev => [...prev, ...ofertaResp])
             }
         }
         const remover = ({ ofertaResp }) => {
@@ -167,7 +170,7 @@ const AppInit = ({ children }) => {
                 setOferta(prev => prev.filter(of => of.proveedor._id !== ofertaResp.proveedor._id))
             }
         }
-        const trabajoCompletadoCli = ({id, trabajo}) => {
+        const trabajoCompletadoCli = ({ id, trabajo }) => {
             if (auth._id === trabajo.cliente._id) {
                 setTrabajos(prev => [...prev.filter(tra => tra._id !== id), trabajo])
             }
@@ -179,7 +182,7 @@ const AppInit = ({ children }) => {
             if (auth._id === oferta.proveedor._id) {
                 setOfertaProvs(prev => prev.filter(of => of._id !== id))
                 const cOfertas = {
-                    cantidadOfertas: auth.cantidadOfertas + 1 
+                    cantidadOfertas: auth.cantidadOfertas + 1
                 }
                 setAuth(cOfertas)
             }
@@ -209,7 +212,7 @@ const AppInit = ({ children }) => {
             }
         }
         const trabajoCompletadoProv = ({ id, trabajo }) => {
-            if(auth._id === trabajo.proveedor._id) {
+            if (auth._id === trabajo.proveedor._id) {
                 setTrabajosProvs(prev => [...prev.filter(tra => tra._id !== id), trabajo])
             }
         }

@@ -241,7 +241,7 @@ const ModalTrabajos = ({ idOferta }) => {
                                     <div className="flex justify-around flex-wrap gap-2 lg:gap-0">
                                         <div className="flex items-center gap-2">
                                             <label htmlFor="precioPorDia" className="  dark:text-white px-3 py-1 has-[input:checked]:text-emerald-800 has-[input:checked]:dark:text-emerald-500 has-[input:checked]:border-emerald-800 has-[input:checked]:dark:border-emerald-500 rounded-md text-md text-slate-600 font-semibold flex justify-between items-center gap-3 border">
-                                                Precio/Dia
+                                                Precio/Día
                                                 <input type="radio" id="precioPorDia" name="tipo" onChange={(e) => { handleChange(e); handleRadioChange(e) }} value="precioPorDia" checked={formTrabajo.tipo === "precioPorDia"} className="appearance-none border w-4 h-4 rounded-full border-gray-600 checked:border-4 checked:border-emerald-700 dark:checked:border-emerald-500" />
                                             </label>
                                         </div>
@@ -354,7 +354,7 @@ const ModalTrabajos = ({ idOferta }) => {
                             <div className="flex justify-center mt-3">
                                 <Calendario dias={numeroMes}/>
                             </div>
-                            <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-600">rojo</b> están agendados</p>
+                            <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-500">rojo</b> no están disponibles.</p>
                         </div>
                         <div className={`${mapaCliProv ? '' : 'hidden'} w-full flex flex-col items-center`}>
                             {mapaCliProv && <MapaCliProv form={form} />}

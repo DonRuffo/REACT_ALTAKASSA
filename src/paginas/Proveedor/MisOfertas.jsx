@@ -56,27 +56,27 @@ const ListadoOfertas = () => {
                         <div className="hidden md:block absolute md:top-2 md:right-5">
                             <p className="font-semibold dark:text-white">Ofertas restantes: <span className="text-cyan-500">{auth.cantidadOfertas}</span></p>
                         </div>
-                        <h1 className="text-3xl text-center font-CalSans text-purple-600 mb-3 mt-20 lg:mt-5">Tus ofertas</h1>
+                        <h1 className="text-3xl text-center font-CalSans text-cyan-500 mb-3 mt-20 lg:mt-5">Tus ofertas</h1>
                         <h2 className="text-xl text-center md:mb-5 dark:text-white">Aquí puedes ver tus ofertas creadas</h2>
                         <p className="font-semibold md:hidden dark:text-white text-center mb-5">Ofertas restantes: <span className="text-cyan-500">{auth.cantidadOfertas}</span></p>
                         <div className="flex justify-center gap-x-3 flex-wrap">
                             {ofertaProvs.length !== 0 ? ofertaProvs.map((of, index) => (
-                                <div key={of._id} className="radial-gradientOfertas-bg h-fit w-fit px-8 py-3  rounded-lg shadow-lg shadow-purple-400 mb-5">
+                                <div key={of._id} className="radial-gradientOfertas-bg h-fit w-fit px-8 py-3  rounded-lg shadow-lg shadow-cyan-400 mb-5">
                                     <h1 className="text-center font-bold text-xl text-white pb-1.5 mb-1.5 border-b">
                                         Oferta N°{index + 1}
                                     </h1>
-                                    <h1 className="text-center font-bold text-teal-200 text-xl truncate w-28">
+                                    <h1 className="text-center font-bold text-teal-300 text-xl truncate w-28">
                                         {of.servicio}
                                     </h1>
                                     <p className="text-center flex justify-center">
                                         {<SvgServicio servicio={of.servicio} />}
                                     </p>
                                     <p className="text-center font-semibold text-white">
-                                        <b className="text-xl mr-1 text-teal-200">${of.precioPorDia}</b>
+                                        <b className="text-xl mr-1 text-teal-300">${of.precioPorDia}</b>
                                         <span>el día</span>
                                     </p>
                                     <p className="text-center font-semibold text-white">
-                                        <b className="text-xl mr-1 text-teal-200">${of.precioPorHora}</b>
+                                        <b className="text-xl mr-1 text-teal-300">${of.precioPorHora}</b>
                                         <span>la hora</span>
                                     </p>
                                     <div className="flex justify-between mt-3">

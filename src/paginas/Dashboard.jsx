@@ -44,11 +44,11 @@ const Dashboard = () => {
     const enviarMensaje = async (idUser) => {
         const token = localStorage.getItem('token');
         const mensajeTemporal = {
-            _id: Date.now().toString(), 
+            _id: Date.now().toString(),
             mensaje: formMsg.mensaje,
             emisor: auth._id,
             fecha: new Date().toISOString(),
-            estado: "pendiente" 
+            estado: "pendiente"
         };
 
         setFormMsg({
@@ -57,12 +57,10 @@ const Dashboard = () => {
         });
 
         setMensajesUsuario(prev => {
-           
             const idx = prev.findIndex(conv =>
                 conv.participantes.some(p => p._id === idUser)
             );
             if (idx !== -1) {
-                
                 const nuevaConv = { ...prev[idx] };
                 nuevaConv.mensajes = [...nuevaConv.mensajes, mensajeTemporal];
                 return [
@@ -71,7 +69,6 @@ const Dashboard = () => {
                     ...prev.slice(idx + 1)
                 ];
             }
-
             return [
                 ...prev,
                 {
@@ -82,7 +79,7 @@ const Dashboard = () => {
             ];
         });
 
-     
+
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/envioMensaje`;
             const options = {
@@ -162,13 +159,19 @@ const Dashboard = () => {
         const mensajeria = ({ conversacion }) => {
             if (conversacion.participantes.some(of => of._id === auth._id)) {
                 setMensajesUsuario(prev => {
-                    const existe = prev.find(of => of._id === conversacion._id)
+                    const sinArtificial = prev.filter(of => {
+                        if (!of._id.startsWith("temp-")) return true;
+                        const idsReal = conversacion.participantes.map(p => p._id).sort().join("-");
+                        const idsTemp = of.participantes.map(p => p._id).sort().join("-");
+                        return idsReal !== idsTemp;
+                    });
+                    const existe = sinArtificial.find(of => of._id === conversacion._id);
                     if (existe) {
-                        return [...prev.filter(of => of._id !== conversacion._id), conversacion]
+                        return [...sinArtificial.filter(of => of._id !== conversacion._id), conversacion];
                     } else {
-                        return [...prev, conversacion]
+                        return [...sinArtificial, conversacion];
                     }
-                })
+                });
             }
         }
         socket.on('Mensaje', mensajeria)

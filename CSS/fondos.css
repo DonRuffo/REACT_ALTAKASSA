@@ -17,7 +17,7 @@
 }
 
 .radial-gradientOfertas-bg {
-    background: radial-gradient(circle, #7c3aed, #9333ea, #c084fc);
+    background: radial-gradient(circle, #0891b2, #0e7490, #164e63);
     background-size: 150% 150%;
     animation: pulseGradient 4s ease-in-out infinite;
 }

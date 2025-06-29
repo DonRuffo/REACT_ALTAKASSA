@@ -58,7 +58,7 @@ const Sugerencias = () => {
             />
             <section className="flex justify-center lg:mt-5 mt-20 px-8">
                 <div className="w-full lg:w-4/5 mb-5 rounded-lg bg-gray-100 dark:bg-gray-900 shadow-lg dark:shadow-slate-700">
-                    <h1 className="text-center text-3xl font-CalSans text-purple-600 mt-5">Sugerencias y comentarios</h1>
+                    <h1 className="text-center text-3xl font-CalSans text-cyan-500 mt-5">Sugerencias y comentarios</h1>
                     <div className="flex justify-around flex-wrap lg:mx-5 xl:mx-8 mt-5">
                         <div className="px-3 lg:w-[500px]">
                             <p className="dark:text-white font-semibold text-xl text-center lg:text-left">¡Cuéntanos cómo ha sido tu experiencia en el sistema y comparte tus sugerencias!</p>
@@ -89,7 +89,7 @@ const Sugerencias = () => {
                                     <textarea name="comentario" id="comentario" value={formSug.comentario || ""} onChange={handleChange} className="px-2 border-2 min-h-10 max-h-24 dark:border-white dark:focus:border-purple-600 dark:bg-transparent rounded-md focus:outline-none focus:border-purple-600"></textarea>
                                 </div>
                                 <div className="mb-5 flex justify-center lg:justify-start">
-                                    <button type="submit" className={`${carga ? 'hidden' : ''} px-4 py-2 text-purple-700 font-semibold rounded-md bg-purple-200 hover:bg-purple-300 duration-300 cursor-pointer`} onClick={()=>setCarga(true)}>
+                                    <button type="submit" className={`${carga ? 'hidden' : ''} px-4 py-2 text-cyan-700 font-semibold rounded-md bg-cyan-200 hover:bg-cyan-300 duration-300 cursor-pointer`} onClick={()=>setCarga(true)}>
                                         Enviar
                                     </button>
                                     {carga && <RelojDeArena />}

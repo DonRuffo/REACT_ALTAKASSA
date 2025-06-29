@@ -14,11 +14,11 @@ const HistorialTrabajoProvs = () => {
         const tipo = e.target.value
         setSelectedOption(tipo)
     }
-    
+
     return (
         <>
             <section>
-                <h1 className="text-center text-cyan-600 font-CalSans text-3xl mt-20 lg:mt-5">Historial</h1>
+                <h1 className="text-center text-cyan-500 font-CalSans text-3xl mt-20 lg:mt-5">Historial</h1>
                 <p className="text-center font-semibold text-xl mb-5 dark:text-white">Aquí podrás ver tus trabajos completados o cancelados como proveedor</p>
                 <div className="flex flex-wrap gap-2 mb-5 px-5">
                     <label className="dark:text-white  font-semibold has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-36 border-2 border-gray-500 dark:border-white rounded-md px-2 py-1 flex justify-between items-center">
@@ -39,30 +39,29 @@ const HistorialTrabajoProvs = () => {
                         trabajosProvs.some(tra => tra.status !== "En espera" && tra.status !== "Agendado" && tra.status !== "Rechazado") ? (
                             trabajosProvs.map((tra) => (
                                 (tra.status === "Cancelado" && (selectedOption === "Cancelados" || selectedOption === "Todos") && (
-                                    <div key={tra._id} className="w-fit h-fit py-4 px-5 radial-gradientRechazados-bg rounded-lg shadow-lg shadow-fuchsia-300 mb-5">
-                                        <h1 className="text-center text-2xl pb-1.5 border-b-2 font-semibold text-white">{tra.servicio}</h1>
+                                    <div key={tra._id} className="w-fit h-fit py-3 px-5 radial-gradientRechazados-bg rounded-lg shadow-lg shadow-fuchsia-300 mb-5">
+                                        <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <div className="flex justify-center items-center gap-x-3 mt-1.5">
                                             <div className="w-[65px] h-[65px] rounded-full overflow-hidden shrink-0">
                                                 <img src={tra.proveedor.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                             </div>
                                             <div className="-space-y-0.5">
                                                 <p className="text-xl font-semibold text-white truncate w-28">{tra.proveedor.nombre}</p>
-                                                <p className="font-semibold text-emerald-900">{tra.fecha.split('T')[0]}</p>
+                                                <p className="font-semibold">{tra.fecha.split('T')[0]}</p>
                                                 <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
                                         </div>
                                         <div className="flex justify-around mt-1.5 gap-x-3">
-                                            <div className="flex flex-col justify-end items-center">
-                                                <h1 className="text-4xl font-semibold text-red-900">
-                                                    ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
-                                                </h1>
-                                                <p className="text-center">Total {tra.tipo === 'precioPorDia' ? 'por Día' : 'por Horas'}</p>
-                                            </div>
+
+                                            <h1 className="text-3xl font-semibold text-red-900">
+                                                ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
+                                                <span className="text-base"> total</span>
+                                            </h1>
+                                            <div className="flex items-center">-</div>
                                             <div className="flex flex-col justify-end items-center">
                                                 <h1 className="font-semibold text-xl text-red-900">
                                                     {tra.status}
                                                 </h1>
-                                                <p className="pl-5 text-center" >Estado</p>
                                             </div>
                                         </div>
                                     </div>
@@ -75,23 +74,21 @@ const HistorialTrabajoProvs = () => {
                                                 <img src={tra.proveedor.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                             </div>
                                             <div className="-space-y-0.5">
-                                                <p className="text-xl font-semibold text-white truncate w-28">{tra.proveedor.nombre}</p>
-                                                <p className="font-semibold text-cyan-800">{tra.fecha.split('T')[0]}</p>
+                                                <p className="text-xl font-semibold text-cyan-900 truncate w-28">{tra.proveedor.nombre}</p>
+                                                <p className="font-semibold">{tra.fecha.split('T')[0]}</p>
                                                 <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
                                         </div>
                                         <div className="flex justify-around mt-1.5 gap-x-3">
+                                            <h1 className="text-3xl font-semibold text-cyan-900">
+                                                ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
+                                                <span className="text-base"> total</span>
+                                            </h1>
+                                            <div className="flex items-center">-</div>
                                             <div className="flex flex-col justify-end items-center">
-                                                <h1 className="text-4xl font-semibold text-amber-900">
-                                                    ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
-                                                </h1>
-                                                <p className="text-center">Total {tra.tipo === 'precioPorDia' ? 'por Día' : 'por Horas'}</p>
-                                            </div>
-                                            <div className="flex flex-col justify-end items-center">
-                                                <h1 className="font-semibold text-xl text-amber-900">
+                                                <h1 className="font-semibold text-xl text-cyan-900">
                                                     {tra.status}
                                                 </h1>
-                                                <p className="pl-5 text-center" >Estado</p>
                                             </div>
                                         </div>
                                     </div>

@@ -23,18 +23,18 @@ const Registro = () => {
         contrasenia: ""
     })
 
-   const HandleChange = (e) => {
-    let { name, value } = e.target;
+    const HandleChange = (e) => {
+        let { name, value } = e.target;
 
-    if (name === 'nombre' || name === 'apellido') {
-        value = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+        if (name === 'nombre' || name === 'apellido') {
+            value = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+        }
+
+        setForm({
+            ...form,
+            [name]: value
+        });
     }
-
-    setForm({
-        ...form,
-        [name]: value
-    });
-}
 
     const HandleSubmit = async (e) => {
         e.preventDefault()
@@ -83,22 +83,24 @@ const Registro = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 font-Cabin">
                     <div id="Formulario" className="bg-white dark:bg-black flex items-center justify-center h-screen">
                         <div className="w-4/5 md:4/6">
-                            <h1 className="mb-3 font-CalSans text-2xl text-purple-500 text-center">REGISTRO</h1>
+                            <div className="flex justify-center">
+                                <h1 className="mb-3 font-CalSans text-2xl text-transparent bg-gradient-to-r from-pink-600 via-purple-500 to-indigo-600 bg-clip-text text-center">REGISTRO</h1>
+                            </div>
                             <hr className="dark:border dark:border-gray-900" />
                             <form onSubmit={HandleSubmit}>
                                 <div className="my-3 grid grid-cols-2">
                                     <div className="mx-1">
                                         <label htmlFor="nombre" className="mb-2 block text-md font-semibold dark: text-purple-400">Nombre</label>
-                                        <input type="text" name='nombre' id="nombre" placeholder="Ingresa tu primer nombre" onChange={HandleChange} value={form.nombre || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                        <input type="text" name='nombre' id="nombre" placeholder="Ingresa tu primer nombre" onChange={HandleChange} value={form.nombre || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 py-1 px-2 text-gray-500" />
                                     </div>
                                     <div className="mx-1">
                                         <label htmlFor="apellido" className="mb-2 block text-md font-semibold dark: text-purple-400">Apellido</label>
-                                        <input type="text" name='apellido' id="apellido" placeholder="Ingresa tu apellido" onChange={HandleChange} value={form.apellido || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                        <input type="text" name='apellido' id="apellido" placeholder="Ingresa tu apellido" onChange={HandleChange} value={form.apellido || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 py-1 px-2 text-gray-500" />
                                     </div>
                                 </div>
                                 <div className="mb-3 mx-1">
                                     <label htmlFor="dir" className="mb-2 block text-md font-semibold dark: text-purple-400">Provincia:</label>
-                                    <select name="direccion" id="dir" onChange={HandleChange} className="block w-full dark:bg-black dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500">
+                                    <select name="direccion" id="dir" onChange={HandleChange} className="block w-full dark:bg-black dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 py-1 px-2 text-gray-500">
                                         <option value="Pichincha">Pichincha</option>
                                         <option value="Guayas">Guayas</option>
                                         <option value="Azuay">Azuay</option>
@@ -128,13 +130,13 @@ const Registro = () => {
                                 <div className="mb-3">
                                     <div className="mx-1">
                                         <label htmlFor="email" className="mb-2 block text-md font-semibold dark: text-purple-400">Correo electrónico</label>
-                                        <input type="email" name='email' id="email" placeholder="Ingresa tu correo" onChange={HandleChange} value={form.email || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                        <input type="email" name='email' id="email" placeholder="Ingresa tu correo" onChange={HandleChange} value={form.email || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                                     </div>
                                 </div>
                                 <div className="mb-3 mx-1">
                                     <label htmlFor="contrasenia" className="mb-2 block text-md font-semibold dark: text-purple-400">Contraseña</label>
                                     <div className="flex gap-2 relative">
-                                        <input type={ojoActivo ? "text" : "password"} name='contrasenia' id="contrasenia" placeholder="*****" onChange={HandleChange} value={form.contrasenia || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                                        <input type={ojoActivo ? "text" : "password"} name='contrasenia' id="contrasenia" placeholder="*****" onChange={HandleChange} value={form.contrasenia || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 py-1 px-2 text-gray-500" />
                                         <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                     </div>
                                 </div>
@@ -146,7 +148,7 @@ const Registro = () => {
                                     <p>4. Más de 10 caracteres</p>
                                 </div>
                                 <div className="my-7 flex justify-center">
-                                    <button type="submit" className={`${reloj ? 'hidden' : ''} w-1/3 md:w-1/5 py-2 bg-gradient-to-r from-pink-600 via-purple-500 to-indigo-600 rounded-xl text-white text-semibold hover:bg-purple-900 duration-300 cursor-pointer font-CalSans ${lista ? 'hover:scale-105 duration-300 cursor-pointer' : 'opacity-50 pointer-events-none cursor-not-allowed'}`} onClick={() => {setReloj(true); setTimeout(()=>{setReloj(false)}, [4000])}}>Registrar</button>
+                                    <button type="submit" className={`${reloj ? 'hidden' : ''} w-1/3 md:w-1/5 py-2 bg-gradient-to-r from-pink-600 via-purple-500 to-indigo-600 rounded-xl text-white text-semibold duration-300 cursor-pointer font-CalSans ${lista ? 'hover:scale-105 duration-300 cursor-pointer' : 'opacity-50 pointer-events-none cursor-not-allowed'}`} onClick={() => { setReloj(true); setTimeout(() => { setReloj(false) }, [5000]) }}>Registrar</button>
                                     {reloj && <RelojDeArena />}
                                 </div> <hr className="dark:border dark:border-gray-900" />
                                 <div className="flex justify-end mt-2">
