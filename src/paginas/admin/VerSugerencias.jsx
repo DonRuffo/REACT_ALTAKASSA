@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import OfertaStore from "../../store/OfertaStore";
+import ModalComentarios from "../../componentes/modals/ModalComentarios";
 
 const VerSugerencias = () => {
 
-    const {sugerencias} = OfertaStore()
+    const { sugerencias, modalSugerencias, setModalSugerencias } = OfertaStore()
 
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState([])
 
@@ -26,19 +27,22 @@ const VerSugerencias = () => {
                         </thead>
                         <tbody className="bg-gray-800 divide-y divide-gray-700">
                             {sugerencias.length > 0 ? sugerencias.map((sugerencia, index) => (
-                                <tr key={sugerencia._id} className="text-center text-sm md:text-base">
-                                    <td className="py-1.5">{index + 1}</td>
-                                    <td>{sugerencia.nombre}</td>
-                                    <td>{sugerencia.experiencia}</td>
-                                    <td className="flex justify-center py-1.5">
-                                        <button
-                                            className="px-2 py-1 bg-cyan-500 text-white rounded-md hover:bg-cyan-600 transition-colors duration-300 cursor-pointer"
-                                            onClick={() => {setUsuarioSeleccionado(sugerencia._id)}}
-                                        >
-                                            Ver Sugerencias
-                                        </button>
-                                    </td>
-                                </tr>
+                                <React.Fragment key={sugerencia._id}>
+                                    <tr key={sugerencia._id} className="text-center text-sm md:text-base">
+                                        <td className="py-1.5">{index + 1}</td>
+                                        <td>{sugerencia.nombre}</td>
+                                        <td>{sugerencia.experiencia}</td>
+                                        <td className="flex justify-center py-1.5">
+                                            <button
+                                                className="px-2 py-1 bg-cyan-500 text-white rounded-md hover:bg-cyan-600 transition-colors duration-300 cursor-pointer"
+                                                onClick={() => { setUsuarioSeleccionado(sugerencia._id); setModalSugerencias(true) }}
+                                            >
+                                                Ver Sugerencias
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {modalSugerencias && usuarioSeleccionado === sugerencia._id && <ModalComentarios idSug={sugerencia._id} />}
+                                </React.Fragment>
                             )) : (
                                 <tr>
                                     <td colSpan="4" className="text-center py-4">No hay sugerencias disponibles</td>
@@ -47,7 +51,6 @@ const VerSugerencias = () => {
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </>
     )

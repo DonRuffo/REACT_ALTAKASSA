@@ -41,7 +41,7 @@ const HistorialTrabajoProvs = () => {
                                 (tra.status === "Cancelado" && (selectedOption === "Cancelados" || selectedOption === "Todos") && (
                                     <div key={tra._id} className="w-fit h-fit py-3 px-5 radial-gradientRechazados-bg rounded-lg shadow-lg shadow-fuchsia-300 mb-5">
                                         <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
-                                        <div className="flex justify-center items-center gap-x-3 mt-1.5">
+                                        <div className="flex justify-center items-center gap-x-3 my-1.5">
                                             <div className="w-[65px] h-[65px] rounded-full overflow-hidden shrink-0">
                                                 <img src={tra.proveedor.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                             </div>
@@ -50,26 +50,19 @@ const HistorialTrabajoProvs = () => {
                                                 <p className="font-semibold">{tra.fecha.split('T')[0]}</p>
                                                 <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
-                                        </div>
-                                        <div className="flex justify-around mt-1.5 gap-x-3">
-
+                                        </div><hr className="border border-white"/>
+                                        <div className="flex justify-around mt-1 gap-x-3">
                                             <h1 className="text-3xl font-semibold text-red-900">
                                                 ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
                                                 <span className="text-base"> total</span>
                                             </h1>
-                                            <div className="flex items-center">-</div>
-                                            <div className="flex flex-col justify-end items-center">
-                                                <h1 className="font-semibold text-xl text-red-900">
-                                                    {tra.status}
-                                                </h1>
-                                            </div>
                                         </div>
                                     </div>
                                 ))
-                                || (tra.status === "Completado" && (selectedOption === "Completados" || selectedOption === "Todos") && (
-                                    <div key={tra._id} className="w-fit h-fit py-4 px-5 radial-gradientAceptados-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
-                                        <h1 className="text-center text-2xl pb-1.5 border-b-2 font-semibold text-white">{tra.servicio}</h1>
-                                        <div className="flex justify-center items-center gap-x-3 mt-1.5">
+                                || (tra.status === "Completado" && tra.calificacionCliente !== null && (selectedOption === "Completados" || selectedOption === "Todos") && (
+                                    <div key={tra._id} className="w-fit h-fit py-3 px-5 radial-gradientAceptados-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
+                                        <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
+                                        <div className="flex justify-center items-center gap-x-3 my-1.5">
                                             <div className="w-[65px] h-[65px] rounded-full overflow-hidden shrink-0">
                                                 <img src={tra.proveedor.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                             </div>
@@ -78,18 +71,12 @@ const HistorialTrabajoProvs = () => {
                                                 <p className="font-semibold">{tra.fecha.split('T')[0]}</p>
                                                 <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
-                                        </div>
-                                        <div className="flex justify-around mt-1.5 gap-x-3">
+                                        </div><hr className="border border-white"/>
+                                        <div className="flex justify-around mt-1 gap-x-3">
                                             <h1 className="text-3xl font-semibold text-cyan-900">
                                                 ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
                                                 <span className="text-base"> total</span>
                                             </h1>
-                                            <div className="flex items-center">-</div>
-                                            <div className="flex flex-col justify-end items-center">
-                                                <h1 className="font-semibold text-xl text-cyan-900">
-                                                    {tra.status}
-                                                </h1>
-                                            </div>
                                         </div>
                                     </div>
                                 ))

@@ -7,15 +7,18 @@ import axios from "axios";
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import SpinnerCargaModal from "../../componentes/RuedaCargaModal";
+import SpinnerCarga from "../../componentes/RuedaCarga";
 
 const Configuracion = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
     const [ojoActivo2, setOjoActivo2] = useState(false)
+    const [veryContra, setVeryContra] = useState(false)
     const [carga, setCarga] = useState(false)
+    const [carga2, setCarga2] = useState(false)
 
 
     const { auth, setAuth, ActualizarPerfil, ActualizarContrasenia, setDark, modalContra, setModalContra, modalPerfil,
-        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi, Perfil, selectorM} = AuthStoreContext()
+        setModalPerfil, modalTema, setModalTema, modalUbi, setModalUbi, selectorM} = AuthStoreContext()
 
     const { setModalPerfilFoto } = OfertaStore()
 
@@ -126,9 +129,15 @@ const Configuracion = () => {
     })
 
     const handleChangePerfil = (e) => {
+        let {name, value} = e.target
+
+        if (name === 'direccion' || name === 'nombre' || name === 'apellido'){
+            value = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+        }
+
         setFormPerfil({
             ...formPerfil,
-            [e.target.name]: e.target.value
+            [name]: value
         })
     }
 
@@ -200,41 +209,56 @@ const Configuracion = () => {
         }
     }, [modalUbi])
 
+    useEffect(()=> {
+        if(formContra.contrasenia && formContra.nuevaContrasenia){
+            setVeryContra(true)
+        }else{
+            setVeryContra(false)
+        }
+    }, [formContra])
+
     //funcion para actualizar la ubicación
     const actualizarUbi = () => {
-        const tipo = localStorage.getItem('tipo')
-        const rol = localStorage.getItem('rol')
-        if (tipo === 'cliente' || rol === 'administrador') return
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(async (position) => {
-                const { latitude, longitude } = position.coords
-                try {
-
-                    const token = localStorage.getItem('token')
-                    const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-trabajo`
-
-                    const options = {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const { latitude, longitude } = position.coords
+                    try {
+                        const url = `${import.meta.env.VITE_BACKEND_URL}/guardar-ubicacion-trabajo`
+                        const token = localStorage.getItem('token')
+                        const options = {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${token}`
+                            }
                         }
-                    }
-                    await axios.post(url, { latitude, longitude }, options)
-                    const ubi = {
-                        ubicacionTrabajo: {
-                            longitud: longitude,
-                            latitud: latitude
+                        await axios.post(url, { latitude, longitude }, options)
+                        const ubiNueva = {
+                            ubicacionTrabajo: {
+                                longitud: longitude,
+                                latitud: latitude
+                            }
                         }
+                        toast.success('Ubicación actualizada')
+                        setCarga2(false)
+                        setAuth(ubiNueva)
+                        resolve()
+                    } catch (error) {
+                        console.log(error)
+                        toast.error(error.response?.data?.msg || "Error al actualizar la ubicación")
+                        setCarga2(false)
+                        reject()
                     }
-                    toast.success('Ubicación actualizada')
-                    setAuth(ubi)
-                    await Perfil(token, rol, tipo)
-                } catch {
-                    console.error('Error al actualizar la ubicación')
-                    toast.error('Error al actualizar')
-                }
-            })
-        }
+                },
+                    () => {
+                        reject()
+                    }
+                );
+            } else {
+                console.log('La geolocalización no está soportada por este navegador.')
+                resolve()
+            }
+        })
     }
 
     useEffect(()=>{
@@ -296,7 +320,7 @@ const Configuracion = () => {
                     </div>
                 </div>
                 <div id="Cambiar contraseña" className={`${modalContra === true ? 'block' : 'hidden'} w-full md:w-1/2 bg-gray-100 rounded-xl shadow-lg h-auto outline dark:outline-gray-800 p-5 dark:bg-black mt-20 lg:mt-5 `}>
-                    <h1 className="text-2xl text-center text-purple-600 font-CalSans pb-5">Cambio de contraseña</h1>
+                    <h1 className="text-2xl text-center text-purple-500 font-CalSans pb-5">Cambio de contraseña</h1>
                     <div className="border px-3 py-2 mb-3 bg-slate-200 rounded-lg dark:bg-transparent dark:text-white">
                         <h1 className="font-bold">Tener en cuenta:</h1>
                         <ul>
@@ -311,20 +335,20 @@ const Configuracion = () => {
                             <div className="mb-3">
                                 <label htmlFor="contrasenia" className="text-black font-semibold block mb-2 dark:text-white">Contraseña actual:</label>
                                 <div className="relative">
-                                    <input type={ojoActivo ? "text" : "password"} name="contrasenia" id="contrasenia" onChange={handleChangeContrasenia} value={formContra.contrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
+                                    <input type={ojoActivo ? "text" : "password"} name="contrasenia" id="contrasenia" onChange={handleChangeContrasenia} value={formContra.contrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-600 focus:outline-none focus:border-purple-600 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
                                     <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="nuevaContrasenia" className="text-black font-semibold block mb-2 dark:text-white">Nueva contraseña:</label>
                                 <div className="relative">
-                                    <input type={ojoActivo2 ? "text" : "password"} name="nuevaContrasenia" id="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-800 focus:outline-none focus:border-purple-800 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
+                                    <input type={ojoActivo2 ? "text" : "password"} name="nuevaContrasenia" id="nuevaContrasenia" onChange={handleChangeContrasenia} value={formContra.nuevaContrasenia || ""} className="w-full border border-gray-200 rounded-md focus:ring-1 focus:ring-purple-600 focus:outline-none focus:border-purple-600 p-1 dark:text-white dark:bg-transparent" placeholder="******" />
                                     <button type='button' onClick={() => setOjoActivo2(!ojoActivo2)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo2 === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
                                 </div>
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button data-testid="btn-actualizar-contrasenia" type="submit" className="px-5 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Actualizar</button>
-                                <button type="button" className="px-6 py-2 bg-purple-200 rounded-lg text-purple-800 hover:bg-purple-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
+                                <button data-testid="btn-actualizar-contrasenia" type="submit" className={`${veryContra ? 'cursor-pointer' : 'pointer-events-none cursor-not-allowed opacity-50'} px-5 py-2 bg-purple-200 rounded-lg text-purple-800 hover:brightness-110 transition-all duration-300 font-semibold`}>Actualizar</button>
+                                <button type="button" className="px-6 py-2 bg-purple-200 rounded-lg text-purple-800  hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer" onClick={() => setModalContra(!modalContra)}>Cerrar</button>
                             </div>
                         </form>
                     </div>
@@ -338,15 +362,40 @@ const Configuracion = () => {
                         <form onSubmit={handleSubmitPerfil}>
                             <div className="mb-4">
                                 <label htmlFor="nombre" className="font-semibold dark:text-white">Nombre:</label>
-                                <input type="text" name="nombre" id="nombre" value={formPerfil.nombre || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700  dark:bg-transparent dark:text-white" />
+                                <input type="text" name="nombre" id="nombre" value={formPerfil.nombre || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border focus:border-green-700 rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700  dark:bg-transparent dark:text-white" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="apellido" className="font-semibold dark:text-white">Apellido:</label>
-                                <input type="text" name="apellido" id="apellido" value={formPerfil.apellido || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
+                                <input type="text" name="apellido" id="apellido" value={formPerfil.apellido || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border focus:border-green-700 rounded-md p-1 md:ml-6 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="direccion" className="font-semibold dark:text-white">Dirección:</label>
-                                <input type="text" name="direccion" id="direccion" value={formPerfil.direccion || ""} onChange={handleChangePerfil} className="w-full md:w-4/5 border rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700 dark:bg-transparent dark:text-white" />
+                                <label htmlFor="direccion" className="font-semibold dark:text-white">Provincia:</label>
+                                <select name="direccion" id="direccion" onChange={handleChangePerfil} className="w-full md:w-4/5 dark:bg-black border focus:border-green-700 rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700 dark:text-white">
+                                        <option value="Pichincha">Pichincha</option>
+                                        <option value="Guayas">Guayas</option>
+                                        <option value="Azuay">Azuay</option>
+                                        <option value="Tungurahua">Tungurahua</option>
+                                        <option value="Cañar">Cañar</option>
+                                        <option value="Cotopaxi">Cotopaxi</option>
+                                        <option value="Carchi">Carchi</option>
+                                        <option value="Imbabura">Imbabura</option>
+                                        <option value="Santo Domingo">Santo Domingo</option>
+                                        <option value="Esmeraldas">Esmeraldas</option>
+                                        <option value="Manabí">Manabí</option>
+                                        <option value="Los Ríos">Los Ríos</option>
+                                        <option value="Loja">Loja</option>
+                                        <option value="Bolívar">Bolívar</option>
+                                        <option value="Santa Elena">Santa Elena</option>
+                                        <option value="El Oro">El Oro</option>
+                                        <option value="Chimborazo">Chimborazo</option>
+                                        <option value="Sucumbíos">Sucumbíos</option>
+                                        <option value="Napo">Napo</option>
+                                        <option value="Orellana">Orellana</option>
+                                        <option value="Pastaza">Pastaza</option>
+                                        <option value="Morona Santiago">Morona Santiago</option>
+                                        <option value="Zamora Chinchipe">Zamora Chinchipe</option>
+                                        <option value="Galápagos">Galápagos</option>
+                                    </select>
                             </div>
                             <div className="mb-4 flex items-center gap-x-5">
                                 <label className="font-semibold dark:text-white">Foto de perfil:</label>
@@ -360,8 +409,8 @@ const Configuracion = () => {
                                 {carga && <SpinnerCargaModal h={5} w={5} HH={6}/>}
                             </div><br />
                             <div className="mb-3 flex justify-around">
-                                <button type="submit" className="px-4 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Actualizar</button>
-                                <button type="button" className="px-6 py-2 rounded-lg bg-green-200 text-green-800 hover:bg-green-300 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
+                                <button type="submit" className="px-4 py-2 rounded-lg bg-green-200 text-green-800 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Actualizar</button>
+                                <button type="button" className="px-6 py-2 rounded-lg bg-green-200 text-green-800 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer" onClick={() => setModalPerfil(!modalPerfil)}>Cerrar</button>
                             </div>
                         </form>
 
@@ -393,9 +442,9 @@ const Configuracion = () => {
                     <div className="flex flex-col items-center">
                         <h1 className="font-CalSans text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
                         <span className="font-semibold text-slate-500 dark:text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>
-                        <div className="cursor-pointer flex flex-col justify-center items-center border-dashed border-2 border-gray-400 bg-transparent rounded-lg w-[100px] h-[110px] mt-3 mb-2 lg:mb-0 hover:bg-gray-300 dark:hover:bg-gray-950 transition-all duration-300" onClick={actualizarUbi}>
-                            <img src={imgLocation} alt="actualizarUbi" width={60} height={60} />
-                            <p className="font-semibold text-sm text-slate-500 dark:text-slate-300 text-center">¡Clic para actualizar!</p>
+                        <div className="cursor-pointer flex flex-col justify-center items-center border-dashed border-2 border-gray-400 bg-transparent rounded-lg w-[130px] h-[130px] mt-3 mb-2 lg:mb-0 hover:bg-gray-300 dark:hover:bg-gray-800 transition-all duration-300" onClick={async () => {setCarga2(true); await actualizarUbi()}}>
+                            {carga2 ? <SpinnerCarga /> : (<img src={imgLocation} alt="actualizarUbi" width={65} height={65} />)}
+                            <p className="font-semibold px-2 text-sm text-slate-500 dark:text-slate-300 text-center">¡Clic para actualizar!</p>
                         </div>
                     </div>
                 </div>

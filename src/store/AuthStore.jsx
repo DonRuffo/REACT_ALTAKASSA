@@ -252,9 +252,7 @@ const AuthStoreContext = create((set, get) => ({
             toast.success(respuesta.data.msg)
         } catch (error) {
             console.log(error)
-            error.response.data.msg.forEach((mensaje) => {
-                toast.error(mensaje)
-            })
+            toast.error(error.response.data.msg[0])
         }
     },
 

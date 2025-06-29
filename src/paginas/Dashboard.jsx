@@ -22,6 +22,7 @@ const Dashboard = () => {
     const [mensajes, setMensajes] = useState(false)
     const [horaMsgs, setHoraMsgs] = useState('')
     const [idMensaje, setIdMensaje] = useState('')
+    const [busqueda, setBusqueda] = useState('')
     const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
     const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente'
 
@@ -122,6 +123,11 @@ const Dashboard = () => {
         const id = e.currentTarget.id
         setOpcionActiva(id)
     }
+    const chatsFiltrados = mensajesUsuario.filter(ent => {
+        const user = ent.participantes.find(of => of._id !== auth._id);
+        const nombreCompleto = (user?.nombre + ' ' + user?.apellido).toLowerCase();
+        return nombreCompleto.includes(busqueda.toLowerCase());
+    });
 
     useEffect(() => {
         setsideBar(sideBar.current)
@@ -432,7 +438,7 @@ const Dashboard = () => {
                         </div>
                         <h1 className="py-3 px-4 text-2xl dark:text-white font-CalSans">Mensajes</h1><hr className="border-0.5 border-slate-700" />
                         <div className="relative flex justify-center my-1.5">
-                            <input type="text" placeholder="Buscar conversación" className="bg-gray-300 dark:bg-gray-800 dark:placeholder-slate-300 dark:text-white px-2.5 py-1 mx-3 w-full rounded-xl focus:outline-none" />
+                            <input id="busqueda" type="text" placeholder="Buscar conversación" onChange={e => setBusqueda(e.target.value)} value={busqueda} className="bg-gray-300 dark:bg-gray-800 dark:placeholder-slate-300 dark:text-white px-2.5 py-1 mx-3 w-full rounded-xl focus:outline-none" />
                             <div className="absolute right-5 top-1 dark:text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -440,7 +446,7 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        {mensajesUsuario.flatMap(ent => {
+                        {chatsFiltrados.flatMap(ent => {
                             const users = ent.participantes.find(of => of._id !== auth._id)
                             const nameCompleto = users.nombre + ' ' + users.apellido
 

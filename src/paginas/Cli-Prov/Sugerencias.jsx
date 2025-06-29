@@ -6,24 +6,36 @@ import RelojDeArena from "../../componentes/RelojArena";
 import AuthStoreContext from "../../store/AuthStore";
 
 const Sugerencias = () => {
-    const {auth} = AuthStoreContext()
+    const { auth } = AuthStoreContext()
     const [carga, setCarga] = useState(false)
     const [formSug, setFormSug] = useState({
-        email:"",
-        rol:"",
-        nombre:"",
-        experiencia:"",
-        comentario:""
+        email: "",
+        nombre: "",
+        experiencia: "",
+        comentarios: {
+            fecha: '',
+            comentario: ''
+        }
     })
 
 
-    const handleChange = (e) =>{
+    const handleChange = (e) => {
+        const fechaHoy = new Date()
+        let msg
+
+
+        if (e.target.name === 'comentarios') {
+            msg = e.target.value
+        }
         setFormSug({
-            ...formSug,
-            email:auth.email,
-            rol:auth.rol,
-            nombre:auth.nombre + " " + auth.apellido,
-            [e.target.name]:e.target.value
+            email: auth.email,
+            nombre: auth.nombre + '' + auth.apellido,
+            experiencia: e.target.name === 'experiencia' ? e.target.value : formSug.experiencia,
+            comentarios: {
+                fecha: fechaHoy,
+                comentario: e.target.name === 'comentarios' ? e.target.value : formSug.comentarios.comentario
+            }
+
         })
     }
 
@@ -33,16 +45,22 @@ const Sugerencias = () => {
             const url = `${import.meta.env.VITE_BACKEND_URL}/sugerencias`
             const token = localStorage.getItem('token')
             const options = {
-                headers:{
-                    'Content-Type':'application/json',
+                headers: {
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
-                    
+
                 }
             }
-            console.log(formSug)
             const respuesta = await axios.post(url, formSug, options)
             toast.success(respuesta.data.msg)
             setCarga(false)
+            setFormSug({
+                ...formSug,
+                comentarios: {
+                    fecha: '',
+                    comentario: ''
+                }
+            })
         } catch (error) {
             console.log('Error al enviar la sugerencia', error.message)
             setCarga(false)
@@ -52,7 +70,7 @@ const Sugerencias = () => {
     return (
         <>
             <ToastContainer
-                toastStyle={{backgroundColor:'#1c2833 ', color:'white'}}
+                toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
                 closeOnClick
                 position="bottom-center"
             />
@@ -68,13 +86,13 @@ const Sugerencias = () => {
                                     <div className="mb-3 mr-2">
                                         <label htmlFor="buena" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-green-600 has-[input:checked]:text-green-600 duration-300">
                                             Buena
-                                            <input type="radio" name="experiencia" id="buena" value='buena' onChange={handleChange}  className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-green-600 duration-300" />
+                                            <input type="radio" name="experiencia" id="buena" value='buena' onChange={handleChange} className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-green-600 duration-300" />
                                         </label>
                                     </div>
                                     <div className="mb-3 mr-2">
-                                        <label htmlFor="regular" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-600 duration-300">
+                                        <label htmlFor="regular" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-yellow-600 has-[input:checked]:text-yellow-600 duration-300">
                                             Regular
-                                            <input type="radio" name="experiencia" id="regular" value='regular' onChange={handleChange} className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-purple-600 duration-300" />
+                                            <input type="radio" name="experiencia" id="regular" value='regular' onChange={handleChange} className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-yellow-600 duration-300" />
                                         </label>
                                     </div>
                                     <div className="mb-3">
@@ -85,11 +103,19 @@ const Sugerencias = () => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col mb-5">
-                                    <label htmlFor="comentario" className="font-semibold mb-1">Comentario:</label>
-                                    <textarea name="comentario" id="comentario" value={formSug.comentario || ""} onChange={handleChange} className="px-2 border-2 min-h-10 max-h-24 dark:border-white dark:focus:border-purple-600 dark:bg-transparent rounded-md focus:outline-none focus:border-purple-600"></textarea>
+                                    <label htmlFor="comentarios" className="font-semibold mb-1">Comentario:</label>
+                                    <textarea name="comentarios" id="comentarios" value={formSug.comentarios.comentario || ""} onChange={handleChange} className="px-2 border-2 min-h-10 max-h-24 dark:border-white dark:focus:border-cyan-500 dark:bg-transparent rounded-md focus:outline-none focus:border-cyan-500"
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' && !e.shiftKey) {
+                                                e.preventDefault();
+                                                handleSubmit(e);
+                                            }
+                                        }}>
+
+                                    </textarea>
                                 </div>
                                 <div className="mb-5 flex justify-center lg:justify-start">
-                                    <button type="submit" className={`${carga ? 'hidden' : ''} px-4 py-2 text-cyan-700 font-semibold rounded-md bg-cyan-200 hover:bg-cyan-300 duration-300 cursor-pointer`} onClick={()=>setCarga(true)}>
+                                    <button type="submit" className={`${carga ? 'hidden' : ''} px-4 py-2 text-cyan-700 font-semibold rounded-md bg-cyan-200 hover:bg-cyan-300 duration-300 cursor-pointer`} onClick={() => setCarga(true)}>
                                         Enviar
                                     </button>
                                     {carga && <RelojDeArena />}
@@ -97,7 +123,7 @@ const Sugerencias = () => {
                             </form>
                         </div>
                         <div className="mb-2">
-                            <img src={imgSug} alt="Sugerencias"  className="size-84"/>
+                            <img src={imgSug} alt="Sugerencias" className="size-84" />
                         </div>
                     </div>
                 </div>

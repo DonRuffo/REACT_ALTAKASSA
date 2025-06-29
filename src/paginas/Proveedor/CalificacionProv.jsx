@@ -29,6 +29,7 @@ const CalificacionProv = ({id, nombre, apellido, foto}) => {
             const respuesta = await axios.post(url, form, options);
             toast.success(respuesta.data.msg);
             setHovered(0);
+            setTimeout(() => setModalCalifProv(false), 2800)
         } catch (error) {
             console.error("Error al enviar la calificación:", error);
             toast.error(error.response.data.msg);
@@ -77,7 +78,7 @@ const CalificacionProv = ({id, nombre, apellido, foto}) => {
                         <button
                             type="button"
                             className={`w-1/3 ${calificacion ? 'cursor-pointer hover:scale-105' : 'pointer-events-none cursor-not-allowed opacity-50'} bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2 rounded-lg transition-transform duration-300 ease-in-out`}
-                            onClick={async () => { await handleSubmitStars(); setTimeout(() => setModalCalifProv(false), 2500) }}
+                            onClick={() => {handleSubmitStars() }}
                         >
                             Enviar
                         </button>

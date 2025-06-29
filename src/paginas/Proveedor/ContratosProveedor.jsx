@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../../../CSS/fondos.css'
 import imgSinTrabajo from '../../assets/Tiempo.svg'
 import OfertaStore from "../../store/OfertaStore";
@@ -15,7 +15,7 @@ const ContratosProv = () => {
 
     const [trabajoSeleccionado, setTrabajoSeleccionado] = useState(null);
 
-    const fechaDeHoy = DateTime.now().setZone('America/Guayaquil').toFormat('yyyy-MM-dd')
+    const fechaDeHoy = DateTime.now().setZone('America/Guayaquil').toFormat('yyyy-MM-dd HH:mm:ss');
 
     const cancelarTrabajo = async (idTra, servicio, idProv) => {
         const token = localStorage.getItem('token')
@@ -50,8 +50,10 @@ const ContratosProv = () => {
                 <h1 className="text-center text-cyan-500 font-CalSans text-3xl mb-3 mt-20 lg:mt-5">Trabajos actuales</h1>
                 <h2 className="text-xl mb-5 text-center dark:text-white px-5">Aquí podrás ver tus trabajos agendados como proveedor</h2>
                 <div className="flex justify-center flex-wrap gap-x-3">
-                    {trabajosProvs.length !== 0 && trabajosProvs.some((tra) => tra.status === "Agendado") ? trabajosProvs.map((tra) => (
-                        tra.status === "Agendado" && (
+                    {trabajosProvs.length !== 0 && trabajosProvs.some((tra) => (tra.status === "Agendado" || tra.status === "Completado") && tra.calificacionCliente === null) ? trabajosProvs.map((tra) => {
+                        const horaInicialTra = DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('yyyy-MM-dd HH:mm:ss')
+                        return (
+                        (tra.status === "Agendado" || tra.status === "Completado") && tra.calificacionCliente === null && (
                             <div key={tra._id} className="w-fit h-fit py-3.5 px-5 radial-gradientAceptados-bg rounded-lg shadow-lg shadow-cyan-300 mb-5">
                                 <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                 <div className="flex justify-center items-center gap-x-3 mt-1.5">
@@ -69,15 +71,9 @@ const ContratosProv = () => {
                                         ${tra.precioTotal = Math.round(tra.precioTotal * 100) / 100}
                                         <span className="text-base"> total</span>
                                     </h1>
-                                    <div className="flex items-center">-</div>
-                                    <div className="flex items-center">
-                                        <h1 className="font-semibold text-xl text-cyan-900">
-                                            {tra.status}
-                                        </h1>
-                                    </div>
                                 </div><hr className="border border-white" />
                                 <div className="flex justify-around mt-2">
-                                    <button type="button" data-tooltip-id="finalizar" data-tooltip-content={'Finalizar trabajo'} className={`flex flex-col justify-center items-center text-cyan-800 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer ${fechaDeHoy === DateTime.fromISO(tra.fecha).setZone('America/Guayaquil').toFormat('yyyy-MM-dd') ? '' : 'hidden'}`} onClick={() => {
+                                    <button type="button" data-tooltip-id="finalizar" data-tooltip-content={'Finalizar trabajo'} className={`flex flex-col justify-center items-center text-cyan-800 font-semibold hover:scale-105 duration-300 ease-in-out cursor-pointer ${fechaDeHoy >= horaInicialTra  ? '' : 'hidden'}`} onClick={() => {
                                         const confirmar = confirm(`¿Estás seguro de finalizar el trabajo de ${tra.servicio}? Esta acción no se puede deshacer.`);
                                         if (confirmar) {
                                             setModalCalifCli(true);
@@ -106,7 +102,7 @@ const ContratosProv = () => {
                                 {modalCalifCli && trabajoSeleccionado === tra._id && <CalificacionCli id={tra._id} nombre={tra.cliente.nombre} apellido={tra.cliente.apellido} foto={tra.cliente.f_perfil} />}
                             </div>
                         )
-                    )) : (
+                    )}) : (
                         <div className="w-[250px] h-[265px] px-5 mb-5 shadow-lg dark:shadow-slate-800 bg-gray-100 dark:bg-gray-900 rounded-lg flex flex-col justify-center items-center">
                             <img src={imgSinTrabajo} alt="SinTrabajos" width={150} height={150} />
                             <p className="text-lg dark:text-white font-semibold text-center">No se han agendado trabajos todavía</p>

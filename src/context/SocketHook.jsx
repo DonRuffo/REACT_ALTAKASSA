@@ -9,7 +9,6 @@ const SocketStatus = () => {
     useEffect(() => {
         socket.on('connect', () => {
             setConnectionStatus(true)
-            console.log('Conectado')
           })
       
           socket.on('disconnect', (reason) => {

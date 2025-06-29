@@ -14,6 +14,7 @@ const OfertaStore = create((set, get) => ({
     modalCalifProv: false,
     modalCalifCli: false,
     perfilBar: null,
+    modalSugerencias: false,
 
     //pulsos de esqueletos
     pulseTra: true,
@@ -71,6 +72,7 @@ const OfertaStore = create((set, get) => ({
     setModalInfo: (modal) => set({ modalInfo: modal }),
     setModalCalifProv: (modal) => set({ modalCalifProv: modal }),
     setModalCalifCli: (modal) => set({ modalCalifCli: modal }),
+    setModalSugerencias: (modal) => set({ modalSugerencias: modal }),
 
     //handles
     handleModalOf: () => {

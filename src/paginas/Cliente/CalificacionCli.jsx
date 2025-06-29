@@ -30,6 +30,7 @@ const CalificacionCli = ({ id, nombre, apellido, foto }) => {
 
             toast.success(respuesta.data.msg);
             setHovered(0);
+            setTimeout(() => setModalCalifCli(false), 2500)
         } catch (error) {
             console.error("Error al enviar la calificación:", error);
             toast.error(error.response.data.msg);
@@ -79,7 +80,7 @@ const CalificacionCli = ({ id, nombre, apellido, foto }) => {
                         <button
                             type="button"
                             className={`w-1/3 ${calificacion ? 'cursor-pointer hover:scale-105' : 'pointer-events-none cursor-not-allowed opacity-50'} bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2 rounded-lg transition-transform duration-300 ease-in-out`}
-                            onClick={async () => { await handleSubmitStars(); setTimeout(() => setModalCalifCli(false), 2500) }}
+                            onClick={() => { handleSubmitStars() }}
                         >
                             Enviar
                         </button>
