@@ -43,10 +43,10 @@ const HistorialTrabajoProvs = () => {
                                         <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <div className="flex justify-center items-center gap-x-3 my-1.5">
                                             <div className="w-[65px] h-[65px] rounded-full overflow-hidden shrink-0">
-                                                <img src={tra.proveedor.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
+                                                <img src={tra.cliente.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                             </div>
                                             <div className="-space-y-0.5">
-                                                <p className="text-xl font-semibold text-white truncate w-28">{tra.proveedor.nombre}</p>
+                                                <p className="text-xl font-semibold text-white truncate w-28">{tra.cliente.nombre}</p>
                                                 <p className="font-semibold">{tra.fecha.split('T')[0]}</p>
                                                 <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
@@ -64,10 +64,10 @@ const HistorialTrabajoProvs = () => {
                                         <h1 className="text-center text-2xl pb-2 border-b-2 font-semibold text-white">{tra.servicio}</h1>
                                         <div className="flex justify-center items-center gap-x-3 my-1.5">
                                             <div className="w-[65px] h-[65px] rounded-full overflow-hidden shrink-0">
-                                                <img src={tra.proveedor.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
+                                                <img src={tra.cliente.f_perfil} alt="fotoPERFILprov" className="w-full h-full object-cover" />
                                             </div>
                                             <div className="-space-y-0.5">
-                                                <p className="text-xl font-semibold text-cyan-900 truncate w-28">{tra.proveedor.nombre}</p>
+                                                <p className="text-xl font-semibold text-cyan-900 truncate w-28">{tra.cliente.nombre}</p>
                                                 <p className="font-semibold">{tra.fecha.split('T')[0]}</p>
                                                 <p className="font-semibold">{DateTime.fromISO(tra.desde, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')} - {DateTime.fromISO(tra.hasta, { zone: 'utc' }).setZone('America/Guayaquil').toFormat('HH:mm')}</p>
                                             </div>
