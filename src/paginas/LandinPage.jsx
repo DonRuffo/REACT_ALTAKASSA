@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import logoDarkMode from '../assets/moon.png';
+import logoDarkMode from '../assets/moon.avif';
 
 import logoComodidad from '../assets/Comodidad.svg';
 import logoUsabilidad from '../assets/Usabilidad.svg';
@@ -10,13 +10,13 @@ import logoSeguridad from '../assets/Seguridad.svg';
 import logoGarantia from '../assets/Garantía.svg';
 import logoFiabilidad from '../assets/Fiabilidad.svg'
 import imgTuerca from '../assets/ServiciosSection.svg';
-import imgPlomeria from '../assets/Plomeria.png'
-import imgElectro from '../assets/Electrodomestico.png'
-import imgCarpinteria from '../assets/Carpinteria.png'
-import imgLimpieza from '../assets/Limpieza.png'
-import imgPintor from '../assets/Pintor.png'
-import imgAlbanil from '../assets/Albañil.png'
-import imgAksin from '../assets/AK BLANCA_sintexto.png'
+import imgPlomeria from '../assets/Plomeria.avif'
+import imgElectro from '../assets/Electrodomestico.avif'
+import imgCarpinteria from '../assets/Carpinteria.avif'
+import imgLimpieza from '../assets/Limpieza.avif'
+import imgPintor from '../assets/Pintor.avif'
+import imgAlbanil from '../assets/Albañil.avif'
+import imgAksin from '../assets/AK BLANCA_sintexto.avif'
 import imgSomos from '../assets/QuienesSomos.svg'
 import logoAgendar from '../assets/Agendar.svg'
 import logoElegir from '../assets/Diversidad.svg'
@@ -399,7 +399,7 @@ const LandingPage = () => {
                     <nav className="fixed z-10 w-full px-10 py-5 lg:py-5 flex justify-between backdrop-blur-sm bg-white/30 dark:bg-black/30" id="LandingPage">
                         <div className="grid grid-cols-3 w-full">
                             <div className="flex items-center justify-start">
-                                <select className="w-full text-lg mr-1 md:mr-0 rounded-lg py-2 md:w-40 text-center text-cyan-500 font-semibold bg-transparent outline-2 focus:outline-cyan-600 hover:brightness-125 duration-300 cursor-pointer"
+                                <select className="w-full text-lg mr-1 md:mr-0 rounded-lg py-2 md:w-40 text-center text-cyan-600 font-semibold bg-transparent outline-2 focus:outline-cyan-600 hover:brightness-125 duration-300 cursor-pointer"
                                     onChange={(e) => {
                                         const targetId = e.target.value
                                         const targetElement = document.getElementById(targetId)
@@ -419,8 +419,8 @@ const LandingPage = () => {
                             </div>
                             <div className="hidden md:flex items-center justify-end">
                                 <ul className="flex items-center gap-x-1.5">
-                                    <li><Link to='/login' className="w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-500 text-lg text-cyan-500 font-semibold hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
-                                    <li><Link to='/registro' className=" w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-500 text-lg text-cyan-500 font-semibold hover:brightness-125 transition-all duration-300 text-center">Registro</Link></li>
+                                    <li><Link to='/login' className="w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-600 text-lg text-cyan-600 font-semibold hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
+                                    <li><Link to='/registro' className=" w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-600 text-lg text-cyan-600 font-semibold hover:brightness-125 transition-all duration-300 text-center">Registro</Link></li>
                                 </ul>
                             </div>
                             <div className="md:hidden flex items-center justify-end text-cyan-500">

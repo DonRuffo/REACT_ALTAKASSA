@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import logoInicio from '../../assets/SVG_Construccion.svg'
 import axios from "axios";
 import '../../../CSS/fondos.css'
-import ModalTrabajos from "../../componentes/modals/ModalTrabajos";
 import Cloudinary from "../../componentes/Cloudinary";
 import { motion } from "framer-motion";
 import LocationImg from '../../assets/Mapa.svg'
-import SpinnerCargaModal from "../../componentes/RuedaCargaModal";
 import { ToastContainer } from "react-toastify";
-import ModalFotoProvs from "../../componentes/modals/ModalFotoProvs";
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import imgSinOfertas from '../../assets/Sinofertas.svg'
 import EsqueletoInicioCli from "../Esqueletos/EsqInicioCli";
+import { Tooltip } from "react-tooltip";
+
+//importacion de modales con lazy
+
+const ModalFotoProvs = lazy(() => import("../../componentes/modals/ModalFotoProvs"))
+const ModalTrabajos = lazy(() => import("../../componentes/modals/ModalTrabajos"))
 
 const Inicio = () => {
-    const { setAuth, foto, ubiActual, setUbiActual, pulseFoto, pulseUbiTra, pulseUbiActual, ubiCliente, setUbicacionActual, ivActual, categorias } = AuthStoreContext()
+    const { setAuth, foto, ubiActual, pulseFoto, pulseUbiTra, pulseUbiActual, setUbicacionActual, ivActual, categorias } = AuthStoreContext()
     const { modalTra, setModalTra, oferta, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
     const [ofertasFiltradas, setOfertasFiltradas] = useState([])
-    const [carga, setCarga] = useState(false)
 
     const [valorUrl, setValorUrl] = useState('')
     const [indice, setIndex] = useState(0)
@@ -30,18 +32,6 @@ const Inicio = () => {
     const handleModalTra = (id) => {
         setOfertaSeleccionada(id);
     };
-
-    const permitirUbi = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const rol = localStorage.getItem('rol')
-            await ubiCliente(token, rol)
-            setCarga(false)
-            setUbiActual(true)
-        } catch (error) {
-            console.log('Error al dar ubicación', error.message)
-        }
-    }
     const proveedorSeleccionado = (idProv) => {
         setIdProveedor(idProv)
     }
@@ -53,9 +43,7 @@ const Inicio = () => {
 
     const obtenerUbi = async () => {
         try {
-            const rol = localStorage.getItem('rol')
             const token = localStorage.getItem('token')
-            //const dd = localStorage.getItem('dd')
             const urlCli = `${import.meta.env.VITE_BACKEND_URL}/ubiUser?iv=${ivActual}`
             const options = {
                 headers: {
@@ -130,9 +118,11 @@ const Inicio = () => {
                                 <motion.div layout id="localitation" className={`flex flex-col dark:bg-gray-900 bg-gray-100 outline-2 outline-emerald-700 h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
                                     <img src={LocationImg} alt="localization" width={125} height={125} />
                                     <h1 className="font-semibold text-center dark:text-white">Concede el permiso de ubicación</h1>
-                                    <button type="button" className={`${ubiActual || carga ? 'hidden' : ''} px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`} onClick={async () => { await permitirUbi(); setCarga(true) }}>Permitir</button>
-                                    {carga && <SpinnerCargaModal />}
-                                    <p className={`${ubiActual ? '' : 'hidden'} px-3 py-1 rounded-2xl bg-emerald-200 text-emerald-800 font-semibold mt-3`}>Concedido</p>
+                                    <div data-tooltip-id="ubi" data-tooltip-content={'Se necesita tu ubicación para mostrarte los proveedores que están cerca de ti'} className="flex justify-center text-emerald-700 dark:text-emerald-500 mt-2 cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-8">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+                                        </svg>
+                                    </div>
                                 </motion.div>
                             </motion.div>
                         </section>
@@ -175,7 +165,9 @@ const Inicio = () => {
                                                 <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />
                                             </div>
                                         </div>
-                                        {modalProvs && of.proveedor.f_perfil === valorUrl && index === indice && <ModalFotoProvs url={of.proveedor.f_perfil} />}
+                                        <Suspense fallback={<strong>Cargando foto...</strong>}>
+                                            {modalProvs && of.proveedor.f_perfil === valorUrl && index === indice && <ModalFotoProvs url={of.proveedor.f_perfil} />}
+                                        </Suspense>
                                         <div className="flex flex-col justify-center ">
                                             <h1 className="md:text-center font-bold text-lg md:text-xl text-white pb-0.5 md:pb-3 truncate">
                                                 {of.proveedor.nombre} {of.proveedor.apellido}
@@ -196,7 +188,10 @@ const Inicio = () => {
                                             <div className="md:flex pulsoBotones brightness-105 z-0 justify-center mt-3 hidden hover:animate-none">
                                                 <button type="button" className="px-2 py-1 rounded-md bg-cyan-300 text-cyan-800 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
                                             </div>
-                                            {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} />)}
+                                            <Suspense fallback={<strong>Cargando el detalle...</strong>}>
+                                                {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} />)}
+                                            </Suspense>
+
                                         </div>
                                         <div className="flex items-center justify-center mr-1.5 pulsoBotones brightness-105 z-0 md:hidden">
                                             <button type="button" className="flex flex-col items-center justify-center px-1 py-1 rounded-md bg-transparent text-white font-semibold brightness-110 z-0" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>
@@ -228,7 +223,9 @@ const Inicio = () => {
                                                 <img src={of.proveedor.f_perfil} alt="imgProv" className="w-full h-full object-cover ring-2 ring-white" />
                                             </div>
                                         </div>
-                                        {modalProvs && of.proveedor.f_perfil === valorUrl && index === indice && <ModalFotoProvs url={of.proveedor.f_perfil} />}
+                                        <Suspense fallback={<strong>Cargando foto...</strong>}>
+                                            {modalProvs && of.proveedor.f_perfil === valorUrl && index === indice && <ModalFotoProvs url={of.proveedor.f_perfil} />}
+                                        </Suspense>
                                         <div className="flex flex-col justify-center">
                                             <h1 className="md:text-center font-bold text-lg md:text-xl text-white pb-0.5 md:pb-3">
                                                 {of.proveedor.nombre} {of.proveedor.apellido}
@@ -249,7 +246,10 @@ const Inicio = () => {
                                             <div className="md:flex justify-center pulsoBotones mt-3 brightness-105 z-0 hidden">
                                                 <button type="button" className="px-2 py-1 rounded-md bg-cyan-300 text-cyan-800 font-semibold hover:scale-105 duration-300 cursor-pointer" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>Solicitar</button>
                                             </div>
-                                            {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} />)}
+                                            <Suspense fallback={<strong>Cargando el detalle...</strong>}>
+                                                {modalTra && ofertaSeleccionada === of._id && (<ModalTrabajos idOferta={of._id} />)}
+                                            </Suspense>
+
                                         </div>
                                         <div className="flex items-center justify-center pulsoBotones mr-1.5 brightness-105 z-0 md:hidden">
                                             <button type="button" className="flex flex-col items-center justify-center px-1 py-1 rounded-md bg-transparent text-white font-semibold" onClick={() => { handleModalTra(of._id); proveedorSeleccionado(of.proveedor._id); setModalTra(!modalTra) }}>
@@ -269,6 +269,9 @@ const Inicio = () => {
                                 }
                             </div>
                         </section>
+                        <Tooltip id="ubi" place="bottom" style={{
+                            fontSize: 13
+                        }} />
                     </>
                 )}
         </>

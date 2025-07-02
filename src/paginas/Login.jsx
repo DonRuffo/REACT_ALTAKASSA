@@ -1,5 +1,5 @@
 import React, { useEffect, useState, } from 'react'
-import logoNegroAK from '../assets/AK NEGRA.png'
+import logoNegroAK from '../assets/AK NEGRA.avif'
 import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
 import { Link, useNavigate } from 'react-router-dom';
@@ -117,18 +117,17 @@ const Login = () => {
                             <hr className='dark:border dark:border-gray-900' />
                             <form onSubmit={HandleSubmit}>
                                 <div className="my-3">
-                                    <label htmlFor='email' className="mb-2 block text-md font-semibold text-cyan-500">Correo electrónico</label>
+                                    <label htmlFor='email' className="mb-2 block text-md font-semibold text-cyan-700 dark:text-cyan-500">Correo electrónico</label>
                                     <input id='email' type="email" name='email' onChange={HandleChange} value={form.email || ""} placeholder="Ingresa tu correo" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-cyan-600 focus:outline-none focus:ring-1 focus:ring-cyan-600 py-1 px-2 text-gray-500" />
                                 </div>
 
                                 <div className="mb-3">
-                                    <label htmlFor='contrasenia' className="mb-2 block text-md font-semibold text-cyan-500">Contraseña</label>
+                                    <label htmlFor='contrasenia' className="mb-2 block text-md font-semibold text-cyan-700 dark:text-cyan-500">Contraseña</label>
                                     <div className='flex gap-2 relative'>
                                         <input id='contrasenia' type={ojoActivo ? "text" : "password"} name='contrasenia' onChange={HandleChange} value={form.contrasenia || ""} placeholder="********************" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-cyan-600 focus:outline-none focus:ring-1 focus:ring-cyan-600 py-1 px-2 text-gray-500" />
-                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
+                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={25} /> : <EyeOff size={25} />}</button>
                                     </div>
                                 </div>
-
 
                                 <div className="my-7 flex justify-center">
                                     <button type='submit' onClick={() => { setCarga(true); setTimeout(() => { setCarga(false) }, [5000]) }} className={`${carga === false ? "" : "hidden"} py-2 px-6  ${mostrar ? '' : 'opacity-50 pointer-events-none cursor-not-allowed'} block text-center bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600 text-white rounded-md duration-300 hover:scale-105 hover:text-white cursor-pointer font-CalSans`}>Ingresar</button>
@@ -136,8 +135,8 @@ const Login = () => {
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />
                                 <div className='mt-1 md:mt-3 md:mb-1'>
-                                    <p className='text-base text-slate-500 dark:text-slate-300 mb-1 font-semibold'>Olvidaste tu contraseña {'-->'} <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
-                                    <p className='text-base text-slate-500 dark:text-slate-300 font-semibold'>No tienes una cuenta {'-->'} <Link className='text-emerald-500 dark:text-emerald-300  hover:underline duration-300' to='/registro'>Regístrate Aquí</Link></p>
+                                    <p className='text-base text-slate-500 dark:text-slate-300 mb-1 font-semibold'>Olvidaste tu contraseña {'-->'} <Link className='text-emerald-700 dark:text-emerald-300  hover:underline duration-300' to='/recuperar'>Click Aquí</Link></p>
+                                    <p className='text-base text-slate-500 dark:text-slate-300 font-semibold'>No tienes una cuenta {'-->'} <Link className='text-emerald-700 dark:text-emerald-300  hover:underline duration-300' to='/registro'>Regístrate Aquí</Link></p>
                                 </div>
                             </form><br />
                             <div>

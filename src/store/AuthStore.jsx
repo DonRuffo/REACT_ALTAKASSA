@@ -184,16 +184,17 @@ const AuthStoreContext = create((set, get) => ({
                         const respuesta = await axios.post(url, { latitude, longitude }, options)
                         set({ ubiActual: true })
                         set({ ivActual: respuesta.data.iv })
-                        //localStorage.setItem('dd', respuesta.data.iv)
                         resolve()
                     } catch (error) {
                         console.log('Error al obtener la ubicacion actual', error.message)
+                        set({ ubiActual: false })
                         reject()
                     }
                 },
                     () => {
                         set({ ubiActual: false })
-                        reject()
+                        resolve()
+                        console.log('Sin exito')
                     }
                 )
             } else {

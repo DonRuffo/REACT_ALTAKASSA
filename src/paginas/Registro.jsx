@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../../CSS/fondos.css'
-import logoNegroAK from '../assets/AK NEGRA.png';
+import logoNegroAK from '../assets/AK NEGRA.avif';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -90,16 +90,16 @@ const Registro = () => {
                             <form onSubmit={HandleSubmit}>
                                 <div className="my-3 grid grid-cols-2">
                                     <div className="mx-1">
-                                        <label htmlFor="nombre" className="mb-2 block text-md font-semibold dark: text-purple-400">Nombre</label>
+                                        <label htmlFor="nombre" className="mb-2 block text-md font-semibold text-purple-700 dark:text-purple-400">Nombre</label>
                                         <input type="text" name='nombre' id="nombre" placeholder="Ingresa tu primer nombre" onChange={HandleChange} value={form.nombre || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 py-1 px-2 text-gray-500" />
                                     </div>
                                     <div className="mx-1">
-                                        <label htmlFor="apellido" className="mb-2 block text-md font-semibold dark: text-purple-400">Apellido</label>
+                                        <label htmlFor="apellido" className="mb-2 block text-md font-semibold text-purple-700 dark:text-purple-400">Apellido</label>
                                         <input type="text" name='apellido' id="apellido" placeholder="Ingresa tu apellido" onChange={HandleChange} value={form.apellido || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 py-1 px-2 text-gray-500" />
                                     </div>
                                 </div>
                                 <div className="mb-3 mx-1">
-                                    <label htmlFor="dir" className="mb-2 block text-md font-semibold dark: text-purple-400">Provincia:</label>
+                                    <label htmlFor="dir" className="mb-2 block text-md font-semibold text-purple-700 dark:text-purple-400">Provincia:</label>
                                     <select name="direccion" id="dir" onChange={HandleChange} className="block w-full dark:bg-black dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 py-1 px-2 text-gray-500">
                                         <option value="Pichincha">Pichincha</option>
                                         <option value="Guayas">Guayas</option>
@@ -129,19 +129,19 @@ const Registro = () => {
                                 </div>
                                 <div className="mb-3">
                                     <div className="mx-1">
-                                        <label htmlFor="email" className="mb-2 block text-md font-semibold dark: text-purple-400">Correo electrónico</label>
+                                        <label htmlFor="email" className="mb-2 block text-md font-semibold text-purple-700 dark:text-purple-400">Correo electrónico</label>
                                         <input type="email" name='email' id="email" placeholder="Ingresa tu correo" onChange={HandleChange} value={form.email || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                                     </div>
                                 </div>
                                 <div className="mb-3 mx-1">
-                                    <label htmlFor="contrasenia" className="mb-2 block text-md font-semibold dark: text-purple-400">Contraseña</label>
+                                    <label htmlFor="contrasenia" className="mb-2 block text-md font-semibold text-purple-700 dark:text-purple-400">Contraseña</label>
                                     <div className="flex gap-2 relative">
                                         <input type={ojoActivo ? "text" : "password"} name='contrasenia' id="contrasenia" placeholder="*****" onChange={HandleChange} value={form.contrasenia || ""} className=" block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 py-1 px-2 text-gray-500" />
-                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={20} /> : <EyeOff size={20} />}</button>
+                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={25} /> : <EyeOff size={25} />}</button>
                                     </div>
                                 </div>
-                                <div className="text-sm rounded-md bg-red-200 py-1 px-2 dark:bg-gray-950 dark:text-slate-300">
-                                    <h1 className="font-semibold text-emerald-500 dark:text-emerald-300">Tomar en cuenta para la contraseña:</h1>
+                                <div className="text-sm rounded-md bg-red-100 py-1 px-2 dark:bg-gray-950 dark:text-slate-300">
+                                    <h1 className="font-semibold text-emerald-700 dark:text-emerald-300">Tomar en cuenta para la contraseña:</h1>
                                     <p>1. Al menos una mayúscula</p>
                                     <p>2. Al menos una minúscula</p>
                                     <p>3. Al menos un número</p>
@@ -152,7 +152,7 @@ const Registro = () => {
                                     {reloj && <RelojDeArena />}
                                 </div> <hr className="dark:border dark:border-gray-900" />
                                 <div className="flex justify-end mt-2">
-                                    <p className="text-base text-slate-500 dark:text-slate-300 font-semibold">¿Ya tienes cuenta? {'-->'}  <Link className="text-emerald-500 dark:text-emerald-300 hover:underline duration-300" to="/login">Inicia sesión</Link></p>
+                                    <p className="text-base text-slate-700 dark:text-slate-300 font-semibold">¿Ya tienes cuenta? {'-->'}  <Link className="text-emerald-700 dark:text-emerald-300 underline duration-300" to="/login">Inicia sesión</Link></p>
                                 </div>
                             </form>
                         </div>

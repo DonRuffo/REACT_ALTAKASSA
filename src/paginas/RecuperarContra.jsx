@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logoNegroAK from '../assets/AK NEGRA.png';
+import logoNegroAK from '../assets/AK NEGRA.avif';
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 

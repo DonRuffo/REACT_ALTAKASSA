@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import logoAlta from '../assets/AK BLANCA.png'
+import logoAlta from '../assets/AK BLANCA.avif'
 import ModalFotoPerfil from "../componentes/modals/ModalFotoPerfil";
 import AuthStoreContext from "../store/AuthStore";
 import OfertaStore from "../store/OfertaStore";
