@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import logoFoto from '../assets/TomarFoto.svg'
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import AuthStoreContext from "../store/AuthStore";
@@ -61,7 +60,7 @@ const Cloudinary = () => {
             <div className="absolute top-3 right-3 flex justify-center items-center rounded-full w-8 h-8 bg-emerald-300">
                 <p className="text-emerald-700 text-lg font-semibold">1</p>
             </div>
-            <img src={logoFoto} alt="fotoPerfil" className={`${carga ? 'hidden' : ''}`} width={125} height={125} />
+            <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/TomarFoto.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvVG9tYXJGb3RvLnN2ZyIsImlhdCI6MTc1MTY3NzA1NCwiZXhwIjoyMDY3MDM3MDU0fQ.utoSJgBc2gEt-VQP4x3TrfchZxt_l6KrsXs3SbV2Cvc'} alt="fotoPerfil" className={`${carga ? 'hidden' : ''}`} width={125} height={125} />
             {carga && <SpinnerCarga />}
             <p className="text-center font-semibold dark:text-white mb-3">Sube una foto de perfil</p>
             <label htmlFor="imagen" className={`px-3 py-1 rounded-2xl bg-emerald-700 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300`}>Subir Foto</label>

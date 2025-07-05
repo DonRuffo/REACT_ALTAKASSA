@@ -1,15 +1,12 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import logoInicio from '../../assets/SVG_Construccion.svg'
 import axios from "axios";
 import '../../../CSS/fondos.css'
 import Cloudinary from "../../componentes/Cloudinary";
 import { motion } from "framer-motion";
-import LocationImg from '../../assets/Mapa.svg'
 import { ToastContainer } from "react-toastify";
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
-import imgSinOfertas from '../../assets/Sinofertas.svg'
 import EsqueletoInicioCli from "../Esqueletos/EsqInicioCli";
 import { Tooltip } from "react-tooltip";
 
@@ -92,10 +89,10 @@ const Inicio = () => {
                                 <h1 className="relative lg:z-10 text-2xl md:text-3xl text-center text-cyan-500 font-CalSans px-3 md:px-0">Vista como cliente</h1>
                                 <h2 className="relative lg:z-10 md:text-xl text-center dark:text-white pt-3  md:px-0">Los proveedores esperan por brindarte sus servicios</h2>
                                 <div className="absolute opacity-50 z-0 -top-2 left-2 hidden lg:flex justify-center pb-4">
-                                    <img src={logoInicio} alt="Constructor" width={215} height={185} />
+                                    <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/SVG_Construccion.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvU1ZHX0NvbnN0cnVjY2lvbi5zdmciLCJpYXQiOjE3NTE2NzU5MzEsImV4cCI6MjA2NzAzNTkzMX0.YcYbLUqAl9JwgBhVq4ahlHGOYq6kiEb8rfne7jMuFts'} alt="Constructor" width={215} height={185} />
                                 </div>
                                 <div className="lg:hidden flex justify-center pb-1">
-                                    <img src={logoInicio} alt="Constructor" width={110} height={110} />
+                                    <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/SVG_Construccion.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvU1ZHX0NvbnN0cnVjY2lvbi5zdmciLCJpYXQiOjE3NTE2NzU5MzEsImV4cCI6MjA2NzAzNTkzMX0.YcYbLUqAl9JwgBhVq4ahlHGOYq6kiEb8rfne7jMuFts'} alt="Constructor" width={110} height={110} />
                                 </div>
                             </div>
                         </section><br />
@@ -116,7 +113,7 @@ const Inicio = () => {
                                 layout transition={{ duration: 300, ease: 'easeInOut' }}>
                                 {foto === false && <Cloudinary />}
                                 <motion.div layout id="localitation" className={`flex flex-col dark:bg-gray-900 bg-gray-100 outline-2 outline-emerald-700 h-[260px] w-[200px] rounded-lg items-center justify-center shadow-lg`}>
-                                    <img src={LocationImg} alt="localization" width={125} height={125} />
+                                    <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Mapa.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvTWFwYS5zdmciLCJpYXQiOjE3NTE2NzYwMTIsImV4cCI6MjA2NzAzNjAxMn0.xy9s5w07VmO7gE5VKQYH5pOcycu3qRwKIAquOgqbTbk'} alt="localization" width={125} height={125} />
                                     <h1 className="font-semibold text-center dark:text-white">Concede el permiso de ubicación</h1>
                                     <div data-tooltip-id="ubi" data-tooltip-content={'Se necesita tu ubicación para mostrarte los proveedores que están cerca de ti'} className="flex justify-center text-emerald-700 dark:text-emerald-500 mt-2 cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-8">
@@ -204,7 +201,7 @@ const Inicio = () => {
                                     </div>
                                 )) : (
                                     <div className="flex flex-col justify-center items-center  bg-gray-100 dark:bg-gray-800 h-[250px] w-[225px] rounded-lg shadow-lg dark:shadow-slate-700 mb-5">
-                                        <img src={imgSinOfertas} alt="dreaming" width={125} height={125} />
+                                        <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Sinofertas.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvU2lub2ZlcnRhcy5zdmciLCJpYXQiOjE3NTE2NzYxNDcsImV4cCI6MjA2NzAzNjE0N30.20hhUge8vbgwfG-5pVfwLG47fzTSpPbTl_qppQtmw6k'} alt="dreaming" width={125} height={125} />
                                         <h1 className="font-semibold dark:text-white text-lg">No existen ofertas aún</h1>
                                     </div>
                                 )}
@@ -262,7 +259,7 @@ const Inicio = () => {
                                     </div>
                                 )) : (
                                     <div className="flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-800 h-[250px] w-[225px] rounded-lg shadow-lg dark:shadow-slate-700 mb-5">
-                                        <img src={imgSinOfertas} alt="dreaming" width={125} height={125} />
+                                        <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Sinofertas.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvU2lub2ZlcnRhcy5zdmciLCJpYXQiOjE3NTE2NzYxNDcsImV4cCI6MjA2NzAzNjE0N30.20hhUge8vbgwfG-5pVfwLG47fzTSpPbTl_qppQtmw6k'} alt="dreaming" width={125} height={125} />
                                         <h1 className="font-semibold dark:text-white text-lg">No existen ofertas aún</h1>
                                     </div>
                                 )

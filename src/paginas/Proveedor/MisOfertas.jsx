@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import ModalEditarOferta from "../../componentes/modals/ModalEditarOferta";
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
-import imgOferta from '../../assets/Pensando.svg'
 import { Link } from "react-router-dom";
 import SvgServicio from "../../componentes/Svgs/SvgLimpieza";
 import OfertaStore from "../../store/OfertaStore";
@@ -108,7 +107,7 @@ const ListadoOfertas = () => {
                                 </div>
                             )) : (
                                 <div className="w-[200px] h-[260px] mb-5 bg-gray-100 shadow-lg dark:shadow-slate-800 dark:bg-gray-900 flex flex-col justify-center items-center rounded-lg px-4">
-                                    <img src={imgOferta} alt="sinOferta" width={125} height={100} />
+                                    <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Pensando.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvUGVuc2FuZG8uc3ZnIiwiaWF0IjoxNzUxNjc2ODUwLCJleHAiOjIwNjcwMzY4NTB9.se9s39iB2bSx4Cv-zbNzl6yB_5vOPlUSJ9yjZLR2RRg'} alt="sinOferta" width={125} height={100} />
                                     <h1 className="text-lg text-center dark:text-white font-semibold">Aún no has creado ninguna oferta</h1>
                                     <Link to='/dashboard/proveedor' onClick={() => setOpcionActiva('inicio')} className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">
                                         <svg

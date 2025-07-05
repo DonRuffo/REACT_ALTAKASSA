@@ -1,13 +1,15 @@
-import React, { useEffect, useState, } from 'react'
+import React, { useEffect, useState, lazy, Suspense} from 'react'
 import logoNegroAK from '../assets/AK NEGRA.avif'
 import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { EyeOff, Eye } from 'lucide-react';
-import RelojDeArena from '../componentes/RelojArena';
 import AuthStoreContext from '../store/AuthStore';
 import OfertaStore from '../store/OfertaStore';
+
+//lazy
+const RelojDeArena = lazy(() => import('../componentes/RelojArena'))
 
 const Login = () => {
     const { Perfil, darkMode, verificarUbicacionActual, verificarUbicacionTrabajo, ubiCliente, verificarFoto, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias } = AuthStoreContext()
@@ -20,14 +22,12 @@ const Login = () => {
         email: "",
         contrasenia: ""
     })
-
     const HandleChange = (e) => {
         setForm({
             ...form,
             [e.target.name]: e.target.value
         })
     }
-
     const HandleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -40,7 +40,6 @@ const Login = () => {
                 localStorage.setItem('rol', resAd.data.rol)
                 localStorage.setItem('tipo', 'admin')
                 localStorage.removeItem('usuario')
-
                 setTipo('admin')
                 await Promise.all([
                     traerUsuarios(resAd.data.token, resAd.data.rol),
@@ -78,7 +77,6 @@ const Login = () => {
             setCarga(false)
         }
     }
-
     useEffect(() => {
         setTimeout(() => {
             const tiempo = document.getElementById('Formulario')
@@ -87,7 +85,6 @@ const Login = () => {
             }
         }, 1000)
     }, [])
-
     useEffect(() => {
         if (form.email && form.contrasenia) {
             setMostrar(true)
@@ -95,7 +92,6 @@ const Login = () => {
             setMostrar(false)
         }
     }, [form])
-
     return (
         <>
             <ToastContainer
@@ -125,13 +121,15 @@ const Login = () => {
                                     <label htmlFor='contrasenia' className="mb-2 block text-md font-semibold text-cyan-700 dark:text-cyan-500">Contraseña</label>
                                     <div className='flex gap-2 relative'>
                                         <input id='contrasenia' type={ojoActivo ? "text" : "password"} name='contrasenia' onChange={HandleChange} value={form.contrasenia || ""} placeholder="********************" className="block w-full dark:bg-transparent dark:text-white rounded-md border border-gray-300 focus:border-cyan-600 focus:outline-none focus:ring-1 focus:ring-cyan-600 py-1 px-2 text-gray-500" />
-                                        <button type='button' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={25} /> : <EyeOff size={25} />}</button>
+                                        <button type='button' name='ver contrasenia' onClick={() => setOjoActivo(!ojoActivo)} className='absolute right-3 top-1/2 transform -translate-y-1/2 dark:text-white cursor-pointer'>{ojoActivo === false ? <Eye size={25} /> : <EyeOff size={25} />}</button>
                                     </div>
                                 </div>
 
                                 <div className="my-7 flex justify-center">
                                     <button type='submit' onClick={() => { setCarga(true); setTimeout(() => { setCarga(false) }, [5000]) }} className={`${carga === false ? "" : "hidden"} py-2 px-6  ${mostrar ? '' : 'opacity-50 pointer-events-none cursor-not-allowed'} block text-center bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600 text-white rounded-md duration-300 hover:scale-105 hover:text-white cursor-pointer font-CalSans`}>Ingresar</button>
-                                    {carga && (<RelojDeArena />)}
+                                    <Suspense fallback={<strong>Cargando...</strong>}>
+                                        {carga && (<RelojDeArena />)}
+                                    </Suspense>
                                 </div>
                                 <hr className='dark:border dark:border-gray-900' />
                                 <div className='mt-1 md:mt-3 md:mb-1'>
@@ -153,6 +151,4 @@ const Login = () => {
         </>
     )
 }
-
-
 export default Login

@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import logoInicioProv from '../../assets/Motivacion.svg';
 import ModalOferta from "../../componentes/modals/ModalOferta";
-import LocationImg from '../../assets/Mapa.svg'
 import SpinnerCarga from "../../componentes/RuedaCarga";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -11,7 +9,6 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { motion } from "framer-motion";
 import Cloudinary from "../../componentes/Cloudinary";
-import logoOferta from '../../assets/Oferta.svg'
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
 import EsqueletoInicioProv from "../Esqueletos/EsqInicioProv";
@@ -166,10 +163,10 @@ const InicioProve = () => {
                                 <h2 className="relative lg:z-10 text-base md:text-xl text-center pt-3 px-3 md:px-0 dark:text-white">Desde aquí puedes publicar tus ofertas de servicios</h2>
 
                                 <div className="flex lg:hidden justify-center pb-1">
-                                    <img src={logoInicioProv} alt="Proveedor" width={110} height={110} />
+                                    <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Motivacion.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvTW90aXZhY2lvbi5zdmciLCJpYXQiOjE3NTE2NzY3MTcsImV4cCI6MjA2NzAzNjcxN30.UcdBRygMdliQXj9Z-ZVGJ2TGbFhfjnN44b21qgQEuOg'} alt="Proveedor" width={110} height={110} />
                                 </div>
                                 <div className="absolute z-0 opacity-50 -top-2 left-2 hidden lg:flex justify-center pb-1">
-                                    <img src={logoInicioProv} alt="Proveedor" width={185} height={185} />
+                                    <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Motivacion.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvTW90aXZhY2lvbi5zdmciLCJpYXQiOjE3NTE2NzY3MTcsImV4cCI6MjA2NzAzNjcxN30.UcdBRygMdliQXj9Z-ZVGJ2TGbFhfjnN44b21qgQEuOg'} alt="Proveedor" width={185} height={185} />
                                 </div>
                             </div>
                         </section>
@@ -203,7 +200,7 @@ const InicioProve = () => {
                                     <div className="absolute top-3 right-3 flex justify-center items-center rounded-full w-8 h-8 bg-emerald-300">
                                         <p className="text-emerald-700 text-lg font-semibold">2</p>
                                     </div>
-                                    <img src={LocationImg} alt="localization" width={125} height={125} className={`${carga ? 'hidden' : 'block'}`} />
+                                    <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Mapa.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvTWFwYS5zdmciLCJpYXQiOjE3NTE2NzYwMTIsImV4cCI6MjA2NzAzNjAxMn0.xy9s5w07VmO7gE5VKQYH5pOcycu3qRwKIAquOgqbTbk'} alt="localization" width={125} height={125} className={`${carga ? 'hidden' : 'block'}`} />
                                     {carga && <SpinnerCarga />}
                                     <h1 className="font-semibold text-center dark:text-white">Ingresa la ubicación de tu trabajo</h1>
                                     <button type="button" className="px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={async () => { setCarga(true); await guardarUbi() }}>Ingresar</button>
@@ -212,7 +209,7 @@ const InicioProve = () => {
                                     <div className="absolute top-3 right-3 flex justify-center items-center rounded-full w-8 h-8 bg-emerald-300">
                                         <p className="text-emerald-700 text-lg font-semibold">3</p>
                                     </div>
-                                    <img src={logoOferta} alt="logoOferta" width={125} height={125} />
+                                    <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Oferta.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvT2ZlcnRhLnN2ZyIsImlhdCI6MTc1MTY3Njc3MSwiZXhwIjoyMDY3MDM2NzcxfQ.p0aIl24OQC3MnPSWoSSBtrYJXJNX36CDQ6VjdvHnIgA'} alt="logoOferta" width={125} height={125} />
                                     <h1 className={`font-semibold text-center dark:text-white`}>Crea una nueva oferta</h1>
                                     <button type="button" className="px-4 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={handleModalOf}>Crear</button>
                                 </motion.div>

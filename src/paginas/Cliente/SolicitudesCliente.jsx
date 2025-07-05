@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import '../../../CSS/fondos.css'
 import ModalActualizar from "../../componentes/modals/ModalActualizar";
-import imgSinTrabajo from '../../assets/Tiempo.svg'
 import { Link } from "react-router-dom";
 import OfertaStore from "../../store/OfertaStore";
 import AuthStoreContext from "../../store/AuthStore";
@@ -94,7 +93,7 @@ const SolicitudesCli = () => {
                                     ))
                                 ) : (
                                     <div className="w-[250px] h-[265px] mb-5 px-5 bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg dark:shadow-slate-700 flex flex-col justify-center items-center">
-                                        <img src={imgSinTrabajo} alt="SinTrabajos" width={150} height={150} />
+                                        <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Tiempo.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvVGllbXBvLnN2ZyIsImlhdCI6MTc1MTY3NjI3NiwiZXhwIjoyMDY3MDM2Mjc2fQ.Zq7Q4TF4TxGrMkW4pybsPinWIn14nzyZh--ogr-jfTc'} alt="SinTrabajos" width={150} height={150} />
                                         <p className="text-lg text-gray-700 dark:text-white font-semibold text-center">Todavía no has solicitado ningún trabajo</p>
                                         <Link to='/dashboard/cliente' className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300" onClick={() => setOpcionActiva('inicio')}>
                                             <svg
