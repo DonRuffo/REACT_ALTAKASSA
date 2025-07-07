@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import logoNegroAK from '../assets/AK NEGRA.avif';
+import logoNegroAK from '../assets/AK_NEGRA500.avif'
+import logoNegroAK300 from '../assets/AK_NEGRA300.avif'
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -66,7 +67,7 @@ const Recuperar = () => {
                         </div>
                     </div>
                     <div className="radial-gradientRecuperar-bg flex items-center justify-center h-screen">
-                        <img src={logoNegroAK} alt='Altakassa' />
+                        <img src={logoNegroAK} srcSet={`${logoNegroAK300} 300w, ${logoNegroAK} 500w`} sizes="(max-width: 768px) 300px, 500px" alt='Altakassa'/>
                     </div>
                 </div>
             </div>

@@ -413,13 +413,13 @@ const LandingPage = () => {
                             </div>
                             <div className="md:hidden flex items-center justify-end text-cyan-500">
                                 <ul className="relative flex items-center gap-x-1.5">
-                                    <li><Link to='/login' className="w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-500 text-lg text-cyan-500 font-semibold hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
+                                    <li><Link to='/login' className="w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b dark:border-cyan-400 border-cyan-700 text-lg dark:text-cyan-400 text-cyan-700 font-semibold hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className={`absolute top-1.5 -right-6 size-6 ${panel ? 'rotate-180' : ''} cursor-pointer transition-transform duration-300`} onClick={() => setPanel(!panel)}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </ul>
                                 <div className={`fixed ${panel ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'} top-17 right-1 w-32  bg-white dark:bg-black shadow-lg rounded-md p-4 duration-300`}>
-                                    <Link to='/registro' className=" w-1/4 px-2 py-1  mx-1 bg-transparent text-lg border-b border-cyan-500 text-cyan-500 font-semibold hover:brightness-125 duration-300 text-center">Registro</Link>
+                                    <Link to='/registro' className=" w-1/4 px-2 py-1  mx-1 bg-transparent text-lg border-b dark:border-cyan-400 border-cyan-700 dark:text-cyan-400 text-cyan-700 font-semibold hover:brightness-125 duration-300 text-center">Registro</Link>
                                 </div>
                             </div>
                         </div>

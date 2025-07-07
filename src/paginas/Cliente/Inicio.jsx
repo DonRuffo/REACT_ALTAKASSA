@@ -86,7 +86,7 @@ const Inicio = () => {
                     <>
                         <section className="flex justify-center mt-20 lg:mt-5 mb-5">
                             <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 md:w-3/5 py-4.5 lg:py-10 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700">
-                                <h1 className="relative lg:z-10 text-2xl md:text-3xl text-center text-cyan-500 font-CalSans px-3 md:px-0">Vista como cliente</h1>
+                                <h1 className="relative lg:z-10 text-2xl md:text-3xl text-center text-cyan-700 dark:text-cyan-500 font-CalSans px-3 md:px-0">Vista como cliente</h1>
                                 <h2 className="relative lg:z-10 md:text-xl text-center dark:text-white pt-3  md:px-0">Los proveedores esperan por brindarte sus servicios</h2>
                                 <div className="absolute opacity-50 z-0 -top-2 left-2 hidden lg:flex justify-center pb-4">
                                     <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/SVG_Construccion.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvU1ZHX0NvbnN0cnVjY2lvbi5zdmciLCJpYXQiOjE3NTE2NzU5MzEsImV4cCI6MjA2NzAzNTkzMX0.YcYbLUqAl9JwgBhVq4ahlHGOYq6kiEb8rfne7jMuFts'} alt="Constructor" width={215} height={185} />
@@ -137,7 +137,7 @@ const Inicio = () => {
                                                     category.scrollIntoView({ behavior: 'smooth' })
                                                 }
                                             }, 100)
-                                        }} className="px-4 py-2 mb-2 md:my-0 border-2 border-emerald-600 rounded-md text-emerald-600 font-semibold hover:bg-emerald-600 hover:text-white duration-300">{cat.nombre}</Link>
+                                        }} className="px-4 py-2 mb-2 md:my-0 border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-700 dark:border-emerald-500 rounded-md dark:text-emerald-500 font-semibold dark:hover:bg-emerald-500 hover:text-white duration-300">{cat.nombre}</Link>
                                     ))}
                                 </div><hr className="border border-gray-300 dark:border-gray-800" />
                             </div>

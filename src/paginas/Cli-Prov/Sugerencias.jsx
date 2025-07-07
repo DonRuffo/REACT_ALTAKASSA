@@ -75,7 +75,7 @@ const Sugerencias = () => {
             />
             <section className="flex justify-center lg:mt-5 mt-20 px-8">
                 <div className="w-full lg:w-4/5 mb-5 rounded-lg bg-gray-100 dark:bg-gray-900 shadow-lg dark:shadow-slate-700">
-                    <h1 className="text-center text-3xl font-CalSans text-cyan-500 mt-5">Sugerencias y comentarios</h1>
+                    <h1 className="text-center text-3xl font-CalSans text-cyan-700 dark:text-cyan-500 mt-5">Sugerencias y comentarios</h1>
                     <div className="flex justify-around flex-wrap lg:mx-5 xl:mx-8 mt-5">
                         <div className="px-3 lg:w-[500px]">
                             <p className="dark:text-white font-semibold text-xl text-center lg:text-left">¡Cuéntanos cómo ha sido tu experiencia en el sistema y comparte tus sugerencias!</p>
@@ -83,21 +83,21 @@ const Sugerencias = () => {
                                 <h1 className="font-semibold dark:text-slate-300 mb-1">Experiencia:</h1>
                                 <div className="flex flex-wrap">
                                     <div className="mb-3 mr-2">
-                                        <label htmlFor="buena" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-green-600 has-[input:checked]:text-green-600 duration-300">
+                                        <label htmlFor="buena" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-green-700 has-[input:checked]:text-green-700 dark:has-[input:checked]:border-green-500 dark:has-[input:checked]:text-green-500 duration-300">
                                             Buena
-                                            <input type="radio" name="experiencia" id="buena" value='buena' onChange={handleChange} className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-green-600 duration-300" />
+                                            <input type="radio" name="experiencia" id="buena" value='buena' onChange={handleChange} className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-green-700 dark:checked:border-green-500 duration-300" />
                                         </label>
                                     </div>
                                     <div className="mb-3 mr-2">
-                                        <label htmlFor="regular" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-yellow-600 has-[input:checked]:text-yellow-600 duration-300">
+                                        <label htmlFor="regular" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-yellow-700 has-[input:checked]:text-yellow-700 dark:has-[input:checked]:border-yellow-500 dark:has-[input:checked]:text-yellow-500 duration-300">
                                             Regular
-                                            <input type="radio" name="experiencia" id="regular" value='regular' onChange={handleChange} className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-yellow-600 duration-300" />
+                                            <input type="radio" name="experiencia" id="regular" value='regular' onChange={handleChange} className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-yellow-700 dark:checked:border-yellow-500 duration-300" />
                                         </label>
                                     </div>
                                     <div className="mb-3">
-                                        <label htmlFor="mala" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-red-600 has-[input:checked]:text-red-600 duration-300">
+                                        <label htmlFor="mala" className="border border-gray-500 rounded-md px-3 py-1 flex items-center has-[input:checked]:border-red-700 has-[input:checked]:text-red-700 dark:has-[input:checked]:border-red-500 dark:has-[input:checked]:text-red-500 duration-300">
                                             Mala
-                                            <input type="radio" name="experiencia" id="mala" value='mala' onChange={handleChange} className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-red-600 duration-300" />
+                                            <input type="radio" name="experiencia" id="mala" value='mala' onChange={handleChange} className="ml-1 appearance-none border-4 border-gray-500 rounded-full w-4 h-4 checked:border-4 checked:border-red-700 dark:checked:border-red-500 duration-300" />
                                         </label>
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@ const Sugerencias = () => {
                                     </textarea>
                                 </div>
                                 <div className="mb-5 flex justify-center lg:justify-start">
-                                    <button type="submit" className={`${carga ? 'hidden' : ''} px-4 py-2 text-cyan-700 font-semibold rounded-md bg-cyan-200 hover:bg-cyan-300 duration-300 cursor-pointer`} onClick={() => setCarga(true)}>
+                                    <button type="submit" className={`${carga ? 'hidden' : ''} px-4 py-2 text-cyan-700 bg-cyan-200 dark:text-cyan-200 dark:bg-cyan-700 font-semibold rounded-md hover:bg-cyan-300 duration-300 cursor-pointer`} onClick={() => setCarga(true)}>
                                         Enviar
                                     </button>
                                     {carga && <RelojDeArena />}

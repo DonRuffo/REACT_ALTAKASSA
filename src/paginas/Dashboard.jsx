@@ -1,16 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import logoAlta from '../assets/AK BLANCA.avif'
-import ModalFotoPerfil from "../componentes/modals/ModalFotoPerfil";
+import logoAlta from '../assets/AK_BLANCA150.avif'
 import AuthStoreContext from "../store/AuthStore";
 import OfertaStore from "../store/OfertaStore";
 import NavInfo from "../componentes/NavParaSmMd";
-import ModalCreditos from "../componentes/modals/ModalCreditos";
-import ModalPlanes from "../componentes/modals/ModalPlanes";
 import axios from "axios";
 import { DateTime } from "luxon";
 import socket from "../context/SocketConexion";
 import '../../CSS/fondos.css'
+
+//lazys
+const ModalCreditos = lazy(() => import('../componentes/modals/ModalCreditos'))
+const ModalPlanes = lazy(() => import('../componentes/modals/ModalPlanes'))
+const ModalFotoPerfil = lazy(() => import('../componentes/modals/ModalFotoPerfil'))
+
 const Dashboard = () => {
     const sideBar = useRef(null)
     const verPerfil = useRef(null)
@@ -195,7 +198,7 @@ const Dashboard = () => {
                         <div id="nav">
                             <h1 className="text-2xl text-white text-center font-CalSans">Alta-Kassa</h1>
                             <div className="flex justify-center">
-                                <img src={logoAlta} alt="AltaKassa Logo" width={150} height={165} />
+                                <img src={logoAlta} alt="AltaKassa Logo" width={150} />
                             </div><hr />
                             <nav className="py-2 min-h-[300px] max-h-[350px] border-b">
                                 <Link to={`${tipo === 'cliente' ? '/dashboard/cliente' : tipo === 'proveedor' ? '/dashboard/proveedor' : tipo === 'admin' ? '/dashboard/admin' : ''} `} id="inicio" onClick={(e) => { handleMenu(); asignarValor(e) }} className={`py-2 px-3 rounded hover:bg-emerald-800 duration-100 flex gap-1 ${opcionActiva === 'inicio' ? 'bg-emerald-800' : ''}`}>
@@ -331,7 +334,9 @@ const Dashboard = () => {
                                 }}>Cerrar Sesión</button>
                         </div>
                     </div>
-                    {modalPerfilFoto && <ModalFotoPerfil url={auth.f_perfil} />}
+                    <Suspense fallback={<strong className="dark:text-white">Cargando foto...</strong>}>
+                        {modalPerfilFoto && <ModalFotoPerfil url={auth.f_perfil} />}
+                    </Suspense>
                     <div className="custom-bar-outlet flex-1 relative h-screen overflow-y-auto bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
                         <div className="border-b border-gray-200 dark:border-gray-700 h-14 hidden lg:flex justify-between items-center px-5">
                             <div className="flex gap-x-2">
@@ -361,13 +366,13 @@ const Dashboard = () => {
                                 </button>
                             </div>
                             <div className="flex items-center">
-                                <div className={`${tipo === "admin" ? 'hidden' : ''} group text-cyan-600 flex items-center gap-x-1 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={() => { setModalPlanes(true) }}>
+                                <div className={`${tipo === "admin" ? 'hidden' : ''} group text-cyan-700 dark:text-cyan-500 flex items-center gap-x-1 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={() => { setModalPlanes(true) }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
                                     <p>consigue más créditos</p>
                                 </div>
-                                <div className={`${tipo === "admin" ? 'hidden' : ''} text-cyan-500 flex gap-x-1 mr-7 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={() => { setModalCreditos(true) }}>
+                                <div className={`${tipo === "admin" ? 'hidden' : ''} text-cyan-700 dark:text-cyan-500 flex gap-x-1 mr-7 px-2 py-0.5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-950 transition-all duration-300 ease-in-out cursor-pointer`} onClick={() => { setModalCreditos(true) }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
                                     </svg>
@@ -525,8 +530,13 @@ const Dashboard = () => {
                         </div>
 
                     </div>
-                    {modalCreditos && <ModalCreditos />}
-                    {modalPlanes && <ModalPlanes />}
+                    <Suspense fallback={<strong className="dark:text-white">Cargando pantalla...</strong>}>
+                        {modalCreditos && <ModalCreditos />}
+                    </Suspense>
+                    <Suspense fallback={<strong className="dark:text-white">Cargando planes...</strong>}>
+                        {modalPlanes && <ModalPlanes />}
+                    </Suspense>
+                    
                 </div>
             </div>
         </>

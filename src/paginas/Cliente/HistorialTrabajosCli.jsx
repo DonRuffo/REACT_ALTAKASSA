@@ -16,14 +16,14 @@ const HistorialTrabajoCli = () => {
     return (
         <>
             <section>
-                <h1 className="text-center text-cyan-500 font-CalSans text-3xl mt-20 lg:mt-5">Historial</h1>
+                <h1 className="text-center text-cyan-700 dark:text-cyan-500 font-CalSans text-3xl mt-20 lg:mt-5">Historial</h1>
                 <p className="text-center font-semibold text-xl mb-5 dark:text-white">Aquí podrás ver tus trabajos completados o cancelados como cliente</p>
                 <div className="flex flex-wrap gap-2 mb-5 px-5">
-                    <label className="dark:text-white  font-semibold has-[input:checked]:border-purple-600 has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-32 border-2 border-gray-500 dark:border-white rounded-md px-2 py-1 flex justify-between items-center">
+                    <label className="dark:text-white  font-semibold has-[input:checked]:border-purple-500 has-[input:checked]:text-purple-500 has-[input:checked]:bg-purple-50 dark:has-[input:checked]:bg-transparent  w-32 border-2 border-gray-500 dark:border-white rounded-md px-2 py-1 flex justify-between items-center">
                         Todos
-                        <input type="radio" name="tipo" value="Todos" onChange={handleRadioChange} className="appearance-none w-4 h-4 border rounded-full checked:border-4 checked:border-purple-600" />
+                        <input type="radio" name="tipo" value="Todos" onChange={handleRadioChange} className="appearance-none w-4 h-4 border rounded-full checked:border-4 checked:border-purple-500" />
                     </label>
-                    <label className="dark:text-white font-semibold has-[input:checked]:border-cyan-600 has-[input:checked]:text-cyan-500 has-[input:checked]:bg-cyan-50 dark:has-[input:checked]:bg-transparent w-32 border-2 border-gray-500 dark:border-white rounded-md px-2 py-1 flex justify-between items-center">
+                    <label className="dark:text-white font-semibold has-[input:checked]:border-cyan-600 has-[input:checked]:text-cyan-500 has-[input:checked]:bg-cyan-50 dark:has-[input:checked]:bg-transparent w-34 border-2 border-gray-500 dark:border-white rounded-md px-2 py-1 flex justify-between items-center">
                         Completados
                         <input type="radio" name="tipo" value="Completados" onChange={handleRadioChange} className="appearance-none w-4 h-4 border rounded-full checked:border-4 checked:border-cyan-600" />
                     </label>
@@ -87,7 +87,7 @@ const HistorialTrabajoCli = () => {
                             </div>
                         )
                     ) : (
-                        <div className="w-[250px] h-[265px] px-5 mb-5 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-slate-700 flex flex-col justify-center items-center">
+                        <div className="w-[250px] h-[265px] px-5 mb-5 bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg dark:shadow-slate-700 flex flex-col justify-center items-center">
                             <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Tiempo.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvVGllbXBvLnN2ZyIsImlhdCI6MTc1MTY3NjI3NiwiZXhwIjoyMDY3MDM2Mjc2fQ.Zq7Q4TF4TxGrMkW4pybsPinWIn14nzyZh--ogr-jfTc'} alt="SinTrabajos" width={150} height={150} />
                             <p className="text-lg text-gray-700 dark:text-white font-semibold text-center">Todavía no has solicitado ningún trabajo</p>
                             <Link to='/dashboard/cliente' className="group flex justify-center items-center px-3 py-1 rounded-2xl bg-emerald-700 mt-3 font-semibold text-white text-center cursor-pointer hover:bg-emerald-800 hover:brightness-110 transition-all duration-300">

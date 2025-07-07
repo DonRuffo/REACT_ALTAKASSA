@@ -1,5 +1,6 @@
 import React, { useEffect, useState, lazy, Suspense} from 'react'
-import logoNegroAK from '../assets/AK NEGRA.avif'
+import logoNegroAK from '../assets/AK_NEGRA500.avif'
+import logoNegroAK300 from '../assets/AK_NEGRA300.avif'
 import { ToastContainer, toast } from "react-toastify";
 import '../../CSS/fondos.css'
 import { Link, useNavigate } from 'react-router-dom';
@@ -103,7 +104,7 @@ const Login = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 font-Cabin">
 
                     <div className="radial-gradientLogin-bg md:w-full h-screen flex items-center justify-center">
-                        <img src={logoNegroAK} alt='Altakassa' />
+                        <img src={logoNegroAK} srcSet={`${logoNegroAK300} 300w, ${logoNegroAK} 500w`} sizes="(max-width: 768px) 300px, 500px" alt='Altakassa'/>
                     </div>
                     <div id='Formulario' className="bg-white dark:bg-black flex items-center justify-center h-screen">
                         <div className='w-5/6 md:w-4/6'>
