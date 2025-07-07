@@ -1,13 +1,32 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="./src/assets/AK icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alta-Kassa</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="./src/assets/AK icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alta-Kassa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Carga eficiente (no bloqueante) de fuentes -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback si JS está desactivado -->
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap">
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap">
+  </noscript>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
