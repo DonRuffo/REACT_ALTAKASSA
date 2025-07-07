@@ -1,8 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Cal+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Cal+Sans&display=swap");
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
-@theme{
-    --font-CalSans:"Cal Sans", sans-serif;
-    --font-Cabin:"Cabin", sans-serif;
+
+@theme {
+  --font-CalSans: "Cal Sans", sans-serif;
+  --font-Cabin: "Cabin", sans-serif;
+}
+
+@layer utilities {
+  @keyframes move-left-right {
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(6px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes move-left-inverse {
+    0% {
+      transform: translateX(0);
+    }
+
+    50% {
+      transform: translateX(10px);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scale-m {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.05);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-left-right {
+    animation: move-left-right 3s ease-in-out infinite;
+  }
+
+  .animate-scale-m {
+    animation: scale-m 4s ease-in-out infinite;
+  }
+
+  .animate-left-inverse {
+    animation: move-left-inverse 3s ease-in-out infinite;
+  }
 }

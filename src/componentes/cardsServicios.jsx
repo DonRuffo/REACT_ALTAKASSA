@@ -10,7 +10,7 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
         setValorTra(e.target.value)
     }
     return (
-        <div className="flex flex-col justify-between items-center py-4 md:py-5 relative rounded-xl bg-gray-100 dark:border-none dark:bg-gray-900 drop-shadow-xl drop-shadow-cyan-600 dark:drop-shadow-emerald-400/95 hover:scale-105 duration-300 ease-in-out">
+        <div className="flex flex-col justify-between items-center py-4 md:py-5 relative rounded-xl bg-gray-100 dark:border-none dark:bg-gray-900 shadow-2xl dark:drop-shadow-lg dark:drop-shadow-emerald-400 hover:scale-105 duration-300 ease-in-out">
             <div>
                 <h1 className="text-3xl text-slate-600 text-left px-5 font-CalSans dark:text-white">{Servicio1}</h1>
                 <div className="my-2">
@@ -19,8 +19,8 @@ const CardServicios = ({ Servicio1, logo1, texto1, texto2 }) => {
                 </div>
             </div>
             <div className="flex justify-center gap-x-2 lg:gap-x-3">
-                <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-cyan-600 text-cyan-600 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-emerald-600 dark:text-emerald-600 hover:dark:bg-emerald-600 hover:dark:text-black cursor-pointer">Contratar</Link>
-                <button type="button" className="px-4 py-3 rounded-xl border-2 border-cyan-600 text-cyan-600 font-semibold hover:bg-cyan-400 hover:text-white duration-300 dark:border-emerald-600 dark:text-emerald-600 hover:dark:bg-emerald-600 hover:dark:text-black cursor-pointer" onClick={() => setAbrir(!abrir)}>Trabajos</button>
+                <Link to="/login" className="px-4 py-3 rounded-xl border-2 border-emerald-600 text-emerald-600 font-semibold hover:bg-emerald-400 hover:text-white duration-300 dark:border-emerald-600 dark:text-emerald-600 hover:dark:bg-emerald-600 hover:dark:text-black cursor-pointer">Contratar</Link>
+                <button type="button" className="px-4 py-3 rounded-xl border-2 border-emerald-600 text-emerald-600 font-semibold hover:bg-emerald-400 hover:text-white duration-300 dark:border-emerald-600 dark:text-emerald-600 hover:dark:bg-emerald-600 hover:dark:text-black cursor-pointer" onClick={() => setAbrir(!abrir)}>Trabajos</button>
             </div>
             {abrir && (
                 <div className="absolute top-0 left-0 w-full h-full rounded-xl bg-gray-300 dark:bg-gray-950/90 flex justify-center items-center">

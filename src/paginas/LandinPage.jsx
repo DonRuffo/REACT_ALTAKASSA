@@ -2,18 +2,14 @@ import React, { useEffect } from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
-import imgPlomeria from '../assets/Plomeria.avif'
-import imgElectro from '../assets/Electrodomestico.avif'
-import imgPintor from '../assets/Pintor.avif'
-import imgAlbanil from '../assets/Albañil.avif'
-import imgAksin from '../assets/AK BLANCA_sintexto.avif'
+import iconoN from '../assets/AkNegraInicio.avif'
+import imgAksin from '../assets/AkBlancaInicio.avif'
 import CardBeneficio from "../componentes/cardsBeneficios";
 import CardDinamica from "../componentes/cardsDinamica";
 import { useState } from "react";
 import CardServicios from "../componentes/cardsServicios";
 import ListasAnimadas from "../componentes/Listas";
 import ListasAnimadasProv from "../componentes/ListasProv";
-import logoBG from '../assets/FondoPage.jpg'
 import AuthStoreContext from "../store/AuthStore"
 //text-slate-400 - texto para cards
 //#60E8FE color para iconos
@@ -372,6 +368,8 @@ const LandingPage = () => {
     //<a href="https://es.vecteezy.com/png-gratis/3d">3d PNGs por Vecteezy</a> electricista
     //<a href="https://es.vecteezy.com/png-gratis/llave">Llave PNGs por Vecteezy</a> cerrajero
     //<a href="https://es.vecteezy.com/png-gratis/mano">Mano PNGs por Vecteezy</a> carpintero
+    //<a href="https://es.vecteezy.com/png-gratis/pintar">Pintar PNGs por Vecteezy</a> pintor
+    //<a href="https://es.vecteezy.com/png-gratis/separar">Separar PNGs por Vecteezy</a> tecnico
     return (
         <>
             <div className={darkMode ? "dark" : ""}>
@@ -379,7 +377,7 @@ const LandingPage = () => {
                     <nav className="fixed z-10 w-full px-10 py-5 lg:py-5 flex justify-between backdrop-blur-sm bg-white/30 dark:bg-black/30" id="LandingPage">
                         <div className="grid grid-cols-3 w-full">
                             <div className="flex items-center justify-start">
-                                <select className="w-full text-lg mr-1 md:mr-0 rounded-lg py-2 md:w-40 text-center text-cyan-600 font-semibold bg-transparent outline-2 focus:outline-cyan-600 hover:brightness-125 duration-300 cursor-pointer"
+                                <select className="w-full text-lg mr-1 md:mr-0 rounded-lg py-1.5 md:w-40 text-center text-cyan-700 dark:text-cyan-400 font-semibold bg-transparent outline-2 focus:outline-cyan-700 dark:focus:outline-cyan-400 hover:brightness-125 duration-300 cursor-pointer"
                                     onChange={(e) => {
                                         const targetId = e.target.value
                                         const targetElement = document.getElementById(targetId)
@@ -389,18 +387,28 @@ const LandingPage = () => {
                                     }}
                                 >
                                     <option value="Inicio" className="text-sm font-semibold dark:bg-gray-950">Inicio</option>
-                                    <option value="QuienesSomos" className="text-sm font-semibold dark:bg-gray-950">Quienes Somos</option>
                                     <option value="Servicios" className="text-sm font-semibold dark:bg-gray-950">Servicios</option>
+                                    <option value="QuienesSomos" className="text-sm font-semibold dark:bg-gray-950">Quienes Somos</option>
                                     <option value="Contacto" className="text-sm font-semibold dark:bg-gray-950">Contacto</option>
                                 </select>
                             </div>
-                            <div className="flex items-center justify-center">
-                                <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/moon.avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvbW9vbi5hdmlmIiwiaWF0IjoxNzUxNjc1NzcwLCJleHAiOjIwNjcwMzU3NzB9.lZmioktiRYI2n69E9Oq5cP8pRhyzGi2jxGDV51pPC0U'} alt="CambioTema" onClick={() => { handleDarkPage() }} width={40} height={40} className="cursor-pointer" />
+                            <div className="flex items-center justify-center dark:text-white">
+                                {!darkMode ? (
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-8 cursor-pointer" onClick={handleDarkPage}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                                    </svg>
+
+                                ) : (
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-8 cursor-pointer" onClick={handleDarkPage}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                                    </svg>
+
+                                )}
                             </div>
                             <div className="hidden md:flex items-center justify-end">
                                 <ul className="flex items-center gap-x-1.5">
-                                    <li><Link to='/login' className="w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-600 text-lg text-cyan-600 font-semibold hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
-                                    <li><Link to='/registro' className=" w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b border-cyan-600 text-lg text-cyan-600 font-semibold hover:brightness-125 transition-all duration-300 text-center">Registro</Link></li>
+                                    <li><Link to='/login' className="w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b dark:border-cyan-400 border-cyan-700 text-lg dark:text-cyan-400 text-cyan-700 font-semibold hover:brightness-125 transition-all duration-300 text-center">Login</Link></li>
+                                    <li><Link to='/registro' className=" w-1/4 px-2 py-2 my-4 mx-1 bg-transparent border-b dark:border-cyan-400 border-cyan-700 text-lg dark:text-cyan-400 text-cyan-700 font-semibold hover:brightness-125 transition-all duration-300 text-center">Registro</Link></li>
                                 </ul>
                             </div>
                             <div className="md:hidden flex items-center justify-end text-cyan-500">
@@ -415,20 +423,58 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
-
-
-
                     </nav>
-                    <section className="dark:bg-black py-10" id="Inicio"></section>
-                    <section className="flex flex-col items-center justify-center bg-cover bg-center h-[550px] xl:h-[785px]"
-                        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),url(${logoBG})` }}>
+                    <section className="dark:bg-black " id="Inicio"></section>
+                    <section className="relative flex flex-col  items-center justify-center bg-radial from-emerald-200 dark:from-emerald-700 to-70% h-screen">
+                        {/*Arriba*/}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute hidden md:block top-1/6 left-1/3 opacity-40">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute top-1/6 opacity-60">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute hidden top-1/5 lg:block left-1/4 opacity-30">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute top-1/5 left-1/5 lg:left-2/5 opacity-50">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute hidden top-1/5 lg:block right-1/4 opacity-30">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute hidden top-1/6 md:block right-1/3 opacity-40">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute top-1/5 right-1/5 lg:right-2/5 opacity-50">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                        </svg>
+
+                        {/*Abajo*/}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute bottom-1/6 md:bottom-1/5 opacity-60">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute bottom-1/12 md:bottom-1/6 right-1/5 lg:right-2/5 opacity-50">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10 md:size-14 animate-left-right hover:animate-none absolute bottom-1/12 md:bottom-1/6 left-1/5 lg:left-2/5 opacity-50">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                        </svg>
+
+
                         <div className="flex flex-col items-center px-2">
-                            <img src={imgAksin} alt="logoAlta" width={110} height={110} className="" />
-                            <h1 className="text-white text-center text-5xl md:text-6xl font-CalSans">Bienvenido a Alta-Kassa</h1>
-                            <p className="text-white font-semibold mt-2 text-lg text-center">Ofrecer o buscar un servicio nunca había sido más sencillo</p>
+                            {darkMode ? (
+                                <img src={imgAksin} alt="logoAlta" width={125} height={125} className="" />
+                            ) : (
+                                <img src={iconoN} alt="logoAlta" width={125} height={125} className="" />
+                            )}
+
+                            <h1 className="dark:text-white text-center text-5xl md:text-6xl font-CalSans">Bienvenido a Alta-Kassa</h1>
+                            <p className="dark:text-white font-semibold mt-2 text-xl text-center">Ofrecer o buscar un servicio nunca había sido más sencillo</p>
                         </div><br /><br />
                         <div className="flex justify-center gap-x-2 lg:gap-x-4 px-4">
-                            <button type="button" onClick={() => navigate('/registro')} className="group px-5 py-1 md:py-3 rounded-3xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white  lg:text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300 cursor-pointer">
+                            <button type="button" onClick={() => navigate('/registro')} className="group px-5 py-1 md:py-2 rounded-2xl bg-gray-300 dark:bg-gray-700 dark:text-white  lg:text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300 cursor-pointer">
                                 Registarse
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -444,7 +490,7 @@ const LandingPage = () => {
                                     <path d="M30 20l-4 4 4 4" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </button>
-                            <button type="button" className="group px-5 py-1 md:py-3 rounded-3xl bg-gradient-to-r from-slate-100 via-emerald-200 to-emerald-500 lg:text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300 cursor-pointer" onClick={scrollLeer}>
+                            <button type="button" className="group px-5 py-1 md:py-2 rounded-2xl bg-gradient-to-r from-emerald-100 via-emerald-200 to-emerald-400 lg:text-xl font-semibold flex items-center hover:brightness-110 transition-all duration-300 cursor-pointer" onClick={scrollLeer}>
                                 Continuar leyendo
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="w-7 h-7 group-hover:translate-y-1 transition-all duration-300">
                                     <path
@@ -465,12 +511,12 @@ const LandingPage = () => {
                                         <h1 className="text-left text-2xl font-CalSans mb-5 dark:text-white">Fácil para ti. Justo para ellos. Perfecto para todos</h1>
                                         <p className="text-justify lg:text-lg dark:text-white">
                                             Alta-Kassa Multiservicios es una plataforma que conecta a personas que necesitan servicios a domicilio
-                                            —como plomería, limpieza, cerrajería, entre otros— con técnicos y especialistas capacitados.
+                                            —como plomería, limpieza, cerrajería, entre otros— con otras capacitadas en dichos servicios.
                                             Nuestro objetivo es facilitar una experiencia rápida, práctica y segura, generando confianza y comodidad
                                             tanto para los clientes como para los proveedores de servicios.
                                         </p>
                                     </div>
-                                    <div className="w-full md:w-2/5 flex justify-center items-center">
+                                    <div className="w-full md:w-2/5 animate-scale-m flex justify-center items-center">
                                         <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Descriptivo.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvRGVzY3JpcHRpdm8uc3ZnIiwiaWF0IjoxNzUxNjc1MzIxLCJleHAiOjIwNjcwMzUzMjF9.NxO4a8C016_8uL6QDCrMz-wBcv_tPN7UXFRqxmyTiVk'} alt="Floreciendo" width={350} height={250} />
                                     </div>
                                 </div>
@@ -507,23 +553,23 @@ const LandingPage = () => {
                                     fueron priorizados debido a la alta demanda que hay en la vida cotidiana de los
                                     ciudadanos.
                                 </h2>
-                                <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/ServiciosSection.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvU2VydmljaW9zU2VjdGlvbi5zdmciLCJpYXQiOjE3NTE2NzQ2MTgsImV4cCI6MjA2NzAzNDYxOH0.Q2PxteO__8DPaqCATeoqMx8B7fejua4iRwHvMuF40kw'} alt="Tuerca" width={280} height={250} />
+                                <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/ServiciosSection.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvU2VydmljaW9zU2VjdGlvbi5zdmciLCJpYXQiOjE3NTE2NzQ2MTgsImV4cCI6MjA2NzAzNDYxOH0.Q2PxteO__8DPaqCATeoqMx8B7fejua4iRwHvMuF40kw'} alt="Tuerca" width={280} height={250} className="animate-left-inverse" />
                             </div>
                         </div>
                     </section>
                     <section className="flex justify-center">
                         <div className="w-4/5">
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-x-8 pb-8 md:pb-10">
-                                <CardServicios Servicio1={"Plomería"} logo1={imgPlomeria} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia, previniendo problemas como fugas, obstrucciones y contaminación del agua."} texto2={plomero} />
+                                <CardServicios Servicio1={"Plomería"} logo1={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Plomeriaa.avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvUGxvbWVyaWFhLmF2aWYiLCJpYXQiOjE3NTE4NDg0OTAsImV4cCI6MjA2NzIwODQ5MH0.Qu1YyiWAzXGYup6FPqeb8mK5DmGZP1Yd4UkKREixf4w'} texto1={"Un buen sistema de plomería asegura un suministro de agua limpia, previniendo problemas como fugas, obstrucciones y contaminación del agua."} texto2={plomero} />
                                 <CardServicios Servicio1={"Carpintería"} logo1={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Carpinteria.avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvQ2FycGludGVyaWEuYXZpZiIsImlhdCI6MTc1MTY4OTM5MiwiZXhwIjoyMDY3MDQ5MzkyfQ.kwQknPlxxeC7VjAUzI42XwvMNWZZJziisFbpi9ttgjg'} texto1={"La carpintería combina habilidades técnicas-creativas, fundamental tanto en la construcción como en el diseño de interiores."} texto2={carpintero} />
-                                <CardServicios Servicio1={"Pintor"} logo1={imgPintor} texto1={"Aplicación de pinturas y revestimientos en edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."} texto2={pintor} />
-                                <CardServicios Servicio1={"Albañilería"} logo1={imgAlbanil} texto1={"Fundamental en la construcción de infraestructuras, combinando habilidades manuales, técnicas constructivas y normas de seguridad."} texto2={albañil} />
+                                <CardServicios Servicio1={"Pintor"} logo1={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Pintor%20(1).avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvUGludG9yICgxKS5hdmlmIiwiaWF0IjoxNzUxODQyMTkwLCJleHAiOjIwNjcyMDIxOTB9.NpuBJ3NSLg45F-SYgesb5qO193OSgwvz0fJDMgLGZlg'} texto1={"Aplicación de pinturas y revestimientos en edificios residenciales. Incluye la preparación de superficies mediante limpieza, lijado y reparación de fallas."} texto2={pintor} />
+                                <CardServicios Servicio1={"Albañilería"} logo1={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Albanil.avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvQWxiYW5pbC5hdmlmIiwiaWF0IjoxNzUxODQ4NzIxLCJleHAiOjIwNjcyMDg3MjF9.m1HLWucgsLj-zE5n7wlwjCxLOBKtN35QTjCDSr_Cnyw'} texto1={"Fundamental en la construcción de infraestructuras, combinando habilidades manuales, técnicas constructivas y normas de seguridad."} texto2={albañil} />
                                 <CardServicios Servicio1={"Limpieza"} logo1={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Limpieza.avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvTGltcGllemEuYXZpZiIsImlhdCI6MTc1MTY4OTk0NywiZXhwIjoyMDY3MDQ5OTQ3fQ.RE8s7a94wwWoiJp5WxQfZBQ3zgv8fpz8Pt_-XWD7Xow'} texto1={"Profesional especializado en la limpieza general del hogar. Mantener la casa libre de polvo e impurezas es importante para la salud."} texto2={limpieza} />
-                                <CardServicios Servicio1={"Téc-Electrodomésticos"} logo1={imgElectro} texto1={"Profesional especializado en la instalación, mantenimiento y reparación de aparatos eléctricos utilizados en el hogar."} texto2={tecnico} />
+                                <CardServicios Servicio1={"Téc-Electrodomésticos"} logo1={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Tecnico.avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvVGVjbmljby5hdmlmIiwiaWF0IjoxNzUxODQ3NTMzLCJleHAiOjIwNjcyMDc1MzN9.bF-4tqssGStyoMd0w4vIQpnZMfV9t95qe_NF7uaeZ8Y'} texto1={"Profesional especializado en la instalación, mantenimiento y reparación de aparatos eléctricos utilizados en el hogar."} texto2={tecnico} />
                                 <CardServicios Servicio1={"Electricista"} logo1={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Electricista.avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvRWxlY3RyaWNpc3RhLmF2aWYiLCJpYXQiOjE3NTE2ODc1MTUsImV4cCI6MjA2NzA0NzUxNX0.C0E2bELS12khVNIbMyC4OC--__-T0Gn9IpVLRofDHC4'}
                                     texto1={"Profesional encargado de instalar, mantener y reparar sistemas eléctricos en viviendas, comercios e industrias."} texto2={tecnico} />
-                                <CardServicios Servicio1={"Cerrajero"} logo1={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Cerrajero.avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvQ2VycmFqZXJvLmF2aWYiLCJpYXQiOjE3NTE2ODg3OTAsImV4cCI6MjA2NzA0ODc5MH0.-zbj0FMYLr0NtP1gV7cUdMtD0KSP5AFkU8QTOlwHDq0'} 
-                                texto1={"Profesional encargado de instalar, reparar y mantener cerraduras, llaves y sistemas de seguridad en puertas, ventanas y otros accesos."} texto2={tecnico} />
+                                <CardServicios Servicio1={"Cerrajero"} logo1={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Cerrajero.avif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvQ2VycmFqZXJvLmF2aWYiLCJpYXQiOjE3NTE2ODg3OTAsImV4cCI6MjA2NzA0ODc5MH0.-zbj0FMYLr0NtP1gV7cUdMtD0KSP5AFkU8QTOlwHDq0'}
+                                    texto1={"Profesional encargado de instalar, reparar y mantener cerraduras, llaves y sistemas de seguridad en puertas, ventanas y otros accesos."} texto2={tecnico} />
                             </div>
                         </div>
                     </section><br /><br /><br /><br /><br /><br /><br /><br />

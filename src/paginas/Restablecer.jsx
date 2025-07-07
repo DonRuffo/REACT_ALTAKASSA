@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import logoCohete from '../assets/Rocket2.png'
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
@@ -64,7 +63,7 @@ const Restablecer = () => {
                         </form>
                     </div>
                 </div><br />
-                <img src={logoCohete} alt="Cohete2" width={200} height={200} />
+                <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Ballon.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvQmFsbG9uLnN2ZyIsImlhdCI6MTc1MTg1MTYxOCwiZXhwIjoyMDY3MjExNjE4fQ.dxr5vic6qiiGtpywlokGHDbT32IujhMZdG_NOGbPpiQ'} alt="Cohete2" width={200} height={200} />
                 <span className="text-orange-500">Altakassa-Multiservicios</span>
             </div>
         </>
