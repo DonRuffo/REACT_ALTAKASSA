@@ -23,7 +23,7 @@ const AppInit = ({ children }) => {
                 obtenerCategorias(token),
                 traerSugerencias(token, rol)
             ])
-        } else if (rol === 'usuario'){
+        } else if (rol === 'usuario') {
             Promise.all([
                 Perfil(token, rol),
                 verificarFoto(token, rol),
@@ -161,14 +161,21 @@ const AppInit = ({ children }) => {
             }
         }
         const traCancelInicio = ({ ofertaResp }) => {
-            if (ofertaResp[0].proveedor.monedasTrabajos !== 0) {
-                setOferta(prev => [...prev, ...ofertaResp])
+            if (ofertaResp[0].proveedor.monedasTrabajos === 0) return;
+
+            const nuevasOfertas = ofertaResp.filter(
+                nueva => !oferta.some(o => o._id === nueva._id)
+            );
+
+            if (nuevasOfertas.length > 0) {
+                setOferta(prev => [...prev, ...nuevasOfertas]);
             }
         }
         const remover = ({ ofertaResp }) => {
-            if (ofertaResp.proveedor.monedasTrabajos === 0) {
-                setOferta(prev => prev.filter(of => of.proveedor._id !== ofertaResp.proveedor._id))
-            }
+            const idsAEliminar = ofertaResp.map(of => of.proveedor._id);
+            setOferta(prev =>
+                prev.filter(of => !idsAEliminar.includes(of.proveedor._id))
+            );
         }
         const trabajoCompletadoCli = ({ id, trabajo }) => {
             if (auth._id === trabajo.cliente._id) {

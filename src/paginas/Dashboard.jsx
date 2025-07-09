@@ -19,7 +19,7 @@ const Dashboard = () => {
     const verPerfil = useRef(null)
     const navigate = useNavigate()
     const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus, setModalCreditos, modalCreditos, modalPlanes, setModalPlanes, nuevoMensaje, eliminarChat, NuevoMSG } = AuthStoreContext()
-    const { modalPerfilFoto, setModalInfo, modalInfo, setperfilBar, handleClickOutsidePerfil, handleInfo, setMensajesUsuario, mensajesUsuario } = OfertaStore()
+    const { modalPerfilFoto, setModalInfo, modalInfo, setperfilBar, handleClickOutsidePerfil, handleInfo, setMensajesUsuario, mensajesUsuario, trabajos, trabajosProvs } = OfertaStore()
 
     const [rotar, setRotar] = useState(false)
     const [mensajes, setMensajes] = useState(false)
@@ -334,9 +334,6 @@ const Dashboard = () => {
                                 }}>Cerrar Sesión</button>
                         </div>
                     </div>
-                    <Suspense fallback={<strong className="dark:text-white">Cargando foto...</strong>}>
-                        {modalPerfilFoto && <ModalFotoPerfil url={auth.f_perfil} />}
-                    </Suspense>
                     <div className="custom-bar-outlet flex-1 relative h-screen overflow-y-auto bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
                         <div className="border-b border-gray-200 dark:border-gray-700 h-14 hidden lg:flex justify-between items-center px-5">
                             <div className="flex gap-x-2">
@@ -395,6 +392,15 @@ const Dashboard = () => {
                         </div>
                         <NavInfo />
                         <Outlet />
+                        <Suspense fallback={<strong className="dark:text-white">Cargando pantalla...</strong>}>
+                            {modalCreditos && <ModalCreditos />}
+                        </Suspense>
+                        <Suspense fallback={<strong className="dark:text-white">Cargando planes...</strong>}>
+                            {modalPlanes && <ModalPlanes />}
+                        </Suspense>
+                        <Suspense fallback={<strong className="dark:text-white">Cargando foto...</strong>}>
+                            {modalPerfilFoto && <ModalFotoPerfil url={auth.f_perfil} />}
+                        </Suspense>
                         <div ref={verPerfil} className={`fixed z-20 dark:text-white bg-gray-100 dark:bg-gray-900 py-2 px-3 top-16 right-4 lg:right-6 xl:w-36 h-auto rounded-xl outline outline-emerald-600 ${modalInfo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'} transition-all duration-300 ease-in-out`}>
                             <Link to={'/dashboard/configuracion'} id="Config" className="group flex items-center gap-x-1 mb-1 text-sm" onClick={(e) => { handleInfo(); asignarValor(e) }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
@@ -435,7 +441,7 @@ const Dashboard = () => {
                             </Link>
                         </div>
                     </div>
-                    <div id="ContenedorMsgs" className={`w-72 inset-y-14 fixed right-0 bottom-0 overflow-y-auto rounded-l-2xl bg-gray-100 dark:bg-black transform ${mensajes ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+                    <div id="ContenedorMsgs" className={`w-72 z-10 inset-y-14 fixed right-0 bottom-0 overflow-y-auto rounded-l-2xl bg-gray-100 dark:bg-black transform ${mensajes ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
                         <div className="absolute dark:text-white right-3 top-3 cursor-pointer" onClick={() => { setMensajes(false) }}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -471,21 +477,31 @@ const Dashboard = () => {
                         )}
 
                     </div>
-                    <div className="fixed bottom-0 right-1/12 md:right-72">
+                    <div className="fixed z-10 bottom-0 right-0 lg:right-72">
                         <div className="flex flex-row-reverse w-auto h-auto gap-x-2">
                             {nuevoMensaje.map(msg => {
-
                                 const comparacion = mensajesUsuario.some(n =>
                                     n.participantes.some(lee => lee._id === msg.id)
                                 )
                                 const filtroMensajes = mensajesUsuario.filter(wh => wh.participantes.some(of => of._id === msg.id))
 
+                                //varificacion de envio de mensajes
+                                const tipoUser = localStorage.getItem('tipo')
+                                let verificarEnvio
+                                if (tipoUser === 'cliente') {
+                                    verificarEnvio = trabajos.some(tra => tra.cliente._id === auth._id && tra.proveedor._id === msg.id && tra.status === 'Agendado')
+                                }else if (tipoUser === 'proveedor') {
+                                    verificarEnvio = trabajosProvs.some(tra => tra.proveedor._id === auth._id && tra.cliente._id === msg.id && tra.status === 'Agendado')
+                                }
                                 return (
-                                    <div key={msg.id} className="relative flex flex-col justify-between w-68 h-92 outline outline-gray-300 dark:outline-gray-800 dark:text-white bg-gray-100 dark:bg-black rounded-t-2xl">
+                                    <div key={msg.id} className="relative flex flex-col justify-between w-screen h-screen lg:w-68 lg:h-92 outline outline-gray-300 dark:outline-gray-800 dark:text-white bg-gray-100 dark:bg-black rounded-t-2xl">
                                         <div className="absolute top-2 right-2 cursor-pointer" onClick={() => { eliminarChat(msg.id) }}>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
+                                        </div>
+                                        <div className={`absolute top-14 right-0 ${!verificarEnvio ? '' : 'hidden'}`}>
+                                            <p className="text-sm text-center bg-red-500 px-1.5">No puedes conversar con {msg.nombre} {msg.apellido} porque no tienen un trabajo agendado</p>
                                         </div>
                                         <div id='header' className="flex items-center py-2 px-3 gap-x-3.5 border-b border-slate-700">
                                             <div className="w-10 h-10 rounded-full overflow-hidden">
@@ -493,7 +509,7 @@ const Dashboard = () => {
                                             </div>
                                             <p className="text-lg">{msg.nombre} {msg.apellido}</p>
                                         </div>
-                                        <div ref={mensajesRef} id="contenedorMsgs" className="custom-bar-msgs w-full h-fit max-h-[260px] overflow-y-auto">
+                                        <div ref={mensajesRef} id="contenedorMsgs" className="custom-bar-msgs w-full h-fit lg:max-h-[260px] overflow-y-auto">
                                             <div className="flex flex-col px-1.5 py-1">
                                                 {comparacion && filtroMensajes.flatMap(loc => (
                                                     loc.mensajes.map((m) => (
@@ -508,8 +524,8 @@ const Dashboard = () => {
                                             </div>
                                         </div>
                                         <div className="flex justify-between gap-x-3 px-3 py-2 items-center w-full h-fit dark:bg-black border-t dark:border-gray-800">
-                                            <textarea id="msgs" name="mensaje" onChange={handleChangeMsgs} value={formMsg.mensaje || ''} type="text" placeholder="Escribe un mensaje" onKeyDown={(e) => {
-                                                if (e.key === 'Enter' && !e.shiftKey) {
+                                            <textarea id="msgs" name="mensaje" onChange={handleChangeMsgs} value={formMsg.mensaje || ''} type="text" placeholder="Escribe un mensaje..." onKeyDown={(e) => {
+                                                if (e.key === 'Enter' && !e.shiftKey && verificarEnvio) {
                                                     e.preventDefault()
                                                     enviarMensaje(msg.id)
                                                 }
@@ -518,7 +534,7 @@ const Dashboard = () => {
                                                     eliminarChat(msg.id)
                                                 }
                                             }} className="w-full bg-gray-300  min-h-8 max-h-19  dark:bg-gray-900 rounded-lg px-2 py-0.5 focus:outline-none" />
-                                            <div className="flex text-emerald-500 justify-center items-center cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out" onClick={async () => { await enviarMensaje(msg.id) }}>
+                                            <div className={`flex text-emerald-500 justify-center items-center ${verificarEnvio ? 'cursor pointer opacity-100 hover:scale-110' : 'pointer-events-none opacity-50'} transition-all duration-200 ease-in-out`} onClick={async () => { await enviarMensaje(msg.id) }}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
                                                 </svg>
@@ -528,15 +544,7 @@ const Dashboard = () => {
                                 )
                             })}
                         </div>
-
                     </div>
-                    <Suspense fallback={<strong className="dark:text-white">Cargando pantalla...</strong>}>
-                        {modalCreditos && <ModalCreditos />}
-                    </Suspense>
-                    <Suspense fallback={<strong className="dark:text-white">Cargando planes...</strong>}>
-                        {modalPlanes && <ModalPlanes />}
-                    </Suspense>
-                    
                 </div>
             </div>
         </>
