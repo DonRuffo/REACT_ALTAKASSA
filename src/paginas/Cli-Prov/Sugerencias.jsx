@@ -20,8 +20,6 @@ const Sugerencias = () => {
 
     const handleChange = (e) => {
         const fechaHoy = new Date()
-        let msg
-
 
         if (e.target.name === 'comentarios') {
             msg = e.target.value

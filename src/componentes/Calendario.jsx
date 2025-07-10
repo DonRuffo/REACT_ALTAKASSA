@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import AuthStoreContext from "../store/AuthStore";
 import OfertaStore from "../store/OfertaStore";
+import PropTypes from "prop-types";
 
 const Calendario = ({dias}) => {
     const { dark } = AuthStoreContext()
@@ -237,6 +238,10 @@ return (
         </div>
     </>
 )
+}
+
+Calendario.propTypes = {
+    dias: PropTypes.number.isRequired
 }
 
 export default Calendario

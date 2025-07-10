@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import OfertaStore from "../../store/OfertaStore";
+import PropTypes from "prop-types";
 
 
-const CalificacionProv = ({id, nombre, apellido, foto}) => {
+const CalificacionProv = ({ id, nombre, apellido, foto }) => {
     const [hovered, setHovered] = useState(0);
     const [calificacion, setCalificacion] = useState(0);
 
@@ -78,7 +79,7 @@ const CalificacionProv = ({id, nombre, apellido, foto}) => {
                         <button
                             type="button"
                             className={`w-1/3 ${calificacion ? 'cursor-pointer hover:scale-105' : 'pointer-events-none cursor-not-allowed opacity-50'} bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2 rounded-lg transition-transform duration-300 ease-in-out`}
-                            onClick={() => {handleSubmitStars() }}
+                            onClick={() => { handleSubmitStars() }}
                         >
                             Enviar
                         </button>
@@ -87,6 +88,13 @@ const CalificacionProv = ({id, nombre, apellido, foto}) => {
             </div>
         </>
     )
+}
+
+CalificacionProv.propTypes = {
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    foto: PropTypes.string.isRequired,
 }
 
 export default CalificacionProv;

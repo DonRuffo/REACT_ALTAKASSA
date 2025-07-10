@@ -1,7 +1,6 @@
 import React from "react";
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { render } from '@testing-library/react'
+import { beforeEach, describe, test, vi } from 'vitest'
 import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";

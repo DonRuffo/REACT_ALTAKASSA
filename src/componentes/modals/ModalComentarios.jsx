@@ -2,6 +2,7 @@ import React from "react";
 import OfertaStore from "../../store/OfertaStore";
 import { DateTime } from "luxon";
 import '../../../CSS/fondos.css'
+import PropTypes from "prop-types";
 
 
 const ModalComentarios = ({ idSug }) => {
@@ -37,6 +38,10 @@ const ModalComentarios = ({ idSug }) => {
 
         </div>
     );
+}
+
+ModalComentarios.propTypes = {
+    idSug: PropTypes.string.isRequired
 }
 
 export default ModalComentarios

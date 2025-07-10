@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import OfertaStore from "../../store/OfertaStore";
+import PropTypes from "prop-types";
 
 
 const CalificacionCli = ({ id, nombre, apellido, foto }) => {
@@ -89,6 +90,13 @@ const CalificacionCli = ({ id, nombre, apellido, foto }) => {
             </div>
         </>
     )
+}
+
+CalificacionCli.propTypes = {
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    foto: PropTypes.string.isRequired,
 }
 
 export default CalificacionCli;

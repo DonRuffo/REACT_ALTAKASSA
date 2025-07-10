@@ -14,6 +14,7 @@
     "@tailwindcss/vite": "^4.1.4",
     "app-altakassa": "file:",
     "axios": "^1.7.9",
+    "crypto-js": "^4.2.0",
     "framer-motion": "^12.0.6",
     "jsdom": "^26.1.0",
     "leaflet": "^1.9.4",

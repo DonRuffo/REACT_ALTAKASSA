@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import '../../../CSS/fondos.css'
 import OfertaStore from "../../store/OfertaStore";
 import AuthStoreContext from "../../store/AuthStore";

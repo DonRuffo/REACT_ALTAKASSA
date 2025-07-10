@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import OfertaStore from "../../store/OfertaStore";
 import ModalComentarios from "../../componentes/modals/ModalComentarios";

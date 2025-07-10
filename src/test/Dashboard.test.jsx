@@ -28,12 +28,9 @@ const mockSetModalCreditos = vi.fn();
 const mockSetModalPlanes = vi.fn();
 const mockSetModalInfo = vi.fn();
 const mockSetMensajesUsuario = vi.fn();
-const mockSetHoraMsgs = vi.fn();
-const mockSetIdMensaje = vi.fn();
 const mockEliminarChat = vi.fn();
 const mockNuevoMSG = vi.fn();
 
-const mockSetMensajes = vi.fn();
 
 const socketCallbacks = {};
 

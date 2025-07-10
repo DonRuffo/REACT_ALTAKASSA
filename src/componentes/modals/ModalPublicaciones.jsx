@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import AuthStoreContext from "../../store/AuthStore";
+import PropTypes from "prop-types";
 
 const ModalPublicaciones = ({ idRev }) => {
 
@@ -115,5 +116,8 @@ const ModalPublicaciones = ({ idRev }) => {
     )
 }
 
+ModalPublicaciones.propTypes = {
+    idRev: PropTypes.string.isRequired
+}
 
 export default ModalPublicaciones

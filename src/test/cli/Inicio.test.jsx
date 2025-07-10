@@ -6,7 +6,6 @@ import { MemoryRouter } from "react-router-dom";
 import Inicio from "../../paginas/Cliente/Inicio";
 import AuthStoreContext from "../../store/AuthStore";
 import OfertaStore from "../../store/OfertaStore";
-import axios from "axios";
 
 // Mocks
 vi.mock("axios");

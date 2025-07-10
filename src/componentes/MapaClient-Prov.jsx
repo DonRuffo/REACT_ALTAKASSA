@@ -21,6 +21,13 @@ const MapaCliProv = ({ form }) => {
     const containerRef = useRef(null)
     const { mapaCliProv } = OfertaStore()
     const { ubicacionActual, ubicacionTrabajo } = AuthStoreContext()
+
+
+    const ubiProv = L.latLng(ubicacionTrabajo.latitude, ubicacionTrabajo.longitude)
+    const ubiCli = L.latLng(ubicacionActual.latitude, ubicacionActual.longitude)
+
+    const distancia = ubiCli.distanceTo(ubiProv).toFixed(0)
+
     const creacionMapa = async () => {
 
         const latitudCli = ubicacionActual.latitude
@@ -70,14 +77,14 @@ const MapaCliProv = ({ form }) => {
     }, [mapaCliProv])
     return (
         <>
-            <h1 className="flex items-center gap-x-1 text-xl text-center font-semibold mt-2 dark:text-white mb-1">
+            <h1 className="flex items-center gap-x-1 text-xl text-center font-semibold mt-2 dark:text-white">
                 Ubicación
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                 </svg>
-
             </h1>
+            <p className="dark:text-white">A <b className="text-orange-400">{distancia}</b> metros de ti</p>
             <div ref={containerRef} className={`rounded-md h-5/6 w-11/12`}></div>
         </>
     )

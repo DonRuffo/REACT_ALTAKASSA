@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import AuthStoreContext from "../../store/AuthStore";
+import PropTypes from "prop-types";
 
 const ModalEditarPlan = ({ idPlan }) => {
 
@@ -107,5 +108,8 @@ const ModalEditarPlan = ({ idPlan }) => {
     )
 }
 
+ModalEditarPlan.propTypes = {
+    idPlan: PropTypes.string.isRequired
+}
 
 export default ModalEditarPlan
