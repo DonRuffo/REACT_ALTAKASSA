@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import RelojDeArena from "../componentes/RelojArena";
@@ -8,6 +8,7 @@ import { Eye, EyeOff } from "lucide-react";
 const Restablecer = () => {
 
     const { token } = useParams()
+    const navigate = useNavigate()
 
     const [form, setForm] = useState({
         contrasenia: ""
@@ -32,6 +33,9 @@ const Restablecer = () => {
             const respuesta = await axios.post(url, form)
             toast.success(respuesta.data.msg)
             setReloj(false)
+            setTimeout(() => {
+                navigate('/login')
+            }, [2000])
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)

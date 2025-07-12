@@ -9,7 +9,7 @@ const ModalEditarOferta = ({ idOferta }) => {
 
     const [carga, setCarga] = useState(true)
     const [lista, setLista] = useState(true)
-    const [cat, setCat] = useState('Limpieza')
+    const [c, setCat] = useState('')
     const [ventana, setVentana] = useState(false)
     const [llenado, setLlenado] = useState(true)
 
@@ -465,12 +465,12 @@ const ModalEditarOferta = ({ idOferta }) => {
                         <div className="mb-3">
                             <div className="flex justify-center items-center gap-2 px-6">
                                 <label htmlFor="servicio" className="text-md font-semibold dark:text-white">Servicio:</label>
-                                <select name="servicio" id="servicio" className={`${carga ? 'hidden' : ''} dark:bg-gray-900 dark:text-slate-200 w-full py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700`} onChange={handleChancheOfertas}>
+                                <select name="servicio" id="servicio" value={form.servicio} className={`${carga ? 'hidden' : ''} dark:bg-gray-900 dark:text-slate-200 w-full py-1 px-2 rounded-md border border-gray-600 bg-white focus:ring-1 focus:ring-green-700 focus:outline-none focus:border-green-700`} onChange={handleChancheOfertas}>
                                     <option value="Limpieza">Limpieza</option>
                                     <option value="Chofer">Chófer</option>
                                     <option value="Niñero/a">Niñero/a</option>
                                     <option value="Téc.Electrodomésticos">Téc.Electrodomésticos</option>
-                                    <option value="Plomeria">Plomería</option>
+                                    <option value="Plomería">Plomería</option>
                                     <option value="Pintor">Pintor</option>
                                     <option value="Albañilería">Albañilería</option>
                                     <option value="Cerrajeria">Cerrajería</option>
@@ -505,23 +505,23 @@ const ModalEditarOferta = ({ idOferta }) => {
                             </div>
                         </div>
                     </form>
-                    <div className={`${ventana ? '' : 'hidden'} px-5 text-white overflow-y-auto max-h-[400px]`}>
-                        <h1 className="text-xl md:text-2xl font-semibold text-center mt-3">{cat}</h1>
+                    <div className={`${ventana ? '' : 'hidden'} px-5 dark:text-white overflow-y-auto max-h-[400px]`}>
+                        <h1 className="text-xl md:text-2xl font-semibold text-center mt-3">{form.servicio}</h1>
                         <p className="text-center font-semibold text-sm md:text-base mb-3">Especifica las labores que eres capaz de realizar para una meyor transparencia en tus servicios</p>
-                        <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 ${cat === 'Limpieza' ? '' : 'hidden'} ml-4`}>
+                        <div className={`grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-3 ${form.servicio === 'Limpieza' ? '' : 'hidden'} ml-4`}>
                             {limpieza.map((tra) => (
-                                <div key={tra.titulo}>
+                                <div key={tra.titulo} className="mx-3">
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
                                     {tra.caracteristicas.map((car, index) => (
-                                        <label key={index} className="inline-block">
-                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} />
+                                        <label key={index} className="inline-block mb-1.5">
+                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} className="mr-1"/>
                                             {car}
                                         </label>
                                     ))}
                                 </div>
                             ))}
                         </div>
-                        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${cat === 'Plomería' ? '' : 'hidden'} ml-4`}>
+                        <div className={`grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 ${form.servicio === 'Plomería' ? '' : 'hidden'} ml-4`}>
                             {plomero.map((tra) => (
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
@@ -534,7 +534,7 @@ const ModalEditarOferta = ({ idOferta }) => {
                                 </div>
                             ))}
                         </div>
-                        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${cat === 'Pintor' ? '' : 'hidden'} ml-4`}>
+                        <div className={`grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 ${form.servicio === 'Pintor' ? '' : 'hidden'} ml-4`}>
                             {pintor.map((tra) => (
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
@@ -547,7 +547,7 @@ const ModalEditarOferta = ({ idOferta }) => {
                                 </div>
                             ))}
                         </div>
-                        <div className={`grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-4 ${cat === 'Téc.Electrodomésticos' ? '' : 'hidden'} ml-2`}>
+                        <div className={`grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-x-3 gap-y-4 ${form.servicio === 'Téc.Electrodomésticos' ? '' : 'hidden'} ml-2`}>
                             {tecnico.map((tra) => (
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
@@ -560,7 +560,7 @@ const ModalEditarOferta = ({ idOferta }) => {
                                 </div>
                             ))}
                         </div>
-                        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${cat === 'Carpintería' ? '' : 'hidden'} ml-4`}>
+                        <div className={`grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 ${form.servicio === 'Carpintería' ? '' : 'hidden'} ml-4`}>
                             {carpintero.map((tra) => (
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
@@ -573,7 +573,7 @@ const ModalEditarOferta = ({ idOferta }) => {
                                 </div>
                             ))}
                         </div>
-                        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${cat === 'Albañilería' ? '' : 'hidden'} ml-4`}>
+                        <div className={`grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 ${form.servicio === 'Albañilería' ? '' : 'hidden'} ml-4`}>
                             {albañil.map((tra) => (
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>

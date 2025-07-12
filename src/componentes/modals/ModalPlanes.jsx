@@ -36,7 +36,6 @@ const ModalPlanes = () => {
                                 <button className="text-white dark:text-black font-semibold px-4 py-1 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 cursor-pointer hover:brightness-110 duration-300 ease-in-out">Actualizar a {pl.nombre}</button>
                             </div>
                         ))}
-
                     </div><br />
                 </div>
             </div>

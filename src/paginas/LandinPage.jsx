@@ -376,7 +376,7 @@ const LandingPage = () => {
                 <main className="bg-white dark:bg-black font-Cabin">
                     <nav className="fixed z-10 w-full px-10 py-5 lg:py-5 flex justify-between backdrop-blur-sm bg-white/30 dark:bg-black/30" id="LandingPage">
                         <div className="grid grid-cols-3 w-full">
-                            <div className="flex items-center justify-start">
+                            <div className="flex items-center justify-start lg:hidden">
                                 <select className="w-full text-lg mr-1 md:mr-0 rounded-lg py-1.5 md:w-40 text-center text-cyan-700 dark:text-cyan-400 font-semibold bg-transparent outline-2 focus:outline-cyan-700 dark:focus:outline-cyan-400 hover:brightness-125 duration-300 cursor-pointer"
                                     onChange={(e) => {
                                         const targetId = e.target.value
@@ -391,6 +391,12 @@ const LandingPage = () => {
                                     <option value="QuienesSomos" className="text-sm font-semibold dark:bg-gray-950">Quienes Somos</option>
                                     <option value="Contacto" className="text-sm font-semibold dark:bg-gray-950">Contacto</option>
                                 </select>
+                            </div>
+                            <div className="hidden lg:flex gap-x-3 text-lg font-semibold text-cyan-700 dark:text-cyan-400 overflow-x-auto ">
+                                <p className="hover:border-b hover:border-cyan-700 dark:hover:border-cyan-400 hover:brightness-125 cursor-pointer" onClick={() => {document.getElementById('Inicio').scrollIntoView({behavior:'smooth'})}}>Inicio</p><p>|</p>
+                                <p className="hover:border-b hover:border-cyan-700 dark:hover:border-cyan-400 hover:brightness-125 cursor-pointer" onClick={() => {document.getElementById('Servicios').scrollIntoView({behavior:'smooth'})}}>Servicios</p><p>|</p>
+                                <p className="hover:border-b hover:border-cyan-700 dark:hover:border-cyan-400 hover:brightness-125 truncate cursor-pointer" onClick={() => {document.getElementById('QuienesSomos').scrollIntoView({behavior:'smooth'})}}>Quienes somos</p><p>|</p>
+                                <p className="hover:border-b hover:border-cyan-700 dark:hover:border-cyan-400 hover:brightness-125 cursor-pointer" onClick={() => {document.getElementById('Contacto').scrollIntoView({behavior:'smooth'})}}>Contacto</p>
                             </div>
                             <div className="flex items-center justify-center dark:text-white">
                                 {!darkMode ? (
@@ -501,8 +507,8 @@ const LandingPage = () => {
                                 </svg>
                             </button>
                         </div>
-                    </section><br /><br /><br /><br />
-                    <section id="DescriptionSection" className="py-24 dark:bg-black">
+                    </section><br /><br />
+                    <section id="DescriptionSection" className="py-18 dark:bg-black">
                         <div className="flex flex-col items-center bg-emerald-50 dark:bg-emerald-950">
                             <div className="w-5/6 lg:w-4/6 py-32">
                                 <h1 className="text-center text-4xl lg:text-5xl text-emerald-600 dark:text-emerald-500 duration-300 mb-2 font-CalSans">¿Qué es Alta-Kassa?</h1>
@@ -522,7 +528,7 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
-                    </section><br /><br /><br /><br />
+                    </section><br /><br />
                     <section className="flex flex-col justify-center items-center">
                         <h1 className="text-4xl md:text-5xl font-CalSans text-center text-emerald-600 dark:text-emerald-500 duration-300 pb-10">Beneficios para ti</h1>
                         <h2 className="text-4xl font-semibold text-center duration-300 pb-10 dark:text-white">Como cliente</h2>
@@ -572,9 +578,9 @@ const LandingPage = () => {
                                     texto1={"Profesional encargado de instalar, reparar y mantener cerraduras, llaves y sistemas de seguridad en puertas, ventanas y otros accesos."} texto2={tecnico} />
                             </div>
                         </div>
-                    </section><br /><br /><br /><br /><br /><br /><br /><br />
+                    </section><br /><br /><br /><br />
                     <section id="QuienesSomos" className="flex flex-col items-center justify-center md:mb-20 bg-emerald-50 dark:bg-emerald-950">
-                        <div className="w-full md:w-4/5 py-32">
+                        <div className="w-full md:w-4/5 py-20">
                             <h1 className="px-8 md:mb-2 font-CalSans text-center text-4xl lg:text-5xl text-emerald-600 dark:text-emerald-500 duration-300">¿Quiénes somos?</h1><br />
                             <div className="flex flex-col md:flex-row items-center md:justify-center lg:items-start">
                                 <div className="w-3/5 flex md:hidden lg:flex justify-center items-start max-h-[300px] pb-5 md:p-0">
@@ -598,7 +604,7 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
-                    </section><br /><br /><br /><br /><br /><br /><br /><br />
+                    </section><br /><br /><br /><br />
                     <section className="relative z-0 flex justify-center bg-gradient-to-b from-white dark:from-black via-cyan-200 dark:via-cyan-800 to-white dark:to-black dark:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute top-16 md:top-4 left-10 md:left-1/5 size-5 rotate-45">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
@@ -666,7 +672,7 @@ const LandingPage = () => {
                                 </div>
                             )}
                         </div>
-                    </section><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                    </section><br /><br /><br /><br /><br /><br /><br /><br />
                 </main>
                 <footer className="font-Cabin bg-gradient-to-b from-white dark:from-black via-emerald-200 dark:via-emerald-700 to-emerald-400 dark:to-emerald-500 flex flex-col items-center justify-center">
                     <div className="flex flex-col items-center">
@@ -679,13 +685,13 @@ const LandingPage = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                             </svg>
                         </button>
-                    </div><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                    </div><br /><br /><br /><br /><br /><br /><br /><br /><br />
                     <div className="w-11/12 md:w-4/5 bg-black rounded-3xl flex flex-col justify-center mb-10" id="Contacto">
-                        <div className="block md:flex items-center gap-x-5 p-10">
+                        <div className="block md:flex items-center gap-x-5 pt-10 px-10">
                             <img src={imgAksin} alt="LogoAK" width={100} height={100} />
                             <h1 className="text-4xl text-white font-CalSans">Alta-Kassa Multiservicios</h1>
                         </div>
-                        <div className="w-full px-12 flex flex-wrap justify-start md:py-28 gap-8 border-white">
+                        <div className="w-full px-12 flex flex-wrap justify-start md:py-10 gap-8 border-white">
                             <div className="w-48 p-2">
                                 <h1 className="text-sky-600 text-xl font-semibold md:pb-6">Contacto directo</h1>
                                 <p className="text-slate-400 text-sm font-semibold py-2">dennisdiaz407@gmail.com</p>

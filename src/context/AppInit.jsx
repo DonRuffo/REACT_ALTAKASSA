@@ -41,9 +41,9 @@ const AppInit = ({ children }) => {
 
     useEffect(() => {
         const tema = localStorage.getItem('tema')
-        if (tema === "Oscuro") {
+        if (tema === "oscuro") {
             setDark(true)
-        } else if (tema === "Claro" || !tema) {
+        } else if (tema === "claro" || !tema) {
             setDark(false)
         }
     }, [])

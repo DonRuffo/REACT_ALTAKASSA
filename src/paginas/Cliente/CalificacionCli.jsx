@@ -93,10 +93,10 @@ const CalificacionCli = ({ id, nombre, apellido, foto }) => {
 }
 
 CalificacionCli.propTypes = {
-    id: PropTypes.string.isRequired,
-    nombre: PropTypes.string.isRequired,
-    apellido: PropTypes.string.isRequired,
-    foto: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    nombre: PropTypes.string,
+    apellido: PropTypes.string,
+    foto: PropTypes.string,
 }
 
 export default CalificacionCli;

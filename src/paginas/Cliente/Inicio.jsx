@@ -16,12 +16,13 @@ const ModalFotoProvs = lazy(() => import("../../componentes/modals/ModalFotoProv
 const ModalTrabajos = lazy(() => import("../../componentes/modals/ModalTrabajos"))
 
 const Inicio = () => {
-    const { setAuth, foto, ubiActual, pulseFoto, pulseUbiTra, pulseUbiActual, setUbicacionActual, ivActual, categorias } = AuthStoreContext()
+    const { setAuth, foto, ubiActual, pulseFoto, pulseUbiTra, pulseUbiActual, setUbicacionActual, ivActual, categorias, auth } = AuthStoreContext()
     const { modalTra, setModalTra, oferta, setIdProveedor, modalProvs, setModalProvs } = OfertaStore()
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
     const [valor, setValor] = useState('')
     const [filtro, setFiltro] = useState(false)
     const [ofertasFiltradas, setOfertasFiltradas] = useState([])
+    const [ofFiltradas, setOfFiltradas] = useState([])
 
     const [valorUrl, setValorUrl] = useState('')
     const [indice, setIndex] = useState(0)
@@ -59,15 +60,20 @@ const Inicio = () => {
             console.log('Error, no se obtiene la ubicacion', error)
         }
     }
+    
+    useEffect(() => {
+        const filtro = oferta.filter(of => of.proveedor._id !== auth._id)
+        setOfFiltradas(filtro)
+    }, [oferta])
 
     useEffect(() => {
         if (valor) {
-            const filtradas = oferta.filter((of) => of.servicio === valor)
+            const filtradas = ofFiltradas.filter((of) => of.servicio === valor)
             setOfertasFiltradas(filtradas)
         } else {
             setOfertasFiltradas([])
         }
-    }, [valor, oferta])
+    }, [valor, ofFiltradas])
 
     useEffect(() => {
         if (!ivActual) return
@@ -149,7 +155,8 @@ const Inicio = () => {
                                 </div>
                             </div>
                             <div className={`${filtro ? 'hidden' : ''} flex justify-center gap-x-4  flex-wrap`}>
-                                {oferta.length > 0 ? oferta.map((of, index) => (
+                                {}
+                                {ofFiltradas.length > 0 ? ofFiltradas.map((of, index) => (
                                     <div key={of._id} className="relative flex items-center justify-around md:block radial-gradientOfertas-bg h-fit w-full mx-6 md:mx-0 py-1 md:p-4 md:w-fit md:max-w-48 rounded-lg shadow-lg shadow-cyan-400 mb-5">
                                         <div className="absolute flex justify-center items-center -top-3 right-1.5 z-10 bg-gray-800 text-yellow-600 px-2 py-1 rounded-md text-xs font-semibold">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
