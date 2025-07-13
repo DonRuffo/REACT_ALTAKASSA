@@ -98,7 +98,6 @@ const AppInit = ({ children }) => {
         const eliminarCat = ({ id }) => {
             setCategorias(prev => prev.filter(of => of._id !== id))
         }
-
         //funciones cliente
         const traAgendado = ({ id, trabajoActualizado }) => {
             if (auth._id === trabajoActualizado.cliente._id) {
@@ -161,8 +160,8 @@ const AppInit = ({ children }) => {
             }
         }
         const traCancelInicio = ({ ofertaResp }) => {
-            if (ofertaResp[0].proveedor.monedasTrabajos === 0) return;
-
+            
+            if (ofertaResp[0].proveedor.monedasTrabajos !== 1) return;
             const nuevasOfertas = ofertaResp.filter(
                 nueva => !oferta.some(o => o._id === nueva._id)
             );
@@ -172,10 +171,12 @@ const AppInit = ({ children }) => {
             }
         }
         const remover = ({ ofertaResp }) => {
-            const idsAEliminar = ofertaResp.map(of => of.proveedor._id);
-            setOferta(prev =>
-                prev.filter(of => !idsAEliminar.includes(of.proveedor._id))
-            );
+            if (ofertaResp[0].proveedor.monedasTrabajos === 0) {
+                const idsAEliminar = ofertaResp.map(of => of.proveedor._id);
+                setOferta(prev =>
+                    prev.filter(of => !idsAEliminar.includes(of.proveedor._id))
+                );
+            }
         }
         const trabajoCompletadoCli = ({ id, trabajo }) => {
             if (auth._id === trabajo.cliente._id) {

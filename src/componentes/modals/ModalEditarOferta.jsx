@@ -526,8 +526,8 @@ const ModalEditarOferta = ({ idOferta }) => {
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
                                     {tra.caracteristicas.map((car, index) => (
-                                        <label key={index} className="inline-block">
-                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} />
+                                        <label key={index} className="inline-block mb-1.5">
+                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} className="mr-1"/>
                                             {car}
                                         </label>
                                     ))}
@@ -539,8 +539,8 @@ const ModalEditarOferta = ({ idOferta }) => {
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
                                     {tra.caracteristicas.map((car, index) => (
-                                        <label key={index} className="inline-block">
-                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} />
+                                        <label key={index} className="inline-block mb-1.5">
+                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} className="mr-1"/>
                                             {car}
                                         </label>
                                     ))}
@@ -552,8 +552,8 @@ const ModalEditarOferta = ({ idOferta }) => {
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
                                     {tra.caracteristicas.map((car, index) => (
-                                        <label key={index} className="inline-block">
-                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} />
+                                        <label key={index} className="inline-block mb-1.5">
+                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} className="mr-1"/>
                                             {car}
                                         </label>
                                     ))}
@@ -565,8 +565,8 @@ const ModalEditarOferta = ({ idOferta }) => {
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
                                     {tra.caracteristicas.map((car, index) => (
-                                        <label key={index} className="inline-block">
-                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} />
+                                        <label key={index} className="inline-block mb-1.5">
+                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} className="mr-1"/>
                                             {car}
                                         </label>
                                     ))}
@@ -578,8 +578,8 @@ const ModalEditarOferta = ({ idOferta }) => {
                                 <div key={tra.titulo}>
                                     <h1 className="font-semibold text-lg text-amber-500">{tra.titulo}</h1>
                                     {tra.caracteristicas.map((car, index) => (
-                                        <label key={index} className="inline-block">
-                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} />
+                                        <label key={index} className="inline-block mb-1.5">
+                                            <input type="checkbox" value={car} checked={form.servicios.includes(car)} onChange={() => { manejoBox(car) }} className="mr-1"/>
                                             {car}
                                         </label>
                                     ))}

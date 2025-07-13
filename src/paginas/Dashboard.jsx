@@ -520,8 +520,8 @@ const Dashboard = () => {
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
                                         </div>
-                                        <div className={`absolute top-14 right-0 ${!verificarEnvio ? '' : 'hidden'}`}>
-                                            <p className="text-sm text-center bg-red-500 px-1.5">No puedes conversar con {msg.nombre} {msg.apellido} porque no tienen un trabajo agendado</p>
+                                        <div className={`absolute top-14 inset-x-0 ${!verificarEnvio ? '' : 'hidden'}`}>
+                                            <p className="text-sm text-center bg-red-500 px-1.5 w-full">No puedes conversar con {msg.nombre} {msg.apellido} porque no tienen un trabajo agendado</p>
                                         </div>
                                         <div id='header' className="flex items-center py-2 px-3 gap-x-3.5 border-b border-slate-700">
                                             <div className="w-10 h-10 rounded-full overflow-hidden">

@@ -16,10 +16,11 @@ const ModalTrabajos = ({ idOferta }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [calendario, setCalendario] = useState(false)
     const [carga, setCarga] = useState(true)
+    const [visibilidad, setVisibilidad] = useState(false)
     const [cargaTra, setCargaTra] = useState(false)
 
     const fechaHoy = new Date()
-    const numeroMes = fechaHoy.getMonth()+1
+    const numeroMes = fechaHoy.getMonth() + 1
 
     const TrabajosAgendados = async () => {
         try {
@@ -53,8 +54,12 @@ const ModalTrabajos = ({ idOferta }) => {
                 ? form.precioPorDia
                 : calcularPrecioPorHoras(prev);
 
+            const resDesde = tipoSeleccionado === "precioPorDia" ? '08:00' : prev.desde
+            const resHasta = tipoSeleccionado === "precioPorDia" ? '17:00' : prev.hasta
             return {
                 ...prev,
+                desde:resDesde,
+                hasta:resHasta,
                 tipo: tipoSeleccionado,
                 precioTotal: nuevoPrecio
             };
@@ -124,12 +129,13 @@ const ModalTrabajos = ({ idOferta }) => {
 
     const handleChange = (e) => {
         setFormTrabajo(prev => {
+            const {name, value} = e.target
             const nuevoEstado = {
                 ...prev,
-                [e.target.name]: e.target.value
+                [name]: value
             }
 
-            if (e.target.name === "desde" || e.target.name === "hasta") {
+            if (name === "desde" || name === "hasta") {
                 nuevoEstado.precioTotal = calcularPrecioPorHoras(nuevoEstado)
             }
             return nuevoEstado
@@ -143,8 +149,15 @@ const ModalTrabajos = ({ idOferta }) => {
         const fechaHoy = new Date()
         fechaHoy.setHours(0, 0, 0, 0)
 
+        const fechaFutura = new Date()
+        fechaFutura.setMonth(fechaFutura.getMonth() + 6)
         if (fechaElegida < fechaHoy) {
             alert("No puedes seleccionar una fecha pasada")
+            e.target.value = 'dd/mm/aaaa'
+        }
+
+        if (fechaElegida > fechaFutura) {
+            alert("No puedes seleccionar una fecha de un rango mayor a los 6 meses")
             e.target.value = 'dd/mm/aaaa'
         }
     }
@@ -196,7 +209,7 @@ const ModalTrabajos = ({ idOferta }) => {
     }
 
     useEffect(() => {
-        if(!form?.proveedor.email) return
+        if (!form?.proveedor.email) return
         desencriptar(form.proveedor.email)
     }, [form])
 
@@ -226,6 +239,14 @@ const ModalTrabajos = ({ idOferta }) => {
 
         }, 200);
     }, [traProveedor]);
+
+    useEffect(() => {
+        if (formTrabajo.fecha !== '' && formTrabajo.precioTotal !== null && formTrabajo.tipo !== ''){
+            setVisibilidad(true)
+        } else{
+            setVisibilidad(false)
+        }
+    }, [formTrabajo])
 
     return (
         <>
@@ -292,11 +313,13 @@ const ModalTrabajos = ({ idOferta }) => {
                                             <div className="flex justify-around gap-2 px-6">
                                                 <div>
                                                     <label htmlFor="servicio" className="text-md font-semibold mr-2 dark:text-white">Desde:</label>
-                                                    <input type="text" id="servicio" name="desde" onChange={handleChange} value={formTrabajo.desde || ""} placeholder="08:00" className="w-1/2  px-2 rounded-md border border-gray-300 focus:ring-1 focus:ring-indigo-700 focus:outline-none focus:border-indigo-700 dark:text-white" />
+                                                    <input type="number" id="servicio" name="desde" min={8} max={16} onChange={handleChange} value={formTrabajo.desde || ""} placeholder="08" className="w-10 pl-0.5 rounded-md border border-gray-300 focus:ring-1 focus:ring-indigo-700 focus:outline-none focus:border-indigo-700 dark:text-white" />
+                                                    <span className="dark:text-white mx-1">: 00</span>
                                                 </div>
                                                 <div>
                                                     <label htmlFor="servicio" className="text-md font-semibold mr-2 dark:text-white">Hasta:</label>
-                                                    <input type="text" id="servicio" name="hasta" onChange={handleChange} value={formTrabajo.hasta || ""} placeholder="17:00" className="w-1/2 px-2 rounded-md border border-gray-300 focus:ring-1 focus:ring-indigo-700 focus-none focus:border-indigo-700 dark:text-white" />
+                                                    <input type="number" id="servicio" name="hasta" min={9} max={17} onChange={handleChange} value={formTrabajo.hasta || ""} placeholder="17" className="w-10 pl-0.5 rounded-md border border-gray-300 focus:ring-1 focus:ring-indigo-700 focus-none focus:border-indigo-700 dark:text-white" />
+                                                    <span className="dark:text-white mx-1">: 00</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -310,7 +333,7 @@ const ModalTrabajos = ({ idOferta }) => {
                                 )}
                                 <div className="mb-3 mt-7">
                                     <div className="flex justify-around flex-wrap gap-3 lg:gap-0 md:pb-2">
-                                        <button type="submit" className="py-2 px-7 font-semibold text-emerald-700 bg-emerald-200 dark:text-emerald-200 dark:bg-emerald-900 hover:scale-105 rounded-lg duration-300 cursor-pointer" onClick={() => { setCargaTra(!cargaTra) }}>{cargaTra ? <SpinnerCargaModal w={6} h={6} HH={6} /> : 'Crear'}</button>
+                                        <button type="submit" className={`py-2 px-7 ${visibilidad ? 'cursor-pointer opacity-100' : 'pointer-events-none cursor-not-allowed opacity-50'} font-semibold text-emerald-700 bg-emerald-200 dark:text-emerald-200 dark:bg-emerald-900 hover:scale-105 rounded-lg duration-300`} onClick={() => { setCargaTra(!cargaTra) }}>{cargaTra ? <SpinnerCargaModal w={6} h={6} HH={6} /> : 'Crear'}</button>
                                         <button type="button" className="py-2 px-6 font-semibold text-red-700 bg-red-200 dark:text-red-200 dark:bg-red-900 hover:scale-105 rounded-lg duration-300 cursor-pointer" onClick={() => { setModalTra(!modalTra); setMapaCliProv(false) }}>Cerrar</button>
                                     </div>
                                 </div>
@@ -352,7 +375,7 @@ const ModalTrabajos = ({ idOferta }) => {
                                 </svg>
                             </h1>
                             <div className="flex justify-center mt-3">
-                                <Calendario dias={numeroMes}/>
+                                <Calendario dias={numeroMes} />
                             </div>
                             <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-500">rojo</b> no están disponibles.</p>
                         </div>
