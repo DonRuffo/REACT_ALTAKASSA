@@ -83,7 +83,7 @@ const PlanesdePago = () => {
                     <div className="w-[275px] h-[375px] outline-2 outline-amber-600 rounded-xl bg-gray-100 dark:bg-gray-950 flex flex-col justify-center items-center">
                         <div className="mb-20 flex flex-col justify-center items-center">
                             <p className="dark:text-slate-300 text-xl">Aún no tienes planes</p>
-                            <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/question.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvcXVlc3Rpb24uc3ZnIiwiaWF0IjoxNzUxNjc3NDgxLCJleHAiOjIwNjcwMzc0ODF9.4vqo1tfwFsIo6eMWL018L0T_kdtRWDW6w8MGNiD4W3M'} alt="logoplan" width={130} />
+                            <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//question.svg'} alt="logoplan" width={130} />
                         </div>
                         <div className="w-12 h-12 rounded-full bg-emerald-300 flex justify-center cursor-pointer" onClick={() => { setModalPagos(true) }}>
                             <p className="font-semibold text-4xl text-center">+</p>

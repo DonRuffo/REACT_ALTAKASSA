@@ -124,7 +124,7 @@ const SolicitudProv = () => {
                                     )
                                     )) : (
                                     <div className="w-[250px] h-[265px] px-5 mb-5 shadow-lg dark:shadow-gray-800 bg-gray-100 rounded-lg dark:bg-gray-900 flex flex-col justify-center items-center">
-                                        <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Descansando.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvRGVzY2Fuc2FuZG8uc3ZnIiwiaWF0IjoxNzUxNjc2OTMyLCJleHAiOjIwNjcwMzY5MzJ9.4hwwC8KHumuTxfxq8qj2EV43qeFhhDF7pEoUQl5H5HQ'} alt="SinSolicitudes" width={150} height={150} />
+                                        <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//Descansando.svg'} alt="SinSolicitudes" width={150} height={150} />
                                         <p className="text-lg dark:text-white font-semibold text-center">Aún no tienes solicitudes de servicio</p>
                                         <p className="text-lg dark:text-white font-semibold text-center">¡Pronto las tendrás!</p>
                                     </div>

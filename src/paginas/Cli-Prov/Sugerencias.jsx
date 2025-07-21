@@ -120,7 +120,7 @@ const Sugerencias = () => {
                             </form>
                         </div>
                         <div className="mb-2">
-                            <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Suggestions.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvU3VnZ2VzdGlvbnMuc3ZnIiwiaWF0IjoxNzUxNjc3MDA4LCJleHAiOjIwNjcwMzcwMDh9.VJVhrTm63TaXY6_W-BU10OAdrxsnUVpoDSbo-TQsbWI'} alt="Sugerencias" className="size-84" />
+                            <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//Suggestions.svg'} alt="Sugerencias" className="size-84" />
                         </div>
                     </div>
                 </div>

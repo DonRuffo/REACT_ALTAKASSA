@@ -36,7 +36,7 @@ const Confirmar = () => {
                 <div className="flex flex-col items-center justify-center h-screen md:h-auto">
                     <div className="flex justify-center">
                         {carga && <DotPulseLoader />}
-                        <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/ConfirmarLOGO.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvQ29uZmlybWFyTE9HTy5zdmciLCJpYXQiOjE3NTE2NzU4NzksImV4cCI6MjA2NzAzNTg3OX0.V5rXneqEEq02-Faq1jl3VC8XkhKB97E6vG68xrdqm1c'} alt="Rocket" width={208} height={208} className={`${carga ? 'hidden' : ''}`} />
+                        <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//ConfirmarLOGO.svg'} alt="Rocket" width={208} height={208} className={`${carga ? 'hidden' : ''}`} />
                     </div>
                     <h1 className={`${carga ? '' : 'hidden'} text-4xl text-sky-600 pt-5 font-semibold`}>Validando cuenta...</h1>
                     <h1 className={`${carga ? 'hidden' : ''} text-4xl text-sky-600 pt-5 font-CalSans`}>Gracias por Confirmar</h1>

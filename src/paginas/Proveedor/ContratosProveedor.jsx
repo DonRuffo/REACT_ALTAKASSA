@@ -103,7 +103,7 @@ const ContratosProv = () => {
                         )
                     )}) : (
                         <div className="w-[250px] h-[265px] px-5 mb-5 shadow-lg dark:shadow-slate-800 bg-gray-100 dark:bg-gray-900 rounded-lg flex flex-col justify-center items-center">
-                            <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Tiempo.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvVGllbXBvLnN2ZyIsImlhdCI6MTc1MTY3NjI3NiwiZXhwIjoyMDY3MDM2Mjc2fQ.Zq7Q4TF4TxGrMkW4pybsPinWIn14nzyZh--ogr-jfTc'} alt="SinTrabajos" width={150} height={150} />
+                            <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//Tiempo.svg'} alt="SinTrabajos" width={150} height={150} />
                             <p className="text-lg dark:text-white font-semibold text-center">No se han agendado trabajos todavía</p>
                         </div>
                     )}

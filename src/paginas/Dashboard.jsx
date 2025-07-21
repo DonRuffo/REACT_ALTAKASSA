@@ -22,13 +22,11 @@ const Dashboard = () => {
     const { auth, dark, menu, setsideBar, handleClickOutside, handleMenu, opcionActiva, setOpcionActiva, tipo, setTipo, connectionStatus, setModalCreditos, modalCreditos, modalPlanes, setModalPlanes, nuevoMensaje, eliminarChat, NuevoMSG, setDark } = AuthStoreContext()
     const { modalPerfilFoto, setModalInfo, modalInfo, setperfilBar, handleClickOutsidePerfil, handleInfo, setMensajesUsuario, mensajesUsuario, trabajos, trabajosProvs } = OfertaStore()
 
-    const [rotar, setRotar] = useState(false)
     const [mensajes, setMensajes] = useState(false)
     const [horaMsgs, setHoraMsgs] = useState('')
     const [idMensaje, setIdMensaje] = useState('')
     const [busqueda, setBusqueda] = useState('')
     const tipoM = tipo?.charAt(0).toUpperCase() + tipo?.slice(1)
-    const tipoUsuario = tipoM === 'Cliente' ? 'Proveedor' : 'Cliente'
 
 
     //funciones para mensajes
@@ -48,11 +46,11 @@ const Dashboard = () => {
 
 
     const handleTema = () => {
-        if(tema === 'oscuro'){
+        if (tema === 'oscuro') {
             setDark(!dark)
             localStorage.setItem('tema', 'claro')
             setTema('claro')
-        }else if(tema === 'claro'){
+        } else if (tema === 'claro') {
             setDark(!dark)
             localStorage.setItem('tema', 'oscuro')
             setTema('oscuro')
@@ -123,15 +121,20 @@ const Dashboard = () => {
         }
     };
 
-    const cambioDeTipo = () => {
-        if (tipo === 'cliente') {
-            localStorage.setItem('tipo', 'proveedor')
-            setTipo('proveedor')
-            navigate('/dashboard/proveedor')
-        } else if (tipo === 'proveedor') {
-            localStorage.setItem('tipo', 'cliente')
-            setTipo('cliente')
-            navigate('/dashboard/cliente')
+    const cambioDeTipo = (tip) => {
+        if (tipo === tip) {
+            return
+        } else {
+            if (tip === 'cliente') {
+                localStorage.setItem('tipo', 'cliente')
+                setTipo('cliente')
+                navigate('/dashboard/cliente')
+            } else if (tip === 'proveedor') {
+                localStorage.setItem('tipo', 'proveedor')
+                setTipo('proveedor')
+                navigate('/dashboard/proveedor')
+            }
+
         }
         setOpcionActiva('inicio')
     }
@@ -353,29 +356,19 @@ const Dashboard = () => {
                     <div className="custom-bar-outlet flex-1 relative h-screen overflow-y-auto bg-gradient-to-tr from-white from-55% dark:from-10% dark:from-black to-emerald-100 dark:to-emerald-950 to-80%">
                         <div className="border-b border-gray-200 dark:border-gray-700 h-14 hidden lg:flex justify-between items-center px-5">
                             <div className="flex gap-x-2">
-                                <button className={`${tipo === "admin" ? 'hidden' : ''} flex items-center gap-x-1 font-semibold bg-gray-100 rounded-md py-2 px-3 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear cursor-pointer`} onClick={() => setRotar(!rotar)}>
-                                    {tipoM}
-                                    {tipoM === 'Proveedor' ? (
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
-                                        </svg>
-                                    ) : (
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
-                                            <path d="M4 20a8 8 0 0116 0" stroke="currentColor" strokeWidth="2" />
-                                        </svg>
-                                    )}
-
-                                    <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className={`${rotar ? '-rotate-90' : ''} transition-all duration-300`}>
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M6 9l6 6 6-6"
-                                        />
+                                <button className={`${tipo === "admin" ? 'hidden' : ''} flex items-center gap-x-1.5 font-semibold bg-gray-100 rounded-md py-2 px-3 text-cyan-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 ${tipo === 'cliente' ? 'bg-sky-600 dark:bg-sky-600 hover:bg-sky-500 hover:dark:bg-sky-500 text-white' : ''} transition-all duration-300 linear cursor-pointer`} onClick={() => { cambioDeTipo('cliente') }}>
+                                    Cliente
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
+                                        <path d="M4 20a8 8 0 0116 0" stroke="currentColor" strokeWidth="2" />
                                     </svg>
+
                                 </button>
-                                <button className={`${rotar ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'} flex items-center font-semibold bg-gray-100 rounded-md py-2 px-3 mr-8 text-orange-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 transition-all duration-300 linear cursor-pointer`} onClick={() => { cambioDeTipo(); setRotar(!rotar) }}>
-                                    Cambiar a {tipoUsuario}
+                                <button className={`${tipo === "admin" ? 'hidden' : ''} flex gap-x-1.5 items-center font-semibold bg-gray-100 rounded-md py-2 px-3 mr-8 text-cyan-500 dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-600 ${tipo === 'proveedor' ? 'bg-sky-600 dark:bg-sky-600 hover:bg-sky-500 hover:dark:bg-sky-500 text-white' : ''} transition-all duration-300 linear cursor-pointer`} onClick={() => { cambioDeTipo('proveedor') }}>
+                                    Proveedor
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                                    </svg>
                                 </button>
                             </div>
                             <div className="flex items-center">
@@ -510,7 +503,7 @@ const Dashboard = () => {
                                 let verificarEnvio
                                 if (tipoUser === 'cliente') {
                                     verificarEnvio = trabajos.some(tra => tra.cliente._id === auth._id && tra.proveedor._id === msg.id && tra.status === 'Agendado')
-                                }else if (tipoUser === 'proveedor') {
+                                } else if (tipoUser === 'proveedor') {
                                     verificarEnvio = trabajosProvs.some(tra => tra.proveedor._id === auth._id && tra.cliente._id === msg.id && tra.status === 'Agendado')
                                 }
                                 return (

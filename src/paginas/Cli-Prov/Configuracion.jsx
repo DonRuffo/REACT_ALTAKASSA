@@ -392,7 +392,7 @@ const Configuracion = () => {
                         <h1 className="font-CalSans text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
                         <span className="font-semibold text-slate-500 dark:text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>
                         <div className="cursor-pointer flex flex-col justify-center items-center border-dashed border-2 border-gray-400 bg-transparent rounded-lg w-[130px] h-[130px] mt-3 mb-2 lg:mb-0 hover:bg-gray-300 dark:hover:bg-gray-800 transition-all duration-300" onClick={async () => {setCarga2(true); await actualizarUbi()}}>
-                            {carga2 ? <SpinnerCarga /> : (<img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/sign/altakassa/Mapa.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wODIxMTJiNC1kZDliLTQwZWUtYmUxMy1iNDZiMDI3Y2EzYTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhbHRha2Fzc2EvTWFwYS5zdmciLCJpYXQiOjE3NTE2NzYwMTIsImV4cCI6MjA2NzAzNjAxMn0.xy9s5w07VmO7gE5VKQYH5pOcycu3qRwKIAquOgqbTbk'} alt="actualizarUbi" width={65} height={65} />)}
+                            {carga2 ? <SpinnerCarga /> : (<img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//Mapa.svg'} alt="actualizarUbi" width={65} height={65} />)}
                             <p className="font-semibold px-2 text-sm text-slate-500 dark:text-slate-300 text-center">¡Clic para actualizar!</p>
                         </div>
                     </div>
