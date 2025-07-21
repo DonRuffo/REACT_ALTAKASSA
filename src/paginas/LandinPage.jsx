@@ -692,15 +692,12 @@ const LandingPage = () => {
                         <div className="w-full px-12 flex flex-wrap justify-start md:py-10 gap-8 border-white">
                             <div className="w-48 p-2">
                                 <h1 className="text-sky-600 text-xl font-semibold md:pb-6">Contacto directo</h1>
-                                <p className="text-slate-400 text-sm font-semibold py-2">dennisdiaz407@gmail.com</p>
-                                <p className="text-slate-400 text-sm font-semibold py-2">martin.ayala@epn.edu.ec</p>
+                                <p className="text-slate-400 text-sm font-semibold py-2">altakassa@gmail.com</p>
                                 <p className="text-slate-400 text-sm font-semibold py-2">Cel1: 0979438388</p>
-                                <p className="text-slate-400 text-sm font-semibold py-2">Cel2: 0983781929</p>
                             </div>
                             <div className="w-48 p-2">
                                 <h1 className="text-sky-600 text-xl font-semibold md:pb-6">Indice</h1>
                                 <ul className="text-slate-400 font-semibold text-sm">
-                                    <li className="py-2">Foros</li>
                                     <li className="py-2"><a href="#Inicio" className="hover:text-white hover:underline duration-300">Inicio</a></li>
                                     <li className="py-2">Quienes Somos</li>
                                     <li className="py-2"><a href="#Servicios" className="hover:text-white hover:underline duration-300">Servicios</a></li>
