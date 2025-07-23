@@ -105,7 +105,7 @@ const SolicitudProv = () => {
                                                         </svg>
                                                         <span className="text-sm">Aceptar</span>
                                                     </div>
-                                                    <div data-tooltip-id="ubicacion" data-tooltip-content={'Ver ubicación'} className="flex flex-col justify-center items-center py-0.5 rounded-md text-emerald-800 font-semibold hover:scale-105 transition-all ease-in-out duration-300 cursor-pointer">
+                                                    <div data-tooltip-id="ubicacion" data-tooltip-content={'Ver ubicación'} className="hidden justify-center items-center py-0.5 rounded-md text-emerald-800 font-semibold hover:scale-105 transition-all ease-in-out duration-300 cursor-pointer">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />

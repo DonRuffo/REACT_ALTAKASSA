@@ -13,9 +13,18 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
     const { modalTraActual, setModalTraActual, mapaCliProv, setMapaCliProv } = OfertaStore()
     const [carga, setCarga] = useState(true)
     const [calendario, setCalendario] = useState(false)
+    const [cargaServicios, setCargaServicios] = useState(false)
+
 
     const fechaHoy = new Date()
     const numeroMes = fechaHoy.getMonth() + 1
+
+
+    const handleServiciosChange = () => {
+        setCargaServicios(true)
+        setCalendario(false)
+        setMapaCliProv(false)
+    }
 
 
     const [formTrabajo, setFormTrabajo] = useState({
@@ -36,7 +45,8 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
         precioPorDia: "",
         precioPorHora: "",
         servicio: "",
-        descripcion: ""
+        descripcion: "",
+        servicios: []
     })
     const ObtenerTrabajo = async () => {
         try {
@@ -158,6 +168,7 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
     const handleCalendarioChange = () => {
         setCalendario(!calendario)
         setMapaCliProv(false)
+        setCargaServicios(false)
     }
 
     useEffect(() => {
@@ -188,7 +199,7 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
                     closeOnClick
                     position="bottom-center"
                 />
-                <div className="fixed top-1/6 md:top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 outline-2 dark:outline-emerald-500 outline-emerald-700">
+                <div className="fixed top-1/12 md:top-1/4 md:left-[60px] md:right-[60px] lg:left-1/3 lg:w-1/2 rounded-lg shadow-2xl bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 outline-2 dark:outline-emerald-500 outline-emerald-700">
                     <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-emerald-700 dark:text-emerald-500">Actualizar solicitud</h1>
                     <div className="grid grid-cols-2">
                         <div className="border-r-2 border-black dark:border-white">
@@ -216,17 +227,17 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
                                         <label htmlFor="descripcion" className="text-md font-semibold block dark:text-white">Fecha: </label>
                                         <input type="date" name="fecha" onChange={(e) => { handleChange(e); compararFechas(e) }} value={formTrabajo.fecha || ""} className="dark:bg-gray-800 dark:text-white ring-1 ring-gray-300 rounded-md text-slate-600 font-semibold px-2" />
                                     </div>
-                                    <div className="flex justify-center items-center gap-x-3">
-                                        <button type="button" className="flex flex-col justify-center items-center bg-transparent text-emerald-800 dark:text-emerald-500 text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { handleCalendarioChange() }}>
+                                    <div className="flex flex-wrap justify-center items-center gap-x-3 -space-y-1.5 md:space-y-0">
+                                        <button type="button" className="flex border p-1.5 gap-x-0.5 md:border-none md:p-0 md:flex-col justify-center items-center bg-transparent text-emerald-800 dark:text-emerald-500 text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { handleCalendarioChange() }}>
                                             {calendario ? <>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 md:size-10">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
                                                 </svg>
                                                 <span className="text-xs font-semibold">Información</span>
                                             </>
                                                 :
                                                 <>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 md:size-10">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
                                                     </svg>
                                                     <span className="text-xs font-semibold">Disponibilidad</span>
@@ -234,12 +245,18 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
 
                                             }
                                         </button>
-                                        <button type="button" className="flex flex-col justify-center items-center bg-transparent text-emerald-800 dark:text-emerald-500 text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { setMapaCliProv(!mapaCliProv) }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10">
+                                        <button type="button" className="flex border p-1.5 gap-x-0.5 md:border-none md:p-0 md:flex-col justify-center items-center bg-transparent text-emerald-800 dark:text-emerald-500 text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { setMapaCliProv(!mapaCliProv) }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 md:size-10">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                                             </svg>
                                             <span className="text-xs font-semibold">Ubicación</span>
+                                        </button>
+                                        <button type="button" className="flex border p-1.5 gap-x-0.5 md:border-none md:p-0 md:flex-col justify-center items-center bg-transparent text-emerald-800 dark:text-emerald-500 text-sm mt-3 rounded-lg hover:scale-105 duration-300 cursor-pointer" onClick={() => { handleServiciosChange() }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 md:size-10">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                                            </svg>
+                                            <span className="text-xs font-semibold">Servicios</span>
                                         </button>
                                     </div>
                                 </div><hr className="border border-slate-500" />
@@ -274,7 +291,7 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
                                 </div>
                             </form>
                         </div>
-                        <div className={`${calendario === false && mapaCliProv === false ? "" : "hidden"} transition ease-in-out duration-300`}>
+                        <div className={`${calendario === false && mapaCliProv === false && cargaServicios === false ? "" : "hidden"} transition ease-in-out duration-300`}>
                             <div className={`${carga ? 'hidden' : ''}`}>
                                 <h1 className="flex justify-center items-center text-xl font-semibold text-center my-2 gap-x-1 dark:text-white">
                                     Información
@@ -301,7 +318,7 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
                                 <SpinnerCargaModal w={14} h={14} HH={20} />
                             </div>
                         </div>
-                        <div className={`${calendario === true && mapaCliProv === false ? "" : "hidden"} transition ease-in-out duration-300`}>
+                        <div className={`${calendario === true && mapaCliProv === false && cargaServicios === false ? "" : "hidden"} transition ease-in-out duration-300`}>
                             <h1 className="flex justify-center items-center gap-x-1 text-xl text-center font-semibold mt-2 dark:text-white">
                                 Disponibilidad
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
@@ -312,6 +329,19 @@ const ModalActualizar = ({ idTrabajo, idOferta }) => {
                                 <Calendario dias={numeroMes} />
                             </div>
                             <p className="dark:text-white text-sm text-center mt-2">Las días en <b className="text-red-500">rojo</b> no están disponibles.</p>
+                        </div>
+                        <div className={`${cargaServicios === true && mapaCliProv === false && calendario === false ? '' : 'hidden'} transition ease-in-out duration-300`}>
+                            <h1 className="flex justify-center items-center gap-x-1 text-xl text-center font-semibold mt-2 dark:text-white">
+                                Servicios
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                                </svg>
+                            </h1>
+                            <div className="max-h-[250px] overflow-y-auto">
+                                {formOferta.servicios.map((servicio, index) => (
+                                    <p key={index} className="dark:text-white px-3 my-1.5"><span className="text-amber-500">{index+1+'.'}</span> {servicio}</p>
+                                ))}
+                            </div>
                         </div>
                         <div className={`${mapaCliProv ? '' : 'hidden'} w-full flex flex-col items-center`}>
                             {mapaCliProv && <MapaCliProv form={formOferta} />}
