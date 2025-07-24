@@ -159,13 +159,13 @@ const InicioProve = () => {
                     <div className="px-5">
                         <section className="flex justify-center mt-20 lg:mt-5 lg:mb-14">
                             <div className="relative overflow-hidden rounded-md shadow-lg w-4/5 lg:w-3/5 py-4.5 bg-gray-100 dark:bg-gray-900 dark:shadow-slate-700 lg:py-10 transition-all duration-300">
-                                <h1 className="relative lg:z-10 text-2xl md:text-3xl text-center text-cyan-500 font-CalSans px-3 md:px-0">Vista como proveedor</h1>
+                                <h1 className="relative lg:z-10 text-2xl md:text-3xl text-center text-cyan-700 dark:text-cyan-500 font-CalSans px-3 md:px-0">Vista como proveedor</h1>
                                 <h2 className="relative lg:z-10 text-base md:text-xl text-center pt-3 px-3 md:px-0 dark:text-white">Desde aquí puedes publicar tus ofertas de servicios</h2>
 
                                 <div className="flex lg:hidden justify-center pb-1">
                                     <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//Motivacion.svg'} alt="Proveedor" width={110} height={110} />
                                 </div>
-                                <div className="absolute z-0 opacity-50 -top-2 left-2 hidden lg:flex justify-center pb-1">
+                                <div className="absolute z-0 opacity-35 -top-2 left-2 hidden lg:flex justify-center pb-1">
                                     <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//Motivacion.svg'} alt="Proveedor" width={185} height={185} />
                                 </div>
                             </div>
