@@ -17,7 +17,7 @@ const Configuracion = () => {
 
 
     const { auth, setAuth, ActualizarPerfil, ActualizarContrasenia, modalContra, setModalContra, modalPerfil,
-        setModalPerfil, modalUbi, setModalUbi, selectorM, setFoto} = AuthStoreContext()
+        setModalPerfil, modalUbi, setModalUbi, selectorM, setFoto, tipo} = AuthStoreContext()
 
     const { setModalPerfilFoto } = OfertaStore()
 
@@ -280,7 +280,7 @@ const Configuracion = () => {
                                 </svg>
 
                             )} clic={accesoPerfil} />
-                            {auth.rol !== 'administrador' && <OpcionConfig titulo={"Actualizar Ubicación"} logo={(
+                            {tipo !== 'admin' && <OpcionConfig titulo={"Actualizar Ubicación"} logo={(
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2">
                                     <polygon points="3,6 9,2 15,6 21,2 21,18 15,22 9,18 3,22" />
