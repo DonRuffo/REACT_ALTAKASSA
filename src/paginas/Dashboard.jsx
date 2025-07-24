@@ -472,14 +472,19 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        {chatsFiltrados.flatMap(ent => {
+                        {chatsFiltrados.flatMap((ent, index) => {
                             const users = ent.participantes.find(of => of._id !== auth._id)
-                            const nameCompleto = users.nombre + ' ' + users.apellido
+                            let nameCompleto
+                            if(!users) {
+                                nameCompleto = 'Usuario eliminado'
+                            }else{
+                                nameCompleto = users?.nombre + ' ' + users?.apellido
+                            }
 
                             return (
-                                <div key={users._id} className="flex items-center gap-x-2.5 w-full h-15 border-b border-slate-400 dark:border-slate-800 cursor-pointer" onClick={() => { NuevoMSG(users._id, users.nombre, users.apellido, users.f_perfil) }}>
+                                <div key={users?._id || index} className="flex items-center gap-x-2.5 w-full h-15 border-b border-slate-400 dark:border-slate-800 cursor-pointer" onClick={() => { NuevoMSG(users._id, users.nombre, users.apellido, users.f_perfil) }}>
                                     <div className="ml-3.5 w-11 h-11 rounded-full overflow-hidden shrink-0">
-                                        <img src={users.f_perfil} alt="ussers" className="w-full h-full object-cover" />
+                                        <img src={users?.f_perfil} alt="ussers" className="w-full h-full object-cover" />
                                     </div>
                                     <div className="-space-y-1">
                                         <h1 className="text-lg dark:text-white">{nameCompleto}</h1>

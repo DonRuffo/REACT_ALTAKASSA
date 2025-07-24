@@ -21,9 +21,6 @@ const Sugerencias = () => {
     const handleChange = (e) => {
         const fechaHoy = new Date()
 
-        if (e.target.name === 'comentarios') {
-            msg = e.target.value
-        }
         setFormSug({
             email: auth.email,
             nombre: auth.nombre + '' + auth.apellido,
