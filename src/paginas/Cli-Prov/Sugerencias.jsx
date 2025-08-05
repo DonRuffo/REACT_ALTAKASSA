@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import RelojDeArena from "../../componentes/RelojArena";
 import AuthStoreContext from "../../store/AuthStore";
 
 const Sugerencias = () => {
-    const { auth } = AuthStoreContext()
+    const { auth, setOpcionActiva } = AuthStoreContext()
     const [carga, setCarga] = useState(false)
     const [formSug, setFormSug] = useState({
         email: "",
@@ -61,6 +61,10 @@ const Sugerencias = () => {
             toast.error(error.response.data.msg)
         }
     }
+
+    useEffect(() => {
+        setOpcionActiva('Sugerencias')
+    }, [])
     return (
         <>
             <ToastContainer

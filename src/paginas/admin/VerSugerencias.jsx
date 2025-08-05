@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OfertaStore from "../../store/OfertaStore";
 import ModalComentarios from "../../componentes/modals/ModalComentarios";
+import AuthStoreContext from "../../store/AuthStore";
 
 const VerSugerencias = () => {
 
     const { sugerencias, modalSugerencias, setModalSugerencias } = OfertaStore()
+    const { setOpcionActiva } = AuthStoreContext()
 
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState([])
+
+    useEffect(() => {
+        setOpcionActiva('VerSugerencias')
+    }, [])
 
     return (
         <>

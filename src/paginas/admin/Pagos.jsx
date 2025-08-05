@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthStoreContext from "../../store/AuthStore";
 import ModalCrearPlan from "../../componentes/modals/ModalPagos";
 import axios from "axios";
@@ -7,7 +7,7 @@ import ModalEditarPlan from "../../componentes/modals/ModalEditarPagos";
 
 const PlanesdePago = () => {
 
-    const { modalPagos, setModalPagos, planes,setModalEditPagos, modalEditPagos } = AuthStoreContext()
+    const { modalPagos, setModalPagos, planes,setModalEditPagos, modalEditPagos, setOpcionActiva } = AuthStoreContext()
 
     const [planSelec, setPlanSelec] = useState(null)
 
@@ -35,6 +35,10 @@ const PlanesdePago = () => {
             }
         }
     }
+
+    useEffect(() => {
+        setOpcionActiva('planes')
+    }, [])
 
     return (
         <div className="relative">

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModalEditarOferta from "../../componentes/modals/ModalEditarOferta";
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
@@ -42,6 +42,9 @@ const ListadoOfertas = () => {
         setOfertaSeleccionada(id);
     };
 
+    useEffect(() => {
+        setOpcionActiva('ofertas')
+    }, [])
     return (
         <>
             <ToastContainer

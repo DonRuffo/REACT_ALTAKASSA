@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../../../CSS/fondos.css'
 
 import { Link } from "react-router-dom";
@@ -12,7 +12,7 @@ import CalificacionProv from "../Proveedor/CalificacionProv";
 const ContratosCliente = () => {
 
     const { trabajos, ObtenerTrabajos, setModalCalifProv, modalCalifProv } = OfertaStore()
-    const { NuevoMSG } = AuthStoreContext()
+    const { NuevoMSG, setOpcionActiva } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('Todas')
     const [trabajoSeleccionado, setTrabajoSeleccionado] = useState(null)
 
@@ -68,6 +68,10 @@ const ContratosCliente = () => {
             }
         }
     }
+
+    useEffect(() => {
+        setOpcionActiva('ContraCli')
+    }, [])
 
     return (
         <>

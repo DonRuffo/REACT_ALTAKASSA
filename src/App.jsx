@@ -33,7 +33,6 @@ import PlanesdePago from './paginas/admin/Pagos'
 import Inicio from './paginas/Cliente/Inicio'
 import CategoriasServicios from './paginas/admin/Categorías'
 import PlanesPagoProv from './paginas/Proveedor/PlanesPago'
-import CalificacionProv from './paginas/Proveedor/CalificacionProv'
 function App() {
 
   return (
@@ -143,7 +142,6 @@ function App() {
                   <Route path='configuracion' element={<Configuracion />} />
                   <Route path='no-encontrado' element={<PaginaNoPermitida />} />
                   <Route path='*' element={<NotFound />} />
-                  <Route path='pruebas' element={<CalificacionProv />} />
                 </Route>
               </Routes>
             </PrivateRoutes>

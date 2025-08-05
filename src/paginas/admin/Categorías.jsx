@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthStoreContext from "../../store/AuthStore";
 import ModalCategoria from "../../componentes/modals/ModalCategoria";
 import axios from "axios";
@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 const CategoriasServicios = () => {
 
-    const { categorias, modalCategorias, setModalCategorias } = AuthStoreContext()
+    const { categorias, modalCategorias, setModalCategorias, setOpcionActiva } = AuthStoreContext()
 
     const eliminarCat = async (id, cat) => {
         const confirmar = confirm(`¿Estás seguro de eliminar la categoría ${cat}?`)
@@ -28,6 +28,10 @@ const CategoriasServicios = () => {
             }
         }
     }
+
+    useEffect(() => {
+        setOpcionActiva('Cat')
+    }, [])
 
     return (
         <>

@@ -1,14 +1,16 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import '../../../CSS/fondos.css'
 import OfertaStore from "../../store/OfertaStore";
 import { Tooltip } from 'react-tooltip';
 import EsqueletoSoliCli from "../Esqueletos/EsqSolicitudesCli";
 import { DateTime } from 'luxon';
+import AuthStoreContext from "../../store/AuthStore";
 
 const SolicitudProv = () => {
     const { trabajosProvs, pulseTra} = OfertaStore()
+    const { setOpcionActiva } = AuthStoreContext()
     const token = localStorage.getItem('token')
 
     const AceptarSolicitud = async (id, indx) => {
@@ -61,6 +63,10 @@ const SolicitudProv = () => {
             }, 300)
         }
     }
+
+    useEffect(() => {
+        setOpcionActiva('SoliProv')
+    }, [])
 
     return (
         <>

@@ -17,13 +17,13 @@ const AuthStoreContext = create((set, get) => ({
     ubiTrabajo: false,
     imgPerfil: '',
     foto: false,
-    opcionActiva: 'inicio',
+    opcionActiva: '',
     sideBar: null,
     connectionStatus: false,
     planes: [],
     users: [],
     categorias: [],
-    selectorM:null,
+    selectorM: null,
     nuevoMensaje: [],
 
 
@@ -44,7 +44,7 @@ const AuthStoreContext = create((set, get) => ({
     modalPlanes: false,
 
     //seteadores para actualizaciones
-    setAuth: (authData) => set((state) => ({ auth:{...state.auth, ...authData} })),
+    setAuth: (authData) => set((state) => ({ auth: { ...state.auth, ...authData } })),
     setCategorias: (cat) => set((state) => ({
         categorias: typeof cat === 'function' ? cat(state.categorias) : cat
     })),
@@ -53,7 +53,7 @@ const AuthStoreContext = create((set, get) => ({
     })),
     setUsers: (us) => set((state) => ({
         users: typeof us === 'function' ? us(state.users) : us
-    })) ,
+    })),
     setUbicacionActual: (ubi) => set({ ubicacionActual: ubi }),
     setUbicacionTrabajo: (ubi) => set({ ubicacionTrabajo: ubi }),
     setUbicacionTraProvs: (ubi) => set({ ubicacionTraProvs: ubi }),
@@ -77,7 +77,7 @@ const AuthStoreContext = create((set, get) => ({
     setModalCreditos: (modal) => set({ modalCreditos: modal }),
     setModalPlanes: (modal) => set({ modalPlanes: modal }),
     setsideBar: (ref) => set({ sideBar: ref }),
-    setSelectorM:(selec) => set({selectorM:selec}),
+    setSelectorM: (selec) => set({ selectorM: selec }),
 
     //funciones
     handleMenu: () => set((state) => ({ menu: !state.menu })),
@@ -251,7 +251,14 @@ const AuthStoreContext = create((set, get) => ({
             toast.success(respuesta.data.msg)
         } catch (error) {
             console.log(error)
-            toast.error(error.response.data.msg[0])
+            const msg = error?.response?.data?.msg
+            if (Array.isArray(msg)) {
+                toast.error(msg[0]);
+            } else if (typeof msg === 'string') {
+                toast.error(msg);
+            } else {
+                toast.error("Ha ocurrido un error inesperado");
+            }
         }
     },
 
@@ -314,7 +321,7 @@ const AuthStoreContext = create((set, get) => ({
     NuevoMSG: (idUser, nUser, nApellido, nFoto) => {
         set((state) => {
             const yaExiste = state.nuevoMensaje.some((u) => u.id === idUser);
-            if (yaExiste) return {}; 
+            if (yaExiste) return {};
 
             const user = {
                 id: idUser,
@@ -323,7 +330,7 @@ const AuthStoreContext = create((set, get) => ({
                 fPerfil: nFoto
             };
             return {
-                nuevoMensaje: [...state.nuevoMensaje, user] 
+                nuevoMensaje: [...state.nuevoMensaje, user]
             };
         })
     },

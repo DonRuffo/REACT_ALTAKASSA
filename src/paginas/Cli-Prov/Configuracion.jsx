@@ -17,7 +17,7 @@ const Configuracion = () => {
 
 
     const { auth, setAuth, ActualizarPerfil, ActualizarContrasenia, modalContra, setModalContra, modalPerfil,
-        setModalPerfil, modalUbi, setModalUbi, selectorM, setFoto, tipo} = AuthStoreContext()
+        setModalPerfil, modalUbi, setModalUbi, selectorM, setFoto, tipo, setOpcionActiva } = AuthStoreContext()
 
     const { setModalPerfilFoto } = OfertaStore()
 
@@ -95,7 +95,7 @@ const Configuracion = () => {
             const respuesta = await axios.post(url_cloud, formFile)
             const formPerfil = {
                 secure_url: respuesta.data.secure_url,
-                public_id:respuesta.data.public_id
+                public_id: respuesta.data.public_id
             }
             await axios.post(url_subida, formPerfil, options)
             const fotito = {
@@ -128,9 +128,9 @@ const Configuracion = () => {
     })
 
     const handleChangePerfil = (e) => {
-        let {name, value} = e.target
+        let { name, value } = e.target
 
-        if (name === 'direccion' || name === 'nombre' || name === 'apellido'){
+        if (name === 'direccion' || name === 'nombre' || name === 'apellido') {
             value = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
         }
 
@@ -186,13 +186,17 @@ const Configuracion = () => {
         }
     }, [modalUbi])
 
-    useEffect(()=> {
-        if(formContra.contrasenia && formContra.nuevaContrasenia){
+    useEffect(() => {
+        if (formContra.contrasenia && formContra.nuevaContrasenia) {
             setVeryContra(true)
-        }else{
+        } else {
             setVeryContra(false)
         }
     }, [formContra])
+
+    useEffect(() => {
+        setOpcionActiva('Config')
+    }, [])
 
     //funcion para actualizar la ubicación
     const actualizarUbi = () => {
@@ -238,17 +242,17 @@ const Configuracion = () => {
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const elemento = document.getElementById(selectorM)
-        if(elemento){
-            elemento.scrollIntoView({behavior:'smooth'})
-        }else return
+        if (elemento) {
+            elemento.scrollIntoView({ behavior: 'smooth' })
+        } else return
     }, [selectorM])
 
     return (
         <>
             <ToastContainer
-                toastStyle={{backgroundColor:'#1c2833 ', color:'white'}}
+                toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
                 closeOnClick
                 position="bottom-center"
             />
@@ -260,7 +264,7 @@ const Configuracion = () => {
                             <div className="flex items-center justify-center w-full h-full">
                                 <h1 className="text-7xl text-center text-white">US</h1>
                             </div>
-                        ): ''}
+                        ) : ''}
                         <img src={auth.f_perfil} alt="FotoPerfil" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex w-full lg:w-4/5 bg-gray-100 dark:bg-black dark:text-white outline outline-emerald-100 dark:outline-gray-800 rounded-xl shadow-lg lg:max-h-[245px] mb-8 md:mb-5">
@@ -342,42 +346,42 @@ const Configuracion = () => {
                             <div className="mb-4">
                                 <label htmlFor="direccion" className="font-semibold dark:text-white">Provincia:</label>
                                 <select name="direccion" id="direccion" onChange={handleChangePerfil} className="w-full md:w-4/5 dark:bg-black border focus:border-green-700 rounded-md p-1 md:ml-4 focus:ring-1 focus:outline-none focus:ring-green-700 dark:text-white">
-                                        <option value="Pichincha">Pichincha</option>
-                                        <option value="Guayas">Guayas</option>
-                                        <option value="Azuay">Azuay</option>
-                                        <option value="Tungurahua">Tungurahua</option>
-                                        <option value="Cañar">Cañar</option>
-                                        <option value="Cotopaxi">Cotopaxi</option>
-                                        <option value="Carchi">Carchi</option>
-                                        <option value="Imbabura">Imbabura</option>
-                                        <option value="Santo Domingo">Santo Domingo</option>
-                                        <option value="Esmeraldas">Esmeraldas</option>
-                                        <option value="Manabí">Manabí</option>
-                                        <option value="Los Ríos">Los Ríos</option>
-                                        <option value="Loja">Loja</option>
-                                        <option value="Bolívar">Bolívar</option>
-                                        <option value="Santa Elena">Santa Elena</option>
-                                        <option value="El Oro">El Oro</option>
-                                        <option value="Chimborazo">Chimborazo</option>
-                                        <option value="Sucumbíos">Sucumbíos</option>
-                                        <option value="Napo">Napo</option>
-                                        <option value="Orellana">Orellana</option>
-                                        <option value="Pastaza">Pastaza</option>
-                                        <option value="Morona Santiago">Morona Santiago</option>
-                                        <option value="Zamora Chinchipe">Zamora Chinchipe</option>
-                                        <option value="Galápagos">Galápagos</option>
-                                    </select>
+                                    <option value="Pichincha">Pichincha</option>
+                                    <option value="Guayas">Guayas</option>
+                                    <option value="Azuay">Azuay</option>
+                                    <option value="Tungurahua">Tungurahua</option>
+                                    <option value="Cañar">Cañar</option>
+                                    <option value="Cotopaxi">Cotopaxi</option>
+                                    <option value="Carchi">Carchi</option>
+                                    <option value="Imbabura">Imbabura</option>
+                                    <option value="Santo Domingo">Santo Domingo</option>
+                                    <option value="Esmeraldas">Esmeraldas</option>
+                                    <option value="Manabí">Manabí</option>
+                                    <option value="Los Ríos">Los Ríos</option>
+                                    <option value="Loja">Loja</option>
+                                    <option value="Bolívar">Bolívar</option>
+                                    <option value="Santa Elena">Santa Elena</option>
+                                    <option value="El Oro">El Oro</option>
+                                    <option value="Chimborazo">Chimborazo</option>
+                                    <option value="Sucumbíos">Sucumbíos</option>
+                                    <option value="Napo">Napo</option>
+                                    <option value="Orellana">Orellana</option>
+                                    <option value="Pastaza">Pastaza</option>
+                                    <option value="Morona Santiago">Morona Santiago</option>
+                                    <option value="Zamora Chinchipe">Zamora Chinchipe</option>
+                                    <option value="Galápagos">Galápagos</option>
+                                </select>
                             </div>
                             <div className="mb-4 flex items-center gap-x-5">
                                 <label className="font-semibold dark:text-white">Foto de perfil:</label>
-                                <label htmlFor="fotoP" className="group flex gap-x-1.5 items-center px-4 py-1 rounded-lg bg-green-200 text-green-800 font-semibold hover:brightness-110 duration-300 ease-in-out cursor-pointer" onClick={()=>{setCarga(true)}}>
+                                <label htmlFor="fotoP" className="group flex gap-x-1.5 items-center px-4 py-1 rounded-lg bg-green-200 text-green-800 font-semibold hover:brightness-110 duration-300 ease-in-out cursor-pointer" onClick={() => { setCarga(true) }}>
                                     Actualizar foto
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 group-hover:scale-110 transition-all duration-300 ease-in-out">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
                                     </svg>
                                 </label>
-                                <input type="file" id="fotoP" className="hidden" onChange={async (e) => SubidaImage(e)}/>
-                                {carga && <SpinnerCargaModal h={5} w={5} HH={6}/>}
+                                <input type="file" id="fotoP" className="hidden" onChange={async (e) => SubidaImage(e)} />
+                                {carga && <SpinnerCargaModal h={5} w={5} HH={6} />}
                             </div><br />
                             <div className="mb-3 flex justify-around">
                                 <button type="submit" className="px-4 py-2 rounded-lg bg-green-200 text-green-800 hover:brightness-110 transition-all duration-300 font-semibold cursor-pointer">Actualizar</button>
@@ -391,7 +395,7 @@ const Configuracion = () => {
                     <div className="flex flex-col items-center">
                         <h1 className="font-CalSans text-2xl text-red-600 mt-5">Actualizar Ubicación</h1>
                         <span className="font-semibold text-slate-500 dark:text-slate-300 text-sm text-center">Si cambiaste tu lugar de trabajo es importante actualizar su ubicación</span>
-                        <div className="cursor-pointer flex flex-col justify-center items-center border-dashed border-2 border-gray-400 bg-transparent rounded-lg w-[130px] h-[130px] mt-3 mb-2 lg:mb-0 hover:bg-gray-300 dark:hover:bg-gray-800 transition-all duration-300" onClick={async () => {setCarga2(true); await actualizarUbi()}}>
+                        <div className="cursor-pointer flex flex-col justify-center items-center border-dashed border-2 border-gray-400 bg-transparent rounded-lg w-[130px] h-[130px] mt-3 mb-2 lg:mb-0 hover:bg-gray-300 dark:hover:bg-gray-800 transition-all duration-300" onClick={async () => { setCarga2(true); await actualizarUbi() }}>
                             {carga2 ? <SpinnerCarga /> : (<img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//Mapa.svg'} alt="actualizarUbi" width={65} height={65} />)}
                             <p className="font-semibold px-2 text-sm text-slate-500 dark:text-slate-300 text-center">¡Clic para actualizar!</p>
                         </div>

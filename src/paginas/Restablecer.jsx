@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
@@ -17,6 +17,7 @@ const Restablecer = () => {
     const [ojoActivo, setOjoActivo] = useState(false)
 
     const [reloj, setReloj] = useState(false)
+    const [indicaciones, setIndicaciones] = useState(false)
 
     const HandleChange = (e) => {
         setForm({
@@ -38,9 +39,18 @@ const Restablecer = () => {
             }, [2000])
         } catch (error) {
             console.log(error)
-            toast.error(error.response.data.msg)
+            setReloj(false)
+            toast.error(error.response.data.msg[0])
         }
     }
+
+    useEffect(() => {
+        if (form.contrasenia === ''){
+            setIndicaciones(false)
+        } else {
+            setIndicaciones(true)
+        }
+    }, [form])
     return (
         <>
             <div className="flex flex-col items-center pt-10 md:pt-20 bg-gray-100 font-Cabin h-screen">
@@ -49,8 +59,17 @@ const Restablecer = () => {
                     closeOnClick
                     position="bottom-center"
                 />
-                <div className="w-4/5 md:w-1/3 flex flex-col items-center justify-center bg-white rounded-xl shadow-xl">
+                <div className="w-4/5 md:w-2/5 lg:w-1/3 flex flex-col items-center justify-center bg-white rounded-xl shadow-xl">
                     <h1 className="text-3xl font-CalSans text-slate-600 text-center py-5">Restablecer contraseña</h1>
+                    <div className="border px-3 py-2 mb-3 mx-2 bg-slate-200 rounded-lg dark:bg-transparent">
+                        <h1 className="font-bold">Tener en cuenta:</h1>
+                        <ul>
+                            <li>La contraseña debe tener al menos 10 caracteres.</li>
+                            <li>La contraseña debe contener al menos una letra mayúscula.</li>
+                            <li>La contraseña debe contener al menos una letra minúscula.</li>
+                            <li>La contraseña debe contener al menos un número.</li>
+                        </ul>
+                    </div>
                     <div className="w-5/6">
                         <form onSubmit={HandleSubmit}>
                             <div className="my-3 pb-3">
@@ -61,14 +80,14 @@ const Restablecer = () => {
                                 </div>
                             </div>
                             <div className="my-3 flex justify-center">
-                                <button type="submit" className={`${reloj ? 'hidden' : ''} px-3 py-2 rounded-lg bg-orange-700 text-white hover:bg-orange-900 duration-300 cursor-pointer`} onClick={() => setReloj(true)}>Enviar</button>
+                                <button type="submit" className={`${reloj ? 'hidden' : ''} px-3 py-2 rounded-lg bg-cyan-700 text-white hover:bg-cyan-900 ${indicaciones ? 'opacity-100 cursor-pointer' : 'pointer-events-none opacity-50 cursor-not-allowed'} duration-300`} onClick={() => setReloj(true)}>Enviar</button>
                                 {reloj && <RelojDeArena />}
                             </div>
                         </form>
                     </div>
                 </div><br />
                 <img src={'https://mqpsbzrziuppiigkbiva.supabase.co/storage/v1/object/public/altakassa//Ballon.svg'} alt="Cohete2" width={200} height={200} />
-                <span className="text-orange-500">Altakassa-Multiservicios</span>
+                <span className="text-cyan-500">Altakassa-Multiservicios</span>
             </div>
         </>
     )

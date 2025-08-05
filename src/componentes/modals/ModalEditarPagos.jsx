@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 
 const ModalEditarPlan = ({ idPlan }) => {
 
-    const {setModalEditPagos} = AuthStoreContext()
+    const { setModalEditPagos } = AuthStoreContext()
     const [activo, setActivo] = useState(false)
-    
+
     const [form, setForm] = useState({
         nombre: '',
         precio: 0,
@@ -62,20 +62,24 @@ const ModalEditarPlan = ({ idPlan }) => {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         obtenerPlan()
     }, [])
 
-    useEffect(()=>{
-            if(form.titulo !== '' && form.precio !== 0 && form.creditos !== 0 && form.descripcion !== ''){
-                setActivo(true)
-            }else{
-                setActivo(false)
-            }
-        }, [form])
+    useEffect(() => {
+        if (form.titulo !== '' && form.precio !== 0 && form.creditos !== 0 && form.descripcion !== '') {
+            setActivo(true)
+        } else {
+            setActivo(false)
+        }
+    }, [form])
     return (
         <>
-            <ToastContainer />
+            <ToastContainer
+                toastStyle={{ backgroundColor: '#1c2833 ', color: 'white' }}
+                closeOnClick
+                position="bottom-center"
+            />
             <div className="fixed z-50 inset-0 bg-black/80">
                 <div className="fixed dark:border-none outline-2 outline-emerald-700 dark:outline-emerald-500 top-1/5 md:top-1/4 left-[40px] md:left-[150px] lg:left-[425px] xl:left-[690px] right-[40px] md:right-[150px] lg:right-[200px] xl:right-[440px] min-w-64 lg:min-w-lg bg-gradient-to-t from-white via-emerald-50 to-emerald-100 dark:from-black dark:via-emerald-950 dark:to-emerald-900 rounded-lg shadow-2xl">
                     <h1 className="border-b-2 border-emerald-700 dark:border-emerald-500 rounded-lg pb-5 text-2xl font-CalSans text-center pt-4 text-emerald-700 dark:text-emerald-500">Nuevo plan</h1>

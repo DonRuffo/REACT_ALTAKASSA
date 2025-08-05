@@ -13,7 +13,7 @@ import OfertaStore from '../store/OfertaStore';
 const RelojDeArena = lazy(() => import('../componentes/RelojArena'))
 
 const Login = () => {
-    const { Perfil, darkMode, verificarUbicacionActual, verificarUbicacionTrabajo, ubiCliente, verificarFoto, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias } = AuthStoreContext()
+    const { Perfil, darkMode, verificarUbicacionActual, verificarUbicacionTrabajo, ubiCliente, verificarFoto, setTipo, traerUsuarios, obtenerPlanes, obtenerCategorias, setOpcionActiva } = AuthStoreContext()
     const { ObtenerTrabajos, ListarOfertas, MisOfertas, obtenerMensajes, traerSugerencias } = OfertaStore()
     const [ojoActivo, setOjoActivo] = useState(false)
     const [carga, setCarga] = useState(false)
@@ -72,6 +72,7 @@ const Login = () => {
                     obtenerMensajes(respuesta.data.token, respuesta.data.rol)
                 ])
                 navigate('/dashboard/cliente')
+                setOpcionActiva('inicio')
             }
         } catch (error) {
             toast.error(error.response.data.msg)

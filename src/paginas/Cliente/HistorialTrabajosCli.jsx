@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OfertaStore from "../../store/OfertaStore";
 import { Link } from "react-router-dom";
 import { DateTime } from "luxon";
+import AuthStoreContext from "../../store/AuthStore";
 
 
 const HistorialTrabajoCli = () => {
     const { trabajos } = OfertaStore()
+    const { setOpcionActiva } = AuthStoreContext()
     const [selectedOption, setSelectedOption] = useState('Todos')
 
     const handleRadioChange = (e) => {
         const tipo = e.target.value
         setSelectedOption(tipo)
     }
+
+    useEffect(() => {
+        setOpcionActiva('Historial')
+    }, [])
 
     return (
         <>
